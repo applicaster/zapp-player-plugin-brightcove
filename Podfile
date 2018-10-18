@@ -5,6 +5,7 @@ install! 'cocoapods', :deterministic_uuids => false
 source 'git@github.com:applicaster/CocoaPods.git'
 source 'git@github.com:applicaster/PluginsBuilderCocoaPods.git'
 source 'git@github.com:CocoaPods/Specs.git'
+source 'git@github.com:brightcove/BrightcoveSpecs.git'
 
 target 'BrightcovePlayer' do
     pod 'BrightcovePlayer', :path => 'BrightcovePlayer.podspec'
