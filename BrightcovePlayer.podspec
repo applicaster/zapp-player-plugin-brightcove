@@ -15,13 +15,16 @@ Pod::Spec.new do |s|
     s.platform     = :ios, '9.0'
     s.requires_arc = true
     s.swift_version = '4.1'
-  
+    s.static_framework = true
+
     s.subspec 'Core' do |c|
       s.resources = []
       c.frameworks = 'UIKit'
       c.source_files = 'PluginClasses/*.{swift,h,m}'
       c.dependency 'ZappPlugins'
       c.dependency 'ApplicasterSDK'
+      c.dependency 'Brightcove-Player-Core'
+
     end
                   
     s.xcconfig =  { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',

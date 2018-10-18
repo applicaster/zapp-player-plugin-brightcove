@@ -15,6 +15,8 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
     // MARK: - Properties
     
+    weak var video: BCOVVideo?
+    
     public var playerViewController: AVPlayerViewController?
     var currentPlayableItem: ZPPlayable?
     
