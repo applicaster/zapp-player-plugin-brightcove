@@ -1,0 +1,25 @@
+{
+    "api": {
+        "require_startup_execution": false,
+        "class_name": "BrightcovePlayer.BrightcovePlayerPlugin",
+        "modules": []
+    },
+    "dependency_repository_url": ["https://github.com"],
+    "platform": "ios",
+    "author_name": "Alex Faizullov",
+    "author_email": "alexey.fayzyllov@corewillsoft.com",
+    "manifest_version": "1.0.4",
+    "name": "BrightcovePlayer",
+    "description": "Zapp player plugin for Brightcove SDK",
+    "type": "player",
+    "identifier": "BrightcovePlayerPlugin",
+    "ui_builder_support": true,
+    "dependency_name": "BrightcovePlayer",
+    "dependency_version": "0.0.1",
+    "whitelisted_account_ids": [],
+    "min_zapp_sdk": "7.0.0",
+    "deprecated_since_zapp_sdk": "",
+    "unsupported_since_zapp_sdk": "",
+    "react_native": false,
+    "custom_configuration_fields": [{}]
+}
