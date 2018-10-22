@@ -9,6 +9,7 @@
 import UIKit
 import ZappPlugins
 import ApplicasterSDK
+import BrightcovePlayerPlugin
 
 class ViewController: UIViewController {
 
@@ -24,7 +25,6 @@ class ViewController: UIViewController {
         
     }
 
-    
     @IBAction func buttonPlay_clicked() {
         self.presentPlayer()
     }

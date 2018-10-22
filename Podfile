@@ -8,7 +8,10 @@ source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:brightcove/BrightcoveSpecs.git'
 
 target 'BrightcovePlayer' do
-    pod 'BrightcovePlayer', :path => 'BrightcovePlayer.podspec'
+    pod 'BrightcovePlayerPlugin', :path => 'BrightcovePlayerPlugin.podspec'
+    
+    target 'BrightcovePlayerTests' do
+    end
 end
 
 post_install do |installer|

@@ -1,7 +1,7 @@
 [{
 	"plugin": {
 		"api": {
-			"class_name": "BrightcovePlayer.BrightcovePlayerPlugin"
+			"class_name": "BrightcovePlayerPlugin.BrightcovePlayerPlugin"
 		},
 		"author_name": "Alex Faizullov",
 		"author_email": "alexey.fayzyllov@corewillsoft.com",

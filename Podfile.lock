@@ -41,9 +41,9 @@ PODS:
   - Brightcove-Player-Core (6.3.9):
     - Brightcove-Player-Core/default (= 6.3.9)
   - Brightcove-Player-Core/default (6.3.9)
-  - BrightcovePlayer (0.0.1):
-    - BrightcovePlayer/Core (= 0.0.1)
-  - BrightcovePlayer/Core (0.0.1):
+  - BrightcovePlayerPlugin (0.0.1):
+    - BrightcovePlayerPlugin/Core (= 0.0.1)
+  - BrightcovePlayerPlugin/Core (0.0.1):
     - ApplicasterSDK
     - Brightcove-Player-Core
     - ZappPlugins
@@ -78,7 +78,7 @@ PODS:
     - ZappPlugins (~> 6.1.0)
 
 DEPENDENCIES:
-  - BrightcovePlayer (from `BrightcovePlayer.podspec`)
+  - BrightcovePlayerPlugin (from `BrightcovePlayerPlugin.podspec`)
 
 SPEC REPOS:
   "git@github.com:applicaster/CocoaPods.git":
@@ -108,15 +108,15 @@ SPEC REPOS:
     - TwitterKit
 
 EXTERNAL SOURCES:
-  BrightcovePlayer:
-    :path: BrightcovePlayer.podspec
+  BrightcovePlayerPlugin:
+    :path: BrightcovePlayerPlugin.podspec
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   ApplicasterSDK: ac12cfa923c9e61ac89f6311fb05c73afdc8d92b
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Brightcove-Player-Core: 27cd861f73e071e7964620e31e2557d8ac00f8ab
-  BrightcovePlayer: 85ac6bcdacfec8bb7f60ed0217ee4d5c916006aa
+  BrightcovePlayerPlugin: f9759589dcd81f591f73306a80b52c965279d7aa
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FBNotifications: 3f1a9e43ffa2979a685eec29c960ca6a15c70be9
   FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
@@ -135,6 +135,6 @@ SPEC CHECKSUMS:
   ZappPlugins: 9235582e43c096d90256c1cce9e662a01fb5c8c4
   ZappPushPluginsSDK: cc24864f011d02bd47384342e16da7bbb5da158c
 
-PODFILE CHECKSUM: 18cfd7bc2160b7b66841d5217ce51611b6bee2be
+PODFILE CHECKSUM: 4b2d965e47b63cb70af98f513f580a072006d9bd
 
 COCOAPODS: 1.5.3

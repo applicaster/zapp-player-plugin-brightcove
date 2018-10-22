@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 
-    s.name             = "BrightcovePlayer"
+    s.name             = "BrightcovePlayerPlugin"
     s.version          = '0.0.1'
     s.summary          = "BrightcovePlayer video player framework for Zapp iOS."
     s.description      = <<-DESC
