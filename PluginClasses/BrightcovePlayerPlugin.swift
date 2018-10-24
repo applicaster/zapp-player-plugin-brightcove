@@ -1,67 +1,22 @@
 import Foundation
 import ZappPlugins
 import ApplicasterSDK
-import AVKit
 import BrightcovePlayerSDK
-
-protocol PlayerAdapter {
-    var playerController: UIViewController { get }
-    var currentItem: ZPPlayable { get }
-    
-    func play()
-    func pause()
-    func stop()
-}
-
-class PlayerAdapterImp: NSObject, PlayerAdapter {
-    var playerController: UIViewController {
-        return controller
-    }
-    
-    let currentItem: ZPPlayable
-    
-    private lazy var controller: PlayerViewController = {
-        PlayerViewController(playerController: player)
-    }()
-    
-    private let player: BCOVPlaybackController
-    
-    init(player: BCOVPlaybackController, item: ZPPlayable) {
-        self.player = player
-        self.currentItem = item
-        
-        super.init()
-        
-        setup()
-    }
-    
-    private func setup() {
-        let video: BCOVVideo = BCOVVideo(url: URL(string: currentItem.contentVideoURLPath()))
-        player.setVideos([video] as NSFastEnumeration)
-    }
-    
-    func play() {
-        player.play()
-    }
-    
-    func pause() {
-        player.pause()
-    }
-    
-    func stop() {
-        player.pause()
-        player.seek(to: kCMTimeZero, completionHandler: nil)
-    }
-}
 
 public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
     // MARK: - Properties
     
-    private let adapter: PlayerAdapter
+    weak var playerController: UIViewController?
     
-    init(adapter: PlayerAdapter) {
+    private let adapter: PlayerAdapter
+    private let factory: PlayerViewControllerFactory
+
+    // MARK: - Lifecycle
+    
+    init(adapter: PlayerAdapter, factory: PlayerViewControllerFactory) {
         self.adapter = adapter
+        self.factory = factory
     }
     
     // MARK: - ZPPlayerProtocol
@@ -73,13 +28,15 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         let controller: BCOVPlaybackController = manager.createPlaybackController()
         
         let adapter = PlayerAdapterImp(player: controller, item: videos.first!)
-        let instance = BrightcovePlayerPlugin(adapter: adapter)
+        let factory = PlayerViewControllerFactoryImp(player: controller)
+        
+        let instance = BrightcovePlayerPlugin(adapter: adapter, factory: factory)
         
         return instance
     }
     
     public override func pluggablePlayerViewController() -> UIViewController? {
-        return adapter.playerController
+        return playerController
     }
     
     public func pluggablePlayerCurrentUrl() -> NSURL? {
@@ -92,7 +49,26 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         return adapter.currentItem
     }
 
-    public override func presentPlayerFullScreen(_ rootViewController: UIViewController, configuration: ZPPlayerConfiguration?) {
+    // MARK: - Inline playback
+    
+    public override func pluggablePlayerAddInline(_ rootViewController: UIViewController, container: UIView) {
+        let playerVC = createPlayerController(for: adapter.currentItem,
+                                              mode: .inline,
+                                              from: rootViewController)
+        rootViewController.addChildViewController(playerVC, to: container)
+        playerVC.view.matchParent()
+    }
+    
+    public override func pluggablePlayerRemoveInline(){
+        let container = playerController?.view.superview
+        super.pluggablePlayerRemoveInline()
+        container?.removeFromSuperview()
+    }
+    
+    // MARK: - Fullscreen playback
+    
+    public override func presentPlayerFullScreen(_ rootViewController: UIViewController,
+                                                 configuration: ZPPlayerConfiguration?) {
         presentPlayerFullScreen(rootViewController, configuration: configuration) { [weak self] in
             self?.playVideo()
         }
@@ -103,11 +79,15 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
                                                  completion: (() -> Void)?) {
         let animated: Bool = configuration?.animated ?? true
         let rootVC: UIViewController = rootViewController.topmostModal()
-        let playerVC = adapter.playerController
+        let playerVC = createPlayerController(for: adapter.currentItem,
+                                              mode: .fullscreen,
+                                              from: rootViewController)
         
         rootVC.present(playerVC, animated: animated, completion: completion)
     }
 
+    // MARK: - Playback controls
+    
     public override func pluggablePlayerPlay(_ configuration: ZPPlayerConfiguration?) {
         adapter.play()
     }
@@ -124,17 +104,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         return false
     }
     
-    public override func pluggablePlayerAddInline(_ rootViewController: UIViewController, container : UIView) {
-        let playerVC = adapter.playerController
-        rootViewController.addChildViewController(playerVC, to: container)
-        playerVC.view.matchParent()
-    }
-    
-    public override func pluggablePlayerRemoveInline(){
-        let container = adapter.playerController.view.superview
-        super.pluggablePlayerRemoveInline()
-        container?.removeFromSuperview()
-    }
+    // MARK: - Type
     
     open override func pluggablePlayerType() -> ZPPlayerType {
         return BrightcovePlayerPlugin.pluggablePlayerType()
@@ -148,5 +118,15 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
     private func playVideo() {
         adapter.play()
+    }
+    
+    private func createPlayerController(for item: ZPPlayable,
+                                        mode: PlayerScreenMode,
+                                        from vc: UIViewController) -> UIViewController {
+        let playerVC = factory.controller(for: item,
+                                          mode: mode,
+                                          from: vc)
+        playerController = playerVC
+        return playerVC
     }
 }

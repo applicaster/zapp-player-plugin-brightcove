@@ -39,11 +39,12 @@
 		592DA1AEDD3D31126142E242 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightcovePlayer_BrightcovePlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		67A9D5556B014CD4808A264E /* Pods-BrightcovePlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightcovePlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer.release.xcconfig"; sourceTree = "<group>"; };
 		6F95E90F2179FCA300BDE1DA /* BrightcovePlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightcovePlayerTests.swift; sourceTree = "<group>"; };
-		6F95E9112179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BrightcovePlayerPlugin.podspec; sourceTree = SOURCE_ROOT; };
+		6F95E9112179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BrightcovePlayerPlugin.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAdapterTests.swift; sourceTree = "<group>"; };
 		6FDE99BA217DEF88002077AC /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = PluginClasses/PlayerViewController.swift; sourceTree = SOURCE_ROOT; };
 		6FDE99BB217E06CC002077AC /* PlayerScreenMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerScreenMode.swift; path = PluginClasses/PlayerScreenMode.swift; sourceTree = SOURCE_ROOT; };
 		6FDE99BD217E0735002077AC /* PlayerViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewControllerFactory.swift; path = PluginClasses/PlayerViewControllerFactory.swift; sourceTree = SOURCE_ROOT; };
+		6FDE99BF217E2BF9002077AC /* PlayerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerAdapter.swift; path = PluginClasses/PlayerAdapter.swift; sourceTree = SOURCE_ROOT; };
 		6FF4472B2178A9AF00E273C5 /* BrightcovePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrightcovePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FF4472E2178A9AF00E273C5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6FF4472F2178A9AF00E273C5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -148,6 +149,7 @@
 				6FDE99BA217DEF88002077AC /* PlayerViewController.swift */,
 				6FDE99BB217E06CC002077AC /* PlayerScreenMode.swift */,
 				6FDE99BD217E0735002077AC /* PlayerViewControllerFactory.swift */,
+				6FDE99BF217E2BF9002077AC /* PlayerAdapter.swift */,
 			);
 			name = PluginClasses;
 			sourceTree = "<group>";

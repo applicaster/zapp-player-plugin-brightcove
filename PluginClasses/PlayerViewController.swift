@@ -1,20 +1,11 @@
-//
-//  PlayerViewController.swift
-//  BrightcovePlayer
-//
-//  Created by Alex Faizullov on 10/22/18.
-//  Copyright © 2018 Alex Faizullov. All rights reserved.
-//
-
 import Foundation
-import BrightcovePlayerSDK
 
 class PlayerViewController: UIViewController {
     
-    private let playerController: BCOVPlaybackController
-    
-    required init(playerController: BCOVPlaybackController) {
-        self.playerController = playerController
+    let playerViewBuilder: (PlayerViewController) -> UIView
+
+    required init(playerViewBuilder: @escaping (PlayerViewController) -> UIView) {
+        self.playerViewBuilder = playerViewBuilder
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,17 +15,17 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let controlView = BCOVPUIBasicControlView.withVODLayout()
-        let playerView: BCOVPUIPlayerView = BCOVPUIPlayerView(playbackController: playerController, options: nil, controlsView: controlView)
-        
+        let playerView = playerViewBuilder(self)
+
         view.addSubview(playerView)
         
         playerView.translatesAutoresizingMaskIntoConstraints = false
-    
         playerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        playerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        playerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
+    
+    @objc
+    func close() { dismiss(animated: true, completion: nil) }
 }

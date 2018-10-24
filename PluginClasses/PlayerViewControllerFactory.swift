@@ -3,7 +3,7 @@ import ZappPlugins
 import BrightcovePlayerSDK
 
 protocol PlayerViewControllerFactory {
-    func controller(for item: ZPPlayable, mode: PlayerScreenMode) -> UIViewController
+    func controller(for item: ZPPlayable, mode: PlayerScreenMode, from vc: UIViewController) -> UIViewController
 }
 
 class PlayerViewControllerFactoryImp: PlayerViewControllerFactory {
@@ -14,30 +14,22 @@ class PlayerViewControllerFactoryImp: PlayerViewControllerFactory {
         self.player = player
     }
     
-    func controller(for item: ZPPlayable, mode: PlayerScreenMode) -> UIViewController {
-        let controller = UIViewController()
-        let view: UIView = controller.view
-        
-        let videoView = playerView(for: item, mode: mode, from: controller)
-        
-        view.addSubview(videoView)
-        
-        videoView.translatesAutoresizingMaskIntoConstraints = false
-        videoView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        videoView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        videoView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        videoView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-
-        return controller
+    func controller(for item: ZPPlayable,
+                    mode: PlayerScreenMode,
+                    from vc: UIViewController) -> UIViewController {
+        return PlayerViewController() { self.playerView(for: item, mode: mode, from: vc, to: $0) }
     }
     
     //MARK: - Private
     
-    private func playerView(for item: ZPPlayable, mode: PlayerScreenMode, from vc: UIViewController) -> BCOVPUIPlayerView {
+    private func playerView(for item: ZPPlayable,
+                            mode: PlayerScreenMode,
+                            from vc: UIViewController,
+                            to playerVC: PlayerViewController) -> BCOVPUIPlayerView {
         let controls = controlView(for: item)
         
         let options = BCOVPUIPlayerViewOptions()
-        options.presentingViewController = vc
+        options.presentingViewController = vc.tabBarController
         
         let videoView: BCOVPUIPlayerView = BCOVPUIPlayerView(playbackController: player,
                                                              options: options,
@@ -45,7 +37,10 @@ class PlayerViewControllerFactoryImp: PlayerViewControllerFactory {
         
         switch mode {
             case .fullscreen:
-                controls.screenModeButton.isHidden = true
+                let button: BCOVPUIButton = controls.screenModeButton
+                button.setTitle(button.secondaryTitle, for: .normal)
+                button.removeTarget(nil, action: nil, for: .allTouchEvents)
+                button.addTarget(playerVC, action: #selector(PlayerViewController.close), for: .touchUpInside)
             case .inline:
                 break
         }
