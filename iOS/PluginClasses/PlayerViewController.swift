@@ -2,7 +2,7 @@ import Foundation
 
 class PlayerViewController: UIViewController {
     
-    let playerViewBuilder: (PlayerViewController) -> UIView
+    var playerViewBuilder: (PlayerViewController) -> UIView = { _ in return UIView() }
 
     required init(playerViewBuilder: @escaping (PlayerViewController) -> UIView) {
         self.playerViewBuilder = playerViewBuilder

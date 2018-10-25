@@ -32,7 +32,9 @@ class InlineViewController: UIViewController {
     }
     
     func startPlayVideo() {
-        let item:ZPPlayable = APURLPlayable(streamURL: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", name: "Test Video", description: "")
+        let item: APURLPlayable = APURLPlayable(streamURL: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8", name: "Test Video", description: "")
+        item.isLive = true
+        
         let pluggablePlayer = ZPPlayerManager.sharedInstance.create(playableItem: item)
         pluggablePlayer.pluggablePlayerAddInline(self, container: VideoContainerView)
         pluggablePlayer.pluggablePlayerPlay(nil)

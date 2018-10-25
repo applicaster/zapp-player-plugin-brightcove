@@ -10,13 +10,13 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     weak var playerController: UIViewController?
     
     private let adapter: PlayerAdapter
-    private let factory: PlayerViewControllerFactory
+    private let builder: PlayerViewControllerBuilder
 
     // MARK: - Lifecycle
     
-    init(adapter: PlayerAdapter, factory: PlayerViewControllerFactory) {
+    init(adapter: PlayerAdapter, builder: PlayerViewControllerBuilder) {
         self.adapter = adapter
-        self.factory = factory
+        self.builder = builder
     }
     
     // MARK: - ZPPlayerProtocol
@@ -28,9 +28,9 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         let controller: BCOVPlaybackController = manager.createPlaybackController()
         
         let adapter = PlayerAdapterImp(player: controller, item: videos.first!)
-        let factory = PlayerViewControllerFactoryImp(player: controller)
+        let builder = PlayerViewControllerBuilderImp(player: controller)
         
-        let instance = BrightcovePlayerPlugin(adapter: adapter, factory: factory)
+        let instance = BrightcovePlayerPlugin(adapter: adapter, builder: builder)
         
         return instance
     }
@@ -52,9 +52,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     // MARK: - Inline playback
     
     public override func pluggablePlayerAddInline(_ rootViewController: UIViewController, container: UIView) {
-        let playerVC = createPlayerController(for: adapter.currentItem,
-                                              mode: .inline,
-                                              from: rootViewController)
+        let playerVC = createPlayerController(for: adapter.currentItem, mode: .inline)
         rootViewController.addChildViewController(playerVC, to: container)
         playerVC.view.matchParent()
     }
@@ -79,10 +77,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
                                                  completion: (() -> Void)?) {
         let animated: Bool = configuration?.animated ?? true
         let rootVC: UIViewController = rootViewController.topmostModal()
-        let playerVC = createPlayerController(for: adapter.currentItem,
-                                              mode: .fullscreen,
-                                              from: rootViewController)
-        
+        let playerVC = createPlayerController(for: adapter.currentItem, mode: .fullscreen)
         rootVC.present(playerVC, animated: animated, completion: completion)
     }
 
@@ -121,11 +116,8 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     }
     
     private func createPlayerController(for item: ZPPlayable,
-                                        mode: PlayerScreenMode,
-                                        from vc: UIViewController) -> UIViewController {
-        let playerVC = factory.controller(for: item,
-                                          mode: mode,
-                                          from: vc)
+                                        mode: PlayerScreenMode) -> UIViewController {
+        let playerVC = builder.build(for: item, mode: mode)
         playerController = playerVC
         return playerVC
     }

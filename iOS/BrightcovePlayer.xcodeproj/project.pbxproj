@@ -43,7 +43,7 @@
 		6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAdapterTests.swift; sourceTree = "<group>"; };
 		6FDE99BA217DEF88002077AC /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = PluginClasses/PlayerViewController.swift; sourceTree = SOURCE_ROOT; };
 		6FDE99BB217E06CC002077AC /* PlayerScreenMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerScreenMode.swift; path = PluginClasses/PlayerScreenMode.swift; sourceTree = SOURCE_ROOT; };
-		6FDE99BD217E0735002077AC /* PlayerViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewControllerFactory.swift; path = PluginClasses/PlayerViewControllerFactory.swift; sourceTree = SOURCE_ROOT; };
+		6FDE99BD217E0735002077AC /* PlayerViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewControllerBuilder.swift; path = PluginClasses/PlayerViewControllerBuilder.swift; sourceTree = SOURCE_ROOT; };
 		6FDE99BF217E2BF9002077AC /* PlayerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerAdapter.swift; path = PluginClasses/PlayerAdapter.swift; sourceTree = SOURCE_ROOT; };
 		6FF4472B2178A9AF00E273C5 /* BrightcovePlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrightcovePlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FF4472E2178A9AF00E273C5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 				6FF447382178A9AF00E273C5 /* BrightcovePlayerPlugin.swift */,
 				6FDE99BA217DEF88002077AC /* PlayerViewController.swift */,
 				6FDE99BB217E06CC002077AC /* PlayerScreenMode.swift */,
-				6FDE99BD217E0735002077AC /* PlayerViewControllerFactory.swift */,
+				6FDE99BD217E0735002077AC /* PlayerViewControllerBuilder.swift */,
 				6FDE99BF217E2BF9002077AC /* PlayerAdapter.swift */,
 			);
 			name = PluginClasses;
