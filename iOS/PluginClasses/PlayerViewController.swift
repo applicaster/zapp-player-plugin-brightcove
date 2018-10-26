@@ -1,11 +1,14 @@
 import Foundation
+import ZappPlugins
 
 class PlayerViewController: UIViewController {
     
-    var playerViewBuilder: (PlayerViewController) -> UIView = { _ in return UIView() }
-
-    required init(playerViewBuilder: @escaping (PlayerViewController) -> UIView) {
-        self.playerViewBuilder = playerViewBuilder
+    let builder: PlayerViewBuilder
+    let adapter: PlayerAdapter
+    
+    required init(builder: PlayerViewBuilder, adapter: PlayerAdapter) {
+        self.builder = builder
+        self.adapter = adapter
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -15,8 +18,8 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let playerView = playerViewBuilder(self)
-
+        let playerView = builder.build(for: self)
+        
         view.addSubview(playerView)
         
         playerView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,5 +30,6 @@ class PlayerViewController: UIViewController {
     }
     
     @objc
-    func close() { dismiss(animated: true, completion: nil) }
+    func close() {
+        dismiss(animated: true, completion: nil) }
 }

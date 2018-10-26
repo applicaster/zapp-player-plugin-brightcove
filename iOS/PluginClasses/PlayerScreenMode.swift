@@ -1,6 +1,6 @@
 import Foundation
 
-enum PlayerScreenMode {
+enum PlayerScreenMode: Equatable {
     case inline
     case fullscreen
 }
