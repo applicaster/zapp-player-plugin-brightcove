@@ -93,11 +93,27 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         adapter.stop()
     }
 
+    // MARK: - Playback state
+    
     public override func pluggablePlayerIsPlaying() -> Bool {
-        return false
+        return playerState() == .playing
     }
     
-    // MARK: - Type
+    public func playerState() -> ZPPlayerState {
+        return adapter.playerState
+    }
+    
+    // MARK: - Playback progress
+    
+    public func playbackDuration() -> TimeInterval {
+        return adapter.currentDuration
+    }
+    
+    public func playbackPosition() -> TimeInterval {
+        return adapter.currentProgress
+    }
+    
+    // MARK: - Plugin type
     
     open override func pluggablePlayerType() -> ZPPlayerType {
         return BrightcovePlayerPlugin.pluggablePlayerType()
