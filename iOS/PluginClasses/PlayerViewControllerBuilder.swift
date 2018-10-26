@@ -2,31 +2,25 @@ import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
 
-protocol PlayerViewControllerBuilder {
-    func build(for item: ZPPlayable, mode: PlayerScreenMode) -> UIViewController
+protocol PlayerViewBuilder {
+    func build(for vc: PlayerViewController) -> BCOVPUIPlayerView
 }
 
-class PlayerViewControllerBuilderImp: PlayerViewControllerBuilder {
+class PlayerViewBuilderImp: PlayerViewBuilder {
+    var mode: PlayerScreenMode = .fullscreen
     
+    private let item: ZPPlayable
     private let player: BCOVPlaybackController
     
-    init(player: BCOVPlaybackController) {
+    init(player: BCOVPlaybackController, item: ZPPlayable) {
         self.player = player
+        self.item = item
     }
-    
-    func build(for item: ZPPlayable,
-               mode: PlayerScreenMode) -> UIViewController {
-        return PlayerViewController() { self.playerView(for: item, mode: mode, to: $0) }
-    }
-    
-    //MARK: - Private
-    
-    private func playerView(for item: ZPPlayable,
-                            mode: PlayerScreenMode,
-                            to playerVC: PlayerViewController) -> BCOVPUIPlayerView {
-        let controls = createControlView(for: item, mode: mode, vc: playerVC)
-        let options = createOptions(mode: mode, vc: playerVC)
 
+    func build(for vc: PlayerViewController) -> BCOVPUIPlayerView {
+        let controls = createControlView(for: vc)
+        let options = createOptions(for: vc)
+        
         let videoView: BCOVPUIPlayerView = BCOVPUIPlayerView(playbackController: player,
                                                              options: options,
                                                              controlsView: controls)
@@ -34,7 +28,9 @@ class PlayerViewControllerBuilderImp: PlayerViewControllerBuilder {
         return videoView
     }
     
-    private func createOptions(mode: PlayerScreenMode, vc: PlayerViewController) -> BCOVPUIPlayerViewOptions {
+    //MARK: - Private
+    
+    private func createOptions(for vc: PlayerViewController) -> BCOVPUIPlayerViewOptions {
         let options = BCOVPUIPlayerViewOptions()
         
         switch mode {
@@ -50,9 +46,7 @@ class PlayerViewControllerBuilderImp: PlayerViewControllerBuilder {
         return options
     }
     
-    private func createControlView(for item: ZPPlayable,
-                                   mode: PlayerScreenMode,
-                                   vc: UIViewController) -> BCOVPUIBasicControlView {
+    private func createControlView(for vc: UIViewController) -> BCOVPUIBasicControlView {
         let controls: BCOVPUIBasicControlView = item.isLive() ? .withLiveLayout() : .withVODLayout()
         
         switch mode {

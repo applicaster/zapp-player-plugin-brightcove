@@ -2,8 +2,11 @@ import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
 
-protocol PlayerAdapter {
+protocol PlayerAdapter: class {    
     var currentItem: ZPPlayable { get }
+    var player: BCOVPlaybackController { get }
+    
+    var didEndPlayback: (() -> Void)? { get set }
     
     func play()
     func pause()
@@ -13,8 +16,9 @@ protocol PlayerAdapter {
 class PlayerAdapterImp: NSObject, PlayerAdapter {
     
     let currentItem: ZPPlayable
+    let player: BCOVPlaybackController
     
-    private let player: BCOVPlaybackController
+    var didEndPlayback: (() -> Void)?
     
     init(player: BCOVPlaybackController, item: ZPPlayable) {
         self.player = player
@@ -24,13 +28,16 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         
         setup()
     }
-
-    private func setup() {
-        let video: BCOVVideo = BCOVVideo(url: URL(string: currentItem.contentVideoURLPath()))
-        player.setVideos([video] as NSFastEnumeration)
+    
+    func setup() {
+        player.delegate = self
     }
     
     func play() {
+        let delivery: String = currentItem.isLive() ? kBCOVSourceDeliveryHLS : kBCOVSourceDeliveryMP4
+        let video: BCOVVideo = BCOVVideo(url: URL(string: currentItem.contentVideoURLPath()), deliveryMethod: delivery)
+        self.player.setVideos([video] as NSFastEnumeration)
+        
         player.play()
     }
     
@@ -40,16 +47,29 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     
     func stop() {
         player.pause()
-        player.seek(to: kCMTimeZero, completionHandler: nil)
+        player.seekWithoutAds(kCMTimeZero, completionHandler: nil)
     }
 }
 
 extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
-    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
-       
+    @objc func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
+        print("ViewController Debug - Advanced to new session.")
+    }
+    
+    @objc func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
+        print(progress)
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         
+        let event: BCOVPlaybackSessionLifecycleEvent = lifecycleEvent
+        
+        switch event.eventType {
+        case kBCOVPlaybackSessionLifecycleEventEnd:
+            didEndPlayback?()
+
+        default:
+            break
+        }
     }
 }

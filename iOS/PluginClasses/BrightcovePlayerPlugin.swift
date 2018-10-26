@@ -10,13 +10,11 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     weak var playerController: UIViewController?
     
     private let adapter: PlayerAdapter
-    private let builder: PlayerViewControllerBuilder
 
     // MARK: - Lifecycle
     
-    init(adapter: PlayerAdapter, builder: PlayerViewControllerBuilder) {
+    init(adapter: PlayerAdapter) {
         self.adapter = adapter
-        self.builder = builder
     }
     
     // MARK: - ZPPlayerProtocol
@@ -26,11 +24,8 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         
         let manager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
         let controller: BCOVPlaybackController = manager.createPlaybackController()
-        
         let adapter = PlayerAdapterImp(player: controller, item: videos.first!)
-        let builder = PlayerViewControllerBuilderImp(player: controller)
-        
-        let instance = BrightcovePlayerPlugin(adapter: adapter, builder: builder)
+        let instance = BrightcovePlayerPlugin(adapter: adapter)
         
         return instance
     }
@@ -78,6 +73,9 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         let animated: Bool = configuration?.animated ?? true
         let rootVC: UIViewController = rootViewController.topmostModal()
         let playerVC = createPlayerController(for: adapter.currentItem, mode: .fullscreen)
+        
+        adapter.didEndPlayback = { [weak playerVC] in playerVC?.close() }
+        
         rootVC.present(playerVC, animated: animated, completion: completion)
     }
 
@@ -116,8 +114,12 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     }
     
     private func createPlayerController(for item: ZPPlayable,
-                                        mode: PlayerScreenMode) -> UIViewController {
-        let playerVC = builder.build(for: item, mode: mode)
+                                        mode: PlayerScreenMode) -> PlayerViewController {
+        let builder = PlayerViewBuilderImp(player: adapter.player, item: item)
+        builder.mode = mode
+        
+        let playerVC = PlayerViewController(builder: builder, adapter: adapter)
+
         playerController = playerVC
         return playerVC
     }
