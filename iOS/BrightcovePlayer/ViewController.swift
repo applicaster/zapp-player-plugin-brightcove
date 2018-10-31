@@ -30,8 +30,12 @@ class ViewController: UIViewController {
     }
     
     func presentPlayer() {
-        let item: ZPPlayable = APURLPlayable(streamURL: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", name: "Test Video", description: "")
-        let pluggablePlayer = ZPPlayerManager.sharedInstance.create(playableItem: item)
+        let item1: ZPPlayable = APURLPlayable(streamURL: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", name: "Test Video", description: "")
+        
+        let item2: APURLPlayable = APURLPlayable(streamURL: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8", name: "Test Video", description: "")
+        item2.isLive = true
+        
+        let pluggablePlayer = ZPPlayerManager.sharedInstance.create(playableItems: [item1, item2], forType: .undefined)
         pluggablePlayer.presentPlayerFullScreen?(self, configuration: nil) {
             pluggablePlayer.pluggablePlayerPlay(nil)
         }

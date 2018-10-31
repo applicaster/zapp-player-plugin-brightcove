@@ -3,7 +3,7 @@ import ZappPlugins
 import BrightcovePlayerSDK
 
 protocol PlayerAdapter: class {    
-    var currentItem: ZPPlayable { get }
+    var currentItem: ZPPlayable? { get }
     var player: BCOVPlaybackController { get }
     
     var playerState: ZPPlayerState { get }
@@ -12,15 +12,18 @@ protocol PlayerAdapter: class {
     var currentDuration: TimeInterval { get }
     
     var didEndPlayback: (() -> Void)? { get set }
+    var didSwitchToItem: ((ZPPlayable) -> Void)? { get set }
     
     func play()
     func pause()
     func stop()
+    func resume()
 }
 
 class PlayerAdapterImp: NSObject, PlayerAdapter {
+
+    // MARK: - Properties
     
-    let currentItem: ZPPlayable
     let player: BCOVPlaybackController
     
     private(set) var playerState: ZPPlayerState = .undefined
@@ -28,27 +31,41 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     private(set) var currentProgress: TimeInterval = .infinity
     private(set) var currentDuration: TimeInterval = .infinity
     
-    var didEndPlayback: (() -> Void)?
+    private let loader: VideoLoader = StaticURLLoader()
     
-    init(player: BCOVPlaybackController, item: ZPPlayable) {
+    var didEndPlayback: (() -> Void)?
+    var didSwitchToItem: ((ZPPlayable) -> Void)?
+    
+    private var items: [ZPPlayable]
+    
+    private var videos: [BCOVVideo] = [] {
+        didSet { player.setVideos(videos as NSFastEnumeration) }
+    }
+    
+    private(set) var currentItem: ZPPlayable? {
+        didSet { currentItem.flatMap { didSwitchToItem?($0) } }
+    }
+    
+    // MARK: - Lifecycle
+    
+    init(player: BCOVPlaybackController, items: [ZPPlayable]) {
         self.player = player
-        self.currentItem = item
+        self.currentItem = items.first!
+        self.items = items
         
         super.init()
         
         setup()
     }
     
+    // MARK: - Actions
+    
     func setup() {
-        player.delegate = self
-        player.isAutoAdvance = true
-        
-        let delivery: String = currentItem.isLive() ? kBCOVSourceDeliveryHLS : kBCOVSourceDeliveryMP4
-        let video: BCOVVideo = BCOVVideo(url: URL(string: currentItem.contentVideoURLPath()), deliveryMethod: delivery)
-        self.player.setVideos([video] as NSFastEnumeration)
+        setupPlayer()
     }
     
     func play() {
+        loadItems()
         player.play()
     }
     
@@ -60,11 +77,36 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         player.pause()
         player.seekWithoutAds(kCMTimeZero) { [weak self] _ in self?.playerState = .stopped }
     }
+    
+    func resume() {
+        player.play()
+    }
+    
+    // MARK: - Private
+    
+    private func setupPlayer() {
+        player.delegate = self
+        player.isAutoPlay = true
+        player.isAutoAdvance = true
+    }
+    
+    private func loadItems() {
+        currentItem = items.first
+        
+        loader.load(items: items) { [weak self] result in
+            switch result {
+            case let .success(videos):
+                self?.videos = videos
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
 }
 
 extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
-    @objc func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
-        print("ViewController Debug - Advanced to new session.")
+    func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
+        currentItem = loader.find(video: session.video, in: items)
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,

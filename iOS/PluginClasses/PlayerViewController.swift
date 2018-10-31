@@ -1,10 +1,17 @@
 import Foundation
 import ZappPlugins
+import BrightcovePlayerSDK
 
 class PlayerViewController: UIViewController {
     
-    let builder: PlayerViewBuilder
-    let adapter: PlayerAdapter
+    // MARK: Properies
+    
+    private let builder: PlayerViewBuilder
+    private let adapter: PlayerAdapter
+    
+    lazy var playerView: BCOVPUIPlayerView = { self.builder.build(for: self) }()
+    
+    // MARK: - Lifecycle
     
     required init(builder: PlayerViewBuilder, adapter: PlayerAdapter) {
         self.builder = builder
@@ -18,8 +25,17 @@ class PlayerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let playerView = builder.build(for: self)
-        
+        setupPlayerView()
+        setupAdapter()
+    }
+    
+    // MARK: - Actions
+    
+    @objc func close() { dismiss(animated: true, completion: nil) }
+    
+    // MARK: - Private
+    
+    private func setupPlayerView() {
         view.addSubview(playerView)
         
         playerView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +45,11 @@ class PlayerViewController: UIViewController {
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    @objc
-    func close() {
-        dismiss(animated: true, completion: nil) }
+    private func setupAdapter() {
+        adapter.didSwitchToItem = { [weak self] item in
+            guard let strongSelf = self else { return }
+            let controls = strongSelf.playerView.controlsView!
+            strongSelf.builder.configureLayout(for: controls, item: item, vc: strongSelf)
+        }
+    }
 }

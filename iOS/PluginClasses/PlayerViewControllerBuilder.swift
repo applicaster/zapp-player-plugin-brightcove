@@ -4,23 +4,23 @@ import BrightcovePlayerSDK
 
 protocol PlayerViewBuilder {
     func build(for vc: PlayerViewController) -> BCOVPUIPlayerView
+    func configureLayout(for view: BCOVPUIBasicControlView, item: ZPPlayable, vc: PlayerViewController)
 }
 
 class PlayerViewBuilderImp: PlayerViewBuilder {
     var mode: PlayerScreenMode = .fullscreen
     
-    private let item: ZPPlayable
     private let player: BCOVPlaybackController
     
-    init(player: BCOVPlaybackController, item: ZPPlayable) {
+    init(player: BCOVPlaybackController) {
         self.player = player
-        self.item = item
     }
 
     func build(for vc: PlayerViewController) -> BCOVPUIPlayerView {
-        let controls = createControlView(for: vc)
-        let options = createOptions(for: vc)
+        let controls = BCOVPUIBasicControlView.withVODLayout()
+        controls?.layout = nil
         
+        let options = createOptions(for: vc)
         let videoView: BCOVPUIPlayerView = BCOVPUIPlayerView(playbackController: player,
                                                              options: options,
                                                              controlsView: controls)
@@ -45,20 +45,18 @@ class PlayerViewBuilderImp: PlayerViewBuilder {
         
         return options
     }
-    
-    private func createControlView(for vc: UIViewController) -> BCOVPUIBasicControlView {
-        let controls: BCOVPUIBasicControlView = item.isLive() ? .withLiveLayout() : .withVODLayout()
+
+    func configureLayout(for view: BCOVPUIBasicControlView, item: ZPPlayable, vc: PlayerViewController) {
+        view.layout = item.isLive() ? BCOVPUIControlLayout.basicLive() : BCOVPUIControlLayout.basicVOD()
         
         switch mode {
         case .fullscreen:
-            let button: BCOVPUIButton = controls.screenModeButton
+            let button: BCOVPUIButton = view.screenModeButton
             button.setTitle(button.secondaryTitle, for: .normal)
             button.removeTarget(nil, action: nil, for: .allTouchEvents)
             button.addTarget(vc, action: #selector(PlayerViewController.close), for: .touchUpInside)
         case .inline:
             break
         }
-        
-        return controls
     }
 }

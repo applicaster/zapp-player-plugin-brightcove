@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		00D8CE235077E87BE3CABE92 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 592DA1AEDD3D31126142E242 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */; };
 		0115769F623B4BF2A1B20417 /* Pods_BrightcovePlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE32EDC359FDBAAA3A7212B /* Pods_BrightcovePlayer.framework */; };
-		6F284AA22183693B00ACDA20 /* VideoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F284AA12183693B00ACDA20 /* VideoLoader.swift */; };
 		6F95E9102179FCA300BDE1DA /* BrightcovePlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95E90F2179FCA300BDE1DA /* BrightcovePlayerTests.swift */; };
 		6F95E9122179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6F95E9112179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec */; };
 		6F95E9142179FF3A00BDE1DA /* PlayerAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */; };
@@ -506,7 +505,6 @@
 				6FF4473C2178A9AF00E273C5 /* ViewController.swift in Sources */,
 				6FF447302178A9AF00E273C5 /* AppDelegate.m in Sources */,
 				6FF447472178A9B000E273C5 /* main.m in Sources */,
-				6F284AA22183693B00ACDA20 /* VideoLoader.swift in Sources */,
 				6FF4473A2178A9AF00E273C5 /* InlineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
