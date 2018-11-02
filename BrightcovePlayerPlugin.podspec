@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
     s.subspec 'Core' do |c|
       s.resources = []
       c.frameworks = 'UIKit'
-      c.source_files = 'PluginClasses/*.{swift,h,m}'
+      c.source_files = 'iOS/PluginClasses/*.{swift,h,m}'
       c.dependency 'ZappPlugins'
       c.dependency 'ApplicasterSDK'
       c.dependency 'Brightcove-Player-Core'
