@@ -3,21 +3,20 @@ fastlane_require 'json'
 
 default_platform(:ios)
 
-POD_NAME = "BrightcovePlayer"
-PODSPEC = "#{POD_NAME}.podspec"
-SPECS_PATH = "Specs/#{POD_NAME}"
-MANIFEST_PATH = "#{POD_NAME}/plugin_manifest.json"
+POD_NAME = "BrightcovePlayerPlugin"
+SOURCES_DIR = "BrightcovePlayer"
+PODSPEC = "../#{POD_NAME}.podspec"
+SPECS_PATH = "../Specs/#{POD_NAME}"
+MANIFEST_PATH = "#{SOURCES_DIR}/plugin_manifest.json"
 
 platform :ios do
   desc "Release new version of #{POD_NAME} plugin"
   
   lane :release_internally do |options|
-    raise "Only code from master branch can be deployed" unless git_branch == "master"
-
     new_version = options[:version]
     raise "You should specify version number that will be released" unless new_version != nil
 
-    current_version = version_get_podspec
+    current_version = version_get_podspec(path: PODSPEC)
     raise "Version value should be higher then current podspec version" unless Gem::Version.new(new_version) > Gem::Version.new(current_version)
 
     version_bump_podspec(path: PODSPEC, version_number: new_version)
@@ -41,10 +40,10 @@ platform :ios do
   end
 
   def bump_manifest_version(version)
-    data_hash = load_json("plugin_manifest.json")
+    data_hash = load_json(MANIFEST_PATH)
     data_hash["manifest_version"] = version
     data_hash["dependency_version"] = version
-    write_to_json(data_hash, "plugin_manifest.json")
+    write_to_json(data_hash, MANIFEST_PATH)
   end
 
   def load_json(filename)
