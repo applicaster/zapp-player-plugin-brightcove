@@ -6,10 +6,10 @@ Pod::Spec.new do |s|
     s.description      = <<-DESC
                           BrightcovePlayer video player framework for Zapp iOS.
                          DESC
-    s.homepage         = "https://github.com"
+    s.homepage         = "https://github.com/applicaster/zapp-player-plugin-brightcove"
     s.license          = 'MIT'
     s.author           = { "Alex Faizullov" => "alexey.fayzyllov@corewillsoft.com" }
-    s.source           = { :git => "https://github.com", :tag => s.version.to_s }
+    s.source           = { :git => "https://github.com/applicaster/zapp-player-plugin-brightcove.git", :tag => s.version.to_s }
   
     s.ios.deployment_target  = "9.0"
     s.platform     = :ios, '9.0'
