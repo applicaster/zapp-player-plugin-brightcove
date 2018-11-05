@@ -1,1 +1,1 @@
-# Brightcove Android player plugin
+# Brightcove Android Player Plugin
