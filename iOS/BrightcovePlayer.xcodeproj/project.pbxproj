@@ -10,7 +10,6 @@
 		00D8CE235077E87BE3CABE92 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 592DA1AEDD3D31126142E242 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */; };
 		0115769F623B4BF2A1B20417 /* Pods_BrightcovePlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE32EDC359FDBAAA3A7212B /* Pods_BrightcovePlayer.framework */; };
 		6F95E9102179FCA300BDE1DA /* BrightcovePlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95E90F2179FCA300BDE1DA /* BrightcovePlayerTests.swift */; };
-		6F95E9122179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6F95E9112179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec */; };
 		6F95E9142179FF3A00BDE1DA /* PlayerAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */; };
 		6FF447302178A9AF00E273C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4472F2178A9AF00E273C5 /* AppDelegate.m */; };
 		6FF447332178A9AF00E273C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FF447312178A9AF00E273C5 /* Main.storyboard */; };
@@ -40,8 +39,9 @@
 		67A9D5556B014CD4808A264E /* Pods-BrightcovePlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightcovePlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer.release.xcconfig"; sourceTree = "<group>"; };
 		6F284AA12183693B00ACDA20 /* VideoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoLoader.swift; path = PluginClasses/VideoLoader.swift; sourceTree = SOURCE_ROOT; };
 		6F95E90F2179FCA300BDE1DA /* BrightcovePlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightcovePlayerTests.swift; sourceTree = "<group>"; };
-		6F95E9112179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = BrightcovePlayerPlugin.podspec; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAdapterTests.swift; sourceTree = "<group>"; };
+		6FD836632191D2EE0028C918 /* BrightcovePlayerPlugin.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = BrightcovePlayerPlugin.podspec; path = ../../BrightcovePlayerPlugin.podspec; sourceTree = "<group>"; };
+		6FD836642191D7E30028C918 /* ZappPlugins+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ZappPlugins+Extensions.swift"; path = "PluginClasses/ZappPlugins+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		6FDE99BA217DEF88002077AC /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = PluginClasses/PlayerViewController.swift; sourceTree = SOURCE_ROOT; };
 		6FDE99BB217E06CC002077AC /* PlayerScreenMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerScreenMode.swift; path = PluginClasses/PlayerScreenMode.swift; sourceTree = SOURCE_ROOT; };
 		6FDE99BD217E0735002077AC /* PlayerViewControllerBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewControllerBuilder.swift; path = PluginClasses/PlayerViewControllerBuilder.swift; sourceTree = SOURCE_ROOT; };
@@ -135,7 +135,7 @@
 		6FF447342178A9AF00E273C5 /* Zapp-Resources */ = {
 			isa = PBXGroup;
 			children = (
-				6F95E9112179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec */,
+				6FD836632191D2EE0028C918 /* BrightcovePlayerPlugin.podspec */,
 				6FF447352178A9AF00E273C5 /* Podfile */,
 				6FF4473D2178A9AF00E273C5 /* plugin_configurations.json */,
 				6FF4473F2178A9AF00E273C5 /* plugin_manifest.json */,
@@ -152,6 +152,7 @@
 				6FDE99BD217E0735002077AC /* PlayerViewControllerBuilder.swift */,
 				6FDE99BF217E2BF9002077AC /* PlayerAdapter.swift */,
 				6F284AA12183693B00ACDA20 /* VideoLoader.swift */,
+				6FD836642191D7E30028C918 /* ZappPlugins+Extensions.swift */,
 			);
 			name = PluginClasses;
 			sourceTree = "<group>";
@@ -267,7 +268,6 @@
 			files = (
 				6FF447332178A9AF00E273C5 /* Main.storyboard in Resources */,
 				6FF447442178A9B000E273C5 /* LaunchScreen.storyboard in Resources */,
-				6F95E9122179FE5100BDE1DA /* BrightcovePlayerPlugin.podspec in Resources */,
 				6FF447412178A9B000E273C5 /* Assets.xcassets in Resources */,
 				6FF4473E2178A9AF00E273C5 /* plugin_configurations.json in Resources */,
 			);
