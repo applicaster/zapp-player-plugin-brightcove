@@ -14,7 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - ApplicasterSDK (7.3.8):
+  - ApplicasterSDK (7.3.10):
     - AFNetworking (= 3.2.1)
     - CocoaLumberjack/Swift (= 3.4.2)
     - FBNotifications (= 1.0.1)
@@ -41,9 +41,9 @@ PODS:
   - Brightcove-Player-Core (6.3.9):
     - Brightcove-Player-Core/default (= 6.3.9)
   - Brightcove-Player-Core/default (6.3.9)
-  - BrightcovePlayerPlugin (0.0.1):
-    - BrightcovePlayerPlugin/Core (= 0.0.1)
-  - BrightcovePlayerPlugin/Core (0.0.1):
+  - BrightcovePlayerPlugin (0.0.3):
+    - BrightcovePlayerPlugin/Core (= 0.0.3)
+  - BrightcovePlayerPlugin/Core (0.0.3):
     - ApplicasterSDK
     - Brightcove-Player-Core
     - ZappPlugins
@@ -60,7 +60,7 @@ PODS:
   - Google-Mobile-Ads-SDK (7.31.0)
   - GoogleAds-IMA-iOS-SDK (3.7.2)
   - SSZipArchive (2.1.0)
-  - Toaster (2.1.1)
+  - Toaster (2.2.0.0)
   - TTTAttributedLabel (2.1.0)
   - TwitterCore (3.1.0)
   - TwitterKit (3.3.0):
@@ -73,16 +73,18 @@ PODS:
   - ZappLoginPluginsSDK (5.2.1):
     - AFNetworking
     - ZappPlugins (~> 6.1.0)
-  - ZappPlugins (6.1.22)
+  - ZappPlugins (6.1.25)
   - ZappPushPluginsSDK (5.2.0):
     - ZappPlugins (~> 6.1.0)
 
 DEPENDENCIES:
-  - BrightcovePlayerPlugin (from `BrightcovePlayerPlugin.podspec`)
+  - ApplicasterSDK (~> 7)
+  - BrightcovePlayerPlugin (from `../BrightcovePlayerPlugin.podspec`)
 
 SPEC REPOS:
   "git@github.com:applicaster/CocoaPods.git":
     - ApplicasterSDK
+    - Toaster
     - TTTAttributedLabel
     - ZappPlugins
   "git@github.com:applicaster/PluginsBuilderCocoaPods.git":
@@ -103,20 +105,19 @@ SPEC REPOS:
     - Google-Mobile-Ads-SDK
     - GoogleAds-IMA-iOS-SDK
     - SSZipArchive
-    - Toaster
     - TwitterCore
     - TwitterKit
 
 EXTERNAL SOURCES:
   BrightcovePlayerPlugin:
-    :path: BrightcovePlayerPlugin.podspec
+    :path: "../BrightcovePlayerPlugin.podspec"
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  ApplicasterSDK: ac12cfa923c9e61ac89f6311fb05c73afdc8d92b
+  ApplicasterSDK: 15fe3c5da86a415c14c350de30a83606fcc6c68c
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Brightcove-Player-Core: 27cd861f73e071e7964620e31e2557d8ac00f8ab
-  BrightcovePlayerPlugin: f9759589dcd81f591f73306a80b52c965279d7aa
+  BrightcovePlayerPlugin: b8e3830be9128af83eae751f92ccdb76872d64a1
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FBNotifications: 3f1a9e43ffa2979a685eec29c960ca6a15c70be9
   FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
@@ -125,16 +126,16 @@ SPEC CHECKSUMS:
   Google-Mobile-Ads-SDK: 6e529e748b45507a2ca904e0b5a52669ba3920c4
   GoogleAds-IMA-iOS-SDK: 58693326633b35aa7e95c45693ec0bb8e88086de
   SSZipArchive: 1e8e53dcb11bca3ded4738958dc49fc467320a14
-  Toaster: a6c9532de1ded8105e77376f7dffeb2e12b46dbb
+  Toaster: c06c2bb68c93d6017780220d5d76dc6ffdd14688
   TTTAttributedLabel: f8c7f1dbc7b8f7168e23e8b4764dda2e3b74aae8
   TwitterCore: 644d59e75abccb26cf0a9050d2c4dea0e5412241
   TwitterKit: a2e60ddcedbf54091eac6f27685ca7a87681e1d7
   ZappAnalyticsPluginsSDK: f32d875129f31ff7e13c4596744db7d0bc71cf2e
   ZappGeneralPluginsSDK: 043454c206f2804ec0843adf4be6e2c9b0f5ff7f
   ZappLoginPluginsSDK: e73acae401708188387ed1de3d1a1a660534ba3d
-  ZappPlugins: 9235582e43c096d90256c1cce9e662a01fb5c8c4
+  ZappPlugins: 62ce6e8d6baf8629cca7539f4703b205efed3f58
   ZappPushPluginsSDK: cc24864f011d02bd47384342e16da7bbb5da158c
 
-PODFILE CHECKSUM: 4b2d965e47b63cb70af98f513f580a072006d9bd
+PODFILE CHECKSUM: ded3d73f159ef60115ed2820d7655b6e006f0d43
 
 COCOAPODS: 1.5.3
