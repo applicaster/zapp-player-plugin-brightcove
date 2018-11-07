@@ -30,6 +30,9 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         
         let manager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
         let controller: BCOVPlaybackController = manager.createPlaybackController()
+        
+        APLoggerInfo("manager: \(manager), controller: \(controller)")
+        
         let adapter = PlayerAdapterImp(player: controller, items: videos)
         let instance = BrightcovePlayerPlugin(adapter: adapter)
         
@@ -37,6 +40,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     }
     
     public override func pluggablePlayerViewController() -> UIViewController? {
+        APLoggerInfo("Returning \(String(describing: playerController))")
         return playerController
     }
     
@@ -66,14 +70,16 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         container?.removeFromSuperview()
     }
     
+    deinit {
+        APLoggerInfo("Plugin deinitialized")
+    }
+    
     // MARK: - Fullscreen playback
     
     public override func presentPlayerFullScreen(_ rootViewController: UIViewController,
                                                  configuration: ZPPlayerConfiguration?) {
         APLoggerVerbose("Player config: \(String(describing: configuration?.toString()))")
-        presentPlayerFullScreen(rootViewController, configuration: configuration) { [weak self] in
-            self?.playVideo()
-        }
+        presentPlayerFullScreen(rootViewController, configuration: configuration) { self.playVideo() }
     }
     
     public override func presentPlayerFullScreen(_ rootViewController: UIViewController,
@@ -83,9 +89,8 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         let animated: Bool = configuration?.animated ?? true
         let rootVC: UIViewController = rootViewController.topmostModal()
         let playerVC = createPlayerController(mode: .fullscreen)
-        
         adapter.didEndPlayback = { [weak playerVC] in playerVC?.close() }
-        
+
         rootVC.present(playerVC, animated: animated, completion: completion)
     }
 

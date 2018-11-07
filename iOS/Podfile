@@ -9,7 +9,6 @@ source 'git@github.com:brightcove/BrightcoveSpecs.git'
 
 target 'BrightcovePlayer' do
     pod 'BrightcovePlayerPlugin', :path => '../BrightcovePlayerPlugin.podspec'
-    pod 'ApplicasterSDK', '~> 7'
     target 'BrightcovePlayerTests' do
     end
 end
