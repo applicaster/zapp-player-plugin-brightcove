@@ -13,14 +13,14 @@
   "platform": "ios",
   "author_name": "Alex Faizullov",
   "author_email": "alexey.fayzyllov@corewillsoft.com",
-  "manifest_version": "0.0.3",
+  "manifest_version": "0.0.4",
   "name": "BrightcovePlayer",
   "description": "Zapp player plugin for Brightcove SDK",
   "type": "player",
   "identifier": "BrightcovePlayerPlugin",
   "ui_builder_support": true,
   "dependency_name": "BrightcovePlayerPlugin",
-  "dependency_version": "0.0.3",
+  "dependency_version": "0.0.4",
   "whitelisted_account_ids": [
     "5a4516fa41442c000b0195d6"
   ],
