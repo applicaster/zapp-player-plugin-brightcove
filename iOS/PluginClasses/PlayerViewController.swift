@@ -1,6 +1,7 @@
 import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
+import ApplicasterSDK
 
 class PlayerViewController: UIViewController {
     
@@ -14,6 +15,7 @@ class PlayerViewController: UIViewController {
     // MARK: - Lifecycle
     
     required init(builder: PlayerViewBuilder, adapter: PlayerAdapter) {
+        APLoggerVerbose("Builder: \(builder), adapter: \(adapter)")
         self.builder = builder
         self.adapter = adapter
         super.init(nibName: nil, bundle: nil)
@@ -27,6 +29,13 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         setupPlayerView()
         setupAdapter()
+        APLoggerVerbose("Setup completed, view is loaded")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        APLoggerVerbose("Is presenting: \(isBeingPresented)")
+        APLoggerVerbose("Is moving to parent VC: \(isMovingToParentViewController)")
     }
     
     // MARK: - Actions
@@ -45,11 +54,24 @@ class PlayerViewController: UIViewController {
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        APLoggerVerbose("Is dismissed: \(isBeingDismissed)")
+        APLoggerVerbose("Is moving from parent: \(isMovingFromParentViewController)")
+        
+        adapter.pause()
+        super.viewWillDisappear(animated)
+    }
+    
     private func setupAdapter() {
         adapter.didSwitchToItem = { [weak self] item in
+            APLoggerVerbose("Switching to playable item: \(item.toString())")
             guard let strongSelf = self else { return }
             let controls = strongSelf.playerView.controlsView!
             strongSelf.builder.configureLayout(for: controls, item: item, vc: strongSelf)
         }
+    }
+    
+    override func didMove(toParentViewController parent: UIViewController?) {
+        APLoggerVerbose("Parent: \(parent.debugDescription)")
     }
 }

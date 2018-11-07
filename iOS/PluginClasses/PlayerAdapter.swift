@@ -1,6 +1,7 @@
 import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
+import ApplicasterSDK
 
 protocol PlayerAdapter: class {    
     var currentItem: ZPPlayable? { get }
@@ -50,7 +51,7 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     
     init(player: BCOVPlaybackController, items: [ZPPlayable]) {
         self.player = player
-        self.currentItem = items.first!
+        self.currentItem = items.first
         self.items = items
         
         super.init()
@@ -65,6 +66,7 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     }
     
     func play() {
+        APLoggerDebug("Play")
         loadItems()
         player.play()
     }
@@ -91,9 +93,11 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     }
     
     private func loadItems() {
+        APLoggerDebug("Load items")
         currentItem = items.first
         
         loader.load(items: items) { [weak self] result in
+            APLoggerDebug("Loaded: \(items)")
             switch result {
             case let .success(videos):
                 self?.videos = videos
@@ -106,6 +110,7 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
 
 extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
+        APLoggerDebug("Did advance to: \(String(describing: session))")
         currentItem = loader.find(video: session.video, in: items)
     }
     
@@ -124,10 +129,12 @@ extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
+        APLoggerDebug("Session did receive \(lifecycleEvent)")
         ZPPlayerState(event: lifecycleEvent).flatMap { playerState = $0 }
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
+        APLoggerDebug("Did complete \(String(describing: playlist))")
         didEndPlayback?()
     }
 }
