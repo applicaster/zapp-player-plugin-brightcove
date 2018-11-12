@@ -10,20 +10,25 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     weak var playerController: UIViewController?
     
     private let adapter: PlayerAdapter
-
+    private let analytics: AnalyticsAdapter
+    
     // MARK: - Lifecycle
     
-    init(adapter: PlayerAdapter) {
+    init(adapter: PlayerAdapter, analytics: AnalyticsAdapter = MorpheusAnalyticsAdapter()) {
         self.adapter = adapter
+        self.analytics = analytics
     }
     
     // MARK: - ZPPlayerProtocol
     
-    public static func pluggablePlayerInit(playableItems items: [ZPPlayable]?, configurationJSON: NSDictionary?) -> ZPPlayerProtocol? {
+    public static func pluggablePlayerInit(playableItems items: [ZPPlayable]?,
+                                           configurationJSON: NSDictionary?) -> ZPPlayerProtocol? {
         guard let videos = items else {
             APLoggerError("No playable item found, return nil")
             return nil
         }
+        
+        APLoggerInfo(videos.first!.analyticsParams()!.debugDescription)
         
         APLoggerInfo("Configuration: \(String(describing: configurationJSON))")
         APLoggerInfo("Items: \(videos.map { $0.toString() })")
@@ -58,13 +63,19 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
     public override func pluggablePlayerAddInline(_ rootViewController: UIViewController, container: UIView) {
         APLoggerVerbose("Adding to \(container) of \(rootViewController)")
+        
         let playerVC = createPlayerController(mode: .inline)
         rootViewController.addChildViewController(playerVC, to: container)
         playerVC.view.matchParent()
+        
+        analytics.track(item: adapter.currentItem!, mode: .inline)
     }
     
-    public override func pluggablePlayerRemoveInline(){
+    public override func pluggablePlayerRemoveInline() {
         APLoggerVerbose("Removing inline player")
+        
+        analytics.complete(item: adapter.currentItem!, mode: .inline, progress: adapter.playbackState)
+        
         let container = playerController?.view.superview
         super.pluggablePlayerRemoveInline()
         container?.removeFromSuperview()
@@ -86,10 +97,25 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
                                                  configuration: ZPPlayerConfiguration?,
                                                  completion: (() -> Void)?) {
         APLoggerVerbose("Player config: \(String(describing: configuration?.toString()))")
+        
         let animated: Bool = configuration?.animated ?? true
         let rootVC: UIViewController = rootViewController.topmostModal()
         let playerVC = createPlayerController(mode: .fullscreen)
-        adapter.didEndPlayback = { [weak playerVC] in playerVC?.close() }
+
+        adapter.didEndPlayback = { [weak playerVC] in
+            playerVC?.close()
+        }
+        
+        analytics.track(item: adapter.currentItem!, mode: .fullscreen)
+        
+        playerVC.onDismiss = { [weak self] in
+            guard let strongSelf = self else { return }
+            
+            let player = strongSelf.adapter
+            strongSelf.analytics.complete(item: player.currentItem!,
+                                          mode: .fullscreen,
+                                          progress: player.playbackState)
+        }
 
         rootVC.present(playerVC, animated: animated, completion: completion)
     }
@@ -125,11 +151,11 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     // MARK: - Playback progress
     
     public func playbackDuration() -> TimeInterval {
-        return adapter.currentDuration
+        return adapter.playbackState.duration
     }
     
     public func playbackPosition() -> TimeInterval {
-        return adapter.currentProgress
+        return adapter.playbackState.progress
     }
     
     // MARK: - Plugin type
@@ -153,7 +179,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         builder.mode = mode
         
         let playerVC = PlayerViewController(builder: builder, adapter: adapter)
-
+        
         playerController = playerVC
         return playerVC
     }

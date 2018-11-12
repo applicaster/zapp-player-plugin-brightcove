@@ -9,6 +9,7 @@
 import Foundation
 import ZappPlugins
 import ApplicasterSDK
+import ZappAnalyticsPluginsSDK
 
 class InlineViewController: UIViewController {
     
@@ -33,11 +34,13 @@ class InlineViewController: UIViewController {
     
     func startPlayVideo() {
         let item: APURLPlayable = APURLPlayable(streamURL: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8", name: "Test Video", description: "")
+        item.identifier = "123235245"
+        item.extensionsDictionary = ["duration" : 12345]
+        item.isFree = false
         item.isLive = true
         
         let pluggablePlayer = ZPPlayerManager.sharedInstance.create(playableItem: item)
         pluggablePlayer.pluggablePlayerAddInline(self, container: VideoContainerView)
         pluggablePlayer.pluggablePlayerPlay(nil)
     }
-    
 }

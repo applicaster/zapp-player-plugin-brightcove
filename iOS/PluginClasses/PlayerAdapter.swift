@@ -3,14 +3,25 @@ import ZappPlugins
 import BrightcovePlayerSDK
 import ApplicasterSDK
 
+struct Progress {
+    var progress: TimeInterval = .infinity
+    var duration: TimeInterval = .infinity
+    
+    var isValid: Bool {
+        return progress.isFinite && duration.isFinite
+    }
+    
+    var isCompleted: Bool {
+        return isValid && progress >= duration
+    }
+}
+
 protocol PlayerAdapter: class {    
     var currentItem: ZPPlayable? { get }
     var player: BCOVPlaybackController { get }
     
+    var playbackState: Progress { get }
     var playerState: ZPPlayerState { get }
-    
-    var currentProgress: TimeInterval { get }
-    var currentDuration: TimeInterval { get }
     
     var didEndPlayback: (() -> Void)? { get set }
     var didSwitchToItem: ((ZPPlayable) -> Void)? { get set }
@@ -26,14 +37,12 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     // MARK: - Properties
     
     let player: BCOVPlaybackController
-    
+
     private(set) var playerState: ZPPlayerState = .undefined
-    
-    private(set) var currentProgress: TimeInterval = .infinity
-    private(set) var currentDuration: TimeInterval = .infinity
+    private(set) var playbackState: Progress = Progress()
     
     private let loader: VideoLoader = StaticURLLoader()
-    
+
     var didEndPlayback: (() -> Void)?
     var didSwitchToItem: ((ZPPlayable) -> Void)?
     
@@ -112,30 +121,41 @@ extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         APLoggerDebug("Did advance to: \(String(describing: session))")
         currentItem = loader.find(video: session.video, in: items)
+        playbackState = Progress()
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didChangeDuration duration: TimeInterval) {
-        currentDuration = duration
+        playbackState.duration = duration
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didProgressTo progress: TimeInterval) {
-        currentProgress = progress
+        if progress.isFinite { playbackState.progress = progress }
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        APLoggerDebug("Session did receive \(lifecycleEvent)")
+        APLoggerDebug("Session did receive \(String(describing: lifecycleEvent))")
         ZPPlayerState(event: lifecycleEvent).flatMap { playerState = $0 }
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
         APLoggerDebug("Did complete \(String(describing: playlist))")
         didEndPlayback?()
+    }
+}
+
+extension PlayerAdapter {
+    func startTracking(mode: PlayerScreenMode) {
+        
+    }
+    
+    func endTracking(mode: PlayerScreenMode) {
+        
     }
 }
 
