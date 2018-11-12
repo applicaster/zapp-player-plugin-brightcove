@@ -40,6 +40,7 @@
 		6F284AA12183693B00ACDA20 /* VideoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoLoader.swift; path = PluginClasses/VideoLoader.swift; sourceTree = SOURCE_ROOT; };
 		6F95E90F2179FCA300BDE1DA /* BrightcovePlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightcovePlayerTests.swift; sourceTree = "<group>"; };
 		6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAdapterTests.swift; sourceTree = "<group>"; };
+		6FB4C6942199C2EF00600AB9 /* AnalyticsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnalyticsAdapter.swift; path = PluginClasses/AnalyticsAdapter.swift; sourceTree = SOURCE_ROOT; };
 		6FD836632191D2EE0028C918 /* BrightcovePlayerPlugin.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = BrightcovePlayerPlugin.podspec; path = ../../BrightcovePlayerPlugin.podspec; sourceTree = "<group>"; };
 		6FD836642191D7E30028C918 /* ZappPlugins+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ZappPlugins+Extensions.swift"; path = "PluginClasses/ZappPlugins+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 		6FDE99BA217DEF88002077AC /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = PluginClasses/PlayerViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -153,6 +154,7 @@
 				6FDE99BF217E2BF9002077AC /* PlayerAdapter.swift */,
 				6F284AA12183693B00ACDA20 /* VideoLoader.swift */,
 				6FD836642191D7E30028C918 /* ZappPlugins+Extensions.swift */,
+				6FB4C6942199C2EF00600AB9 /* AnalyticsAdapter.swift */,
 			);
 			name = PluginClasses;
 			sourceTree = "<group>";
@@ -718,7 +720,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fuzza.BrightcovePlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrightcovePlayer.app/BrightcovePlayer";
 			};
@@ -741,7 +743,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.fuzza.BrightcovePlayerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrightcovePlayer.app/BrightcovePlayer";
 			};

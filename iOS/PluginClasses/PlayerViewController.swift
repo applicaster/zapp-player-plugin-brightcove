@@ -10,6 +10,8 @@ class PlayerViewController: UIViewController {
     private let builder: PlayerViewBuilder
     private let adapter: PlayerAdapter
     
+    var onDismiss: (() -> Void)?
+    
     lazy var playerView: BCOVPUIPlayerView = { self.builder.build(for: self) }()
     
     // MARK: - Lifecycle
@@ -18,6 +20,7 @@ class PlayerViewController: UIViewController {
         APLoggerVerbose("Builder: \(builder), adapter: \(adapter)")
         self.builder = builder
         self.adapter = adapter
+
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,9 +41,19 @@ class PlayerViewController: UIViewController {
         APLoggerVerbose("Is moving to parent VC: \(isMovingToParentViewController)")
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        APLoggerVerbose("Is dismissed: \(isBeingDismissed)")
+        if isBeingDismissed { onDismiss?() }
+
+        adapter.pause()
+        super.viewWillDisappear(animated)
+    }
+    
     // MARK: - Actions
     
-    @objc func close() { dismiss(animated: true, completion: nil) }
+    @objc func close() {
+        dismiss(animated: true, completion: nil)
+    }
     
     // MARK: - Private
     
@@ -52,14 +65,6 @@ class PlayerViewController: UIViewController {
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         playerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        APLoggerVerbose("Is dismissed: \(isBeingDismissed)")
-        APLoggerVerbose("Is moving from parent: \(isMovingFromParentViewController)")
-        
-        adapter.pause()
-        super.viewWillDisappear(animated)
     }
     
     private func setupAdapter() {
