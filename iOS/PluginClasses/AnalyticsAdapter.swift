@@ -13,16 +13,8 @@ enum AnalyticsEvent: String {
 }
 
 enum AnalyticsKeys: String {
-
     case view = "View"
     case completed = "Completed"
-    
-    // TODO: clarify if we need this
-    case duration = "Item Duration"
-    case type = "Video Type"
-    case identifier = "Item ID"
-    case itemName = "Item Name"
-    case isFree = "Free or Paid Video"
 }
 
 extension PlayerScreenMode {
@@ -74,12 +66,5 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapter {
         print(state.duration, state.progress)
         
         return [AnalyticsKeys.completed.rawValue : state.isCompleted ? "Yes" : "No"]
-    }
-    
-    // TODO: check if we need it
-    
-    private func extendedDurationParams(for item: ZPPlayable) -> Props {
-        guard let duration = item.extDuration else { return [:] }
-        return [ AnalyticsKeys.duration.rawValue: duration]
     }
 }
