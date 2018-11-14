@@ -149,16 +149,6 @@ extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
     }
 }
 
-extension PlayerAdapter {
-    func startTracking(mode: PlayerScreenMode) {
-        
-    }
-    
-    func endTracking(mode: PlayerScreenMode) {
-        
-    }
-}
-
 extension ZPPlayerState {
     init?(event: BCOVPlaybackSessionLifecycleEvent) {
         switch event.eventType {
