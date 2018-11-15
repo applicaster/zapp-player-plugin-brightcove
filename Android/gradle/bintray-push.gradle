@@ -1,5 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'org.jetbrains.dokka-android'
 
 def getVersionName = { ->
   try {
@@ -23,7 +24,9 @@ publishing {
         // There is a tag existing on the current commit - we can upload to Bintray
         version versionFromTag
         artifactId ARTIFACT_ID
-        artifact "build/outputs/aar/" + ARTIFACT_FILE_NAME + "-release.aar"
+        artifact("build/outputs/aar/${project.getName()}-release.aar") {
+          builtBy assembleRelease
+        }
         artifact androidJavadocsJar
         artifact androidSourcesJar
         pom.withXml {
@@ -92,14 +95,14 @@ bintray {
   }
 }
 
-task androidJavadocs(type: Javadoc) {
-  source = android.sourceSets.main.java.srcDirs
-  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-  failOnError false
+dokka {
+  outputFormat = 'javadoc'
+  outputDirectory = "$buildDir/javadoc"
+  reportUndocumented = false
 }
-task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+task androidJavadocsJar(type: Jar, dependsOn: dokka) {
   classifier = 'javadoc'
-  from androidJavadocs.destinationDir
+  from "$buildDir/javadoc"
 }
 task androidSourcesJar(type: Jar) {
   classifier = 'sources'

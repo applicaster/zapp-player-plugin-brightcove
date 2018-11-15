@@ -32,8 +32,9 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   //
   api 'com.applicaster:applicaster-android-sdk:2.32.37'
-  implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1' // workaround for applicaster sdk
   api "com.brightcove.player:exoplayer2:6.4.0"
+  //
+  api 'com.squareup.okhttp3:logging-interceptor:3.8.1' // workaround for applicaster sdk
 }
 
 apply from: '../gradle/bintray-push.gradle'
