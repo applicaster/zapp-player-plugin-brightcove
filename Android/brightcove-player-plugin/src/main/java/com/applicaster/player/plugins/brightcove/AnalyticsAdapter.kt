@@ -34,7 +34,7 @@ class MorpheusAnalyticsAdapter(val view: BrightcoveVideoView) : AnalyticsAdapter
   override fun endTrack(playable: Playable, mode: PlayerMode) {
     AnalyticsAgentUtil.endTimedEvent(
       playable.analyticsEvent,
-      basicParams(playable, mode).plus(completeParams(completed))
+      basicParams(playable, mode).plus(completionParams(playable, completed))
     )
   }
 
@@ -47,11 +47,14 @@ class MorpheusAnalyticsAdapter(val view: BrightcoveVideoView) : AnalyticsAdapter
       FULLSCREEN -> AnalyticsAgentUtil.FS_PLAYER
     }
 
-  private fun completeParams(completed: Boolean) =
-    AnalyticsAgentUtil.COMPLETED to when (completed) {
-      true -> "Yes"
-      false -> "No"
-    }
+  private fun completionParams(playable: Playable, completed: Boolean) =
+    if (playable.isLive) emptyMap()
+    else mapOf(
+      AnalyticsAgentUtil.COMPLETED to when (completed) {
+        true -> "Yes"
+        false -> "No"
+      }
+    )
 
 }
 
