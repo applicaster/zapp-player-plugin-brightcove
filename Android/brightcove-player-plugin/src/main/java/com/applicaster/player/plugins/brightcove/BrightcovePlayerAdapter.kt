@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.view.ViewGroup
 import com.applicaster.player.defaultplayer.BasePlayer
+import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.INLINE
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.applicaster.plugin_manager.playersmanager.PlayableConfiguration
 import com.brightcove.player.view.BrightcoveExoPlayerVideoView
@@ -18,6 +19,7 @@ import com.brightcove.player.view.BrightcoveVideoView
 class BrightcovePlayerAdapter : BasePlayer() {
 
   private lateinit var videoView: BrightcoveVideoView
+  private lateinit var analyticsAdapter: AnalyticsAdapter
 
   /**
    * initialization of the player instance with a playable item
@@ -32,6 +34,7 @@ class BrightcovePlayerAdapter : BasePlayer() {
   override fun init(playList: List<Playable>, context: Context) {
     super.init(playList, context)
     videoView = BrightcoveExoPlayerVideoView(context)
+    analyticsAdapter = MorpheusAnalyticsAdapter(videoView)
   }
 
   /**
@@ -62,6 +65,8 @@ class BrightcovePlayerAdapter : BasePlayer() {
     super.attachInline(viewGroup)
     viewGroup.addView(videoView)
     videoView.finishInitialization()
+    // startTrack inline
+    analyticsAdapter.startTrack(firstPlayable, INLINE)
   }
 
   /**
@@ -72,6 +77,8 @@ class BrightcovePlayerAdapter : BasePlayer() {
   override fun removeInline(viewGroup: ViewGroup) {
     super.removeInline(viewGroup)
     viewGroup.removeView(videoView)
+    // startTrack inline
+    analyticsAdapter.endTrack(firstPlayable, INLINE)
   }
 
   /**
@@ -80,7 +87,7 @@ class BrightcovePlayerAdapter : BasePlayer() {
   override fun playInline(configuration: PlayableConfiguration?) {
     super.playInline(configuration)
     firstPlayable.also {
-      videoView.setVideoURI(Uri.parse(firstPlayable.contentVideoURL))
+      videoView.setVideoURI(Uri.parse(it.contentVideoURL))
       videoView.start()
     }
   }
