@@ -15,6 +15,7 @@ enum AnalyticsEvent: String {
 enum AnalyticsKeys: String {
     case view = "View"
     case completed = "Completed"
+    case isFree = "Free or Paid Video"
 }
 
 extension PlayerScreenMode {
@@ -53,6 +54,7 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapter {
     
     private func basicParams(for item: ZPPlayable, mode: PlayerScreenMode) -> Props {
         return item.analyticsParams()
+            .merge(item.additionalAnalyticsParams)
             .merge(viewParams(for: mode))
     }
     
@@ -62,9 +64,6 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapter {
     
     private func completedParams(for item: ZPPlayable, state: Progress) -> Props {
         guard !item.isLive() else { return [:] }
-        
-        print(state.duration, state.progress)
-        
         return [AnalyticsKeys.completed.rawValue : state.isCompleted ? "Yes" : "No"]
     }
 }

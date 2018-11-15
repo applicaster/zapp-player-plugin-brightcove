@@ -18,6 +18,12 @@ extension ZPPlayable {
     var event: AnalyticsEvent {
         return isLive() ? .live : .vod
     }
+    
+    var additionalAnalyticsParams: [AnyHashable: Any] {
+        return [
+            AnalyticsKeys.isFree.rawValue: isFree() ? "Free" : "Paid"
+        ]
+    }
 }
 
 extension ZPPlayerConfiguration {
