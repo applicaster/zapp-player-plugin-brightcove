@@ -108,13 +108,10 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         
         analytics.track(item: adapter.currentItem!, mode: .fullscreen)
         
-        playerVC.onDismiss = { [weak self] in
-            guard let strongSelf = self else { return }
-            
-            let player = strongSelf.adapter
-            strongSelf.analytics.complete(item: player.currentItem!,
-                                          mode: .fullscreen,
-                                          progress: player.playbackState)
+        playerVC.onDismiss = { [adapter, analytics] in
+            analytics.complete(item: adapter.currentItem!,
+                               mode: .fullscreen,
+                               progress: adapter.playbackState)
         }
 
         rootVC.present(playerVC, animated: animated, completion: completion)
