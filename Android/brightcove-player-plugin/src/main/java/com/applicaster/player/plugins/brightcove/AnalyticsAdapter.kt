@@ -1,6 +1,7 @@
 package com.applicaster.player.plugins.brightcove
 
 import com.applicaster.analytics.AnalyticsAgentUtil
+import com.applicaster.atom.model.APAtomEntry.APAtomEntryPlayable
 import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode
 import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.FULLSCREEN
 import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.INLINE
@@ -19,9 +20,9 @@ interface AnalyticsAdapter {
   }
 }
 
-class MorpheusAnalyticsAdapter(val view: BrightcoveVideoView) : AnalyticsAdapter {
+class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : AnalyticsAdapter {
 
-  var completed = false
+  private var completed = false
 
   override fun startTrack(playable: Playable, mode: PlayerMode) {
     view.eventEmitter.on(EventType.COMPLETED) { completed }
@@ -39,12 +40,18 @@ class MorpheusAnalyticsAdapter(val view: BrightcoveVideoView) : AnalyticsAdapter
   }
 
   private fun basicParams(playable: Playable, mode: PlayerMode) =
-    playable.analyticsParams.plus(viewParams(mode))
+    playable.analyticsParams.plus(arrayOf(viewParams(mode), priceParams(playable)))
 
   private fun viewParams(mode: PlayerMode) =
     AnalyticsAgentUtil.VIEW to when (mode) {
       INLINE -> AnalyticsAgentUtil.INLINE_PLAYER
       FULLSCREEN -> AnalyticsAgentUtil.FS_PLAYER
+    }
+
+  private fun priceParams(playable: Playable) =
+    AnalyticsAgentUtil.IS_FREE_VIDEO to when {
+      playable.isFree -> "Free"
+      else -> "Paid"
     }
 
   private fun completionParams(playable: Playable, completed: Boolean) =
@@ -62,4 +69,10 @@ private val Playable.analyticsEvent: String
   get() = when {
     isLive -> AnalyticsAgentUtil.PLAY_CHANNEL
     else -> AnalyticsAgentUtil.PLAY_VOD_ITEM
+  }
+
+private val Playable.isFree: Boolean
+  get() = when {
+    this is APAtomEntryPlayable -> this.entry.getExtension("free", false, Boolean::class.java)
+    else -> true
   }
