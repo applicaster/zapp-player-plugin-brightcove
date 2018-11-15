@@ -2,61 +2,44 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'org.jetbrains.dokka-android'
 
-def getVersionName = { ->
-  try {
-    def stdout = new ByteArrayOutputStream()
-    exec {
-      commandLine 'git', 'describe', '--abbrev=0', '--tags'
-      standardOutput = stdout
-    }
-    return stdout.toString().trim()
-  } catch (ignored) {
-    return null
-  }
-}
-
 publishing {
   publications {
     mavenJava(MavenPublication) {
       groupId GROUP
-      def versionFromTag = getVersionName()
-      if (versionFromTag != null) {
-        // There is a tag existing on the current commit - we can upload to Bintray
-        version versionFromTag
-        artifactId ARTIFACT_ID
-        artifact("build/outputs/aar/${project.getName()}-release.aar") {
-          builtBy assembleRelease
-        }
-        artifact androidJavadocsJar
-        artifact androidSourcesJar
-        pom.withXml {
-          Node root = asNode()
-          root.appendNode('name', ARTIFACT_ID)
-          root.appendNode('description', POM_DESCRIPTION)
-          root.appendNode('url', POM_URL)
-          def issues = root.appendNode('issueManagement')
-          issues.appendNode('system', 'github')
-          issues.appendNode('url', ISSUE_URL)
-          def scm = root.appendNode('scm')
-          scm.appendNode('url', POM_SCM_URL)
-          scm.appendNode('connection', POM_SCM_CONNECTION)
-          scm.appendNode('developerConnection', POM_SCM_DEV_CONNECTION)
-          def license = root.appendNode('licenses').appendNode('license')
-          license.appendNode('name', POM_LICENCE_NAME)
-          license.appendNode('url', POM_LICENCE_URL)
-          license.appendNode('distribution', POM_LICENCE_DIST)
-          def developer = root.appendNode('developers').appendNode('developer')
-          developer.appendNode('id', POM_DEVELOPER_ID)
-          developer.appendNode('name', POM_DEVELOPER_NAME)
-          developer.appendNode('email', POM_DEVELOPER_EMAIL)
-          def dependenciesNode = asNode().appendNode('dependencies')
-          configurations.api.allDependencies.each {
-            if (!it.name.is('unspecified')) {
-              def dependencyNode = dependenciesNode.appendNode('dependency')
-              dependencyNode.appendNode('groupId', it.group)
-              dependencyNode.appendNode('artifactId', it.name)
-              dependencyNode.appendNode('version', it.version)
-            }
+      version VERSION
+      artifactId ARTIFACT_ID
+      artifact("build/outputs/aar/${project.getName()}-release.aar") {
+        builtBy assembleRelease
+      }
+      artifact androidJavadocsJar
+      artifact androidSourcesJar
+      pom.withXml {
+        Node root = asNode()
+        root.appendNode('name', ARTIFACT_ID)
+        root.appendNode('description', POM_DESCRIPTION)
+        root.appendNode('url', POM_URL)
+        def issues = root.appendNode('issueManagement')
+        issues.appendNode('system', 'github')
+        issues.appendNode('url', ISSUE_URL)
+        def scm = root.appendNode('scm')
+        scm.appendNode('url', POM_SCM_URL)
+        scm.appendNode('connection', POM_SCM_CONNECTION)
+        scm.appendNode('developerConnection', POM_SCM_DEV_CONNECTION)
+        def license = root.appendNode('licenses').appendNode('license')
+        license.appendNode('name', POM_LICENCE_NAME)
+        license.appendNode('url', POM_LICENCE_URL)
+        license.appendNode('distribution', POM_LICENCE_DIST)
+        def developer = root.appendNode('developers').appendNode('developer')
+        developer.appendNode('id', POM_DEVELOPER_ID)
+        developer.appendNode('name', POM_DEVELOPER_NAME)
+        developer.appendNode('email', POM_DEVELOPER_EMAIL)
+        def dependenciesNode = asNode().appendNode('dependencies')
+        configurations.api.allDependencies.each {
+          if (!it.name.is('unspecified')) {
+            def dependencyNode = dependenciesNode.appendNode('dependency')
+            dependencyNode.appendNode('groupId', it.group)
+            dependencyNode.appendNode('artifactId', it.name)
+            dependencyNode.appendNode('version', it.version)
           }
         }
       }
@@ -89,7 +72,7 @@ bintray {
     licenses = ['Apache-2.0']
     labels = ['aar', 'android']
     version {
-      name = getVersionName()
+      name = VERSION
       vcsTag = 'v' + name
     }
   }
