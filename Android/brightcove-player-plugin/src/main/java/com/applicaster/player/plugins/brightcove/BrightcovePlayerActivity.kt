@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.FULLSCREEN
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.brightcove.player.view.BrightcoveVideoView
 
@@ -13,6 +14,7 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
   private lateinit var playable: Playable
   private lateinit var videoView: BrightcoveVideoView
+  private lateinit var analyticsAdapter: AnalyticsAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -23,19 +25,27 @@ class BrightcovePlayerActivity : AppCompatActivity() {
       WindowManager.LayoutParams.FLAG_FULLSCREEN,
       WindowManager.LayoutParams.FLAG_FULLSCREEN
     )
-
     // inject layout
     setContentView(R.layout.activity_brightcove_player)
     videoView = findViewById(R.id.video_view)
 
     // initialize playable
     playable = intent.extras!!.getSerializable(BrightcovePlayerAdapter.KEY_PLAYABLE) as Playable
+    videoView.setVideoURI(Uri.parse(playable.contentVideoURL))
+
+    // initialize tools
+    analyticsAdapter = MorpheusAnalyticsAdapter(videoView)
+    analyticsAdapter.startTrack(playable, FULLSCREEN)
   }
 
   override fun onStart() {
     super.onStart()
-    videoView.setVideoURI(Uri.parse(playable.contentVideoURL))
     videoView.start()
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    analyticsAdapter.endTrack(playable, FULLSCREEN)
   }
 
   override fun onWindowFocusChanged(hasFocus: Boolean) {
