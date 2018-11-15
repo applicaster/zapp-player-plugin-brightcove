@@ -8,6 +8,7 @@ import android.view.Window
 import android.view.WindowManager
 import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.FULLSCREEN
 import com.applicaster.plugin_manager.playersmanager.Playable
+import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
 
 class BrightcovePlayerActivity : AppCompatActivity() {
@@ -28,6 +29,7 @@ class BrightcovePlayerActivity : AppCompatActivity() {
     // inject layout
     setContentView(R.layout.activity_brightcove_player)
     videoView = findViewById(R.id.video_view)
+    videoView.eventEmitter.on(EventType.COMPLETED) { finish() }
 
     // initialize playable
     playable = intent.extras!!.getSerializable(BrightcovePlayerAdapter.KEY_PLAYABLE) as Playable
