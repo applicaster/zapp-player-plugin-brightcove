@@ -3,6 +3,7 @@ package com.applicaster.player.plugins.brightcove
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.FULLSCREEN
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.brightcove.player.event.EventType
@@ -12,22 +13,28 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
   private lateinit var playable: Playable
   private lateinit var videoView: BrightcoveVideoView
-  //
   private lateinit var analyticsAdapter: AnalyticsAdapter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    playable = intent.extras!!.getSerializable(BrightcovePlayerAdapter.KEY_PLAYABLE) as Playable
+
     // inject layout
     setContentView(R.layout.activity_brightcove_player)
-    videoView = findViewById(R.id.video_view)
-    videoView.eventEmitter.on(EventType.COMPLETED) { finish() }
-
-    // initialize playable
-    playable = intent.extras!!.getSerializable(BrightcovePlayerAdapter.KEY_PLAYABLE) as Playable
-    videoView.setVideoURI(Uri.parse(playable.contentVideoURL))
-    videoView.eventEmitter.emit(EventType.ENTER_FULL_SCREEN)
-    videoView.eventEmitter.on(EventType.EXIT_FULL_SCREEN) { finish() }
+    // init video view
+    videoView = with(findViewById<BrightcoveVideoView>(R.id.fullscreen_video_view)) {
+      eventEmitter.emit(EventType.ENTER_FULL_SCREEN)
+      eventEmitter.on(EventType.COMPLETED) { finish() }
+      setVideoURI(Uri.parse(playable.contentVideoURL))
+      this
+    }
+    // init close btn
+    with(findViewById<View>(R.id.fullscreen_close)) {
+      videoView.eventEmitter.on("didShowMediaControls") { visibility = View.VISIBLE }
+      videoView.eventEmitter.on("didHideMediaControls") { visibility = View.GONE }
+      setOnClickListener { finish() }
+    }
 
     // initialize tools
     analyticsAdapter = MorpheusAnalyticsAdapter(videoView)

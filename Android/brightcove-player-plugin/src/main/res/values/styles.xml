@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="BrightcoveFullScreen"/>
+
+  <style name="BrightcoveFullScreen.Theme" parent="Theme.AppCompat.NoActionBar">
+    <item name="android:windowBackground">@android:color/black</item>
+  </style>
+
+  <style name="BrightcoveControlBar" parent="BrightcoveControlBarDefault">
+    <item name="brightcove_full_screen">false</item>
+  </style>
+
+</resources>
