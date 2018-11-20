@@ -9,7 +9,7 @@
         android:name="com.applicaster.player.plugins.brightcove.BrightcovePlayerActivity"
         android:configChanges="orientation|screenSize"
         android:screenOrientation="sensor"
-        android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        android:theme="@style/BrightcoveFullScreen.Theme"/>
   </application>
 
 </manifest>
