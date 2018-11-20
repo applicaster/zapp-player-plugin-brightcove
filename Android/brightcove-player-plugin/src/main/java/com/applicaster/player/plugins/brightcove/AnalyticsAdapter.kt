@@ -7,7 +7,7 @@ import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.FUL
 import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.INLINE
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.brightcove.player.event.EventType
-import com.brightcove.player.view.BrightcoveVideoView
+import com.brightcove.player.view.BaseVideoView
 
 
 interface AnalyticsAdapter {
@@ -20,7 +20,7 @@ interface AnalyticsAdapter {
   }
 }
 
-class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : AnalyticsAdapter {
+class MorpheusAnalyticsAdapter(private val view: BaseVideoView) : AnalyticsAdapter {
 
   private var completed = false
 

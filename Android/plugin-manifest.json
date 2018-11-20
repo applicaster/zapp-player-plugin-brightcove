@@ -15,7 +15,7 @@
   "platform": "android",
   "author_name": "Oleksii Malovanyi",
   "author_email": "oleksii.malovanyi@corewillsoft.com",
-  "manifest_version": "0.2.5",
+  "manifest_version": "0.2.6",
   "name": "BrightcovePlayer",
   "description": "Android Plugin for the Brightcove Player",
   "type": "player",
@@ -23,7 +23,7 @@
   "identifier": "BrightcovePlayerPlugin",
   "ui_builder_support": true,
   "dependency_name": "com.applicaster:brightcove-player-plugin",
-  "dependency_version": "0.2.5",
+  "dependency_version": "0.2.6",
   "whitelisted_account_ids": [
     "5a4516fa41442c000b0195d6"
   ],
