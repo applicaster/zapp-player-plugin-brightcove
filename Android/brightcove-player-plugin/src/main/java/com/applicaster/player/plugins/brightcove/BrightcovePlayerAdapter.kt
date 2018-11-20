@@ -65,7 +65,7 @@ class BrightcovePlayerAdapter : BasePlayer() {
     super.attachInline(viewGroup)
     viewGroup.addView(videoView)
     videoView.finishInitialization()
-    // startTrack inline
+    //
     analyticsAdapter.startTrack(firstPlayable, INLINE)
   }
 
@@ -77,7 +77,7 @@ class BrightcovePlayerAdapter : BasePlayer() {
   override fun removeInline(viewGroup: ViewGroup) {
     super.removeInline(viewGroup)
     viewGroup.removeView(videoView)
-    // startTrack inline
+    //
     analyticsAdapter.endTrack(firstPlayable, INLINE)
   }
 
