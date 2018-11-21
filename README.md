@@ -1,6 +1,6 @@
-# Brightcove Player
+# zapp-player-plugin-brightcove
 
-This repository contains the code for the Player Plugin for the Brightcove Native Media Player.
+This repository contains the code for the Player Plugin for the Brightcove Native Media Player (Android, iOS)
 
 ## Intro to Zapp Plugins
 
@@ -10,8 +10,6 @@ Zapp supports different types of plugins: App Navigation, Datasource Providers, 
 For more information about the Zapp Platform visit our [website](http://www.applicaster.com).
 
 A Player Plugin provides an implementation of a Media Player for playing video items.
-
-This repository contains the code for the Player Plugin for the Brightcove Native Media Player.
 
 
 ## Getting Started
