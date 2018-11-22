@@ -14,7 +14,16 @@ A Player Plugin provides an implementation of a Media Player for playing video i
 
 ## Getting Started
 
-(Getting Started Text Here)
+
+### Android
+
+* Setup your Plugin dev enviroment as described here: https://developer-zapp.applicaster.com/dev-env/android.html
+
+* Clone the project from github and open in Android Studio
+
+
+### iOS
+
 
 
 ## Related Links
