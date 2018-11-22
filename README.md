@@ -19,11 +19,18 @@ A Player Plugin provides an implementation of a Media Player for playing video i
 
 * Setup your Plugin dev enviroment as described here: https://developer-zapp.applicaster.com/dev-env/android.html
 
-* Clone the project from github and open in Android Studio
+* Clone the project from github, cd to the Android folder, and open in Android Studio
 
 
 ### iOS
 
+* Clone the project from github, cd to the iOS folder
+
+* Run `pod update`
+
+* Open `BrightcovePlayer.xcworkspace` with Xcode 10.
+
+* The plugin classes will be found under `Pods`, in the `Development Pods` folder. 
 
 
 ## Related Links
@@ -31,7 +38,7 @@ A Player Plugin provides an implementation of a Media Player for playing video i
 Brightcove Player Native SDK documentation: 
 https://support.brightcove.com/brightcove-native-player-sdks#Overview
 
-Zapp Developers Documentation book:
+Zapp Developers Documentation:
 https://developer-zapp.applicaster.com/getting-started/zapp-plugins.html
 
 
@@ -43,5 +50,5 @@ https://github.com/applicaster/zapp-player-plugin-brightcove/issues/new/choose
 
 ## Code of Conduct
 
-Please make sure to follow Applicaster's code of conduct:
+Please make sure to follow our code of conduct:
 https://developer-zapp.applicaster.com/Code-Of-Conduct.html
