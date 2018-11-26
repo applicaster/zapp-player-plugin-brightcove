@@ -32,6 +32,7 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         setupPlayerView()
         setupAdapter()
+        setupAccessibilityIdentifiers()
         APLoggerVerbose("Setup completed, view is loaded")
     }
     
@@ -74,6 +75,12 @@ class PlayerViewController: UIViewController {
             let controls = strongSelf.playerView.controlsView!
             strongSelf.builder.configureLayout(for: controls, item: item, vc: strongSelf)
         }
+    }
+    
+    private func setupAccessibilityIdentifiers() {
+        self.view.accessibilityIdentifier = "brightcove_player_screen"
+        self.playerView.accessibilityIdentifier = "brightcove_player_stream_view"
+        self.playerView.controlsView.accessibilityIdentifier = "brightcove_player_controls_view"
     }
     
     override func didMove(toParentViewController parent: UIViewController?) {
