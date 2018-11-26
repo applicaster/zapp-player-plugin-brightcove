@@ -23,7 +23,8 @@
   "dependency_name": "BrightcovePlayerPlugin",
   "dependency_version": "0.1.0",
   "whitelisted_account_ids": [
-    "5a4516fa41442c000b0195d6"
+    "5a4516fa41442c000b0195d6",
+    "57d7bee06466610018000000"
   ],
   "min_zapp_sdk": "7.0.0",
   "deprecated_since_zapp_sdk": "",
