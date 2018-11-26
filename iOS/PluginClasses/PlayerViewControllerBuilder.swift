@@ -76,7 +76,7 @@ class PlayerViewBuilderImp: PlayerViewBuilder {
     
     private func setupCloseButton(for view: BCOVPUIPlayerView, vc: PlayerViewController) {
         let button = UIButton.blurredRoundedButton()
-        button.accessibilityIdentifier = "brightcove_player_close_button"
+        button.accessibilityIdentifier = "brightcove_player_close_button" // Accessibility ids for automation matters
         button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         button.setTitle("\u{2573}", for: .normal)
         button.tintColor = .white
