@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.FULLSCREEN
+import com.applicaster.player.plugins.brightcove.R.integer
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
@@ -24,6 +25,7 @@ class BrightcovePlayerActivity : AppCompatActivity() {
     setContentView(R.layout.activity_brightcove_player)
     // init video view
     videoView = with(findViewById<BrightcoveVideoView>(R.id.fullscreen_video_view)) {
+      post { reconfigureControls() }
       eventEmitter.emit(EventType.ENTER_FULL_SCREEN)
       eventEmitter.on(EventType.COMPLETED) { finish() }
       setVideoURI(Uri.parse(playable.contentVideoURL))
@@ -49,6 +51,13 @@ class BrightcovePlayerActivity : AppCompatActivity() {
   override fun onDestroy() {
     super.onDestroy()
     analyticsAdapter.endTrack(playable, FULLSCREEN)
+  }
+
+  private fun BrightcoveVideoView.reconfigureControls() {
+    eventEmitter.emit(
+      "seekControllerConfiguration",
+      mapOf("seekDefault" to resources.getInteger(integer.brightcove_rewind_interval))
+    )
   }
 
 }

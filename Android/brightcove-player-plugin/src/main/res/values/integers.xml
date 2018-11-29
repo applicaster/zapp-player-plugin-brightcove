@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--Rewind interval in ms-->
+  <integer name="brightcove_rewind_interval">10000</integer>
+</resources>
