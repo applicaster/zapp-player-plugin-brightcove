@@ -33,6 +33,7 @@ class PlayerViewController: UIViewController {
         setupPlayerView()
         setupAdapter()
         setupAccessibilityIdentifiers()
+        subscribeToNotifications()
         APLoggerVerbose("Setup completed, view is loaded")
     }
     
@@ -85,5 +86,21 @@ class PlayerViewController: UIViewController {
     
     override func didMove(toParentViewController parent: UIViewController?) {
         APLoggerVerbose("Parent: \(parent.debugDescription)")
+    }
+    
+    // MARK - Private
+    
+    private func subscribeToNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(wentBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(wentForeground), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    @objc func wentBackground() {
+        if view.window != nil { adapter.pause() }
+    }
+    
+    @objc func wentForeground() {
+        if view.window != nil { adapter.resume() }
     }
 }
