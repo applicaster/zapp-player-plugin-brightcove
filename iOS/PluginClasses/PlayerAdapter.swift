@@ -64,7 +64,7 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         self.items = items
         
         super.init()
-        
+                
         setup()
     }
     
