@@ -73,6 +73,6 @@ private val Playable.analyticsEvent: String
 
 private val Playable.isFree: Boolean
   get() = when {
-    this is APAtomEntryPlayable -> this.entry.getExtension("free", true, Boolean::class.java)
+    this is APAtomEntryPlayable -> this.entry.isFree
     else -> true
   }
