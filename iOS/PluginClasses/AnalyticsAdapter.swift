@@ -9,7 +9,7 @@ protocol AnalyticsAdapter {
 
 enum AnalyticsEvent: String {
     case vod = "Play VOD Item"
-    case live = "Play Channel"
+    case live = "Play Live Stream"
 }
 
 enum AnalyticsKeys: String {
