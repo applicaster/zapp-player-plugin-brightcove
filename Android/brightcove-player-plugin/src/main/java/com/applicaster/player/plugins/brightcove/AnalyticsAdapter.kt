@@ -67,7 +67,7 @@ class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Analytic
 
 private val Playable.analyticsEvent: String
   get() = when {
-    isLive -> AnalyticsAgentUtil.PLAY_CHANNEL
+    isLive -> "Play Live Stream"
     else -> AnalyticsAgentUtil.PLAY_VOD_ITEM
   }
 
