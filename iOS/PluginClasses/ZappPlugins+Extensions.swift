@@ -15,13 +15,24 @@ extension ZPPlayable {
     }
     
     // MARK: - Analytics
+    
     var event: AnalyticsEvent {
-        return isLive() ? .live : .vod
+        let isLiveItem = extensionsDictionary
+            .flatMap { $0["is_live"] }
+            .flatMap { $0 as? Bool }
+            ?? false
+        
+        return isLiveItem ? .live : .vod
     }
     
     var additionalAnalyticsParams: [AnyHashable: Any] {
+        let isFreeItem = extensionsDictionary
+            .flatMap { $0["free"] }
+            .flatMap { $0 as? Bool }
+            ?? true
+        
         return [
-            AnalyticsKeys.isFree.rawValue: isFree() ? "Free" : "Paid"
+            AnalyticsKeys.isFree.rawValue: isFreeItem ? "Free" : "Paid"
         ]
     }
 }
