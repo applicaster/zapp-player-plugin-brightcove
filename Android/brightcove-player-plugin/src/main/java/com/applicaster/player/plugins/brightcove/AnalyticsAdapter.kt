@@ -40,7 +40,14 @@ class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Analytic
   }
 
   private fun basicParams(playable: Playable, mode: PlayerMode) =
-    playable.analyticsParams.plus(arrayOf(viewParams(mode), priceParams(playable)))
+    playable.analyticsParams.plus(arrayOf(
+      dataParams(playable),
+      viewParams(mode),
+      priceParams(playable))
+    )
+
+  private fun dataParams(playable: Playable) =
+    AnalyticsAgentUtil.ID to playable.playableId
 
   private fun viewParams(mode: PlayerMode) =
     AnalyticsAgentUtil.VIEW to when (mode) {
