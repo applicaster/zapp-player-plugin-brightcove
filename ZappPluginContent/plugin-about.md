@@ -4,6 +4,6 @@ The Brightcove Native Player SDKs are built on top of native player frameworks. 
 
 **Key Features**
 * Cross-platform HLS - High-quality, adaptive bitrate video - delivers the best quality with the least download.
-* Ad and Analytics Integration - Many plugins are available for the Brightcove Player to integrate with popular advertising and analytics systems including Google Doubleclick, Freewheel and others.
+* Analytics Integration - fully integrated with Applicaster’s analytics plugin system, enabling the delivery of analytics to any analytics plugins configured, such as Google Analytics for Firebase, Mixpanel, or Facebook App Analytics.
 
 More information about the Brightcove Native Player SDKs can be found here: https://support.brightcove.com/brightcove-native-player-sdks#Overview
