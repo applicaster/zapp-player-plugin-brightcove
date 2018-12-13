@@ -17,12 +17,7 @@ extension ZPPlayable {
     // MARK: - Analytics
     
     var event: AnalyticsEvent {
-        let isLiveItem = extensionsDictionary
-            .flatMap { $0["is_live"] }
-            .flatMap { $0 as? Bool }
-            ?? false
-        
-        return isLiveItem ? .live : .vod
+        return isLive() ? .live : .vod
     }
     
     var additionalAnalyticsParams: [AnyHashable: Any] {

@@ -40,9 +40,9 @@ PODS:
   - Brightcove-Player-Core (6.3.10):
     - Brightcove-Player-Core/default (= 6.3.10)
   - Brightcove-Player-Core/default (6.3.10)
-  - BrightcovePlayerPlugin (0.0.8):
-    - BrightcovePlayerPlugin/Core (= 0.0.8)
-  - BrightcovePlayerPlugin/Core (0.0.8):
+  - BrightcovePlayerPlugin (0.1.3):
+    - BrightcovePlayerPlugin/Core (= 0.1.3)
+  - BrightcovePlayerPlugin/Core (0.1.3):
     - ApplicasterSDK
     - Brightcove-Player-Core
     - ZappPlugins
@@ -113,7 +113,7 @@ SPEC CHECKSUMS:
   ApplicasterSDK: 16edf857a53b0fc9362e7820af294cf049151951
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Brightcove-Player-Core: 7655ee66f7074ed9390202be3e57f329ff5174d0
-  BrightcovePlayerPlugin: 4ad0d01511b0d6742488faf97a0ae8e056b17877
+  BrightcovePlayerPlugin: bdcbfddaff2fce22b2d7a386f00eca39ac94b3a6
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FBNotifications: 3f1a9e43ffa2979a685eec29c960ca6a15c70be9
   FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
