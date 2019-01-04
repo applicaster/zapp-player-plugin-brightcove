@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
       c.source_files = 'iOS/PluginClasses/*.{swift,h,m}'
       c.dependency 'ZappPlugins'
       c.dependency 'ApplicasterSDK'
-      c.dependency 'Brightcove-Player-Core'
+      c.dependency 'Brightcove-Player-IMA'
 
     end
                   

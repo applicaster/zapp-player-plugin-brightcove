@@ -37,14 +37,15 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - Brightcove-Player-Core (6.3.10):
-    - Brightcove-Player-Core/default (= 6.3.10)
-  - Brightcove-Player-Core/default (6.3.10)
-  - BrightcovePlayerPlugin (0.1.3):
-    - BrightcovePlayerPlugin/Core (= 0.1.3)
-  - BrightcovePlayerPlugin/Core (0.1.3):
+  - Brightcove-Player-Core/dynamic (6.3.11)
+  - Brightcove-Player-IMA (6.3.11):
+    - Brightcove-Player-Core/dynamic (= 6.3.11)
+    - GoogleAds-IMA-iOS-SDK (= 3.7.2)
+  - BrightcovePlayerPlugin (1.0.0):
+    - BrightcovePlayerPlugin/Core (= 1.0.0)
+  - BrightcovePlayerPlugin/Core (1.0.0):
     - ApplicasterSDK
-    - Brightcove-Player-Core
+    - Brightcove-Player-IMA
     - ZappPlugins
   - CocoaLumberjack/Default (3.4.2)
   - CocoaLumberjack/Swift (3.4.2):
@@ -91,6 +92,8 @@ SPEC REPOS:
     - ZappPushPluginsSDK
   "git@github.com:brightcove/BrightcoveSpecs.git":
     - Brightcove-Player-Core
+  https://github.com/applicaster/zapp-player-plugin-brightcove.git:
+    - Brightcove-Player-IMA
   https://github.com/cocoapods/specs.git:
     - AFNetworking
     - Bolts
@@ -112,8 +115,9 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   ApplicasterSDK: 16edf857a53b0fc9362e7820af294cf049151951
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
-  Brightcove-Player-Core: 7655ee66f7074ed9390202be3e57f329ff5174d0
-  BrightcovePlayerPlugin: bdcbfddaff2fce22b2d7a386f00eca39ac94b3a6
+  Brightcove-Player-Core: 2984d9852c0cffad76949e95172db22c20380266
+  Brightcove-Player-IMA: 3a0f46444016909271c7157debf6140eba4cecfc
+  BrightcovePlayerPlugin: 64a832c4466f91b9b421e017319a7cdc128b36f0
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   FBNotifications: 3f1a9e43ffa2979a685eec29c960ca6a15c70be9
   FBSDKCoreKit: 572b047a7e029bc44542bcf8a59414e7ff2b543e
@@ -131,6 +135,6 @@ SPEC CHECKSUMS:
   ZappPlugins: edf7580a4ac7c26df1e0c70a5c3552aa08d56695
   ZappPushPluginsSDK: 3572889e808f63ce53340b0149d99705a41d57a2
 
-PODFILE CHECKSUM: b5570e821cc0a68b11e2bd14739af1851c3877b4
+PODFILE CHECKSUM: 8d0efdbc05788a212b51bd4ae2c9ea131a8ae69f
 
 COCOAPODS: 1.5.3
