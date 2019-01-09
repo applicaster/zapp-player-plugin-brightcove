@@ -55,10 +55,7 @@ class PlayerViewBuilderImp: PlayerViewBuilder {
 
     func configureLayout(for view: BCOVPUIBasicControlView, item: ZPPlayable, vc: PlayerViewController) {
         view.layout = item.isLive() ? BCOVPUIControlLayout.basicLive() : BCOVPUIControlLayout.basicVOD()
-        
-        view.progressSlider.flatMap {
-            $0.minimumTrackTintColor = .white
-        }
+        view.progressSlider?.minimumTrackTintColor = .white
         
         switch mode {
         case .fullscreen:

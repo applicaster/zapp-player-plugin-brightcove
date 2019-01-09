@@ -21,8 +21,8 @@ Pod::Spec.new do |s|
       s.resources = []
       c.frameworks = 'UIKit'
       c.source_files = 'iOS/PluginClasses/*.{swift,h,m}'
-      c.dependency 'ZappPlugins'
-      c.dependency 'ApplicasterSDK'
+      c.dependency 'ZappPlugins', '= 4.2.0'
+      c.dependency 'ApplicasterSDK', '= 6.3.1'
       c.dependency 'Brightcove-Player-IMA'
 
     end

@@ -9,7 +9,6 @@
 import Foundation
 import ZappPlugins
 import ApplicasterSDK
-import ZappAnalyticsPluginsSDK
 
 class InlineViewController: UIViewController {
     
