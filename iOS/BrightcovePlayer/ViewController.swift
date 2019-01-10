@@ -38,6 +38,20 @@ class ViewController: UIViewController {
         item.isFree = false
         item.isLive = false
         
+        let first_ad = ["ad_url": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=",
+                     "offset": "pre"]
+        let second_ad = ["ad_url": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dredirectlinear&correlator=",
+                         "offset": "post"]
+        let third_ad = ["ad_url": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=",
+                         "offset": "30"]
+        let fourth_ad = ["ad_url": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=",
+                        "offset": "90"]
+        let ads = [first_ad, second_ad, third_ad, fourth_ad]
+        let advDictionary = ["video_ad": ads]
+        let extensionsDictionary = ["free": "true",
+                                    "video_ads": advDictionary] as [String : Any]
+        item.extensionsDictionary = extensionsDictionary
+        
         let pluggablePlayer = ZPPlayerManager.sharedInstance.create(playableItems: [item], forType: .undefined)
         pluggablePlayer.presentPlayerFullScreen(self.tabBarController!, configuration: nil)
     }
