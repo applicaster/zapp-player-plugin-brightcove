@@ -23,72 +23,74 @@ import com.applicaster.util.UrlSchemeUtil;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-  Button fullScreenButton;
-  Button inlineButton;
-  private FrameLayout videoLayout;
-  private boolean inlineAttached = false;
-  private PlayerContract playerContract;
+    Button fullScreenButton;
+    Button inlineButton;
+    private FrameLayout videoLayout;
+    private boolean inlineAttached = false;
+    private PlayerContract playerContract;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-    videoLayout = findViewById(R.id.video_layout);
+        videoLayout = findViewById(R.id.video_layout);
 
-    fullScreenButton = findViewById(R.id.fullscreen_button);
-    inlineButton = findViewById(R.id.inline_button);
+        fullScreenButton = findViewById(R.id.fullscreen_button);
+        inlineButton = findViewById(R.id.inline_button);
 
-    fullScreenButton.setOnClickListener(this);
-    inlineButton.setOnClickListener(this);
+        fullScreenButton.setOnClickListener(this);
+        inlineButton.setOnClickListener(this);
 
-    // Mock playable item. Replace this with the playable item your player expects
-    APURLPlayable playable =
-        new APURLPlayable("http://media.w3.org/2010/05/sintel/trailer.mp4", "Buck Bunny",
-            "Test Video");
+        // Mock playable item. Replace this with the playable item your player expects
+        APURLPlayable playable =
+                new APURLPlayable("http://media.w3.org/2010/05/sintel/trailer.mp4", "Buck Bunny",
+                        "Test Video");
 
-    // Player type should be left as default (covers the standard player as well as all plugin players)
-    playable.setType(PlayableType.Default);
+        // Player type should be left as default (covers the standard player as well as all plugin players)
+        playable.setType(PlayableType.Default);
 
-    // Player contract will get the instance of your plugin player and pass it the playable item
-    playerContract = PlayersManager.getInstance().createPlayer(playable, this);
-  }
-
-  @Override public void onClick(View view) {
-    switch (view.getId()) {
-      case R.id.fullscreen_button: {
-        launchFullscreen();
-      }
-      break;
-      case R.id.inline_button: {
-        toggleInline();
-      }
-      break;
+        // Player contract will get the instance of your plugin player and pass it the playable item
+        playerContract = PlayersManager.getInstance().createPlayer(playable, this);
     }
-  }
 
-  /**
-   * Mimics the functionality of launching a fullscreen player in the Zapp platform
-   * This should not be modified
-   */
-  private void launchFullscreen() {
-    playerContract.playInFullscreen(null, UrlSchemeUtil.PLAYER_REQUEST_CODE, this);
-  }
-
-  /**
-   * Mimics the functionality of adding or removing an inline player in the Zapp platform
-   * This should not be modified
-   */
-  private void toggleInline() {
-    if (!inlineAttached) {
-      inlineButton.setText("Remove Inline");
-      inlineAttached = true;
-      playerContract.attachInline(videoLayout);
-      playerContract.playInline(null);
-    } else {
-      inlineButton.setText("Play Inline");
-      inlineAttached = false;
-      playerContract.stopInline();
-      playerContract.removeInline(videoLayout);
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fullscreen_button: {
+                launchFullscreen();
+            }
+            break;
+            case R.id.inline_button: {
+                toggleInline();
+            }
+            break;
+        }
     }
-  }
+
+    /**
+     * Mimics the functionality of launching a fullscreen player in the Zapp platform
+     * This should not be modified
+     */
+    private void launchFullscreen() {
+        playerContract.playInFullscreen(null, UrlSchemeUtil.PLAYER_REQUEST_CODE, this);
+    }
+
+    /**
+     * Mimics the functionality of adding or removing an inline player in the Zapp platform
+     * This should not be modified
+     */
+    private void toggleInline() {
+        if (!inlineAttached) {
+            inlineButton.setText("Remove Inline");
+            inlineAttached = true;
+            playerContract.attachInline(videoLayout);
+            playerContract.playInline(null);
+        } else {
+            inlineButton.setText("Play Inline");
+            inlineAttached = false;
+            playerContract.stopInline();
+            playerContract.removeInline(videoLayout);
+        }
+    }
 }

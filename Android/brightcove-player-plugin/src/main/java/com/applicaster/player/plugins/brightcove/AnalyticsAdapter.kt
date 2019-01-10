@@ -12,74 +12,76 @@ import com.brightcove.player.view.BrightcoveVideoView
 
 interface AnalyticsAdapter {
 
-  fun startTrack(playable: Playable, mode: PlayerMode)
-  fun endTrack(playable: Playable, mode: PlayerMode)
+    fun startTrack(playable: Playable, mode: PlayerMode)
+    fun endTrack(playable: Playable, mode: PlayerMode)
 
-  enum class PlayerMode {
-    INLINE, FULLSCREEN
-  }
+    enum class PlayerMode {
+        INLINE, FULLSCREEN
+    }
 }
 
 class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : AnalyticsAdapter {
 
-  private var completed = false
+    private var completed = false
 
-  override fun startTrack(playable: Playable, mode: PlayerMode) {
-    view.eventEmitter.on(EventType.COMPLETED) { completed }
-    AnalyticsAgentUtil.logTimedEvent(
-      playable.analyticsEvent,
-      basicParams(playable, mode)
-    )
-  }
-
-  override fun endTrack(playable: Playable, mode: PlayerMode) {
-    AnalyticsAgentUtil.endTimedEvent(
-      playable.analyticsEvent,
-      basicParams(playable, mode).plus(completionParams(playable, completed))
-    )
-  }
-
-  private fun basicParams(playable: Playable, mode: PlayerMode) =
-    playable.analyticsParams.plus(arrayOf(
-      dataParams(playable),
-      viewParams(mode),
-      priceParams(playable))
-    )
-
-  private fun dataParams(playable: Playable) =
-    "Item ID" to playable.playableId
-
-  private fun viewParams(mode: PlayerMode) =
-    AnalyticsAgentUtil.VIEW to when (mode) {
-      INLINE -> AnalyticsAgentUtil.INLINE_PLAYER
-      FULLSCREEN -> AnalyticsAgentUtil.FS_PLAYER
+    override fun startTrack(playable: Playable, mode: PlayerMode) {
+        view.eventEmitter.on(EventType.COMPLETED) { completed }
+        AnalyticsAgentUtil.logTimedEvent(
+            playable.analyticsEvent,
+            basicParams(playable, mode)
+        )
     }
 
-  private fun priceParams(playable: Playable) =
-    AnalyticsAgentUtil.IS_FREE_VIDEO to when {
-      playable.isFree -> "Free"
-      else -> "Paid"
+    override fun endTrack(playable: Playable, mode: PlayerMode) {
+        AnalyticsAgentUtil.endTimedEvent(
+            playable.analyticsEvent,
+            basicParams(playable, mode).plus(completionParams(playable, completed))
+        )
     }
 
-  private fun completionParams(playable: Playable, completed: Boolean) =
-    if (playable.isLive) emptyMap()
-    else mapOf(
-      AnalyticsAgentUtil.COMPLETED to when (completed) {
-        true -> "Yes"
-        false -> "No"
-      }
-    )
+    private fun basicParams(playable: Playable, mode: PlayerMode) =
+        playable.analyticsParams.plus(
+            arrayOf(
+                dataParams(playable),
+                viewParams(mode),
+                priceParams(playable)
+            )
+        )
+
+    private fun dataParams(playable: Playable) =
+        "Item ID" to playable.playableId
+
+    private fun viewParams(mode: PlayerMode) =
+        AnalyticsAgentUtil.VIEW to when (mode) {
+            INLINE -> AnalyticsAgentUtil.INLINE_PLAYER
+            FULLSCREEN -> AnalyticsAgentUtil.FS_PLAYER
+        }
+
+    private fun priceParams(playable: Playable) =
+        AnalyticsAgentUtil.IS_FREE_VIDEO to when {
+            playable.isFree -> "Free"
+            else -> "Paid"
+        }
+
+    private fun completionParams(playable: Playable, completed: Boolean) =
+        if (playable.isLive) emptyMap()
+        else mapOf(
+            AnalyticsAgentUtil.COMPLETED to when (completed) {
+                true -> "Yes"
+                false -> "No"
+            }
+        )
 
 }
 
 private val Playable.analyticsEvent: String
-  get() = when {
-    isLive -> "Play Live Stream"
-    else -> AnalyticsAgentUtil.PLAY_VOD_ITEM
-  }
+    get() = when {
+        isLive -> "Play Live Stream"
+        else -> AnalyticsAgentUtil.PLAY_VOD_ITEM
+    }
 
 private val Playable.isFree: Boolean
-  get() = when {
-    this is APAtomEntryPlayable -> this.entry.isFree
-    else -> true
-  }
+    get() = when {
+        this is APAtomEntryPlayable -> this.entry.isFree
+        else -> true
+    }
