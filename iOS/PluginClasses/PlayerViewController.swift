@@ -2,8 +2,9 @@ import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
 import ApplicasterSDK
+import GoogleInteractiveMediaAds
 
-class PlayerViewController: UIViewController {
+class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
     
     // MARK: Properies
     
@@ -102,5 +103,11 @@ class PlayerViewController: UIViewController {
     
     @objc func wentForeground() {
         if view.window != nil { adapter.resume() }
+    }
+    
+    // MARK: - IMAWebOpenerDelegate methods
+    
+    func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
+        adapter.player.resumeAd()
     }
 }

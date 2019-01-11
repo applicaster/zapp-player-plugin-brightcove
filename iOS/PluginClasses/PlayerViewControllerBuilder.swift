@@ -9,19 +9,13 @@ protocol PlayerViewBuilder {
 
 class PlayerViewBuilderImp: PlayerViewBuilder {
     var mode: PlayerScreenMode = .fullscreen
-    
-    private let player: BCOVPlaybackController
-    
-    init(player: BCOVPlaybackController) {
-        self.player = player
-    }
 
     func build(for vc: PlayerViewController) -> BCOVPUIPlayerView {
         let controls = BCOVPUIBasicControlView.withVODLayout()
         controls?.layout = nil
         
         let options = createOptions(for: vc)
-        let videoView: BCOVPUIPlayerView = BCOVPUIPlayerView(playbackController: player,
+        let videoView: BCOVPUIPlayerView = BCOVPUIPlayerView(playbackController: nil,
                                                              options: options,
                                                              controlsView: controls)
         

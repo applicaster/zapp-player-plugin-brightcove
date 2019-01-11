@@ -2,6 +2,8 @@ import Foundation
 import ZappPlugins
 import ApplicasterSDK
 import BrightcovePlayerSDK
+import BrightcoveIMA
+import GoogleInteractiveMediaAds
 
 public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
@@ -33,12 +35,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         APLoggerInfo("Configuration: \(String(describing: configurationJSON))")
         APLoggerInfo("Items: \(videos.map { $0.toString() })")
         
-        let manager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
-        let controller: BCOVPlaybackController = manager.createPlaybackController()
-        
-        APLoggerInfo("manager: \(manager), controller: \(controller)")
-        
-        let adapter = PlayerAdapterImp(player: controller, items: videos)
+        let adapter = PlayerAdapterImp(items: videos)
         let instance = BrightcovePlayerPlugin(adapter: adapter)
         
         return instance
@@ -67,6 +64,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         let playerVC = createPlayerController(mode: .inline)
         rootViewController.addChildViewController(playerVC, to: container)
         playerVC.view.matchParent()
+        adapter.setupPlayer(atContainer: playerVC)
         
         analytics.track(item: adapter.currentItem!, mode: .inline)
     }
@@ -113,6 +111,8 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
                                mode: .fullscreen,
                                progress: adapter.playbackState)
         }
+        
+        adapter.setupPlayer(atContainer: playerVC)
 
         rootVC.present(playerVC, animated: animated, completion: completion)
     }
@@ -172,7 +172,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     }
     
     private func createPlayerController(mode: PlayerScreenMode) -> PlayerViewController {
-        let builder = PlayerViewBuilderImp(player: adapter.player)
+        let builder = PlayerViewBuilderImp()
         builder.mode = mode
         
         let playerVC = PlayerViewController(builder: builder, adapter: adapter)

@@ -2,6 +2,8 @@ import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
 import ApplicasterSDK
+import BrightcoveIMA
+import GoogleInteractiveMediaAds
 
 struct Progress {
     var progress: TimeInterval = .infinity
@@ -18,13 +20,15 @@ struct Progress {
 
 protocol PlayerAdapter: class {    
     var currentItem: ZPPlayable? { get }
-    var player: BCOVPlaybackController { get }
+    var player: BCOVPlaybackController! { get set}
     
     var playbackState: Progress { get }
     var playerState: ZPPlayerState { get }
     
     var didEndPlayback: (() -> Void)? { get set }
     var didSwitchToItem: ((ZPPlayable) -> Void)? { get set }
+    
+    func setupPlayer(atContainer playerViewController: PlayerViewController)
     
     func play()
     func pause()
@@ -36,7 +40,7 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
 
     // MARK: - Properties
     
-    let player: BCOVPlaybackController
+    var player: BCOVPlaybackController!
 
     private(set) var playerState: ZPPlayerState = .undefined
     private(set) var playbackState: Progress = Progress()
@@ -58,21 +62,40 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     
     // MARK: - Lifecycle
     
-    init(player: BCOVPlaybackController, items: [ZPPlayable]) {
-        self.player = player
+    init(items: [ZPPlayable]) {
         self.currentItem = items.first
         self.items = items
         
         super.init()
-                
-        setup()
+    }
+    
+    func setupPlayer(atContainer playerViewController: PlayerViewController) {
+        let manager = BCOVPlayerSDKManager.shared()!
+        let imaSettings = IMASettings()
+        let renderSettings = IMAAdsRenderingSettings()
+        renderSettings.webOpenerPresentingController = playerViewController
+        renderSettings.webOpenerDelegate = playerViewController
+        let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
+        
+        let type = currentItem!.advertisementType
+        if let adsRequestPolicy = self.adsRequestPolicy(forType: type) {
+            self.player = manager.createIMAPlaybackController(with: imaSettings,
+                                                              adsRenderingSettings: renderSettings,
+                                                              adsRequestPolicy: adsRequestPolicy,
+                                                              adContainer: playerViewController.playerView,
+                                                              companionSlots: nil,
+                                                              viewStrategy: nil,
+                                                              options: imaPlaybackSessionOptions)
+        } else {
+            self.player = manager.createPlaybackController()
+        }
+        
+        playerViewController.playerView.playbackController = self.player
+    
+        setupPlayer()
     }
     
     // MARK: - Actions
-    
-    func setup() {
-        setupPlayer()
-    }
     
     func play() {
         APLoggerDebug("Play")
@@ -105,14 +128,21 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         APLoggerDebug("Load items")
         currentItem = items.first
         
-        loader.load(items: items) { [weak self] result in
-            APLoggerDebug("Loaded: \(items)")
-            switch result {
-            case let .success(videos):
-                self?.videos = videos
-            case let .failure(error):
-                print(error)
-            }
+        self.videos = items.map({ $0.bcovVideo })
+    }
+    
+    private func adsRequestPolicy(forType type: Advertisement) -> BCOVIMAAdsRequestPolicy? {
+        switch type {
+        case .vast(_):
+            let policy = BCOVCuePointProgressPolicy.init(processingCuePoints: .processFinalCuePoint,
+                                                         resumingPlaybackFrom: .fromContentPlayhead,
+                                                         ignoringPreviouslyProcessedCuePoints: false)
+            let adsRequestPolicy = BCOVIMAAdsRequestPolicy(vastAdTagsInCuePointsAndAdsCuePointProgressPolicy: policy)
+            return adsRequestPolicy
+        case .vmap(_):
+            return BCOVIMAAdsRequestPolicy.videoPropertiesVMAPAdTagUrl()
+        case .none:
+            return nil
         }
     }
 }
