@@ -1,10 +1,12 @@
 package com.applicaster.player.plugins.zapppluginplayerexampleandroid;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import com.applicaster.atom.model.APAtomEntry;
 import com.applicaster.model.APURLPlayable;
 import com.applicaster.plugin_manager.playersmanager.PlayerContract;
 import com.applicaster.plugin_manager.playersmanager.internal.PlayableType;
@@ -22,12 +24,19 @@ import com.applicaster.util.UrlSchemeUtil;
  * in the plugin_configurations.json
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private static final String TEST_AD_DATA =
+            "{\"video_ad\":[{\"ad_url\":\"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=\",\"offset\":\"pre\"}" +
+                    ",{\"ad_url\":\"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dredirectlinear&correlator=\",\"offset\":\"post\"}" +
+                    ",{\"ad_url\":\"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=\",\"offset\":\"30\"}" +
+                    ",{\"ad_url\":\"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=\",\"offset\":\"90\"}" +
+                    "]}";
 
     Button fullScreenButton;
     Button inlineButton;
     private FrameLayout videoLayout;
     private boolean inlineAttached = false;
     private PlayerContract playerContract;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +53,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // Mock playable item. Replace this with the playable item your player expects
         APURLPlayable playable =
-                new APURLPlayable("http://media.w3.org/2010/05/sintel/trailer.mp4", "Buck Bunny",
+                new APURLPlayable("http://media.w3.org/2010/05/sintel/trailer.mp4",
+                        "Buck Bunny",
                         "Test Video");
+        // Mock playable item with ads. Use it instead of APURLPlayable to check how ad will work
+//        APAtomEntry.APAtomEntryPlayable playable = getPlayableWithAds();
 
         // Player type should be left as default (covers the standard player as well as all plugin players)
         playable.setType(PlayableType.Default);
@@ -92,5 +104,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             playerContract.stopInline();
             playerContract.removeInline(videoLayout);
         }
+    }
+
+    /**
+     * Generate mock playable item with ads
+     */
+    @NonNull
+    private APAtomEntry.APAtomEntryPlayable getPlayableWithAds() {
+        APAtomEntry entry = new APAtomEntry();
+        entry.setExtension("video_ads", TEST_AD_DATA);
+        APAtomEntry.Content content = new APAtomEntry.Content();
+        content.src = "http://media.w3.org/2010/05/sintel/trailer.mp4";
+        entry.setContent(content);
+        entry.setTitle("Buck Bunny");
+        return new APAtomEntry.APAtomEntryPlayable(entry);
     }
 }
