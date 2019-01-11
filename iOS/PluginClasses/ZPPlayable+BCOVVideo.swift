@@ -1,6 +1,6 @@
 //
 //  ZPPlayable+BCOVVideo.swift
-//  BrightcovePlayer
+//  BrightcovePlayerPlugin
 //
 //  Created by Roman Karpievich on 1/9/19.
 //  Copyright © 2019 Alex Faizullov. All rights reserved.

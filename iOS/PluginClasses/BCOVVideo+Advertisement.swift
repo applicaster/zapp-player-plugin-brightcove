@@ -1,6 +1,6 @@
 //
 //  BCOVVideo+Advertisement.swift
-//  AFNetworking
+//  BrightcovePlayerPlugin
 //
 //  Created by Roman Karpievich on 1/10/19.
 //

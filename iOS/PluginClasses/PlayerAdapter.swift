@@ -18,7 +18,7 @@ struct Progress {
     }
 }
 
-protocol PlayerAdapter: class {    
+protocol PlayerAdapterProtocol: class {    
     var currentItem: ZPPlayable? { get }
     var player: BCOVPlaybackController! { get set}
     
@@ -29,14 +29,14 @@ protocol PlayerAdapter: class {
     var didSwitchToItem: ((ZPPlayable) -> Void)? { get set }
     
     func setupPlayer(atContainer playerViewController: PlayerViewController)
-    
     func play()
     func pause()
     func stop()
     func resume()
+    func resumeAdPlayback()
 }
 
-class PlayerAdapterImp: NSObject, PlayerAdapter {
+class PlayerAdapter: NSObject, PlayerAdapterProtocol {
 
     // MARK: - Properties
     
@@ -45,8 +45,6 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     private(set) var playerState: ZPPlayerState = .undefined
     private(set) var playbackState: Progress = Progress()
     
-    private let loader: VideoLoader = StaticURLLoader()
-
     var didEndPlayback: (() -> Void)?
     var didSwitchToItem: ((ZPPlayable) -> Void)?
     
@@ -68,6 +66,8 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         
         super.init()
     }
+    
+    // MARK: - PlayerAdapterProtocol methods
     
     func setupPlayer(atContainer playerViewController: PlayerViewController) {
         let manager = BCOVPlayerSDKManager.shared()!
@@ -95,8 +95,6 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         setupPlayer()
     }
     
-    // MARK: - Actions
-    
     func play() {
         APLoggerDebug("Play")
         loadItems()
@@ -116,6 +114,10 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         player.play()
     }
     
+    func resumeAdPlayback() {
+        player.resumeAd()
+    }
+    
     // MARK: - Private
     
     private func setupPlayer() {
@@ -126,8 +128,8 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     
     private func loadItems() {
         APLoggerDebug("Load items")
-        currentItem = items.first
         
+        currentItem = items.first
         self.videos = items.map({ $0.bcovVideo })
     }
     
@@ -147,10 +149,20 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
     }
 }
 
-extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
+extension PlayerAdapter: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         APLoggerDebug("Did advance to: \(String(describing: session))")
-        currentItem = loader.find(video: session.video, in: items)
+        
+        guard let source = session.video.sources.first as? BCOVSource,
+            let sourceURL = source.url?.absoluteString else {
+            return
+        }
+        
+        guard let video = items.first(where: { $0.contentVideoURLPath() == sourceURL }) else {
+            return
+        }
+        
+        currentItem = video
         playbackState = Progress()
     }
     
@@ -176,38 +188,5 @@ extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
         APLoggerDebug("Did complete \(String(describing: playlist))")
         didEndPlayback?()
-    }
-}
-
-extension ZPPlayerState {
-    init?(event: BCOVPlaybackSessionLifecycleEvent) {
-        switch event.eventType {
-            
-        case kBCOVPlaybackSessionLifecycleEventPlaybackStalled,
-             kBCOVPlaybackSessionLifecycleEventResumeFail,
-             kBCOVPlaybackSessionLifecycleEventFail,
-             kBCOVPlaybackSessionLifecycleEventFailedToPlayToEndTime:
-            self = .interruption
-            
-        case kBCOVPlaybackSessionLifecycleEventPause:
-            self = .paused
-            
-        case kBCOVPlaybackSessionLifecycleEventPlaybackRecovered,
-             kBCOVPlaybackSessionLifecycleEventPlay:
-            self = .playing
-            
-        case kBCOVPlaybackSessionLifecycleEventEnd:
-            self = .stopped
-            
-        case kBCOVPlaybackSessionLifecycleEventPlaybackBufferEmpty,
-             kBCOVPlaybackSessionLifecycleEventResumeBegin,
-             kBCOVPlaybackSessionLifecycleEventResumeComplete,
-             kBCOVPlaybackSessionLifecycleEventReady,
-             kBCOVPlaybackSessionLifecycleEventPlaybackLikelyToKeepUp:
-            fallthrough
-            
-        default:
-            return nil
-        }
     }
 }

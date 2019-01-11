@@ -2,7 +2,7 @@ import Foundation
 import ZappPlugins
 import ApplicasterSDK
 
-protocol AnalyticsAdapter {
+protocol AnalyticsAdapterProtocol {
     func track(item: ZPPlayable, mode: PlayerScreenMode)
     func complete(item: ZPPlayable, mode: PlayerScreenMode, progress: Progress)
 }
@@ -29,9 +29,11 @@ extension PlayerScreenMode {
     }
 }
 
-class MorpheusAnalyticsAdapter: AnalyticsAdapter {
+class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
     
     typealias Props = [AnyHashable: Any]
+    
+    // MARK: - AnalyticsAdapterProtocol methods
     
     func track(item: ZPPlayable, mode: PlayerScreenMode) {
         let params = basicParams(for: item, mode: mode)
@@ -51,6 +53,8 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapter {
         
         APAnalyticsManager.endTimedEvent(event, withParameters: params)
     }
+    
+    // MARK: - Private methods
     
     private func basicParams(for item: ZPPlayable, mode: PlayerScreenMode) -> Props {
         return item.analyticsParams()

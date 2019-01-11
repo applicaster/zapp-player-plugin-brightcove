@@ -6,21 +6,23 @@ import GoogleInteractiveMediaAds
 
 class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
     
-    // MARK: Properies
+    // MARK: - Properies
     
-    private let builder: PlayerViewBuilder
-    private let adapter: PlayerAdapter
+    private let builder: PlayerViewBuilderProtocol
+    private let player: PlayerAdapterProtocol
     
     var onDismiss: (() -> Void)?
     
-    lazy var playerView: BCOVPUIPlayerView = { self.builder.build(for: self) }()
+    lazy var playerView: BCOVPUIPlayerView = {
+        self.builder.build(for: self)
+    }()
     
     // MARK: - Lifecycle
     
-    required init(builder: PlayerViewBuilder, adapter: PlayerAdapter) {
+    required init(builder: PlayerViewBuilderProtocol, adapter: PlayerAdapterProtocol) {
         APLoggerVerbose("Builder: \(builder), adapter: \(adapter)")
         self.builder = builder
-        self.adapter = adapter
+        self.player = adapter
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -32,7 +34,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPlayerView()
-        setupAdapter()
+        setupPlayer()
         setupAccessibilityIdentifiers()
         subscribeToNotifications()
         APLoggerVerbose("Setup completed, view is loaded")
@@ -48,8 +50,12 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         APLoggerVerbose("Is dismissed: \(isBeingDismissed)")
         if isBeingDismissed { onDismiss?() }
 
-        adapter.pause()
+        player.pause()
         super.viewWillDisappear(animated)
+    }
+    
+    override func didMove(toParentViewController parent: UIViewController?) {
+        APLoggerVerbose("Parent: \(parent.debugDescription)")
     }
     
     // MARK: - Actions
@@ -70,8 +76,8 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
     
-    private func setupAdapter() {
-        adapter.didSwitchToItem = { [weak self] item in
+    private func setupPlayer() {
+        player.didSwitchToItem = { [weak self] item in
             APLoggerVerbose("Switching to playable item: \(item.toString())")
             guard let strongSelf = self else { return }
             let controls = strongSelf.playerView.controlsView!
@@ -85,29 +91,33 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         self.playerView.controlsView.accessibilityIdentifier = "brightcove_player_controls_view"
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
-        APLoggerVerbose("Parent: \(parent.debugDescription)")
-    }
-    
-    // MARK - Private
-    
     private func subscribeToNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(wentBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(wentBackground),
+                                               name: NSNotification.Name.UIApplicationWillResignActive,
+                                               object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(wentForeground), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(wentForeground),
+                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
+                                               object: nil)
     }
     
-    @objc func wentBackground() {
-        if view.window != nil { adapter.pause() }
+    @objc private func wentBackground() {
+        if view.window != nil {
+            player.pause()
+        }
     }
     
-    @objc func wentForeground() {
-        if view.window != nil { adapter.resume() }
+    @objc private func wentForeground() {
+        if view.window != nil {
+            player.resume()
+        }
     }
     
     // MARK: - IMAWebOpenerDelegate methods
     
     func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
-        adapter.player.resumeAd()
+        player.resumeAdPlayback()
     }
 }
