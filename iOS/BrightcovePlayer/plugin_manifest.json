@@ -13,7 +13,7 @@
   "platform": "ios",
   "author_name": "Alex Faizullov",
   "author_email": "alexey.fayzyllov@corewillsoft.com",
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.0.1",
   "name": "Brightcove Player",
   "description": "Zapp Plugin for Brightcove Player",
   "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
