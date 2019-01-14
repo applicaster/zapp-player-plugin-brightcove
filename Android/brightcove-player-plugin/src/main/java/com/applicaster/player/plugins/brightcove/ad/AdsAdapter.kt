@@ -14,11 +14,11 @@ interface AdsAdapter {
 }
 
 abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
-    AdsAdapter {
+        AdsAdapter {
 
     private lateinit var mediaController: BrightcoveMediaController
     private lateinit var eventEmitter: EventEmitter
-    private var ads: List<VideoAd> = ArrayList<VideoAd>()
+    private var ads: List<VideoAd> = ArrayList()
 
     override fun setupForVideo(playable: Playable) {
         setupVideoComponents()
@@ -37,8 +37,8 @@ abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
         if (playable is APAtomEntry.APAtomEntryPlayable) {
             // data could be returned in array or in object, so need to handle it using type adapter
             val gson = GsonBuilder()
-                .registerTypeAdapter(object : TypeToken<VideoAdContainer>() {}.type, AdTypeAdapter())
-                .create()
+                    .registerTypeAdapter(object : TypeToken<VideoAdContainer>() {}.type, AdTypeAdapter())
+                    .create()
             val adsExtension = playable.entry.getExtension("video_ads", String::class.java)
             ads = gson.fromJson(adsExtension, VideoAdContainer::class.java).videoAds
         }

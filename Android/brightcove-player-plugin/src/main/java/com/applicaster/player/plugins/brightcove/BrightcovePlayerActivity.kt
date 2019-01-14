@@ -61,8 +61,8 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
     private fun BrightcoveVideoView.reconfigureControls() {
         eventEmitter.emit(
-            "seekControllerConfiguration",
-            mapOf("seekDefault" to resources.getInteger(integer.brightcove_rewind_interval))
+                "seekControllerConfiguration",
+                mapOf("seekDefault" to resources.getInteger(integer.brightcove_rewind_interval))
         )
     }
 

@@ -15,7 +15,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.set
 
 class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
-    VideoAdsAdapter(videoView) {
+        VideoAdsAdapter(videoView) {
     private lateinit var googleIMAComponent: GoogleIMAComponent
 
     override fun setupAdsPlugin() {
@@ -34,7 +34,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
 
             // Defer adding cue points until the set video event is triggered.
             getEventEmitter().on(
-                EventType.DID_SET_SOURCE
+                    EventType.DID_SET_SOURCE
             ) { event ->
                 Log.v(TAG, event.type)
                 /**
@@ -48,17 +48,19 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
 
             // Enable logging of ad starts
             getEventEmitter().on(
-                EventType.AD_STARTED
+                    EventType.AD_STARTED
             ) { event -> Log.v(TAG, event.type) }
 
             // Enable logging of any failed attempts to play an ad.
             getEventEmitter().on(
-                GoogleIMAEventType.DID_FAIL_TO_PLAY_AD
-            ) { event -> Log.v(TAG, event.type) }
+                    GoogleIMAEventType.DID_FAIL_TO_PLAY_AD
+            ) { event ->
+                Log.v(TAG, event.type)
+            }
 
             // Enable logging of ad completions.
             getEventEmitter().on(
-                EventType.AD_COMPLETED
+                    EventType.AD_COMPLETED
             ) { event -> Log.v(TAG, event.type) }
 
             // Set up a listener for initializing AdsRequests. The Google IMA plugin emits an ad
@@ -149,9 +151,9 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
      * For VMAP just get data from incoming ad
      */
     private fun setupAdUrlsForEvent(
-        adType: VideoAd.AdType,
-        event: Event,
-        ads: List<VideoAd>
+            adType: VideoAd.AdType,
+            event: Event,
+            ads: List<VideoAd>
     ): ArrayList<String> {
         val adsToShow = ArrayList<String>()
 

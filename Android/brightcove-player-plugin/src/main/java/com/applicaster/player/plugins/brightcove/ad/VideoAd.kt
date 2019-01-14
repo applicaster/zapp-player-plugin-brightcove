@@ -3,8 +3,8 @@ package com.applicaster.player.plugins.brightcove.ad
 import com.google.gson.annotations.SerializedName
 
 data class VideoAd(
-    @SerializedName("ad_url") val adUrl: String,
-    @SerializedName("offset") val offset: String?
+        @SerializedName("ad_url") val adUrl: String,
+        @SerializedName("offset") val offset: String?
 ) {
 
     /**
@@ -31,6 +31,6 @@ data class VideoAd(
 }
 
 data class VideoAdContainer(
-    @SerializedName("video_ad") val videoAds: List<VideoAd>
+        @SerializedName("video_ad") val videoAds: List<VideoAd>
 )
 

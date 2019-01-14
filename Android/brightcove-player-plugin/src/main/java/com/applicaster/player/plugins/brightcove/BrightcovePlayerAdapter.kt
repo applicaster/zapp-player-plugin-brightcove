@@ -48,8 +48,8 @@ class BrightcovePlayerAdapter : BasePlayer() {
      * @param requestCode request code if needed - if not send NO_REQUEST_CODE instead.
      */
     override fun playInFullscreen(
-        playableConfiguration: PlayableConfiguration?, requestCode: Int,
-        context: Context
+            playableConfiguration: PlayableConfiguration?, requestCode: Int,
+            context: Context
     ) {
         super.playInFullscreen(playableConfiguration, requestCode, context)
         val intent = Intent(context, BrightcovePlayerActivity::class.java)
