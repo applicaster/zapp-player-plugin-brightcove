@@ -6,12 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+
 import com.applicaster.atom.model.APAtomEntry;
 import com.applicaster.model.APURLPlayable;
+import com.applicaster.player.plugins.brightcove.ad.VideoAd;
 import com.applicaster.plugin_manager.playersmanager.PlayerContract;
 import com.applicaster.plugin_manager.playersmanager.internal.PlayableType;
 import com.applicaster.plugin_manager.playersmanager.internal.PlayersManager;
 import com.applicaster.util.UrlSchemeUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This sample activity will create a player contract which will create an instance of your player
@@ -24,19 +30,16 @@ import com.applicaster.util.UrlSchemeUtil;
  * in the plugin_configurations.json
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String TEST_AD_DATA =
-            "{\"video_ad\":[{\"ad_url\":\"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=\",\"offset\":\"pre\"}" +
-                    ",{\"ad_url\":\"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dredirectlinear&correlator=\",\"offset\":\"post\"}" +
-                    ",{\"ad_url\":\"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=\",\"offset\":\"30\"}" +
-                    ",{\"ad_url\":\"https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=\",\"offset\":\"90\"}" +
-                    "]}";
+    private static final String TEST_AD_URL_1 = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=";
+    private static final String TEST_AD_URL_2 = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dredirectlinear&correlator=";
+    private static final String TEST_AD_URL_3 = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=";
+    private static final String TEST_AD_URL_4 = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=";
 
     Button fullScreenButton;
     Button inlineButton;
     private FrameLayout videoLayout;
     private boolean inlineAttached = false;
     private PlayerContract playerContract;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +115,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @NonNull
     private APAtomEntry.APAtomEntryPlayable getPlayableWithAds() {
         APAtomEntry entry = new APAtomEntry();
-        entry.setExtension("video_ads", TEST_AD_DATA);
         APAtomEntry.Content content = new APAtomEntry.Content();
         content.src = "http://media.w3.org/2010/05/sintel/trailer.mp4";
         entry.setContent(content);
         entry.setTitle("Buck Bunny");
+        List<HashMap> videoAds = new ArrayList<>();
+        videoAds.add(getTestVideoAd(TEST_AD_URL_1, "pre"));
+        videoAds.add(getTestVideoAd(TEST_AD_URL_2, "post"));
+        videoAds.add(getTestVideoAd(TEST_AD_URL_3, "30"));
+        videoAds.add(getTestVideoAd(TEST_AD_URL_4, "90"));
+        HashMap<String, List> singleAdExtension = new HashMap<>();
+        singleAdExtension.put(VideoAd.KEY_AD_CONTAINER, videoAds);
+        entry.setExtension(VideoAd.KEY_VIDEO_AD_EXTENSION, singleAdExtension);
         return new APAtomEntry.APAtomEntryPlayable(entry);
+    }
+
+    @NonNull
+    private HashMap<String, String> getTestVideoAd(String url, String offset) {
+        HashMap<String, String> videoAd = new HashMap<>();
+        videoAd.put(VideoAd.KEY_URL, url);
+        videoAd.put(VideoAd.KEY_OFFSET, offset);
+        return videoAd;
     }
 }
