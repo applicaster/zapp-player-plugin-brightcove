@@ -58,6 +58,8 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
         didSet { currentItem.flatMap { didSwitchToItem?($0) } }
     }
     
+    weak var playerView: BCOVPUIPlayerView?
+    
     // MARK: - Lifecycle
     
     init(items: [ZPPlayable]) {
@@ -91,6 +93,7 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
         }
         
         playerViewController.playerView.playbackController = self.player
+        playerView = playerViewController.playerView
     
         setupPlayer()
     }
@@ -183,6 +186,18 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         APLoggerDebug("Session did receive \(String(describing: lifecycleEvent))")
         ZPPlayerState(event: lifecycleEvent).flatMap { playerState = $0 }
+        
+        switch lifecycleEvent.eventType {
+        case kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent:
+            guard let adEvent = lifecycleEvent.properties["adEvent"] as? IMAAdEvent else {
+                return
+            }
+        case kBCOVIMALifecycleEventAdsLoaderFailed:
+            let currentTime = CMTimeGetSeconds(session.player.currentTime()).rounded(.down)
+            playerView?.controlsView.progressSlider.removeMarker(atPosition: currentTime)
+        default:
+            break
+        }
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
