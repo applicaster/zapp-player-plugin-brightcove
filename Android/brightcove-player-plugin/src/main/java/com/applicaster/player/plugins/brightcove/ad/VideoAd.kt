@@ -1,12 +1,9 @@
 package com.applicaster.player.plugins.brightcove.ad
 
-import com.google.gson.annotations.SerializedName
-
 data class VideoAd(
-        @SerializedName("ad_url") val adUrl: String,
-        @SerializedName("offset") val offset: String?
+        val adUrl: String,
+        val offset: String?
 ) {
-
     /**
      * If there is offset value - it's VAST, otherwise it's VMAP
      */
@@ -28,9 +25,11 @@ data class VideoAd(
         VMAP,
         VAST
     }
+
+    companion object {
+        const val KEY_URL = "ad_url"
+        const val KEY_OFFSET = "offset"
+        const val KEY_AD_CONTAINER = "video_ad"
+        const val KEY_VIDEO_AD_EXTENSION = "video_ads"
+    }
 }
-
-data class VideoAdContainer(
-        @SerializedName("video_ad") val videoAds: List<VideoAd>
-)
-
