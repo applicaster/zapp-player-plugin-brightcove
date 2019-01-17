@@ -4,12 +4,15 @@ import ApplicasterSDK
 
 protocol AnalyticsAdapterProtocol {
     func track(item: ZPPlayable, mode: PlayerScreenMode)
+    func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any])
     func complete(item: ZPPlayable, mode: PlayerScreenMode, progress: Progress)
+    func complete(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any])
 }
 
 enum AnalyticsEvent: String {
     case vod = "Play VOD Item"
     case live = "Play Live Stream"
+    case advertisement = "Watch Video Advertisement"
 }
 
 enum AnalyticsKeys: String {
@@ -44,6 +47,10 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
         APAnalyticsManager.trackEvent(event, withParameters: params, timed: true)
     }
     
+    func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any]) {
+        APAnalyticsManager.trackEvent(event.rawValue, withParameters: parameters)
+    }
+    
     func complete(item: ZPPlayable, mode: PlayerScreenMode, progress: Progress) {
         let params = basicParams(for: item, mode: mode)
             .merge(completedParams(for: item, state: progress))
@@ -52,6 +59,10 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
         APLoggerDebug("Analytics: Complete event \(event) with params \(params)")
         
         APAnalyticsManager.endTimedEvent(event, withParameters: params)
+    }
+    
+    func complete(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any]) {
+        APAnalyticsManager.endTimedEvent(event.rawValue, withParameters: parameters)
     }
     
     // MARK: - Private methods

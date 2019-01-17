@@ -27,13 +27,23 @@ protocol PlayerAdapterProtocol: class {
     
     var didEndPlayback: (() -> Void)? { get set }
     var didSwitchToItem: ((ZPPlayable) -> Void)? { get set }
-    
+    var delegate: AdvertisementEventsDelegate? { get set }
+
     func setupPlayer(atContainer playerViewController: PlayerViewController)
     func play()
     func pause()
     func stop()
     func resume()
     func resumeAdPlayback()
+}
+
+protocol AdvertisementEventsDelegate: AnyObject {
+    func willLoadAds(forAdTagURL adTagURL: String)
+    func eventOccured(_ event: IMAAdEvent,
+                      atProgress progress: Progress,
+                      forItem item: ZPPlayable)
+    func advertisementProgress(progress: Double)
+    func loadError(_ error: IMAAdError)
 }
 
 class PlayerAdapter: NSObject, PlayerAdapterProtocol {
@@ -59,6 +69,7 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     }
     
     weak var playerView: BCOVPUIPlayerView?
+    weak var delegate: AdvertisementEventsDelegate?
     
     // MARK: - Lifecycle
     
@@ -186,11 +197,25 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         APLoggerDebug("Session did receive \(String(describing: lifecycleEvent))")
         ZPPlayerState(event: lifecycleEvent).flatMap { playerState = $0 }
-        
+
         switch lifecycleEvent.eventType {
+        case kBCOVIMALifecycleEventAdsLoaderFailed:
+            if let error = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdError] as? IMAAdError {
+                delegate?.loadError(error)
+            }
+        case "kBCOVPlaybackSessionLifecycleEventAdProgress":
+            let adProgressKey = "kBCOVPlaybackSessionLifecycleEventPropertiesKeyAdProgress"
+            if let currentProgress = lifecycleEvent.properties[adProgressKey] as? Double {
+                delegate?.advertisementProgress(progress: currentProgress)
+            }
         case kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent:
-            guard let adEvent = lifecycleEvent.properties["adEvent"] as? IMAAdEvent else {
-                return
+            if let adEvent = lifecycleEvent.properties["adEvent"] as? IMAAdEvent,
+                let item = currentItem {
+                delegate?.eventOccured(adEvent, atProgress: playbackState, forItem: item)
+            }
+        case kBCOVIMALifecycleEventAdsManagerDidReceiveAdError:
+            if let error = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdError] as? IMAAdError {
+                delegate?.loadError(error)
             }
         case kBCOVIMALifecycleEventAdsLoaderFailed:
             let currentTime = CMTimeGetSeconds(session.player.currentTime()).rounded(.down)
@@ -203,5 +228,17 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
         APLoggerDebug("Did complete \(String(describing: playlist))")
         didEndPlayback?()
+    }
+}
+
+// MARK: - BCOVIMAPlaybackSessionDelegate
+
+extension PlayerAdapter: BCOVIMAPlaybackSessionDelegate {
+    
+    func willCallIMAAdsLoaderRequestAds(with adsRequest: IMAAdsRequest!, forPosition position: TimeInterval) {
+        guard let adTagURL = adsRequest.adTagUrl else {
+            return
+        }
+        delegate?.willLoadAds(forAdTagURL: adTagURL)
     }
 }

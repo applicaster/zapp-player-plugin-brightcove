@@ -13,6 +13,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
     private let player: PlayerAdapterProtocol
     private let analytics: AnalyticsAdapterProtocol
+    private let adAnalytics: PlayerAdvertisementProtocol
     
     // MARK: - Lifecycle
     
@@ -20,6 +21,11 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
          analytics: AnalyticsAdapterProtocol = MorpheusAnalyticsAdapter()) {
         self.player = adapter
         self.analytics = analytics
+        self.adAnalytics = PlayerAdvertisement(analytics: analytics)
+        
+        super.init()
+        
+        self.player.delegate = self.adAnalytics
     }
     
     // MARK: - ZPPlayerProtocol
