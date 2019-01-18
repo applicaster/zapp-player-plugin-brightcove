@@ -1,5 +1,6 @@
 package com.applicaster.player.plugins.brightcove.ad
 
+import android.graphics.Color
 import android.text.format.DateUtils
 import android.util.Log
 import com.brightcove.ima.GoogleIMAComponent
@@ -8,6 +9,8 @@ import com.brightcove.player.event.Event
 import com.brightcove.player.event.EventType
 import com.brightcove.player.model.CuePoint
 import com.brightcove.player.view.BrightcoveVideoView
+import com.google.ads.interactivemedia.v3.api.AdEvent
+import com.google.ads.interactivemedia.v3.api.AdsManager
 import com.google.ads.interactivemedia.v3.api.AdsRequest
 import com.google.ads.interactivemedia.v3.api.ImaSdkFactory
 import java.util.HashMap
@@ -17,6 +20,7 @@ import kotlin.collections.set
 class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
         VideoAdsAdapter(videoView) {
     private lateinit var googleIMAComponent: GoogleIMAComponent
+    private var currentQuePoint: CuePoint? = null
 
     override fun setupAdsPlugin() {
         setupGoogleIMA()
@@ -46,6 +50,17 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 }
             }
 
+            // Enable logging of ads request for video
+            getEventEmitter().on(
+                GoogleIMAEventType.ADS_REQUEST_FOR_VIDEO
+            ) {
+                event -> Log.v(TAG, event.type)
+                if (adType == VideoAd.AdType.VAST) {
+                    val propsList = event.properties["cue_points"] as? ArrayList<CuePoint>
+                    currentQuePoint = propsList?.get(0)
+                }
+            }
+
             // Enable logging of ad starts
             getEventEmitter().on(
                     EventType.AD_STARTED
@@ -53,9 +68,13 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
 
             // Enable logging of any failed attempts to play an ad.
             getEventEmitter().on(
-                    GoogleIMAEventType.DID_FAIL_TO_PLAY_AD
-            ) { event ->
-                Log.v(TAG, event.type)
+                GoogleIMAEventType.DID_FAIL_TO_PLAY_AD
+            ) {
+                event -> Log.v(TAG, event.type)
+                if (adType == VideoAd.AdType.VAST) {
+                    getMediaController().brightcoveSeekBar.removeMarker(currentQuePoint?.position)
+                    currentQuePoint = null
+                }
             }
 
             // Enable logging of ad completions.

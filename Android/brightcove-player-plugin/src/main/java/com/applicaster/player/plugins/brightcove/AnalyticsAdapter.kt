@@ -23,8 +23,11 @@ interface AnalyticsAdapter {
 class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : AnalyticsAdapter {
 
     private var completed = false
+    private lateinit var adAnalytics: AdAnalytics
 
     override fun startTrack(playable: Playable, mode: PlayerMode) {
+        adAnalytics = AdAnalytics(view)
+        adAnalytics.startTrack(playable, mode)
         view.eventEmitter.on(EventType.COMPLETED) { completed }
         AnalyticsAgentUtil.logTimedEvent(
             playable.analyticsEvent,
@@ -33,6 +36,7 @@ class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Analytic
     }
 
     override fun endTrack(playable: Playable, mode: PlayerMode) {
+        adAnalytics.endTrack(playable, mode)
         AnalyticsAgentUtil.endTimedEvent(
             playable.analyticsEvent,
             basicParams(playable, mode).plus(completionParams(playable, completed))
