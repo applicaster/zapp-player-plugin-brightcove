@@ -16,7 +16,8 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
     private lateinit var playable: Playable
     private lateinit var videoView: BrightcoveVideoView
-    private lateinit var analyticsAdapter: AnalyticsAdapter
+    private lateinit var adAnalytics: AdAnalytics
+    private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,8 +44,10 @@ class BrightcovePlayerActivity : AppCompatActivity() {
         }
 
         // initialize tools
-        analyticsAdapter = MorpheusAnalyticsAdapter(videoView)
-        analyticsAdapter.startTrack(playable, FULLSCREEN)
+        adAnalytics = AdAnalytics(videoView)
+        errorHandlingAnalyticsAdapter = ErrorHandlingAnalyticsAdapter(videoView)
+        adAnalytics.startTrack(playable, FULLSCREEN)
+        errorHandlingAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         val adsAdapter = GoogleIMAAdapter(videoView)
         adsAdapter.setupForVideo(playable)
     }
@@ -56,7 +59,8 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        analyticsAdapter.endTrack(playable, FULLSCREEN)
+        adAnalytics.endTrack(playable, FULLSCREEN)
+        errorHandlingAnalyticsAdapter.endTrack(playable, FULLSCREEN)
     }
 
     private fun BrightcoveVideoView.reconfigureControls() {

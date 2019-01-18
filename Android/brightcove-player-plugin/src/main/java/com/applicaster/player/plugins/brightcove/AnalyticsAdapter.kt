@@ -8,6 +8,7 @@ import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.INL
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
+import java.util.concurrent.TimeUnit
 
 
 interface AnalyticsAdapter {
@@ -20,14 +21,11 @@ interface AnalyticsAdapter {
     }
 }
 
-class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : AnalyticsAdapter {
+open class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : AnalyticsAdapter {
 
     private var completed = false
-    private lateinit var adAnalytics: AdAnalytics
 
     override fun startTrack(playable: Playable, mode: PlayerMode) {
-        adAnalytics = AdAnalytics(view)
-        adAnalytics.startTrack(playable, mode)
         view.eventEmitter.on(EventType.COMPLETED) { completed }
         AnalyticsAgentUtil.logTimedEvent(
             playable.analyticsEvent,
@@ -36,7 +34,6 @@ class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Analytic
     }
 
     override fun endTrack(playable: Playable, mode: PlayerMode) {
-        adAnalytics.endTrack(playable, mode)
         AnalyticsAgentUtil.endTimedEvent(
             playable.analyticsEvent,
             basicParams(playable, mode).plus(completionParams(playable, completed))
@@ -55,19 +52,19 @@ class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Analytic
     private fun dataParams(playable: Playable) =
         "Item ID" to playable.playableId
 
-    private fun viewParams(mode: PlayerMode) =
+    protected fun viewParams(mode: PlayerMode) =
         AnalyticsAgentUtil.VIEW to when (mode) {
             INLINE -> AnalyticsAgentUtil.INLINE_PLAYER
             FULLSCREEN -> AnalyticsAgentUtil.FS_PLAYER
         }
 
-    private fun priceParams(playable: Playable) =
+    protected fun priceParams(playable: Playable) =
         AnalyticsAgentUtil.IS_FREE_VIDEO to when {
             playable.isFree -> "Free"
             else -> "Paid"
         }
 
-    private fun completionParams(playable: Playable, completed: Boolean) =
+    protected fun completionParams(playable: Playable, completed: Boolean) =
         if (playable.isLive) emptyMap()
         else mapOf(
             AnalyticsAgentUtil.COMPLETED to when (completed) {
@@ -75,6 +72,36 @@ class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Analytic
                 false -> "No"
             }
         )
+
+    protected fun isCompleted(): Boolean = completed
+
+    /**
+     * Returns a formatted duration string.
+     *
+     * @param duration The given duration, for example "12345".
+     * @param isInMilliseconds true by default.
+     * @return the formatted duration string, for example "01:05:20". If something went wrong returns an empty string.
+     */
+    protected fun parseDuration(duration: Long, isInMilliseconds: Boolean = true): String {
+        if (duration >= 0) {
+            val durationMillis = if (isInMilliseconds) duration else duration * 1000
+
+            val hours = TimeUnit.MILLISECONDS.toHours(durationMillis)
+            val minutes = TimeUnit.MILLISECONDS.toMinutes(durationMillis) % TimeUnit.HOURS.toMinutes(1)
+            val seconds = TimeUnit.MILLISECONDS.toSeconds(durationMillis) % TimeUnit.MINUTES.toSeconds(1)
+
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        } else if (duration == 0L) {
+            return String.format("%02d:%02d:%02d", 0, 0, 0)
+        }
+        return ""
+    }
+
+    protected fun getVodType(playable: Playable) =
+        "VOD Type" to when (playable) {
+            is APAtomEntryPlayable -> "ATOM"
+            else -> ""
+        }
 
 }
 

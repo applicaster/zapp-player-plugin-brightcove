@@ -21,7 +21,8 @@ import com.brightcove.player.view.BrightcoveVideoView
 class BrightcovePlayerAdapter : BasePlayer() {
 
     private lateinit var videoView: BrightcoveVideoView
-    private lateinit var analyticsAdapter: AnalyticsAdapter
+    private lateinit var adAnalytics: AdAnalytics
+    private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
     private lateinit var adsAdapter: AdsAdapter
 
     /**
@@ -37,7 +38,8 @@ class BrightcovePlayerAdapter : BasePlayer() {
     override fun init(playList: List<Playable>, context: Context) {
         super.init(playList, context)
         videoView = BrightcoveExoPlayerVideoView(context)
-        analyticsAdapter = MorpheusAnalyticsAdapter(videoView)
+        adAnalytics = AdAnalytics(videoView)
+        errorHandlingAnalyticsAdapter = ErrorHandlingAnalyticsAdapter(videoView)
         adsAdapter = GoogleIMAAdapter(videoView)
     }
 
@@ -71,7 +73,8 @@ class BrightcovePlayerAdapter : BasePlayer() {
         videoView.finishInitialization()
         //
         adsAdapter.setupForVideo(firstPlayable)
-        analyticsAdapter.startTrack(firstPlayable, INLINE)
+        adAnalytics.startTrack(firstPlayable, INLINE)
+        errorHandlingAnalyticsAdapter.startTrack(firstPlayable, INLINE)
     }
 
     /**
@@ -83,7 +86,8 @@ class BrightcovePlayerAdapter : BasePlayer() {
         super.removeInline(viewGroup)
         viewGroup.removeView(videoView)
         //
-        analyticsAdapter.endTrack(firstPlayable, INLINE)
+        adAnalytics.startTrack(firstPlayable, INLINE)
+        errorHandlingAnalyticsAdapter.startTrack(firstPlayable, INLINE)
     }
 
     /**

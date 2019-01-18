@@ -9,12 +9,12 @@ import com.brightcove.player.event.Event
 import com.brightcove.player.event.EventEmitter
 import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
+import com.google.ads.interactivemedia.v3.api.AdError
 import com.google.ads.interactivemedia.v3.api.AdEvent
 import com.google.ads.interactivemedia.v3.api.AdsManager
-import java.util.concurrent.TimeUnit
 
 
-class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter, AdEvent.AdEventListener {
+class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalyticsAdapter(videoView), AdEvent.AdEventListener {
 
     private val TAG = AdAnalytics::class.java.simpleName
 
@@ -38,15 +38,14 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
     private var adBreakDuration = Pair(AD_BREAK_DURATION, "")
     private var adExitMethod = Pair(AD_EXIT_METHOD, "Unspecified")
     private var timeWhenExited = Pair(TIME_WHEN_EXITED, parseDuration(0, isInMilliseconds = false))
-
-    private var completed = false
+    private var adServerErrorCode = Pair(AD_SERVER_ERROR, "N/A")
 
     /**
      *  Start tracking
      */
     override fun startTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
+        super.startTrack(playable, mode)
         Log.v(TAG, "startTrack")
-        videoView.eventEmitter.on(EventType.COMPLETED) { completed }
         setupComponents()
         setupAdsManager()
         collectParams(playable)
@@ -56,6 +55,7 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
      *  End tracking
      */
     override fun endTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
+        super.endTrack(playable, mode)
         Log.v(TAG, "endTrack")
         collectParams(playable)
         adsManager.removeAdEventListener(this)
@@ -69,8 +69,32 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
      * Collect all Watch Video Advertisement properties
      */
     private fun collectParams(playable: Playable) {
-        collectedParams = playable.analyticsParams
         collectAdInfo(playable)
+    }
+
+    /**
+     *  Set all collected analytics params analytics params map
+     */
+    private fun setAllCollectedParams() {
+        collectedParams.clear()
+        collectedParams.putAll(
+            arrayOf(
+                adUnit,
+                adProvider,
+                skippable,
+                contentVideoDuration,
+                atomFeedName,
+                itemName,
+                vodType,
+                isFree,
+                timeWhenExited,
+                adBreakTime,
+                videoAdType,
+                adBreakDuration,
+                adExitMethod,
+                skipped
+            )
+        )
     }
 
     private fun collectAdInfo(playable: Playable) {
@@ -86,19 +110,10 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
             atomFeedName = getAtomFeedName(playable)
             itemName = getItemName(playable)
             vodType = getVodType()
-            isFree = isFree(playable)
-            collectedParams.plus(
-                arrayOf(
-                    adUnit,
-                    adProvider,
-                    skippable,
-                    contentVideoDuration,
-                    atomFeedName,
-                    itemName,
-                    vodType,
-                    isFree
-                )
-            )
+            isFree = priceParams(playable)
+
+            setAllCollectedParams()
+
             logTimedEvent(playable)
         }
 
@@ -113,19 +128,10 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
             atomFeedName = getAtomFeedName(playable)
             itemName = getItemName(playable)
             vodType = getVodType()
-            isFree = isFree(playable)
-            collectedParams.plus(
-                arrayOf(
-                    adUnit,
-                    adProvider,
-                    skippable,
-                    contentVideoDuration,
-                    atomFeedName,
-                    itemName,
-                    vodType,
-                    isFree
-                )
-            )
+            isFree = priceParams(playable)
+
+            setAllCollectedParams()
+
             logTimedEvent(playable)
         }
 
@@ -134,11 +140,14 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
             EventType.AD_PROGRESS
         ) { event ->
             timeWhenExited = getTimeWhenExited(event)
-            collectedParams.plus(
-                arrayOf(
-                    timeWhenExited
-                )
-            )
+        }
+
+        videoView.eventEmitter.on(
+            GoogleIMAEventType.DID_FAIL_TO_PLAY_AD
+        ) {
+            val adError = it.properties["error"] as? AdError
+            adServerErrorCode = AD_SERVER_ERROR to (adError?.errorCode?.name ?: "N/A")
+            setAllCollectedParams()
         }
     }
 
@@ -158,44 +167,22 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
                 adBreakTime = getAdBreakTime()
                 videoAdType = getVideoAdType()
                 adBreakDuration = getAdBreakDuration(event)
-                collectedParams.plus(
-                    arrayOf(
-                        adBreakTime,
-                        videoAdType,
-                        adBreakDuration
-                    )
-                )
             }
 
             AdEvent.AdEventType.SKIPPED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.SKIPPED)
                 skipped = isSkipped(true)
-                collectedParams.plus(
-                    arrayOf(
-                        adExitMethod,
-                        skipped
-                    )
-                )
+                setAllCollectedParams()
             }
 
             AdEvent.AdEventType.COMPLETED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.COMPLETED)
                 skipped = isSkipped(false)
-                collectedParams.plus(
-                    arrayOf(
-                        adExitMethod,
-                        skipped
-                    )
-                )
             }
 
             AdEvent.AdEventType.CLICKED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.CLICKED)
-                collectedParams.plus(
-                    arrayOf(
-                        adExitMethod
-                    )
-                )
+                setAllCollectedParams()
             }
 
             // default
@@ -225,7 +212,10 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
     private fun getAdProvider(): Pair<String, String> = AD_PROVIDER to "IMA"
 
     private fun getAdUnit(event: Event): Pair<String, String> {
-        return AD_UNIT to event.properties["adTagUrl"] as String
+        return AD_UNIT to when (event.properties["adTagUrl"]) {
+            is String -> event.properties["adTagUrl"] as String
+            else -> ""
+        }
     }
 
     private fun isSkippable(event: Event): Pair<String, String> {
@@ -282,43 +272,11 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : AnalyticsAdapter
 
     private fun getVodType() = VOD_TYPE to "ATOM"
 
-    private fun isFree(playable: Playable) =
-        FREE_OR_PAID to when {
-            playable.isFree -> "Free"
-            else -> "Paid"
-        }
-
-    /**
-     * Returns a formatted duration string.
-     *
-     * @param duration The given duration, for example "12345".
-     * @param isInMilliseconds true by default.
-     * @return the formatted duration string, for example "01:05:20". If something went wrong returns an empty string.
-     */
-    private fun parseDuration(duration: Long, isInMilliseconds: Boolean = true): String {
-        if (duration >= 0) {
-            val durationMillis = if (isInMilliseconds) duration else duration * 1000
-
-            val hours = TimeUnit.MILLISECONDS.toHours(durationMillis)
-            val minutes = TimeUnit.MILLISECONDS.toMinutes(durationMillis) % TimeUnit.HOURS.toMinutes(1)
-            val seconds = TimeUnit.MILLISECONDS.toSeconds(durationMillis) % TimeUnit.MINUTES.toSeconds(1)
-
-            return String.format("%02d:%02d:%02d", hours, minutes, seconds)
-        }
-        return ""
-    }
-
     /**
      *  Watch Video Advertisement extension for Playable
      */
     private val Playable.watchVideoAdEvent
         get() = "Watch Video Advertisement"
-
-    private val Playable.isFree: Boolean
-        get() = when {
-            this is APAtomEntry.APAtomEntryPlayable -> this.entry.isFree
-            else -> true
-        }
 
     enum class AdExitMethod(val value: String) {
         COMPLETED("Completed"),

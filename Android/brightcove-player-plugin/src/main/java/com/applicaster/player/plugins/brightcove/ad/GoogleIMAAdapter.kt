@@ -1,6 +1,5 @@
 package com.applicaster.player.plugins.brightcove.ad
 
-import android.graphics.Color
 import android.text.format.DateUtils
 import android.util.Log
 import com.brightcove.ima.GoogleIMAComponent
@@ -9,8 +8,6 @@ import com.brightcove.player.event.Event
 import com.brightcove.player.event.EventType
 import com.brightcove.player.model.CuePoint
 import com.brightcove.player.view.BrightcoveVideoView
-import com.google.ads.interactivemedia.v3.api.AdEvent
-import com.google.ads.interactivemedia.v3.api.AdsManager
 import com.google.ads.interactivemedia.v3.api.AdsRequest
 import com.google.ads.interactivemedia.v3.api.ImaSdkFactory
 import java.util.HashMap
