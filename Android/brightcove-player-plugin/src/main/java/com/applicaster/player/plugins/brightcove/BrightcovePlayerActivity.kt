@@ -16,6 +16,7 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
     private lateinit var playable: Playable
     private lateinit var videoView: BrightcoveVideoView
+    private lateinit var analyticsAdapter: AnalyticsAdapter
     private lateinit var adAnalytics: AdAnalytics
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
 
@@ -44,6 +45,8 @@ class BrightcovePlayerActivity : AppCompatActivity() {
         }
 
         // initialize tools
+        analyticsAdapter = MorpheusAnalyticsAdapter(videoView)
+        analyticsAdapter.startTrack(playable, FULLSCREEN)
         adAnalytics = AdAnalytics(videoView)
         errorHandlingAnalyticsAdapter = ErrorHandlingAnalyticsAdapter(videoView)
         adAnalytics.startTrack(playable, FULLSCREEN)
@@ -59,6 +62,7 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        analyticsAdapter.endTrack(playable, FULLSCREEN)
         adAnalytics.endTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.endTrack(playable, FULLSCREEN)
     }
@@ -70,4 +74,8 @@ class BrightcovePlayerActivity : AppCompatActivity() {
         )
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        adAnalytics.backPressed()
+    }
 }

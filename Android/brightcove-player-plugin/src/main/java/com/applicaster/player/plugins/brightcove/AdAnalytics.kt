@@ -44,7 +44,6 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
      *  Start tracking
      */
     override fun startTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
-        super.startTrack(playable, mode)
         Log.v(TAG, "startTrack")
         setupComponents()
         setupAdsManager()
@@ -55,7 +54,6 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
      *  End tracking
      */
     override fun endTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
-        super.endTrack(playable, mode)
         Log.v(TAG, "endTrack")
         collectParams(playable)
         adsManager.removeAdEventListener(this)
@@ -271,6 +269,15 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
     }
 
     private fun getVodType() = VOD_TYPE to "ATOM"
+
+    /**
+     *  This one indicates that Android back button was pressed
+     */
+    fun backPressed() {
+        adExitMethod = getAdExitMethod(AdExitMethod.ANDROID_BACK_BUTTON)
+        setAllCollectedParams()
+    }
+
 
     /**
      *  Watch Video Advertisement extension for Playable
