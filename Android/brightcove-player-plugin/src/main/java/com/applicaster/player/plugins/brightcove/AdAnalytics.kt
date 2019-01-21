@@ -273,9 +273,10 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
     /**
      *  This one indicates that Android back button was pressed
      */
-    fun backPressed() {
+    fun backPressed(playable: Playable) {
         adExitMethod = getAdExitMethod(AdExitMethod.ANDROID_BACK_BUTTON)
         setAllCollectedParams()
+        logTimedEvent(playable)
     }
 
 

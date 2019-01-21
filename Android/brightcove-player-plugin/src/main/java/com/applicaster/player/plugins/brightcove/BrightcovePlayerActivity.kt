@@ -76,6 +76,6 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        adAnalytics.backPressed()
+        adAnalytics.backPressed(playable)
     }
 }
