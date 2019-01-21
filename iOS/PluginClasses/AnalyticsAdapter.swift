@@ -3,8 +3,10 @@ import ZappPlugins
 import ApplicasterSDK
 
 protocol AnalyticsAdapterProtocol {
+    var screenMode: PlayerScreenMode {get set}
+    
     func track(item: ZPPlayable, mode: PlayerScreenMode)
-    func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any])
+    func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any], timed: Bool)
     func complete(item: ZPPlayable, mode: PlayerScreenMode, progress: Progress)
     func complete(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any])
 }
@@ -13,6 +15,7 @@ enum AnalyticsEvent: String {
     case vod = "Play VOD Item"
     case live = "Play Live Stream"
     case advertisement = "Watch Video Advertisement"
+    case advertisementError = "Video Ad Error"
 }
 
 enum AnalyticsKeys: String {
@@ -36,6 +39,8 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
     
     typealias Props = [AnyHashable: Any]
     
+    var screenMode = PlayerScreenMode.fullscreen
+    
     // MARK: - AnalyticsAdapterProtocol methods
     
     func track(item: ZPPlayable, mode: PlayerScreenMode) {
@@ -47,8 +52,8 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
         APAnalyticsManager.trackEvent(event, withParameters: params, timed: true)
     }
     
-    func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any]) {
-        APAnalyticsManager.trackEvent(event.rawValue, withParameters: parameters)
+    func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any], timed: Bool) {
+        APAnalyticsManager.trackEvent(event.rawValue, withParameters: parameters, timed: timed)
     }
     
     func complete(item: ZPPlayable, mode: PlayerScreenMode, progress: Progress) {
@@ -68,6 +73,7 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
     // MARK: - Private methods
     
     private func basicParams(for item: ZPPlayable, mode: PlayerScreenMode) -> Props {
+        screenMode = mode
         return item.analyticsParams()
             .merge(item.additionalAnalyticsParams)
             .merge(viewParams(for: mode))

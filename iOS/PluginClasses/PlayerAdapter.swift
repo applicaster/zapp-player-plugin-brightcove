@@ -38,12 +38,13 @@ protocol PlayerAdapterProtocol: class {
 }
 
 protocol AdvertisementEventsDelegate: AnyObject {
-    func willLoadAds(forAdTagURL adTagURL: String)
+    func willLoadAds(forAdTagURL adTagURL: String, forItem item: ZPPlayable)
     func eventOccured(_ event: IMAAdEvent,
                       atProgress progress: Progress,
                       forItem item: ZPPlayable)
     func advertisementProgress(progress: Double)
-    func loadError(_ error: IMAAdError)
+    func loadError(_ error: IMAAdError,
+                   forItem item: ZPPlayable)
 }
 
 class PlayerAdapter: NSObject, PlayerAdapterProtocol {
@@ -201,7 +202,7 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
         switch lifecycleEvent.eventType {
         case kBCOVIMALifecycleEventAdsLoaderFailed:
             if let error = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdError] as? IMAAdError {
-                delegate?.loadError(error)
+                delegate?.loadError(error, forItem: currentItem!)
             }
         case "kBCOVPlaybackSessionLifecycleEventAdProgress":
             let adProgressKey = "kBCOVPlaybackSessionLifecycleEventPropertiesKeyAdProgress"
@@ -215,7 +216,7 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
             }
         case kBCOVIMALifecycleEventAdsManagerDidReceiveAdError:
             if let error = lifecycleEvent.properties[kBCOVIMALifecycleEventPropertyKeyAdError] as? IMAAdError {
-                delegate?.loadError(error)
+                delegate?.loadError(error, forItem: currentItem!)
             }
         case kBCOVIMALifecycleEventAdsLoaderFailed:
             let currentTime = CMTimeGetSeconds(session.player.currentTime()).rounded(.down)
@@ -239,6 +240,6 @@ extension PlayerAdapter: BCOVIMAPlaybackSessionDelegate {
         guard let adTagURL = adsRequest.adTagUrl else {
             return
         }
-        delegate?.willLoadAds(forAdTagURL: adTagURL)
+        delegate?.willLoadAds(forAdTagURL: adTagURL, forItem: currentItem!)
     }
 }

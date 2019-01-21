@@ -7,67 +7,69 @@
 
 import Foundation
 
-enum AdvertisementAnalyticKeys: String, Hashable {
-    case videoAdType = "Video Ad Type"
-    case adProvider = "Ad Provider"
-    case adUnit = "Ad Unit"
-    case skippable = "Skippable"
+enum AdTypes: String {
+    case preroll = "Preroll"
+    case midroll = "Midroll"
+    case postroll = "Postroll"
+    
+    var key: String {
+        return "Video Ad Type"
+    }
+}
+
+enum AdExitTypes: String {
+    case completed = "Completed"
     case skipped = "Skipped"
-    case contentVideoDuration = "Content Video Duration"
-    case adBreakTime = "Ad Break Time"
-    case adBreakDuration = "Ad Break Duration"
-    case midrollInterval = "Midroll Interval"
-    case adExitMethod = "Ad Exit Method"
-    case timeWhenExited = "Time When Exited"
     case adServerError = "Ad Server Error"
+    case closedApp = "Closed App"
     case clicked = "Clicked"
-    case itemName = "Item Name"
-    case itemID = "Item ID"
-    case freeOrPaid = "Free/Paid"
-    case adBreakPercentileTime = "Ad Break Percentile Time"
-    case vodType = "VOD Type"
+    case unspecified = "Unspecified"
     
-    func defaultValue() -> String {
-        switch self {
-        case .adExitMethod:
-            return "Unspecified"
-        case .skipped, .adServerError:
-            return "N/A"
-        case .vodType:
-            return "ATOM"
-        default:
-            return ""
-        }
+    var key: String {
+        return "Ad Exit Method"
     }
+}
+
+enum Skipped: String {
+    case yes = "Yes"
+    case no = "No"
+    case unspecified = "N/A"
     
-    static func defaultValuesDict() -> [AdvertisementAnalyticKeys: Any] {
-        // TODO: Replace it using enum's allCases when Swift version will be updated to 4.2
-        return [.videoAdType: AdvertisementAnalyticKeys.videoAdType.defaultValue(),
-                .adProvider: AdvertisementAnalyticKeys.adProvider.defaultValue(),
-                .adUnit: AdvertisementAnalyticKeys.adUnit.defaultValue(),
-                .skippable: AdvertisementAnalyticKeys.skippable.defaultValue(),
-                .skipped: AdvertisementAnalyticKeys.skipped.defaultValue(),
-                .contentVideoDuration: AdvertisementAnalyticKeys.contentVideoDuration.defaultValue(),
-                .adBreakTime: AdvertisementAnalyticKeys.adBreakTime.defaultValue(),
-                .midrollInterval: AdvertisementAnalyticKeys.midrollInterval.defaultValue(),
-                .adBreakDuration: AdvertisementAnalyticKeys.adBreakDuration.defaultValue(),
-                .adExitMethod: AdvertisementAnalyticKeys.adExitMethod.defaultValue(),
-                .timeWhenExited: AdvertisementAnalyticKeys.timeWhenExited.defaultValue(),
-                .adServerError: AdvertisementAnalyticKeys.adServerError.defaultValue(),
-                .clicked: AdvertisementAnalyticKeys.clicked.defaultValue(),
-                .itemName: AdvertisementAnalyticKeys.itemName.defaultValue(),
-                .itemID: AdvertisementAnalyticKeys.itemID.defaultValue(),
-                .freeOrPaid: AdvertisementAnalyticKeys.freeOrPaid.defaultValue(),
-                .adBreakPercentileTime: AdvertisementAnalyticKeys.adBreakPercentileTime.defaultValue(),
-                .vodType: AdvertisementAnalyticKeys.vodType.defaultValue()]
+    var key: String {
+        return "Skipped"
     }
+}
+
+enum ItemPriceType: String {
+    case free = "Free"
+    case paid = "Paid"
     
-    static func toStringDict(from: [AdvertisementAnalyticKeys: Any]) -> [String: Any] {
-        var result: [String: Any] = [:]
-        for (key, value) in from {
-            result.updateValue(value, forKey: key.rawValue)
-        }
-        
-        return result
+    var key: String {
+        return "Free or Paid Video"
+    }
+}
+
+enum VodType: String {
+    case atom = "ATOM"
+    
+    var key: String {
+        return "VOD Type"
+    }
+}
+
+enum VideoPlayerPlugin: String {
+    case applicaster = "Applicaster Player"
+    case brightcove = "Brightcove Player"
+    
+    var key: String {
+        return "Video Player Plugin"
+    }
+}
+
+enum AdvertisingProvider: String {
+    case ima = "IMA"
+    
+    var key: String {
+        return "Advertising Provider"
     }
 }

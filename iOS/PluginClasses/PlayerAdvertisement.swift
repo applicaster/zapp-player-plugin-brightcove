@@ -16,7 +16,8 @@ protocol PlayerAdvertisementProtocol: AdvertisementEventsDelegate {
 class PlayerAdvertisement: PlayerAdvertisementProtocol {
     
     var analytics: AnalyticsAdapterProtocol
-    private var adAnalyticParams: [AdvertisementAnalyticKeys: Any] = [:]
+//    private var adAnalyticParams: [AdvertisementAnalyticKeys: Any] = [:]
+    private var adAnalytic: AdAnalytic?
     
     init(analytics: AnalyticsAdapterProtocol) {
         self.analytics = analytics
@@ -24,9 +25,13 @@ class PlayerAdvertisement: PlayerAdvertisementProtocol {
     
     // MARK: - PlayerAdvertisementAdapter methods
     
-    func willLoadAds(forAdTagURL adTagURL: String) {
-        adAnalyticParams = AdvertisementAnalyticKeys.defaultValuesDict()
-        adAnalyticParams[.adUnit] = adTagURL
+    func willLoadAds(forAdTagURL adTagURL: String,
+                     forItem item: ZPPlayable) {
+        adAnalytic = AdAnalytic()
+        adAnalytic?.adUnit = adTagURL
+        adAnalytic?.itemName = item.playableName()
+        adAnalytic?.itemID = item.identifier as String? ?? ""
+        // TODO: Add isFree after resolving depedency issue
     }
     
     func eventOccured(_ event: IMAAdEvent,
@@ -38,63 +43,84 @@ class PlayerAdvertisement: PlayerAdvertisementProtocol {
         
         switch event.type {
         case .LOADED:
-            adAnalyticParams[.itemName] = item.playableName()
-            adAnalyticParams[.skippable] = "\(advertisement.isSkippable)"
-            adAnalyticParams[.adBreakDuration] = "\(advertisement.duration)"
-            adAnalyticParams[.itemID] = item.identifier
-            adAnalyticParams[.videoAdType] = advertisementType(forProgress: progress)
-            adAnalyticParams[.contentVideoDuration] = timeString(fromTimeInterval: progress.duration)
-            // TODO: Add isFree after resolving depedency issue
+            adAnalytic?.skippable = advertisement.isSkippable
+            adAnalytic?.adBreakDuration = "\(advertisement.duration)"
+            adAnalytic?.videoDuration = timeString(fromTimeInterval: progress.duration)
+            adAnalytic?.videoAdType = advertisementType(forProgress: progress)
             
-            let params = AdvertisementAnalyticKeys.toStringDict(from: adAnalyticParams)
-            analytics.track(event: .advertisement, withParameters: params)
-        case .STARTED:
-            adAnalyticParams[.adBreakTime] = adBreakTime(fromProgress: progress)
-            adAnalyticParams[.adBreakPercentileTime] = percentileTime(fromProgress: progress)
-        case .COMPLETE:
-            adAnalyticParams[.adExitMethod] = "Completed"
-            if advertisement.isSkippable == true {
-                adAnalyticParams[.skipped] = "No"
+            if let params = adAnalytic?.dictionary {
+                analytics.track(event: .advertisement,
+                                withParameters: params,
+                                timed: true)
             }
-            let params = AdvertisementAnalyticKeys.toStringDict(from: adAnalyticParams)
-            analytics.complete(event: .advertisement, withParameters: params)
-        case .CLICKED:
-            adAnalyticParams[.clicked] = "Yes"
-        case .SKIPPED:
-            adAnalyticParams[.adExitMethod] = "Skipped"
-            adAnalyticParams[.skipped] = "Yes"
-            adAnalyticParams[.timeWhenExited] = timeString(fromTimeInterval: progress.progress)
+        case .STARTED:
+            adAnalytic?.adBreakTime = adBreakTime(fromProgress: progress)
+            adAnalytic?.adBreakPercentileTime = percentileTime(fromProgress: progress)
+        case .COMPLETE:
+            adAnalytic?.exitMethod = .completed
             
-            let params = AdvertisementAnalyticKeys.toStringDict(from: adAnalyticParams)
-            analytics.complete(event: .advertisement, withParameters: params)
+            if advertisement.isSkippable == true {
+                adAnalytic?.skipped = .no
+            }
+            
+            if let params = adAnalytic?.dictionary {
+                analytics.track(event: .advertisement,
+                                withParameters: params,
+                                timed: true)
+            }
+        case .CLICKED:
+            adAnalytic?.clicked = true
+        case .SKIPPED:
+            adAnalytic?.exitMethod = .skipped
+            adAnalytic?.skipped = .yes
+            adAnalytic?.exitTime = timeString(fromTimeInterval: progress.progress)
+            
+            if let params = adAnalytic?.dictionary {
+                analytics.track(event: .advertisement,
+                                withParameters: params,
+                                timed: true)
+            }
         default:
             break
         }
     }
     
     func advertisementProgress(progress: Double) {
-        adAnalyticParams[.timeWhenExited] = "\(progress)"
+        adAnalytic?.exitTime = "\(progress)"
     }
     
-    func loadError(_ error: IMAAdError) {
-        adAnalyticParams[.adExitMethod] = "Ad Server Error"
-        adAnalyticParams[.adServerError] = error.message
+    func loadError(_ error: IMAAdError,
+                   forItem item: ZPPlayable) {
+        adAnalytic?.exitMethod = .adServerError
+        adAnalytic?.adServerError = error.message
         
-        let params = AdvertisementAnalyticKeys.toStringDict(from: adAnalyticParams)
-        analytics.complete(event: .advertisement, withParameters: params)
+        if let params = adAnalytic?.dictionary {
+            analytics.track(event: .advertisement,
+                            withParameters: params,
+                            timed: true)
+        }
+        
+        var adError = AdError(from: error, forItem: item)
+        adError.screenMode = analytics.screenMode
+        adError.isCompleted = (adAnalytic?.videoAdType == .postroll) ? true : false
+        adError.itemDuration = adAnalytic?.videoDuration ?? ""
+        
+        analytics.track(event: .advertisementError,
+                        withParameters: adError.dictionary,
+                        timed: false)
     }
     
     // MARK: - Private methods
     
-    private func advertisementType(forProgress progress: Progress) -> String {
+    private func advertisementType(forProgress progress: Progress) -> AdTypes {
         let currentProgress = progress.progress
         let duration = progress.duration
         if currentProgress.isInfinite == true {
-            return "Preroll"
+            return .preroll
         } else if currentProgress > duration {
-            return "Postroll"
+            return .postroll
         } else {
-            return "Midroll"
+            return .midroll
         }
     }
     
