@@ -24,6 +24,7 @@ struct AdError {
     var errorCode = IMAErrorCodes.unknown
     var adProviderErrorType = IMAErrorTypes.adUnknownErrorType
     var adProvider = AdvertisingProvider.ima
+    var adErrorMessage = ""
     
     var dictionary: [AnyHashable: Any] {
         let isCompleted = self.isCompleted ? "Yes" : "No"
@@ -38,7 +39,8 @@ struct AdError {
                 videoPlayer.key: videoPlayer.rawValue,
                 errorCode.key: errorCode.stringValue(),
                 adProvider.key: adProvider.rawValue,
-                adProviderErrorType.key: adProviderErrorType.stringValue()]
+                adProviderErrorType.key: adProviderErrorType.stringValue(),
+                "Error Message": adErrorMessage]
     }
     
     init(from imaAdError: IMAAdError, forItem item: ZPPlayable) {
@@ -47,6 +49,6 @@ struct AdError {
         itemLink = item.contentVideoURLPath()
         errorCode = IMAErrorCodes(rawValue: imaAdError.code.rawValue) ?? .unknown
         adProviderErrorType = IMAErrorTypes(rawValue: imaAdError.type.rawValue) ?? .adUnknownErrorType
-        
+        adErrorMessage = imaAdError.message
     }
 }
