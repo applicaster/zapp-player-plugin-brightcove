@@ -2,6 +2,8 @@ import Foundation
 import ZappPlugins
 import ApplicasterSDK
 import BrightcovePlayerSDK
+import BrightcoveIMA
+import GoogleInteractiveMediaAds
 
 public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
@@ -9,14 +11,21 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
     weak var playerController: UIViewController?
     
-    private let adapter: PlayerAdapter
-    private let analytics: AnalyticsAdapter
+    private let player: PlayerAdapterProtocol
+    private let analytics: AnalyticsAdapterProtocol
+    private let adAnalytics: PlayerAdvertisementProtocol
     
     // MARK: - Lifecycle
     
-    init(adapter: PlayerAdapter, analytics: AnalyticsAdapter = MorpheusAnalyticsAdapter()) {
-        self.adapter = adapter
+    init(adapter: PlayerAdapterProtocol,
+         analytics: AnalyticsAdapterProtocol = MorpheusAnalyticsAdapter()) {
+        self.player = adapter
         self.analytics = analytics
+        self.adAnalytics = PlayerAdvertisement(analytics: analytics)
+        
+        super.init()
+        
+        self.player.delegate = self.adAnalytics
     }
     
     // MARK: - ZPPlayerProtocol
@@ -33,12 +42,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         APLoggerInfo("Configuration: \(String(describing: configurationJSON))")
         APLoggerInfo("Items: \(videos.map { $0.toString() })")
         
-        let manager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
-        let controller: BCOVPlaybackController = manager.createPlaybackController()
-        
-        APLoggerInfo("manager: \(manager), controller: \(controller)")
-        
-        let adapter = PlayerAdapterImp(player: controller, items: videos)
+        let adapter = PlayerAdapter(items: videos)
         let instance = BrightcovePlayerPlugin(adapter: adapter)
         
         return instance
@@ -50,13 +54,13 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     }
     
     public func pluggablePlayerCurrentUrl() -> NSURL? {
-        return adapter.currentItem
+        return player.currentItem
             .flatMap { $0.contentVideoURLPath() }
             .flatMap { NSURL(string: $0) }
     }
     
     public func pluggablePlayerCurrentPlayableItem() -> ZPPlayable? {
-        return adapter.currentItem
+        return player.currentItem
     }
 
     // MARK: - Inline playback
@@ -67,14 +71,15 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         let playerVC = createPlayerController(mode: .inline)
         rootViewController.addChildViewController(playerVC, to: container)
         playerVC.view.matchParent()
+        player.setupPlayer(atContainer: playerVC)
         
-        analytics.track(item: adapter.currentItem!, mode: .inline)
+        analytics.track(item: player.currentItem!, mode: .inline)
     }
     
     public override func pluggablePlayerRemoveInline() {
         APLoggerVerbose("Removing inline player")
         
-        analytics.complete(item: adapter.currentItem!, mode: .inline, progress: adapter.playbackState)
+        analytics.complete(item: player.currentItem!, mode: .inline, progress: player.playbackState)
         
         let container = playerController?.view.superview
         super.pluggablePlayerRemoveInline()
@@ -102,17 +107,19 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         let rootVC: UIViewController = rootViewController.topmostModal()
         let playerVC = createPlayerController(mode: .fullscreen)
 
-        adapter.didEndPlayback = { [weak playerVC] in
+        player.didEndPlayback = { [weak playerVC] in
             playerVC?.close()
         }
         
-        analytics.track(item: adapter.currentItem!, mode: .fullscreen)
+        analytics.track(item: player.currentItem!, mode: .fullscreen)
         
-        playerVC.onDismiss = { [adapter, analytics] in
-            analytics.complete(item: adapter.currentItem!,
+        playerVC.onDismiss = { [player, analytics] in
+            analytics.complete(item: player.currentItem!,
                                mode: .fullscreen,
-                               progress: adapter.playbackState)
+                               progress: player.playbackState)
         }
+        
+        player.setupPlayer(atContainer: playerVC)
 
         rootVC.present(playerVC, animated: animated, completion: completion)
     }
@@ -120,17 +127,17 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     // MARK: - Playback controls
     
     public override func pluggablePlayerPlay(_ configuration: ZPPlayerConfiguration?) {
-        APLoggerVerbose("Item: \(String(describing: adapter.currentItem?.toString()))")
+        APLoggerVerbose("Item: \(String(describing: player.currentItem?.toString()))")
         APLoggerVerbose("Configuration: \(String(describing: configuration?.toString()))")
-        adapter.play()
+        player.play()
     }
     
     public override func pluggablePlayerPause() {
-        adapter.pause()
+        player.pause()
     }
     
     public override func pluggablePlayerStop() {
-        adapter.stop()
+        player.stop()
     }
 
     // MARK: - Playback state
@@ -142,17 +149,17 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     }
     
     public func playerState() -> ZPPlayerState {
-        return adapter.playerState
+        return player.playerState
     }
     
     // MARK: - Playback progress
     
     public func playbackDuration() -> TimeInterval {
-        return adapter.playbackState.duration
+        return player.playbackState.duration
     }
     
     public func playbackPosition() -> TimeInterval {
-        return adapter.playbackState.progress
+        return player.playbackState.progress
     }
     
     // MARK: - Plugin type
@@ -168,14 +175,14 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     // MARK: - Private
     
     private func playVideo() {
-        adapter.play()
+        player.play()
     }
     
     private func createPlayerController(mode: PlayerScreenMode) -> PlayerViewController {
-        let builder = PlayerViewBuilderImp(player: adapter.player)
+        let builder = PlayerViewBuilder()
         builder.mode = mode
         
-        let playerVC = PlayerViewController(builder: builder, adapter: adapter)
+        let playerVC = PlayerViewController(builder: builder, adapter: player)
         
         playerController = playerVC
         return playerVC
