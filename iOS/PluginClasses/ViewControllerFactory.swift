@@ -14,6 +14,7 @@ class ViewControllerFactory {
         let player = PlayerAdapter(items: videoItems)
         let playerViewController = PlayerViewController(builder: builder,
                                                         player: player)
+        builder.playerViewController = playerViewController
         
         return playerViewController
     }

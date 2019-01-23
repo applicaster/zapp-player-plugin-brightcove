@@ -28,7 +28,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     var onDismiss: (() -> Void)?
     
     lazy var playerView: BCOVPUIPlayerView = {
-        self.builder.build(for: self)
+        self.builder.buildPlayerView()
     }()
     
     weak var delegate: PlayerAdvertisementEventsDelegate?
@@ -76,9 +76,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         player.setupPlayer(atContainer: self)
         player.didSwitchToItem = { [weak self] item in
             APLoggerVerbose("Switching to playable item: \(item.toString())")
-            guard let strongSelf = self else { return }
-            let controls = strongSelf.playerView.controlsView!
-            strongSelf.builder.configureLayout(for: controls, item: item, vc: strongSelf)
+            self?.builder.configureControlsLayout(isLiveEvent: item.isLive())
         }
         player.didEndPlayback = { [weak self] in
             self?.close()
