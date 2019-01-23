@@ -8,8 +8,8 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
     
     // MARK: - Properies
     
-    private let builder: PlayerViewBuilderProtocol
-    private let player: PlayerAdapterProtocol
+    var builder: PlayerViewBuilderProtocol
+    let player: PlayerAdapterProtocol
     
     var onDismiss: (() -> Void)?
     
@@ -19,10 +19,9 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
     
     // MARK: - Lifecycle
     
-    required init(builder: PlayerViewBuilderProtocol, adapter: PlayerAdapterProtocol) {
-        APLoggerVerbose("Builder: \(builder), adapter: \(adapter)")
+    required init(builder: PlayerViewBuilderProtocol, player: PlayerAdapterProtocol) {
         self.builder = builder
-        self.player = adapter
+        self.player = player
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -54,8 +53,17 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         super.viewWillDisappear(animated)
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
-        APLoggerVerbose("Parent: \(parent.debugDescription)")
+    open func setupPlayer() {
+        player.setupPlayer(atContainer: self)
+        player.didSwitchToItem = { [weak self] item in
+            APLoggerVerbose("Switching to playable item: \(item.toString())")
+            guard let strongSelf = self else { return }
+            let controls = strongSelf.playerView.controlsView!
+            strongSelf.builder.configureLayout(for: controls, item: item, vc: strongSelf)
+        }
+        player.didEndPlayback = { [weak self] in
+            self?.close()
+        }
     }
     
     // MARK: - Actions
@@ -74,15 +82,6 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         playerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    private func setupPlayer() {
-        player.didSwitchToItem = { [weak self] item in
-            APLoggerVerbose("Switching to playable item: \(item.toString())")
-            guard let strongSelf = self else { return }
-            let controls = strongSelf.playerView.controlsView!
-            strongSelf.builder.configureLayout(for: controls, item: item, vc: strongSelf)
-        }
     }
     
     private func setupAccessibilityIdentifiers() {

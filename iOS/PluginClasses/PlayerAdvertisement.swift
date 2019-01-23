@@ -16,7 +16,6 @@ protocol PlayerAdvertisementProtocol: AdvertisementEventsDelegate {
 class PlayerAdvertisement: PlayerAdvertisementProtocol {
     
     var analytics: AnalyticsAdapterProtocol
-//    private var adAnalyticParams: [AdvertisementAnalyticKeys: Any] = [:]
     private var adAnalytic: AdAnalytic?
     
     init(analytics: AnalyticsAdapterProtocol) {

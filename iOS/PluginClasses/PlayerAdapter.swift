@@ -107,7 +107,9 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
         playerViewController.playerView.playbackController = self.player
         playerView = playerViewController.playerView
     
-        setupPlayer()
+        self.player.delegate = self
+        self.player.isAutoPlay = true
+        self.player.isAutoAdvance = true
     }
     
     func play() {
@@ -134,12 +136,6 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     }
     
     // MARK: - Private
-    
-    private func setupPlayer() {
-        player.delegate = self
-        player.isAutoPlay = true
-        player.isAutoAdvance = true
-    }
     
     private func loadItems() {
         APLoggerDebug("Load items")
