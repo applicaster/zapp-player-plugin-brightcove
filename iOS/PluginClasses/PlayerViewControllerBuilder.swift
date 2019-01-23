@@ -3,6 +3,8 @@ import ZappPlugins
 import BrightcovePlayerSDK
 
 protocol PlayerViewBuilderProtocol {
+    var mode: PlayerScreenMode { get set }
+    
     func build(for vc: PlayerViewController) -> BCOVPUIPlayerView
     func configureLayout(for view: BCOVPUIBasicControlView, item: ZPPlayable, vc: PlayerViewController)
 }

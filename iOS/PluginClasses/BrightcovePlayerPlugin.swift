@@ -5,14 +5,14 @@ import BrightcovePlayerSDK
 import BrightcoveIMA
 import GoogleInteractiveMediaAds
 
-public class BrightcovePlayerPlugin: APPlugablePlayerBase {
+public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEventsDelegate {
     
     // MARK: - Properties
     
     var playerViewController: PlayerViewController?
     
     private let analytics: AnalyticsAdapterProtocol
-    private let adAnalytics: PlayerAdvertisementProtocol
+    private let adAnalytics: PlayerAdvertisementEventsDelegate
     
     // MARK: - Lifecycle
     
@@ -71,7 +71,8 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         playerViewController.view.matchParent()
         playerViewController.builder.mode = .inline
         playerViewController.setupPlayer()
-        playerViewController.player.delegate = self.adAnalytics
+        playerViewController.delegate = self.adAnalytics
+        playerViewController.analyticEventDelegate = self
         
         if let item = self.playerViewController?.player.currentItem {
             analytics.track(item: item,
@@ -122,13 +123,13 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
         let animated: Bool = configuration?.animated ?? true
         playerViewController.builder.mode = .fullscreen
         playerViewController.setupPlayer()
-        playerViewController.player.delegate = self.adAnalytics
+        playerViewController.delegate = self.adAnalytics
         playerViewController.onDismiss = { [weak self] in
             self?.analytics.complete(item: playerViewController.player.currentItem!,
                                      mode: .fullscreen,
                                      progress: playerViewController.player.playbackState)
         }
-        playerViewController.player.delegate = self.adAnalytics
+        playerViewController.analyticEventDelegate = self
         
         analytics.track(item: currentItem, mode: .fullscreen)
         
@@ -171,5 +172,11 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase {
     
     public static func pluggablePlayerType() -> ZPPlayerType {
         return .undefined
+    }
+    
+    // MARK: - PlaybackAnalyticEventsDelegate methods
+    
+    func eventOccurred(_ event: AnalyticsEvent, params: [AnyHashable : Any], timed: Bool) {
+        analytics.track(event: event, withParameters: params, timed: timed)
     }
 }

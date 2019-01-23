@@ -1,5 +1,5 @@
 //
-//  PlayerAdvertisementAdapter.swift
+//  PlayerAdvertisement.swift
 //  BrightcovePlayerPlugin
 //
 //  Created by Roman Karpievich on 1/17/19.
@@ -8,12 +8,9 @@
 import Foundation
 import ZappPlugins
 import GoogleInteractiveMediaAds
+import BrightcoveIMA
 
-protocol PlayerAdvertisementProtocol: AdvertisementEventsDelegate {
-    var analytics: AnalyticsAdapterProtocol { get set }
-}
-
-class PlayerAdvertisement: PlayerAdvertisementProtocol {
+class PlayerAdvertisement: PlayerAdvertisementEventsDelegate {
     
     var analytics: AnalyticsAdapterProtocol
     private var adAnalytic: AdAnalytic?
@@ -22,7 +19,7 @@ class PlayerAdvertisement: PlayerAdvertisementProtocol {
         self.analytics = analytics
     }
     
-    // MARK: - PlayerAdvertisementAdapter methods
+    // MARK: - PlayerAdvertisementEventsDelegate methods
     
     func willLoadAds(forAdTagURL adTagURL: String,
                      forItem item: ZPPlayable) {
@@ -30,7 +27,33 @@ class PlayerAdvertisement: PlayerAdvertisementProtocol {
         adAnalytic?.adUnit = adTagURL
         adAnalytic?.itemName = item.playableName()
         adAnalytic?.itemID = item.identifier as String? ?? ""
-        // TODO: Add isFree after resolving depedency issue
+        adAnalytic?.itemPriceType = ItemPriceType(fromBool: item.isFree)
+    }
+    
+    func eventOccured(_ event: BCOVPlaybackSessionLifecycleEvent,
+                      duringSession session: BCOVPlaybackSession,
+                      forItem item: ZPPlayable) {
+        switch event.eventType {
+        case kBCOVIMALifecycleEventAdsLoaderFailed,
+             kBCOVIMALifecycleEventAdsManagerDidReceiveAdError:
+            if let error = event.properties[kBCOVIMALifecycleEventPropertyKeyAdError] as? IMAAdError {
+                loadError(error, forItem: item)
+            }
+        case "kBCOVPlaybackSessionLifecycleEventAdProgress":
+            let adProgressKey = "kBCOVPlaybackSessionLifecycleEventPropertiesKeyAdProgress"
+            if let currentProgress = event.properties[adProgressKey] as? Double {
+                advertisementProgress(progress: currentProgress)
+            }
+        case kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent:
+            if let adEvent = event.properties["adEvent"] as? IMAAdEvent {
+                let duration = session.player.currentItem!.duration.seconds
+                let currentTime = session.player.currentTime().seconds
+                let progress = Progress(progress: currentTime, duration: duration)
+                eventOccured(adEvent, atProgress: progress, forItem: item)
+            }
+        default:
+            break
+        }
     }
     
     func eventOccured(_ event: IMAAdEvent,

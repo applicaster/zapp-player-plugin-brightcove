@@ -98,7 +98,6 @@
 		000000003310 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000780 /* PlayerViewController.swift */; };
 		000000003320 /* PlayerViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000790 /* PlayerViewControllerBuilder.swift */; };
 		000000003330 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000007A0 /* UIKit+Extensions.swift */; };
-		000000003340 /* VideoExtensionAdsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000007B0 /* VideoExtensionAdsKeys.swift */; };
 		000000003350 /* ZappPlugins+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000007C0 /* ZappPlugins+Extensions.swift */; };
 		000000003360 /* ZPPlayable+BCOVVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000007D0 /* ZPPlayable+BCOVVideo.swift */; };
 		000000003370 /* ZPPlayerState+BCOVPlaybackEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000007E0 /* ZPPlayerState+BCOVPlaybackEvents.swift */; };
@@ -1044,7 +1043,6 @@
 		000000000780 /* PlayerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = iOS/PluginClasses/PlayerViewController.swift; sourceTree = "<group>"; };
 		000000000790 /* PlayerViewControllerBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerViewControllerBuilder.swift; path = iOS/PluginClasses/PlayerViewControllerBuilder.swift; sourceTree = "<group>"; };
 		0000000007A0 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIKit+Extensions.swift"; path = "iOS/PluginClasses/UIKit+Extensions.swift"; sourceTree = "<group>"; };
-		0000000007B0 /* VideoExtensionAdsKeys.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoExtensionAdsKeys.swift; path = iOS/PluginClasses/VideoExtensionAdsKeys.swift; sourceTree = "<group>"; };
 		0000000007C0 /* ZappPlugins+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZappPlugins+Extensions.swift"; path = "iOS/PluginClasses/ZappPlugins+Extensions.swift"; sourceTree = "<group>"; };
 		0000000007D0 /* ZPPlayable+BCOVVideo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZPPlayable+BCOVVideo.swift"; path = "iOS/PluginClasses/ZPPlayable+BCOVVideo.swift"; sourceTree = "<group>"; };
 		0000000007E0 /* ZPPlayerState+BCOVPlaybackEvents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZPPlayerState+BCOVPlaybackEvents.swift"; path = "iOS/PluginClasses/ZPPlayerState+BCOVPlaybackEvents.swift"; sourceTree = "<group>"; };
@@ -2667,22 +2665,19 @@
 		0000000006C0 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				A640184F21F89BA800BD3C9D /* Extensions */,
-				0000000006D0 /* AdAnalytic.swift */,
-				0000000006E0 /* AdError.swift */,
 				0000000006F0 /* AdvertisementAnalyticKeys.swift */,
 				000000000700 /* AdvertisementParser.swift */,
+				A64FA63A21F8C4B300806B82 /* Analytic Models */,
 				000000000710 /* AnalyticsAdapter.swift */,
 				000000000730 /* BrightcovePlayerPlugin.swift */,
+				A640184F21F89BA800BD3C9D /* Extensions */,
 				000000000740 /* IMAErrorWrapper.swift */,
+				A65A8F2B21F7661600A942A6 /* PlaybackErrors.swift */,
 				000000000750 /* PlayerAdapter.swift */,
 				000000000760 /* PlayerAdvertisement.swift */,
 				000000000770 /* PlayerScreenMode.swift */,
 				000000000780 /* PlayerViewController.swift */,
 				000000000790 /* PlayerViewControllerBuilder.swift */,
-				0000000007B0 /* VideoExtensionAdsKeys.swift */,
-				A65A8F2921F759FB00A942A6 /* VideoPlayError.swift */,
-				A65A8F2B21F7661600A942A6 /* PlaybackErrors.swift */,
 				A640184D21F87ADB00BD3C9D /* ViewControllerFactory.swift */,
 			);
 			name = Core;
@@ -3148,6 +3143,16 @@
 				0000000007E0 /* ZPPlayerState+BCOVPlaybackEvents.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		A64FA63A21F8C4B300806B82 /* Analytic Models */ = {
+			isa = PBXGroup;
+			children = (
+				0000000006D0 /* AdAnalytic.swift */,
+				0000000006E0 /* AdError.swift */,
+				A65A8F2921F759FB00A942A6 /* VideoPlayError.swift */,
+			);
+			name = "Analytic Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4143,7 +4148,6 @@
 				A65A8F2A21F759FB00A942A6 /* VideoPlayError.swift in Sources */,
 				000000003330 /* UIKit+Extensions.swift in Sources */,
 				A65A8F2C21F7661600A942A6 /* PlaybackErrors.swift in Sources */,
-				000000003340 /* VideoExtensionAdsKeys.swift in Sources */,
 				000000003350 /* ZappPlugins+Extensions.swift in Sources */,
 				000000003360 /* ZPPlayable+BCOVVideo.swift in Sources */,
 				000000003370 /* ZPPlayerState+BCOVPlaybackEvents.swift in Sources */,

@@ -1,10 +1,24 @@
 import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
+import BrightcoveIMA
 import ApplicasterSDK
 import GoogleInteractiveMediaAds
 
-class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
+protocol PlayerAdvertisementEventsDelegate: AnyObject {
+    func willLoadAds(forAdTagURL adTagURL: String,
+                     forItem item: ZPPlayable)
+    
+    func eventOccured(_ event: BCOVPlaybackSessionLifecycleEvent,
+                      duringSession session: BCOVPlaybackSession,
+                      forItem item: ZPPlayable)
+}
+
+protocol PlaybackAnalyticEventsDelegate: AnyObject {
+    func eventOccurred(_ event: AnalyticsEvent, params: [AnyHashable: Any], timed: Bool)
+}
+
+class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEventsDelegate {
     
     // MARK: - Properies
     
@@ -17,6 +31,9 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         self.builder.build(for: self)
     }()
     
+    weak var delegate: PlayerAdvertisementEventsDelegate?
+    weak var analyticEventDelegate: PlaybackAnalyticEventsDelegate?
+    
     // MARK: - Lifecycle
     
     required init(builder: PlayerViewBuilderProtocol, player: PlayerAdapterProtocol) {
@@ -24,6 +41,8 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         self.player = player
 
         super.init(nibName: nil, bundle: nil)
+        
+        self.player.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -119,4 +138,37 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
     func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
         player.resumeAdPlayback()
     }
+    
+    // MARK: - PlaybackEventsDelegate methods
+    
+    func willLoadAds(forAdTagURL adTagURL: String,
+                     forItem item: ZPPlayable) {
+        delegate?.willLoadAds(forAdTagURL: adTagURL, forItem: item)
+    }
+    
+    func eventOccured(_ event: BCOVPlaybackSessionLifecycleEvent,
+                      duringSession session: BCOVPlaybackSession,
+                      forItem item: ZPPlayable) {
+        switch event.eventType {
+        case kBCOVIMALifecycleEventAdsLoaderFailed:
+            let currentTime = CMTimeGetSeconds(session.player.currentTime()).rounded(.down)
+            playerView.controlsView.progressSlider.removeMarker(atPosition: currentTime)
+            fallthrough
+        case "kBCOVPlaybackSessionLifecycleEventAdProgress",
+             kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent,
+             kBCOVIMALifecycleEventAdsManagerDidReceiveAdError:
+            delegate?.eventOccured(event, duringSession: session, forItem: item)
+        case kBCOVPlaybackSessionLifecycleEventFail, kBCOVPlaybackSessionLifecycleEventResumeFail:
+            if let error = event.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
+                var videoPlayError = VideoPlayError(from: error, forItem: item)
+                videoPlayError.itemDuration = "\(session.player.currentItem!.duration.seconds)"
+                analyticEventDelegate?.eventOccurred(.playbackError,
+                                                     params: videoPlayError.dictionary,
+                                                     timed: false)
+            }
+        default:
+            break
+        }
+    }
+    
 }
