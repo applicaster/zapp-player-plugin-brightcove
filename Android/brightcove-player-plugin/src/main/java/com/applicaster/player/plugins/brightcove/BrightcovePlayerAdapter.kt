@@ -5,9 +5,10 @@ import android.content.Intent
 import android.net.Uri
 import android.view.ViewGroup
 import com.applicaster.player.defaultplayer.BasePlayer
-import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.INLINE
+import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode.INLINE
 import com.applicaster.player.plugins.brightcove.ad.AdsAdapter
 import com.applicaster.player.plugins.brightcove.ad.GoogleIMAAdapter
+import com.applicaster.player.plugins.brightcove.analytics.*
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.applicaster.plugin_manager.playersmanager.PlayableConfiguration
 import com.brightcove.player.view.BrightcoveExoPlayerVideoView
@@ -21,9 +22,10 @@ import com.brightcove.player.view.BrightcoveVideoView
 class BrightcovePlayerAdapter : BasePlayer() {
 
     private lateinit var videoView: BrightcoveVideoView
-    private lateinit var adAnalytics: AdAnalytics
+    private lateinit var adAnalyticsAdapter: AdAnalyticsAdapter
     private lateinit var analyticsAdapter: AnalyticsAdapter
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
+    private lateinit var errorHandlingVideoPlayerAdapter: ErrorHandlingVideoPlayerAdapter
     private lateinit var adsAdapter: AdsAdapter
 
     /**
@@ -40,8 +42,9 @@ class BrightcovePlayerAdapter : BasePlayer() {
         super.init(playList, context)
         videoView = BrightcoveExoPlayerVideoView(context)
         analyticsAdapter = MorpheusAnalyticsAdapter(videoView)
-        adAnalytics = AdAnalytics(videoView)
+        adAnalyticsAdapter = AdAnalyticsAdapter(videoView)
         errorHandlingAnalyticsAdapter = ErrorHandlingAnalyticsAdapter(videoView)
+        errorHandlingVideoPlayerAdapter = ErrorHandlingVideoPlayerAdapter(videoView)
         adsAdapter = GoogleIMAAdapter(videoView)
     }
 
@@ -76,8 +79,9 @@ class BrightcovePlayerAdapter : BasePlayer() {
         //
         adsAdapter.setupForVideo(firstPlayable)
         analyticsAdapter.startTrack(firstPlayable, INLINE)
-        adAnalytics.startTrack(firstPlayable, INLINE)
+        adAnalyticsAdapter.startTrack(firstPlayable, INLINE)
         errorHandlingAnalyticsAdapter.startTrack(firstPlayable, INLINE)
+        errorHandlingVideoPlayerAdapter.startTrack(firstPlayable, INLINE)
     }
 
     /**
@@ -90,8 +94,9 @@ class BrightcovePlayerAdapter : BasePlayer() {
         viewGroup.removeView(videoView)
         //
         analyticsAdapter.endTrack(firstPlayable, INLINE)
-        adAnalytics.endTrack(firstPlayable, INLINE)
+        adAnalyticsAdapter.endTrack(firstPlayable, INLINE)
         errorHandlingAnalyticsAdapter.endTrack(firstPlayable, INLINE)
+        errorHandlingVideoPlayerAdapter.endTrack(firstPlayable, INLINE)
     }
 
     /**

@@ -1,10 +1,10 @@
-package com.applicaster.player.plugins.brightcove
+package com.applicaster.player.plugins.brightcove.analytics
 
 import com.applicaster.analytics.AnalyticsAgentUtil
 import com.applicaster.atom.model.APAtomEntry.APAtomEntryPlayable
-import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode
-import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.FULLSCREEN
-import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.INLINE
+import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode
+import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode.FULLSCREEN
+import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode.INLINE
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView

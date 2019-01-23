@@ -1,4 +1,4 @@
-package com.applicaster.player.plugins.brightcove
+package com.applicaster.player.plugins.brightcove.analytics
 
 import android.util.Log
 import com.applicaster.analytics.AnalyticsAgentUtil
@@ -14,9 +14,9 @@ import com.google.ads.interactivemedia.v3.api.AdEvent
 import com.google.ads.interactivemedia.v3.api.AdsManager
 
 
-class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalyticsAdapter(videoView), AdEvent.AdEventListener {
+class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusAnalyticsAdapter(videoView), AdEvent.AdEventListener {
 
-    private val TAG = AdAnalytics::class.java.simpleName
+    private val TAG = AdAnalyticsAdapter::class.java.simpleName
 
     private lateinit var eventEmitter: EventEmitter
     private lateinit var adsManager: AdsManager
@@ -40,6 +40,7 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
     private var timeWhenExited = Pair(TIME_WHEN_EXITED, parseDuration(0, isInMilliseconds = false))
     private var adServerErrorCode = Pair(AD_SERVER_ERROR, "N/A")
 
+    //region Overriden functions
     /**
      *  Start tracking
      */
@@ -58,6 +59,39 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
         collectParams(playable)
         adsManager.removeAdEventListener(this)
     }
+
+    override fun onAdEvent(event: AdEvent) {
+        when (event.type) {
+            AdEvent.AdEventType.STARTED -> {
+                adBreakTime = getAdBreakTime()
+                videoAdType = getVideoAdType()
+                adBreakDuration = getAdBreakDuration(event)
+            }
+
+            AdEvent.AdEventType.SKIPPED -> {
+                adExitMethod = getAdExitMethod(AdExitMethod.SKIPPED)
+                skipped = isSkipped(true)
+                setAllCollectedParams()
+            }
+
+            AdEvent.AdEventType.COMPLETED -> {
+                adExitMethod = getAdExitMethod(AdExitMethod.COMPLETED)
+                skipped = isSkipped(false)
+            }
+
+            AdEvent.AdEventType.CLICKED -> {
+                adExitMethod = getAdExitMethod(AdExitMethod.CLICKED)
+                setAllCollectedParams()
+            }
+
+            // default
+            else -> {}
+        }
+    }
+
+    //endregion
+
+    //region Private functions
 
     private fun setupComponents() {
         eventEmitter = videoView.eventEmitter
@@ -159,35 +193,6 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
         )
     }
 
-    override fun onAdEvent(event: AdEvent) {
-        when (event.type) {
-            AdEvent.AdEventType.STARTED -> {
-                adBreakTime = getAdBreakTime()
-                videoAdType = getVideoAdType()
-                adBreakDuration = getAdBreakDuration(event)
-            }
-
-            AdEvent.AdEventType.SKIPPED -> {
-                adExitMethod = getAdExitMethod(AdExitMethod.SKIPPED)
-                skipped = isSkipped(true)
-                setAllCollectedParams()
-            }
-
-            AdEvent.AdEventType.COMPLETED -> {
-                adExitMethod = getAdExitMethod(AdExitMethod.COMPLETED)
-                skipped = isSkipped(false)
-            }
-
-            AdEvent.AdEventType.CLICKED -> {
-                adExitMethod = getAdExitMethod(AdExitMethod.CLICKED)
-                setAllCollectedParams()
-            }
-
-            // default
-            else -> {}
-        }
-    }
-
     private fun setupAdsManager() {
         eventEmitter.on(
             GoogleIMAEventType.ADS_MANAGER_LOADED
@@ -201,8 +206,10 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
         var adVideoType = AdVideoType.Preroll
         when {
             (videoView.currentPosition > 0
-                    && videoView.currentPosition < videoView.duration) -> adVideoType = AdVideoType.Midroll
-            videoView.currentPosition == videoView.duration -> adVideoType = AdVideoType.Postroll
+                    && videoView.currentPosition < videoView.duration) -> adVideoType =
+                    AdVideoType.Midroll
+            videoView.currentPosition == videoView.duration -> adVideoType =
+                    AdVideoType.Postroll
         }
         return VIDEO_AD_TYPE to adVideoType.name
     }
@@ -270,6 +277,15 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
 
     private fun getVodType() = VOD_TYPE to "ATOM"
 
+
+    /**
+     *  Watch Video Advertisement extension for Playable
+     */
+    private val Playable.watchVideoAdEvent
+        get() = "Watch Video Advertisement"
+
+    //endregion
+
     /**
      *  This one indicates that Android back button was pressed
      */
@@ -278,13 +294,6 @@ class AdAnalytics(private val videoView: BrightcoveVideoView) : MorpheusAnalytic
         setAllCollectedParams()
         logTimedEvent(playable)
     }
-
-
-    /**
-     *  Watch Video Advertisement extension for Playable
-     */
-    private val Playable.watchVideoAdEvent
-        get() = "Watch Video Advertisement"
 
     enum class AdExitMethod(val value: String) {
         COMPLETED("Completed"),

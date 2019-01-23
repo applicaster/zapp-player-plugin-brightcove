@@ -1,4 +1,4 @@
-package com.applicaster.player.plugins.brightcove
+package com.applicaster.player.plugins.brightcove.analytics
 
 import android.util.Log
 import com.applicaster.analytics.AnalyticsAgentUtil
@@ -10,14 +10,14 @@ import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
 import com.google.ads.interactivemedia.v3.api.AdError
 
-class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusAnalyticsAdapter(videoView) {
+open class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusAnalyticsAdapter(videoView) {
 
     private val TAG = ErrorHandlingAnalyticsAdapter::class.java.simpleName
 
     private var adProviderErrorCode: String = ""
     private val analyticsParams: HashMap<String, String> = HashMap()
 
-
+    //region Overriden functions
     override fun startTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
         Log.v(TAG, "startTrack")
         videoView.eventEmitter.on(
@@ -44,10 +44,35 @@ class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoView) 
         ) { adProviderErrorCode = it.type }
     }
 
-    override fun endTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
-        Log.v(TAG, "endTrack")
-    }
+    //endregion
 
+    //region Protected functions
+
+    protected fun getVideoPlayerPlugin() =
+        VIDEO_PLAYER_PLUGIN to "Brightcove Player"
+
+    protected fun getDataParams(playable: Playable) =
+        ENTRY_ID to when (playable) {
+            is APAtomEntry.APAtomEntryPlayable -> playable.entry.id ?: ""
+            else -> ""
+        }
+
+    protected fun getItemDuration() =
+        ITEM_DURATION to parseDuration(videoView.duration.toLong())
+
+
+    protected fun getItemName(playable: Playable) =
+        ITEM_NAME to when (playable) {
+            is APAtomEntry.APAtomEntryPlayable -> playable.entry.title ?: ""
+            else -> ""
+        }
+
+    protected fun getItemLink(playable: Playable) =
+        ITEM_LINK to (playable.contentVideoURL ?: "")
+
+    //endregion
+
+    //region Private functions
     /**
      *  Send collected data to analytics agent
      */
@@ -71,28 +96,6 @@ class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoView) 
             getAdvertisingProvider()
         )
 
-    private fun getDataParams(playable: Playable) =
-        ENTRY_ID to when (playable) {
-            is APAtomEntry.APAtomEntryPlayable -> playable.entry.id ?: ""
-            else -> ""
-        }
-
-    private fun getItemDuration() =
-        ITEM_DURATION to parseDuration(videoView.duration.toLong())
-
-
-    private fun getItemName(playable: Playable) =
-        ITEM_NAME to when (playable) {
-            is APAtomEntry.APAtomEntryPlayable -> playable.entry.title ?: ""
-            else -> ""
-        }
-
-    private fun getItemLink(playable: Playable) =
-        ITEM_LINK to (playable.contentVideoURL ?: "")
-
-    private fun getVideoPlayerPlugin() =
-        VIDEO_PLAYER_PLUGIN to "Brightcove Player"
-
     private fun getErrorCode(event: Event): Pair<String, String> {
         val adError = event.properties["error"] as? AdError
         val errorCodeName = adError?.errorCode?.name ?: ""
@@ -100,7 +103,7 @@ class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoView) 
     }
 
     private fun getErrorMessage(event: Event): Pair<String, String> {
-        val adError = event.properties["error"] as? AdError
+        val adError = event.properties[EventType.ERROR] as? AdError
         val errorDetailMessage = adError?.message ?: ""
         return ERROR_MESSAGE to errorDetailMessage
     }
@@ -112,10 +115,11 @@ class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoView) 
         AD_PROVIDER_ERROR_CODE to adProviderErrorCode
 
     /**
-     *  Event name
+     *  Video Ad error event name
      */
     private val Playable.videoAdErrorEvent: String
         get() = "Video Ad Error"
+    //endregion
 
 
     companion object {
