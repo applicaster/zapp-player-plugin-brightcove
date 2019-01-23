@@ -147,6 +147,10 @@ class PlayerAdvertisement: PlayerAdvertisementEventsDelegate {
     }
     
     private func timeString(fromTimeInterval interval: TimeInterval) -> String {
+        guard interval.isNormal == true else {
+            return ""
+        }
+
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .positional
