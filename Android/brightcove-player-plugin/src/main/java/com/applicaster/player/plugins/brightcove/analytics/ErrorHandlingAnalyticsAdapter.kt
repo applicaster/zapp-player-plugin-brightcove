@@ -17,7 +17,7 @@ open class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoV
     private var adProviderErrorCode: String = ""
     private val analyticsParams: HashMap<String, String> = HashMap()
 
-    //region Overriden functions
+    //region Overridden functions
     override fun startTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
         Log.v(TAG, "startTrack")
         videoView.eventEmitter.on(
