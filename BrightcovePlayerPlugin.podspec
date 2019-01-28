@@ -16,14 +16,20 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.swift_version = '4.1'
     s.static_framework = true
+#    s.resource_bundles = {
+#        'Images' => ['iOS/Resources/Images/*.{png}'],
+#        'Views' => ['iOS/PluginClasses/*.{xib,nib,storyboard}']
+#    }
+    s.resources = ['iOS/Resources/Images/*.png', 'iOS/PluginClasses/*.{xib,nib,storyboard}']
 
     s.subspec 'Core' do |c|
-      s.resources = []
+#        s.resources = []
       c.frameworks = 'UIKit'
       c.source_files = 'iOS/PluginClasses/*.{swift,h,m}'
       c.dependency 'ZappPlugins', '= 4.2.0'
       c.dependency 'ApplicasterSDK', '= 6.3.1'
       c.dependency 'Brightcove-Player-IMA'
+      c.dependency 'AFNetworking'
 
     end
                   

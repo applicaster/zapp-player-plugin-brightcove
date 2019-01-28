@@ -8,6 +8,7 @@ protocol PlayerViewBuilderProtocol {
     
     func buildPlayerView() -> BCOVPUIPlayerView
     func configureControlsLayout(isLiveEvent: Bool)
+    func errorView(withType type: ErrorViewTypes) -> ErrorView
 }
 
 class PlayerViewBuilder: PlayerViewBuilderProtocol {
@@ -66,6 +67,41 @@ class PlayerViewBuilder: PlayerViewBuilderProtocol {
         case .inline:
             break
         }
+    }
+    
+    func errorView(withType type: ErrorViewTypes) -> ErrorView {
+        let errorView = ErrorView.nibInstance()
+        errorView.type = type
+        errorView.closeButtonAction = {
+            switch self.mode {
+            case .fullscreen:
+                self.playerViewController.close()
+            case .inline:
+                errorView.removeFromSuperview()
+            }
+        }
+        
+        switch type {
+        case .network:
+            errorView.actionButtonAction = {
+                errorView.removeFromSuperview()
+                self.playerViewController.isAdPlaybackBlocked = false
+                self.playerViewController.player.player.resumeAd()
+                self.playerViewController.player.resume()
+            }
+        case .video:
+            errorView.actionButtonAction = {
+                switch self.mode {
+                case .fullscreen:
+                    self.playerViewController.close()
+                case .inline:
+                    self.playerViewController.adManager?.destroy()
+                    errorView.removeFromSuperview()
+                }
+            }
+        }
+        
+        return errorView
     }
     
     // MARK: - Private

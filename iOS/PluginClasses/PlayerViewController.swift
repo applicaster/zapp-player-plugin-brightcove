@@ -30,6 +30,10 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     lazy var playerView: BCOVPUIPlayerView = {
         self.builder.buildPlayerView()
     }()
+    private var errorView: ErrorView?
+    
+    open var isAdPlaybackBlocked = false
+    open var adManager: IMAAdsManager?
     
     weak var delegate: PlayerAdvertisementEventsDelegate?
     weak var analyticEventDelegate: PlaybackAnalyticEventsDelegate?
@@ -56,6 +60,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         setupAccessibilityIdentifiers()
         subscribeToNotifications()
         APLoggerVerbose("Setup completed, view is loaded")
+        AFNetworkReachabilityManager.shared().startMonitoring()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -131,6 +136,24 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         }
     }
     
+    private func showPlaybackError() {
+        let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
+        let errorType: ErrorViewTypes = reachabilityStatus == .notReachable ? .network : .video
+        errorView = builder.errorView(withType: errorType)
+        
+        switch builder.mode {
+        case .fullscreen:
+            errorView!.frame = self.view.bounds
+            self.view.addSubview(errorView!)
+        case .inline:
+            let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
+            errorView!.frame = rootViewController!.view.bounds
+            rootViewController!.view.addSubview(errorView!)
+        }
+        
+        isAdPlaybackBlocked = true
+    }
+    
     // MARK: - IMAWebOpenerDelegate methods
     
     func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
@@ -148,6 +171,16 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
                       duringSession session: BCOVPlaybackSession,
                       forItem item: ZPPlayable) {
         switch event.eventType {
+        case "kBCOVPlaybackSessionLifecycleEventPlayRequest":
+            let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
+            if reachabilityStatus == .notReachable {
+                showPlaybackError()
+            }
+            break
+        case kBCOVIMALifecycleEventAdsLoaderLoaded:
+            if let manager = event.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager] as? IMAAdsManager {
+                self.adManager = manager
+            }
         case kBCOVIMALifecycleEventAdsLoaderFailed:
             let currentTime = CMTimeGetSeconds(session.player.currentTime()).rounded(.down)
             playerView.controlsView.progressSlider.removeMarker(atPosition: currentTime)
@@ -156,7 +189,12 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
              kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent,
              kBCOVIMALifecycleEventAdsManagerDidReceiveAdError:
             delegate?.eventOccured(event, duringSession: session, forItem: item)
-        case kBCOVPlaybackSessionLifecycleEventFail, kBCOVPlaybackSessionLifecycleEventResumeFail:
+            if isAdPlaybackBlocked == true {
+                player.player.pauseAd()
+            }
+        case kBCOVPlaybackSessionLifecycleEventFail,
+             kBCOVPlaybackSessionLifecycleEventResumeFail,
+             kBCOVPlaybackSessionLifecycleEventPlaybackStalled:
             if let error = event.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
                 var videoPlayError = VideoPlayError(from: error, forItem: item)
                 videoPlayError.itemDuration = "\(session.player.currentItem!.duration.seconds)"
@@ -164,6 +202,12 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
                                                      params: videoPlayError.dictionary,
                                                      timed: false)
             }
+            
+            showPlaybackError()
+        case kBCOVPlaybackSessionLifecycleEventPlaybackRecovered:
+            errorView?.removeFromSuperview()
+            isAdPlaybackBlocked = false
+            break
         default:
             break
         }
