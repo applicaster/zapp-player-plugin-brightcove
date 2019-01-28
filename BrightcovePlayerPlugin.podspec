@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
                          DESC
     s.homepage         = "https://github.com/applicaster/zapp-player-plugin-brightcove"
     s.license          = 'MIT'
-    s.author           = { "Alex Faizullov" => "alexey.fayzyllov@corewillsoft.com" }
+    s.author           = { "Roman Karpievich" => "karpievich@scand.com" }
     s.source           = { :git => "https://github.com/applicaster/zapp-player-plugin-brightcove.git", :tag => s.version.to_s }
   
     s.ios.deployment_target  = "9.0"
@@ -16,14 +16,9 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.swift_version = '4.1'
     s.static_framework = true
-#    s.resource_bundles = {
-#        'Images' => ['iOS/Resources/Images/*.{png}'],
-#        'Views' => ['iOS/PluginClasses/*.{xib,nib,storyboard}']
-#    }
     s.resources = ['iOS/Resources/Images/*.png', 'iOS/PluginClasses/*.{xib,nib,storyboard}']
 
     s.subspec 'Core' do |c|
-#        s.resources = []
       c.frameworks = 'UIKit'
       c.source_files = 'iOS/PluginClasses/*.{swift,h,m}'
       c.dependency 'ZappPlugins', '= 4.2.0'
