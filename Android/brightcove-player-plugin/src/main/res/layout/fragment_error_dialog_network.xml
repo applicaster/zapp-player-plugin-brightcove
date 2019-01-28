@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:background="@color/black_semi_trans">
+
+    <ImageButton
+        android:id="@+id/btn_error_view_close"
+        style="@style/ImgBtnClose"
+        android:contentDescription="@android:string/cancel"
+        app:srcCompat="@drawable/close_btn" />
+
+    <LinearLayout
+        android:layout_width="294dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_connectivity"
+            style="@style/ImgConnectivity"
+            android:contentDescription="@android:string/cancel"
+            app:srcCompat="@drawable/connectivity" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/TextDescriptionNormal"
+            android:text="We are experiencing connectivity issues. Please make sure you’re connected to the Internet and
+try again." />
+
+        <Button
+            android:id="@+id/btn_refresh"
+            style="@style/RefreshButton"
+            android:drawableStart="@drawable/refresh"
+            android:text="Refresh" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -45,6 +45,10 @@ class ErrorHandlingVideoPlayerAdapter(private val videoView: BrightcoveVideoView
                 playable.videoPlayErrorEvent,
                 analyticsParams
             )
+
+            videoView.eventEmitter.emit(
+                playable.videoPlayErrorEvent
+            )
         }
     }
 

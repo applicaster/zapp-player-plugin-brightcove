@@ -13,7 +13,7 @@ import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
 import kotlinx.android.synthetic.main.activity_brightcove_player.*
 
-class BrightcovePlayerActivity : AppCompatActivity() {
+class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
 
     private lateinit var playable: Playable
     private lateinit var videoView: BrightcoveVideoView
@@ -21,6 +21,7 @@ class BrightcovePlayerActivity : AppCompatActivity() {
     private lateinit var adAnalyticsAdapter: AdAnalyticsAdapter
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
     private lateinit var errorHandlingVideoPlayerAdapter: ErrorHandlingVideoPlayerAdapter
+    private var errorDialog: ErrorDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +63,7 @@ class BrightcovePlayerActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         videoView.start()
+        videoView.listenVideoPlayError()
     }
 
     override fun onDestroy() {
@@ -70,6 +72,29 @@ class BrightcovePlayerActivity : AppCompatActivity() {
         adAnalyticsAdapter.endTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.endTrack(playable, FULLSCREEN)
         errorHandlingVideoPlayerAdapter.endTrack(playable, FULLSCREEN)
+    }
+
+    private fun BrightcoveVideoView.listenVideoPlayError() {
+        videoView.eventEmitter.on(
+            "Video Play Error"
+        ) {
+            if (errorDialog == null || errorDialog?.isVisible == false) {
+                errorDialog = ErrorDialog.newInstance()
+                errorDialog?.show(supportFragmentManager, "ErrorDialog")
+            }
+        }
+    }
+
+    override fun onRefresh() {
+        if (errorDialog?.isConnectionEstablished() == true) {
+            errorDialog?.dismiss()
+            videoView.start()
+        }
+    }
+
+    override fun onBack() {
+        errorDialog?.dismiss()
+        finish()
     }
 
     private fun BrightcoveVideoView.reconfigureControls() {
