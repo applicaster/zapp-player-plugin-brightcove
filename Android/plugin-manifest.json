@@ -27,5 +27,16 @@
     "deprecated_since_zapp_sdk": "",
     "unsupported_since_zapp_sdk": "",
     "react_native": false,
-    "custom_configuration_fields": []
+    "custom_configuration_fields": [
+        {
+            "type": "text",
+            "key": "errorScreenBgColor",
+            "tooltip_text": "The determines the background color of the screen that is presented to the user when an error occures in the player"
+        },
+        {
+            "type": "text",
+            "key": "errorScreenText",
+            "tooltip_text": "This determines the text of the error message that is presented to the user when an error occures in the player"
+        }
+    ]
 }
