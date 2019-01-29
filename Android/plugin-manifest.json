@@ -30,13 +30,27 @@
     "custom_configuration_fields": [
         {
             "type": "text",
-            "key": "errorScreenBgColor",
-            "tooltip_text": "The determines the background color of the screen that is presented to the user when an error occures in the player"
+            "key": "GeneralVideoPlayErrorMessage",
+            "tooltip_text": "The text of the error message that is presented to the user when a general error occurs in the player.",
+            "default": "The video encountered an error and cannot be played. Click the icon below to go back."
         },
         {
             "type": "text",
-            "key": "errorScreenText",
-            "tooltip_text": "This determines the text of the error message that is presented to the user when an error occures in the player"
+            "key": "GeneralVideoPlayErrorButtonText",
+            "tooltip_text": "The text on the button that appears alongside a general error message",
+            "default": "Go Back"
+        },
+        {
+            "type": "text",
+            "key": "ConnectivityErrorMessage",
+            "tooltip_text": "The text of the error message that is presented to the user when a connectivity error occurs in the player",
+            "default": "We are experiencing connectivity issues. Please make sure you are connected to the internet and try again."
+        },
+        {
+            "type": "text",
+            "key": "ConnectivityErrorButtonText",
+            "tooltip_text": "The text on the button that appears alongside a connectivity error message",
+            "default": "Try Again"
         }
     ]
 }
