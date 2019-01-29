@@ -155,7 +155,7 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
             "Video Play Error"
         ) {
             if (errorDialog == null || errorDialog?.isVisible == false) {
-                errorDialog = ErrorDialog.newInstance()
+                errorDialog = ErrorDialog.newInstance(this.pluginConfigurationParams)
                 errorDialog?.setOnErrorDialogListener(this)
                 errorDialog?.show((this.context as? AppCompatActivity)?.supportFragmentManager, "ErrorDialog")
             }

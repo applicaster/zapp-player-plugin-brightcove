@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.content.Context
 import android.net.ConnectivityManager
+import android.widget.TextView
+import com.google.gson.internal.LinkedTreeMap
 
 interface ErrorDialogListener {
 
@@ -27,10 +29,17 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
 
     private lateinit var dialogType: ErrorDialogType
     private var errorListener: ErrorDialogListener? = null
+    private var pluginConfigurationParams: LinkedTreeMap<*, *>? = null
+    private var backButton: Button? = null
+    private var refreshButton: Button? = null
+    private var closeButton: ImageButton? = null
+    private var tvDescription: TextView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        pluginConfigurationParams = this.arguments?.get(KEY_PLUGIN_CONFIGURATION) as? LinkedTreeMap<*, *>?
 
         // Check if Error dialog type is NETWORK_ERROR or VIDEO_PLAY_ERROR and set result to dialog type field
         dialogType = if (isNetworkAvailable())
@@ -52,14 +61,16 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
             else -> inflater.inflate(R.layout.fragment_error_dialog_video, container, false)
         }
 
-        val backButton: Button? = view.findViewById(R.id.btn_back)
-        val refreshButton: Button? = view.findViewById(R.id.btn_refresh)
-        val closeButton: ImageButton? = view.findViewById(R.id.btn_error_view_close)
-
+        backButton = view.findViewById(R.id.btn_back)
+        refreshButton = view.findViewById(R.id.btn_refresh)
+        closeButton = view.findViewById(R.id.btn_error_view_close)
+        tvDescription = view.findViewById(R.id.tv_description)
 
         backButton?.setOnClickListener(this)
         refreshButton?.setOnClickListener(this)
         closeButton?.setOnClickListener(this)
+
+        configureView()
 
         return view
     }
@@ -91,6 +102,26 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
         }
     }
 
+    private fun configureView() {
+        when (dialogType) {
+            Companion.ErrorDialogType.NETWORK_ERROR -> {
+                val buttonText = pluginConfigurationParams?.get(KEY_CONNECTIVITY_ERROR_BUTTON_TEXT) as? String
+                if (buttonText != null) refreshButton?.text = buttonText
+
+                val errorMessage =  pluginConfigurationParams?.get(KEY_CONNECTIVITY_ERROR_MESSAGE) as? String
+                if (errorMessage != null) tvDescription?.text = errorMessage
+            }
+
+            Companion.ErrorDialogType.VIDEO_PLAY_ERROR -> {
+                val buttonText = pluginConfigurationParams?.get(KEY_VIDEO_PLAY_ERROR_BUTTON_TEXT) as? String
+                if (buttonText != null)  backButton?.text = buttonText
+
+                val errorMessage =pluginConfigurationParams?.get(KEY_VIDEO_PLAY_ERROR_MESSAGE) as? String
+                if (errorMessage != null) tvDescription?.text = errorMessage
+            }
+        }
+    }
+
     /**
      *  Used for set listener from non Activity class.
      */
@@ -112,10 +143,24 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
 
     companion object {
 
+        private const val KEY_PLUGIN_CONFIGURATION = "plugin_configuration"
+        private const val KEY_VIDEO_PLAY_ERROR_MESSAGE = "GeneralVideoPlayErrorMessage"
+        private const val KEY_VIDEO_PLAY_ERROR_BUTTON_TEXT = "GeneralVideoPlayErrorButtonText"
+        private const val KEY_CONNECTIVITY_ERROR_MESSAGE = "ConnectivityErrorMessage"
+        private const val KEY_CONNECTIVITY_ERROR_BUTTON_TEXT = "ConnectivityErrorButtonText"
+
         /**
          *  Creates a new instance of this dialog and returns it.
          */
-        fun newInstance() = ErrorDialog()
+        fun newInstance(pluginConfigurationParams: Map<*, *>): ErrorDialog {
+            val dialog = ErrorDialog()
+            val bundle = Bundle()
+            bundle.apply {
+                putSerializable(KEY_PLUGIN_CONFIGURATION, pluginConfigurationParams as LinkedTreeMap<*, *>)
+            }
+            dialog.arguments = bundle
+            return dialog
+        }
 
         /**
          *  Type of ErrorDialog

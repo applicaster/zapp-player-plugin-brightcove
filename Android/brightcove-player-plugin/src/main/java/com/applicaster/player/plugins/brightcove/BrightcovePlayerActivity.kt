@@ -9,6 +9,7 @@ import com.applicaster.player.plugins.brightcove.R.integer
 import com.applicaster.player.plugins.brightcove.ad.GoogleIMAAdapter
 import com.applicaster.player.plugins.brightcove.analytics.*
 import com.applicaster.plugin_manager.playersmanager.Playable
+import com.applicaster.plugin_manager.playersmanager.internal.PlayersManager
 import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
 import kotlinx.android.synthetic.main.activity_brightcove_player.*
@@ -79,7 +80,7 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
             "Video Play Error"
         ) {
             if (errorDialog == null || errorDialog?.isVisible == false) {
-                errorDialog = ErrorDialog.newInstance()
+                errorDialog = ErrorDialog.newInstance(PlayersManager.getCurrentPlayer().pluginConfigurationParams)
                 errorDialog?.show(supportFragmentManager, "ErrorDialog")
             }
         }
