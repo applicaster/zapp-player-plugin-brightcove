@@ -32,12 +32,17 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
             return nil
         }
         
+        var errorViewConfig: ErrorViewConfiguration?
+        if let configuration = configurationJSON {
+            errorViewConfig = ErrorViewConfiguration(fromDictionary: configuration)
+        }
+        
         APLoggerInfo(videos.first!.analyticsParams()!.debugDescription)
         
         APLoggerInfo("Configuration: \(String(describing: configurationJSON))")
         APLoggerInfo("Items: \(videos.map { $0.toString() })")
         
-        let playerViewController = ViewControllerFactory.createPlayerViewController(videoItems: videos)
+        let playerViewController = ViewControllerFactory.createPlayerViewController(videoItems: videos, errorViewConfig: errorViewConfig)
         let instance = BrightcovePlayerPlugin()
         instance.playerViewController = playerViewController
         

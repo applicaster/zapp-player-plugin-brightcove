@@ -17,7 +17,7 @@ class ErrorView: UIView {
     @IBOutlet var errorIcon: UIImageView!
     @IBOutlet var errorIconHeight: NSLayoutConstraint!
     @IBOutlet var errorMessageLabel: UILabel!
-    @IBOutlet private var actionButton: UIButton!
+    @IBOutlet var actionButton: UIButton!
     @IBOutlet private var closeButton: UIButton!
     
     open var type = ErrorViewTypes.network {

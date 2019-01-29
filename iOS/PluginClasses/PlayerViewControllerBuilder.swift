@@ -5,6 +5,7 @@ import BrightcovePlayerSDK
 protocol PlayerViewBuilderProtocol {
     var mode: PlayerScreenMode { get set }
     var playerViewController: PlayerViewController! { get set }
+    var errorViewConfiguration: ErrorViewConfiguration? { get set }
     
     func buildPlayerView() -> BCOVPUIPlayerView
     func configureControlsLayout(isLiveEvent: Bool)
@@ -13,8 +14,8 @@ protocol PlayerViewBuilderProtocol {
 
 class PlayerViewBuilder: PlayerViewBuilderProtocol {
     var mode: PlayerScreenMode = .fullscreen
-    
     weak var playerViewController: PlayerViewController!
+    var errorViewConfiguration: ErrorViewConfiguration?
     
     var options: BCOVPUIPlayerViewOptions {
         let options = BCOVPUIPlayerViewOptions()
@@ -98,6 +99,17 @@ class PlayerViewBuilder: PlayerViewBuilderProtocol {
                     self.playerViewController.adManager?.destroy()
                     errorView.removeFromSuperview()
                 }
+            }
+        }
+        
+        if let config = errorViewConfiguration {
+            switch type {
+            case .network:
+                errorView.errorMessageLabel.text = config.connectivityErrorMessage
+                errorView.actionButton.setTitle(config.connectivityErrorButtonText, for: .normal)
+            case .video:
+                errorView.errorMessageLabel.text = config.videoPlayErrorMessage
+                errorView.actionButton.setTitle(config.videoPlayErrorButtonText, for: .normal)
             }
         }
         
