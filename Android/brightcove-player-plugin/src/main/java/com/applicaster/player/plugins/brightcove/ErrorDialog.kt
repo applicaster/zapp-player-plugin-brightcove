@@ -15,12 +15,12 @@ import com.google.gson.internal.LinkedTreeMap
 interface ErrorDialogListener {
 
     /**
-     *  Called when user has been pressed refresh button
+     *  Called when refresh button has clicked
      */
     fun onRefresh()
 
     /**
-     *  Called when user has been pressed back or close button
+     *  Called when back or close button has clicked
      */
     fun onBack()
 }
@@ -44,7 +44,8 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
         // Check if Error dialog type is NETWORK_ERROR or VIDEO_PLAY_ERROR and set result to dialog type field
         dialogType = if (isNetworkAvailable())
             Companion.ErrorDialogType.VIDEO_PLAY_ERROR
-        else Companion.ErrorDialogType.NETWORK_ERROR
+        else
+            Companion.ErrorDialogType.NETWORK_ERROR
 
         setStyle(STYLE_NO_FRAME, R.style.BrightcoveFullScreen_Theme)
         isCancelable = false
@@ -102,6 +103,10 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
         }
     }
 
+    /**
+     *  Sets plugin configuration parameters to view elements.
+     *  If this parameters are empty - view elements use default parameters.
+     */
     private fun configureView() {
         when (dialogType) {
             Companion.ErrorDialogType.NETWORK_ERROR -> {

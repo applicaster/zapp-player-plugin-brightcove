@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:background="@color/black_semi_trans">
+    android:background="@color/charcoal_grey">
 
     <ImageButton
         android:id="@+id/btn_error_view_close"
@@ -35,7 +35,7 @@ try again." />
             android:id="@+id/btn_refresh"
             style="@style/RefreshButton"
             android:drawableStart="@drawable/refresh"
-            android:text="Refresh" />
+            android:text="Try Again" />
 
     </LinearLayout>
 
