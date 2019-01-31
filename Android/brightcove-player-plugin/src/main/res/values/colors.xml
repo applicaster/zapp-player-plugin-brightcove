@@ -2,4 +2,5 @@
 <resources>
   <color name="bmc_seekbar_played">#FFFFFFFF</color>
   <color name="charcoal_grey">#333744</color>
+  <color name="white">#FFFFFF</color>
 </resources>

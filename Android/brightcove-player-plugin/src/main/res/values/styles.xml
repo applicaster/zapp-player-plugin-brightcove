@@ -59,6 +59,7 @@
     <item name="android:layout_width">@dimen/tv_description_normal_width</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_marginBottom">@dimen/tv_description_normal_margin_bottom</item>
+    <item name="android:textColor">@color/white</item>
     <item name="android:gravity">center</item>
     <item name="android:textSize">15sp</item>
   </style>
