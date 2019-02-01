@@ -31,14 +31,13 @@ class AdvertisementParser {
     // MARK: - Public methods
     
     public func parse() {
-        guard let ads = parseData.value(forKey: VideoExtensionAdsKeys.videoAds.rawValue) as? NSDictionary else {
+        guard let adList = parseData.value(forKey: VideoExtensionAdsKeys.videoAds.rawValue) as? Array<NSDictionary> else {
             return
         }
         
-        let videoAd = ads.value(forKey: VideoExtensionAdsKeys.videoAd.rawValue)
-        if let adList = videoAd as? Array<NSDictionary> {
+        if adList.first?.value(forKey: "offset") != nil {
             parseVastAdList(vastAdList: adList)
-        } else if let advertisement = videoAd as? NSDictionary {
+        } else if let advertisement = adList.first {
             createVmap(advertisement: advertisement)
         }
     }
@@ -62,12 +61,12 @@ class AdvertisementParser {
     
     private func createVast(withUrl url: String,
                             andOffset offset: String) -> VastAdvertisement? {
-        if offset == "pre" {
+        if offset == "preroll" {
             return .preRoll(url)
-        } else if offset == "post" {
+        } else if offset == "postroll" {
             return .postRoll(url)
-        } else if let timeline = Int(offset) {
-            return .timeline(url, timeline)
+        } else if let timeline = Double(offset) {
+            return .timeline(url, Int(timeline))
         } else {
             return nil
         }
