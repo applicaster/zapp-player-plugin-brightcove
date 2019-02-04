@@ -31,14 +31,17 @@ class AdvertisementParser {
     // MARK: - Public methods
     
     public func parse() {
-        guard let adList = parseData.value(forKey: VideoExtensionAdsKeys.videoAds.rawValue) as? Array<NSDictionary> else {
+        guard let advertisementData = parseData.value(forKey: VideoExtensionAdsKeys.videoAds.rawValue) else {
             return
         }
         
-        if adList.first?.value(forKey: "offset") != nil {
-            parseVastAdList(vastAdList: adList)
-        } else if let advertisement = adList.first {
-            createVmap(advertisement: advertisement)
+        switch advertisementData {
+        case let url as String:
+            parsedAdvertisement = .vmap(url)
+        case let vastAdList as Array<NSDictionary>:
+            parseVastAdList(vastAdList: vastAdList)
+        default:
+            break
         }
     }
     
@@ -70,14 +73,6 @@ class AdvertisementParser {
         } else {
             return nil
         }
-    }
-    
-    private func createVmap(advertisement: NSDictionary) {
-        guard let url = advertisement.value(forKey: VideoExtensionAdsKeys.adURL.rawValue) as? String else {
-            return
-        }
-        
-        parsedAdvertisement = .vmap(url)
     }
 }
 

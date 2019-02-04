@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     func presentPlayer() {
         let vastItem = createVASTVideo()
         let vmapItem = createVMAPVideo()
-        let videoItems = [vastItem, vmapItem]
+        let videoItems = [vmapItem]
         
         zappPlayer = ZPPlayerManager.sharedInstance.create(playableItems: videoItems, forType: .undefined)
         zappPlayer?.presentPlayerFullScreen(self.tabBarController!, configuration: nil)
@@ -77,10 +77,8 @@ class ViewController: UIViewController {
         
         let vmapUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpostpod&cmsid=496&vid=short_onecue&correlator="
         
-        let ads = ["ad_url": vmapUrl];
-        let advDictionary = ["video_ad": ads]
         let extensionsDictionary = ["free": "true",
-                                    "video_ads": advDictionary] as [String : Any]
+                                    "video_ads": vmapUrl] as [String : Any]
         item.extensionsDictionary = extensionsDictionary
         
         return item
