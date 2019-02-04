@@ -13,6 +13,7 @@ import com.google.ads.interactivemedia.v3.api.ImaSdkFactory
 import java.util.HashMap
 import kotlin.collections.ArrayList
 import kotlin.collections.set
+import kotlin.math.roundToInt
 
 class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
         VideoAdsAdapter(videoView) {
@@ -146,14 +147,14 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
      */
     private fun createCuePoint(offset: String, cuePointType: String, properties: HashMap<String, Any>): CuePoint {
         return when (offset) {
-            "pre" -> {
+            "preroll" -> {
                 CuePoint(CuePoint.PositionType.BEFORE, cuePointType, properties)
             }
-            "post" -> {
+            "postroll" -> {
                 CuePoint(CuePoint.PositionType.AFTER, cuePointType, properties)
             }
             else -> {
-                val cuepointTime = offset.toInt() * DateUtils.SECOND_IN_MILLIS.toInt()
+                val cuepointTime = offset.toFloat().roundToInt() * DateUtils.SECOND_IN_MILLIS.toInt()
                 // Add a marker where the ad will be.
                 getMediaController().brightcoveSeekBar.addMarker(cuepointTime)
                 CuePoint(cuepointTime, cuePointType, properties)
