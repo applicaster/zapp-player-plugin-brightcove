@@ -118,10 +118,10 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
             }
 
             Companion.ErrorDialogType.VIDEO_PLAY_ERROR -> {
-                val buttonText = pluginConfigurationParams?.get(KEY_VIDEO_PLAY_ERROR_BUTTON_TEXT) as? String
+                val buttonText = pluginConfigurationParams?.get(KEY_ERROR_BUTTON_TEXT) as? String
                 if (buttonText != null)  backButton?.text = buttonText
 
-                val errorMessage =pluginConfigurationParams?.get(KEY_VIDEO_PLAY_ERROR_MESSAGE) as? String
+                val errorMessage =pluginConfigurationParams?.get(KEY_ERROR_MESSAGE) as? String
                 if (errorMessage != null) tvDescription?.text = errorMessage
             }
         }
@@ -149,10 +149,10 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
     companion object {
 
         private const val KEY_PLUGIN_CONFIGURATION = "plugin_configuration"
-        private const val KEY_VIDEO_PLAY_ERROR_MESSAGE = "GeneralVideoPlayErrorMessage"
-        private const val KEY_VIDEO_PLAY_ERROR_BUTTON_TEXT = "GeneralVideoPlayErrorButtonText"
-        private const val KEY_CONNECTIVITY_ERROR_MESSAGE = "ConnectivityErrorMessage"
-        private const val KEY_CONNECTIVITY_ERROR_BUTTON_TEXT = "ConnectivityErrorButtonText"
+        private const val KEY_ERROR_MESSAGE = "General_Error_Message"
+        private const val KEY_ERROR_BUTTON_TEXT = "General_Error_Button"
+        private const val KEY_CONNECTIVITY_ERROR_MESSAGE = "Connectivity_Error_Message"
+        private const val KEY_CONNECTIVITY_ERROR_BUTTON_TEXT = "Connectivity_Error_Button"
 
         /**
          *  Creates a new instance of this dialog and returns it.
