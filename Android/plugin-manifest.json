@@ -28,33 +28,33 @@
     "unsupported_since_zapp_sdk": "",
     "react_native": false,
     "custom_configuration_fields": [
-      {
-        "type": "text",
-        "key": "GeneralVideoPlayErrorMessage",
-        "label": "General Video Play Error Message",
-        "tooltip_text": "The text of the error message that is presented to the user when a general error occurs in the player.",
-        "default": "The video encountered an error and cannot be played. Click the icon below to go back."
-      },
-      {
-        "type": "text",
-        "key": "GeneralVideoPlayErrorButtonText",
-        "label": "General Video Play Error Button Text",
-        "tooltip_text": "The text on the button that appears alongside a general error message",
-        "default": "Go Back"
-      },
-      {
-        "type": "text",
-        "key": "ConnectivityErrorMessage",
-        "label": "Connectivity Error Message",
-        "tooltip_text": "The text of the error message that is presented to the user when a connectivity error occurs in the player",
-        "default": "We are experiencing connectivity issues. Please make sure you are connected to the internet and try again."
-      },
-      {
-        "type": "text",
-        "key": "ConnectivityErrorButtonText",
-        "label": "Connectivity Error Button Text",
-        "tooltip_text": "The text on the button that appears alongside a connectivity error message",
-        "default": "Try Again"
-      }
+        {
+            "type": "text",
+            "key": "General_Error_Message",
+            "label": "General Video Play Error Message",
+            "tooltip_text": "The text of the error message that is presented to the user when a general error occurs in the player.",
+            "default": "The video encountered an error and cannot be played. Click the icon below to go back."
+        },
+        {
+            "type": "text",
+            "key": "General_Error_Button",
+            "label": "General Video Play Error Button Text",
+            "tooltip_text": "The text on the button that appears alongside a general error message",
+            "default": "Go Back"
+        },
+        {
+            "type": "text",
+            "key": "Connectivity_Error_Message",
+            "label": "Connectivity Error Message",
+            "tooltip_text": "The text of the error message that is presented to the user when a connectivity error occurs in the player",
+            "default": "We are experiencing connectivity issues. Please make sure you are connected to the internet and try again."
+        },
+        {
+            "type": "text",
+            "key": "Connectivity_Error_Button",
+            "label": "Connectivity Error Button Text",
+            "tooltip_text": "The text on the button that appears alongside a connectivity error message",
+            "default": "Try Again"
+        }
     ]
 }
