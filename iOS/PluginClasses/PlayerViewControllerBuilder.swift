@@ -2,26 +2,22 @@ import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
 
-protocol PlayerViewBuilder {
+protocol PlayerViewBuilderProtocol {
     func build(for vc: PlayerViewController) -> BCOVPUIPlayerView
     func configureLayout(for view: BCOVPUIBasicControlView, item: ZPPlayable, vc: PlayerViewController)
 }
 
-class PlayerViewBuilderImp: PlayerViewBuilder {
+class PlayerViewBuilder: PlayerViewBuilderProtocol {
     var mode: PlayerScreenMode = .fullscreen
     
-    private let player: BCOVPlaybackController
-    
-    init(player: BCOVPlaybackController) {
-        self.player = player
-    }
+    // MARK: - PlayerViewBuilderProtocol methods
 
     func build(for vc: PlayerViewController) -> BCOVPUIPlayerView {
         let controls = BCOVPUIBasicControlView.withVODLayout()
         controls?.layout = nil
         
         let options = createOptions(for: vc)
-        let videoView: BCOVPUIPlayerView = BCOVPUIPlayerView(playbackController: player,
+        let videoView: BCOVPUIPlayerView = BCOVPUIPlayerView(playbackController: nil,
                                                              options: options,
                                                              controlsView: controls)
         
@@ -35,7 +31,23 @@ class PlayerViewBuilderImp: PlayerViewBuilder {
         return videoView
     }
     
-    //MARK: - Private
+    func configureLayout(for view: BCOVPUIBasicControlView, item: ZPPlayable, vc: PlayerViewController) {
+        view.layout = item.isLive() ? BCOVPUIControlLayout.basicLive() : BCOVPUIControlLayout.basicVOD()
+        view.progressSlider?.minimumTrackTintColor = .white
+        
+        switch mode {
+        case .fullscreen:
+            // Since we need to hide screen mode button, finding the layout view that contains screenModeButton
+            guard let items = view.layout.allLayoutItems as? Set<BCOVPUILayoutView> else { return }
+            items.first { $0.subviews.contains(view.screenModeButton) }
+                .flatMap { $0.isRemoved = true }
+            view.setNeedsLayout()
+        case .inline:
+            break
+        }
+    }
+    
+    // MARK: - Private
     
     private func createOptions(for vc: PlayerViewController) -> BCOVPUIPlayerViewOptions {
         let options = BCOVPUIPlayerViewOptions()
@@ -52,27 +64,6 @@ class PlayerViewBuilderImp: PlayerViewBuilder {
         
         return options
     }
-
-    func configureLayout(for view: BCOVPUIBasicControlView, item: ZPPlayable, vc: PlayerViewController) {
-        view.layout = item.isLive() ? BCOVPUIControlLayout.basicLive() : BCOVPUIControlLayout.basicVOD()
-        
-        view.progressSlider.flatMap {
-            $0.minimumTrackTintColor = .white
-        }
-        
-        switch mode {
-        case .fullscreen:
-            // Since we need to hide screen mode button, finding the layout view that contains screenModeButton
-            guard let items = view.layout.allLayoutItems as? Set<BCOVPUILayoutView> else { return }
-            items.first { $0.subviews.contains(view.screenModeButton) }
-                .flatMap { $0.isRemoved = true }
-            view.setNeedsLayout()            
-        case .inline:
-            break
-        }
-    }
-    
-    // MARK: -- Private
     
     private func setupCloseButton(for view: BCOVPUIPlayerView, vc: PlayerViewController) {
         let button = UIButton.blurredRoundedButton()

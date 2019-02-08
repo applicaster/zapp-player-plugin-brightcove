@@ -7,7 +7,6 @@ extension ZPPlayable {
         Description: \(String(describing: playableDescription()))
         VideoURLPath: \(String(describing: contentVideoURLPath()))
         isLive: \(isLive())
-        isFree: \(isFree())
         identifier: \(String(describing: identifier)))
         extensions: \(String(describing: extensionsDictionary))
         analytics: \(String(describing: analyticsParams()))
