@@ -8,10 +8,10 @@
 import Foundation
 
 private enum CustomConfiguration: String {
-    case videoPlayErrorMessage = "GeneralVideoPlayErrorMessage"
-    case videoPlayErrorButtonText = "GeneralVideoPlayErrorButtonText"
-    case connectivityErrorMessage = "ConnectivityErrorMessage"
-    case connectivityErrorButtonText = "ConnectivityErrorButtonText"
+    case videoPlayErrorMessage = "General_Error_Message"
+    case videoPlayErrorButtonText = "General_Error_Button"
+    case connectivityErrorMessage = "Connectivity_Error_Message"
+    case connectivityErrorButtonText = "Connectivity_Error_Button"
     
 }
 
