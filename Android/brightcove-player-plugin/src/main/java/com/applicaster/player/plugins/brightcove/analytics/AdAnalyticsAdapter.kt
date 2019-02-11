@@ -19,7 +19,7 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     private val TAG = AdAnalyticsAdapter::class.java.simpleName
 
     private lateinit var eventEmitter: EventEmitter
-    private lateinit var adsManager: AdsManager
+    private var adsManager: AdsManager? = null
 
     private var collectedParams: MutableMap<String, String> = HashMap()
 
@@ -57,7 +57,7 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     override fun endTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
         Log.v(TAG, "endTrack")
         collectParams(playable)
-        adsManager.removeAdEventListener(this)
+        adsManager?.removeAdEventListener(this)
     }
 
     override fun onAdEvent(event: AdEvent) {
@@ -197,8 +197,8 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
         eventEmitter.on(
             GoogleIMAEventType.ADS_MANAGER_LOADED
         ) { event ->
-            adsManager = event.properties["adsManager"] as AdsManager
-            adsManager.addAdEventListener(this)
+            adsManager = event.properties["adsManager"] as? AdsManager?
+            adsManager?.addAdEventListener(this)
         }
     }
 
