@@ -67,6 +67,20 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         videoView.listenVideoPlayError()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (this::adsAdapter.isInitialized) {
+            adsAdapter.resumePlayingAd()
+        }
+    }
+
+    override fun onPause() {
+        if (this::adsAdapter.isInitialized) {
+            adsAdapter.pausePlayingAd()
+        }
+        super.onPause()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         analyticsAdapter.endTrack(playable, FULLSCREEN)
