@@ -23,6 +23,9 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
     private lateinit var errorHandlingVideoPlayerAdapter: ErrorHandlingVideoPlayerAdapter
     private var errorDialog: ErrorDialog? = null
+    private var videoCompletionResult: VideoCompletionResult = VideoCompletionResult.DEFAULT
+
+    private lateinit var adsAdapter: GoogleIMAAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +39,24 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
             post { reconfigureControls() }
             eventEmitter.emit(EventType.ENTER_FULL_SCREEN)
             eventEmitter.on(EventType.COMPLETED) {
-                //        finish()
+                if (videoCompletionResult == VideoCompletionResult.DEFAULT) {
+                    finish()
+                }
+                videoCompletionResult = VideoCompletionResult.COMPLETED
             }
+
+            eventEmitter.on(EventType.AD_STARTED) {
+                if (videoCompletionResult != VideoCompletionResult.COMPLETED)
+                    videoCompletionResult = VideoCompletionResult.INCOMPLETED
+            }
+
+            eventEmitter.on(EventType.AD_COMPLETED) {
+                if (videoCompletionResult == VideoCompletionResult.COMPLETED) {
+                    videoCompletionResult = VideoCompletionResult.DEFAULT
+                    finish()
+                }
+            }
+
             setVideoURI(Uri.parse(playable.contentVideoURL))
             this
         }
@@ -57,7 +76,7 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         adAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         errorHandlingVideoPlayerAdapter.startTrack(playable, FULLSCREEN)
-        val adsAdapter = GoogleIMAAdapter(videoView)
+        adsAdapter = GoogleIMAAdapter(videoView)
         adsAdapter.setupForVideo(playable)
     }
 
@@ -122,5 +141,11 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     override fun onBackPressed() {
         super.onBackPressed()
         adAnalyticsAdapter.backPressed(playable)
+    }
+
+    enum class VideoCompletionResult {
+        COMPLETED,
+        INCOMPLETED,
+        DEFAULT
     }
 }
