@@ -128,7 +128,11 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
      */
     override fun pauseInline() {
         super.pauseInline()
-        videoView.pause()
+        if (this::adsAdapter.isInitialized) {
+            (adsAdapter as GoogleIMAAdapter).pausePlayingAd()
+        }
+        if (videoView != null && videoView.isPlaying)
+            videoView.pause()
     }
 
     /**
@@ -137,6 +141,9 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
     override fun resumeInline() {
         super.resumeInline()
         videoView.start()
+        if (this::adsAdapter.isInitialized) {
+            (adsAdapter as GoogleIMAAdapter).resumePlayingAd()
+        }
     }
 
     override fun onRefresh() {

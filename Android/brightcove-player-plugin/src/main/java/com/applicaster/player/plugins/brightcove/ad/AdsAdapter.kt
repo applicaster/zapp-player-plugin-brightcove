@@ -84,6 +84,8 @@ abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
     protected fun getAds() = ads
 
     protected abstract fun setupAdsPlugin()
+    abstract fun resumePlayingAd()
+    abstract fun pausePlayingAd()
 
     companion object {
         const val TAG = "VideoAdsAdapter"
