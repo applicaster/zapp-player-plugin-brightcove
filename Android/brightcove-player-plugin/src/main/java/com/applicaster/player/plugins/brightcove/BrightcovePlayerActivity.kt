@@ -4,21 +4,25 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.applicaster.player.plugins.brightcove.AnalyticsAdapter.PlayerMode.FULLSCREEN
+import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode.FULLSCREEN
 import com.applicaster.player.plugins.brightcove.R.integer
 import com.applicaster.player.plugins.brightcove.ad.GoogleIMAAdapter
+import com.applicaster.player.plugins.brightcove.analytics.*
 import com.applicaster.plugin_manager.playersmanager.Playable
+import com.applicaster.plugin_manager.playersmanager.internal.PlayersManager
 import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
 import kotlinx.android.synthetic.main.activity_brightcove_player.*
 
-class BrightcovePlayerActivity : AppCompatActivity() {
+class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
 
     private lateinit var playable: Playable
     private lateinit var videoView: BrightcoveVideoView
     private lateinit var analyticsAdapter: AnalyticsAdapter
-    private lateinit var adAnalytics: AdAnalytics
+    private lateinit var adAnalyticsAdapter: AdAnalyticsAdapter
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
+    private lateinit var errorHandlingVideoPlayerAdapter: ErrorHandlingVideoPlayerAdapter
+    private var errorDialog: ErrorDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +50,13 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
         // initialize tools
         analyticsAdapter = MorpheusAnalyticsAdapter(videoView)
-        analyticsAdapter.startTrack(playable, FULLSCREEN)
-        adAnalytics = AdAnalytics(videoView)
+        adAnalyticsAdapter = AdAnalyticsAdapter(videoView)
         errorHandlingAnalyticsAdapter = ErrorHandlingAnalyticsAdapter(videoView)
-        adAnalytics.startTrack(playable, FULLSCREEN)
+        errorHandlingVideoPlayerAdapter = ErrorHandlingVideoPlayerAdapter(videoView)
+        analyticsAdapter.startTrack(playable, FULLSCREEN)
+        adAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.startTrack(playable, FULLSCREEN)
+        errorHandlingVideoPlayerAdapter.startTrack(playable, FULLSCREEN)
         val adsAdapter = GoogleIMAAdapter(videoView)
         adsAdapter.setupForVideo(playable)
     }
@@ -58,13 +64,38 @@ class BrightcovePlayerActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         videoView.start()
+        videoView.listenVideoPlayError()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         analyticsAdapter.endTrack(playable, FULLSCREEN)
-        adAnalytics.endTrack(playable, FULLSCREEN)
+        adAnalyticsAdapter.endTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.endTrack(playable, FULLSCREEN)
+        errorHandlingVideoPlayerAdapter.endTrack(playable, FULLSCREEN)
+    }
+
+    private fun BrightcoveVideoView.listenVideoPlayError() {
+        videoView.eventEmitter.on(
+            "Video Play Error"
+        ) {
+            if (errorDialog == null || errorDialog?.isVisible == false) {
+                errorDialog = ErrorDialog.newInstance(PlayersManager.getCurrentPlayer().pluginConfigurationParams)
+                errorDialog?.show(supportFragmentManager, "ErrorDialog")
+            }
+        }
+    }
+
+    override fun onRefresh() {
+        if (errorDialog?.isConnectionEstablished() == true) {
+            errorDialog?.dismiss()
+            videoView.start()
+        }
+    }
+
+    override fun onBack() {
+        errorDialog?.dismiss()
+        finish()
     }
 
     private fun BrightcoveVideoView.reconfigureControls() {
@@ -76,6 +107,6 @@ class BrightcovePlayerActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        adAnalytics.backPressed(playable)
+        adAnalyticsAdapter.backPressed(playable)
     }
 }

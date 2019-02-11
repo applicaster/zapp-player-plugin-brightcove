@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="btn_back_refresh_width">204dp</dimen>
+    <dimen name="btn_back_refresh_height">48dp</dimen>
+    <dimen name="btn_back_padding_start">30dp</dimen>
+    <dimen name="btn_back_padding_end">30dp</dimen>
+    <dimen name="btn_refresh_padding_start">30dp</dimen>
+    <dimen name="btn_refresh_padding_end">30dp</dimen>
+    <dimen name="btn_back_refresh_text_size">17sp</dimen>
+    <dimen name="img_btn_close_margin_top">21dp</dimen>
+    <dimen name="img_btn_close_margin_end">26dp</dimen>
+    <dimen name="img_btn_close_padding">12dp</dimen>
+    <dimen name="img_connectivity_margin_bottom">43dp</dimen>
+    <dimen name="img_connectivity_padding">12dp</dimen>
+    <dimen name="tv_description_normal_width">294dp</dimen>
+    <dimen name="tv_description_normal_margin_bottom">42dp</dimen>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/charcoal_grey">
+
+    <ImageButton
+        android:id="@+id/btn_error_view_close"
+        style="@style/ImgBtnClose"
+        android:contentDescription="@android:string/cancel"
+        app:srcCompat="@drawable/close_btn" />
+
+    <LinearLayout
+        android:layout_width="294dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/TextDescriptionNormal"
+            android:text="The video encountered an error and cannot be played. Click the icon below to go back." />
+
+        <Button
+            android:id="@+id/btn_back"
+            style="@style/BackButton"
+            android:drawableStart="@drawable/back"
+            android:text="Go Back" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -12,7 +12,7 @@
     "platform": "android",
     "author_name": "Oleksii Malovanyi",
     "author_email": "oleksii.malovanyi@corewillsoft.com",
-    "manifest_version": "1.0.3",
+    "manifest_version": "1.0.4",
     "name": "Brightcove Player",
     "description": "Zapp Plugin for Brightcove Player",
     "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
@@ -21,11 +21,40 @@
     "identifier": "BrightcovePlayerPlugin",
     "ui_builder_support": true,
     "dependency_name": "com.applicaster:brightcove-player-plugin",
-    "dependency_version": "1.0.3",
+    "dependency_version": "1.0.4",
     "whitelisted_account_ids": [],
     "min_zapp_sdk": "7.0.0",
     "deprecated_since_zapp_sdk": "",
     "unsupported_since_zapp_sdk": "",
     "react_native": false,
-    "custom_configuration_fields": []
+    "custom_configuration_fields": [
+        {
+            "type": "text",
+            "key": "GeneralVideoPlayErrorMessage",
+            "label": "General Video Play Error Message",
+            "tooltip_text": "The text of the error message that is presented to the user when a general error occurs in the player.",
+            "default": "The video encountered an error and cannot be played. Click the icon below to go back."
+        },
+        {
+            "type": "text",
+            "key": "GeneralVideoPlayErrorButtonText",
+            "label": "General Video Play Error Button Text",
+            "tooltip_text": "The text on the button that appears alongside a general error message",
+            "default": "Go Back"
+        },
+        {
+            "type": "text",
+            "key": "ConnectivityErrorMessage",
+            "label": "Connectivity Error Message",
+            "tooltip_text": "The text of the error message that is presented to the user when a connectivity error occurs in the player",
+            "default": "We are experiencing connectivity issues. Please make sure you are connected to the internet and try again."
+        },
+        {
+            "type": "text",
+            "key": "ConnectivityErrorButtonText",
+            "label": "Connectivity Error Button Text",
+            "tooltip_text": "The text on the button that appears alongside a connectivity error message",
+            "default": "Try Again"
+        }
+    ]
 }
