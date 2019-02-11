@@ -13,7 +13,7 @@
   "platform": "ios",
   "author_name": "Roman Karpievich",
   "author_email": "karpievich@scand.com",
-  "manifest_version": "1.0.3",
+  "manifest_version": "1.0.5",
   "name": "Brightcove Player",
   "description": "Zapp Plugin for Brightcove Player",
   "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
@@ -21,7 +21,7 @@
   "identifier": "BrightcovePlayerPlugin",
   "ui_builder_support": true,
   "dependency_name": "BrightcovePlayerPlugin",
-  "dependency_version": "1.0.3",
+  "dependency_version": "1.0.5",
   "whitelisted_account_ids": [],
   "min_zapp_sdk": "7.0.0",
   "deprecated_since_zapp_sdk": "",
@@ -29,6 +29,28 @@
   "react_native": false,
   "custom_configuration_fields": [
     {
+      "type": "text",
+      "key": "GeneralVideoPlayErrorMessage",
+      "tooltip_text": "The text of the error message that is presented to the user when a general error occurs in the player.",
+      "default": "The video encountered an error and cannot be played. Click the icon below to go back."
+    },
+    {
+      "type": "text",
+      "key": "GeneralVideoPlayErrorButtonText",
+      "tooltip_text": "The text on the button that appears alongside a general error message",
+      "default": "Go Back"
+    },
+    {
+      "type": "text",
+      "key": "ConnectivityErrorMessage",
+      "tooltip_text": "The text of the error message that is presented to the user when a connectivity error occurs in the player",
+      "default": "We are experiencing connectivity issues. Please make sure you are connected to the internet and try again."
+    },
+    {
+      "type": "text",
+      "key": "ConnectivityErrorButtonText",
+      "tooltip_text": "The text on the button that appears alongside a connectivity error message",
+      "default": "Try Again"
     }
   ]
 }
