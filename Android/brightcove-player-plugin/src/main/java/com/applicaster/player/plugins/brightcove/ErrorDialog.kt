@@ -157,11 +157,13 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
         /**
          *  Creates a new instance of this dialog and returns it.
          */
-        fun newInstance(pluginConfigurationParams: Map<*, *>): ErrorDialog {
+        fun newInstance(pluginConfigurationParams: Map<*, *>?): ErrorDialog {
             val dialog = ErrorDialog()
             val bundle = Bundle()
-            bundle.apply {
-                putSerializable(KEY_PLUGIN_CONFIGURATION, pluginConfigurationParams as LinkedTreeMap<*, *>)
+            if (pluginConfigurationParams != null) {
+                bundle.apply {
+                    putSerializable(KEY_PLUGIN_CONFIGURATION, pluginConfigurationParams as LinkedTreeMap<*, *>)
+                }
             }
             dialog.arguments = bundle
             return dialog
