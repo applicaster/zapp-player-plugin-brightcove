@@ -39,15 +39,17 @@ class AdvertisementParser {
     // MARK: - Public methods
     
     public func parse() {
-        guard let ads = parseData.value(forKey: VideoExtensionAdsKeys.videoAds.rawValue) as? NSDictionary else {
+        guard let advertisementData = parseData.value(forKey: VideoExtensionAdsKeys.videoAds.rawValue) else {
             return
         }
         
-        let videoAd = ads.value(forKey: VideoExtensionAdsKeys.videoAd.rawValue)
-        if let adList = videoAd as? Array<NSDictionary> {
-            parseVastAdList(vastAdList: adList)
-        } else if let advertisement = videoAd as? NSDictionary {
-            createVmap(advertisement: advertisement)
+        switch advertisementData {
+        case let url as String:
+            parsedAdvertisement = .vmap(url)
+        case let vastAdList as Array<NSDictionary>:
+            parseVastAdList(vastAdList: vastAdList)
+        default:
+            break
         }
     }
     
@@ -70,23 +72,15 @@ class AdvertisementParser {
     
     private func createVast(withUrl url: String,
                             andOffset offset: String) -> VastAdvertisement? {
-        if offset == "pre" {
+        if offset == "preroll" {
             return .preRoll(url)
-        } else if offset == "post" {
+        } else if offset == "postroll" {
             return .postRoll(url)
-        } else if let timeline = Int(offset) {
-            return .timeline(url, timeline)
+        } else if let timeline = Double(offset) {
+            return .timeline(url, Int(timeline))
         } else {
             return nil
         }
-    }
-    
-    private func createVmap(advertisement: NSDictionary) {
-        guard let url = advertisement.value(forKey: VideoExtensionAdsKeys.adURL.rawValue) as? String else {
-            return
-        }
-        
-        parsedAdvertisement = .vmap(url)
     }
 }
 
