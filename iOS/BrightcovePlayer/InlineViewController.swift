@@ -51,17 +51,16 @@ class InlineViewController: UIViewController {
         
         // VAST
         let firstAd = ["ad_url": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dlinear&correlator=",
-                       "offset": "pre"]
+                       "offset": "preroll"]
         let secondAd = ["ad_url": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dredirectlinear&correlator=",
-                        "offset": "post"]
+                        "offset": "postroll"]
         let thirdAd = ["ad_url": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=",
                        "offset": "10"]
         let fourthAd = ["ad_url": "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/single_ad_samples&ciu_szs=300x250&impl=s&gdfp_req=1&env=vp&output=vast&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ct%3Dskippablelinear&correlator=",
                         "offset": "90"]
         let ads = [firstAd, secondAd, thirdAd, fourthAd]
-        let advDictionary = ["video_ad": ads]
         let extensionsDictionary = ["free": "true",
-                                    "video_ads": advDictionary] as [String : Any]
+                                    "video_ads": ads] as [String : Any]
         item.extensionsDictionary = extensionsDictionary
         
         return item
@@ -78,10 +77,8 @@ class InlineViewController: UIViewController {
         
         let vmapUrl = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpostpod&cmsid=496&vid=short_onecue&correlator="
         
-        let ads = ["ad_url": vmapUrl];
-        let advDictionary = ["video_ad": ads]
         let extensionsDictionary = ["free": "true",
-                                    "video_ads": advDictionary] as [String : Any]
+                                    "video_ads": vmapUrl] as [String : Any]
         item.extensionsDictionary = extensionsDictionary
         
         return item
