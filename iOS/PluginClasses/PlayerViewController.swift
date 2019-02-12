@@ -1,30 +1,52 @@
 import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
+import BrightcoveIMA
 import ApplicasterSDK
 import GoogleInteractiveMediaAds
 
-class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
+protocol PlayerAdvertisementEventsDelegate: AnyObject {
+    func willLoadAds(forAdTagURL adTagURL: String,
+                     forItem item: ZPPlayable)
+    
+    func eventOccured(_ event: BCOVPlaybackSessionLifecycleEvent,
+                      duringSession session: BCOVPlaybackSession,
+                      forItem item: ZPPlayable)
+}
+
+protocol PlaybackAnalyticEventsDelegate: AnyObject {
+    func eventOccurred(_ event: AnalyticsEvent, params: [AnyHashable: Any], timed: Bool)
+}
+
+class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEventsDelegate {
     
     // MARK: - Properies
     
-    private let builder: PlayerViewBuilderProtocol
-    private let player: PlayerAdapterProtocol
+    var builder: PlayerViewBuilderProtocol
+    let player: PlayerAdapterProtocol
     
     var onDismiss: (() -> Void)?
     
     lazy var playerView: BCOVPUIPlayerView = {
-        self.builder.build(for: self)
+        self.builder.buildPlayerView()
     }()
+    private var errorView: ErrorView?
+    
+    open var isAdPlaybackBlocked = false
+    open var adManager: IMAAdsManager?
+    
+    weak var delegate: PlayerAdvertisementEventsDelegate?
+    weak var analyticEventDelegate: PlaybackAnalyticEventsDelegate?
     
     // MARK: - Lifecycle
     
-    required init(builder: PlayerViewBuilderProtocol, adapter: PlayerAdapterProtocol) {
-        APLoggerVerbose("Builder: \(builder), adapter: \(adapter)")
+    required init(builder: PlayerViewBuilderProtocol, player: PlayerAdapterProtocol) {
         self.builder = builder
-        self.player = adapter
+        self.player = player
 
         super.init(nibName: nil, bundle: nil)
+        
+        self.player.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -38,6 +60,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         setupAccessibilityIdentifiers()
         subscribeToNotifications()
         APLoggerVerbose("Setup completed, view is loaded")
+        AFNetworkReachabilityManager.shared().startMonitoring()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,8 +77,15 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         super.viewWillDisappear(animated)
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
-        APLoggerVerbose("Parent: \(parent.debugDescription)")
+    open func setupPlayer() {
+        player.setupPlayer(atContainer: self)
+        player.didSwitchToItem = { [weak self] item in
+            APLoggerVerbose("Switching to playable item: \(item.toString())")
+            self?.builder.configureControlsLayout(isLiveEvent: item.isLive())
+        }
+        player.didEndPlayback = { [weak self] in
+            self?.close()
+        }
     }
     
     // MARK: - Actions
@@ -74,15 +104,6 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         playerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-    }
-    
-    private func setupPlayer() {
-        player.didSwitchToItem = { [weak self] item in
-            APLoggerVerbose("Switching to playable item: \(item.toString())")
-            guard let strongSelf = self else { return }
-            let controls = strongSelf.playerView.controlsView!
-            strongSelf.builder.configureLayout(for: controls, item: item, vc: strongSelf)
-        }
     }
     
     private func setupAccessibilityIdentifiers() {
@@ -115,9 +136,81 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate {
         }
     }
     
+    private func showPlaybackError() {
+        let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
+        let errorType: ErrorViewTypes = reachabilityStatus == .notReachable ? .network : .video
+        errorView = builder.errorView(withType: errorType)
+        
+        switch builder.mode {
+        case .fullscreen:
+            errorView!.frame = self.view.bounds
+            self.view.addSubview(errorView!)
+        case .inline:
+            let rootViewController = UIApplication.shared.delegate?.window??.rootViewController
+            errorView!.frame = rootViewController!.view.bounds
+            rootViewController!.view.addSubview(errorView!)
+        }
+        
+        isAdPlaybackBlocked = true
+    }
+    
     // MARK: - IMAWebOpenerDelegate methods
     
     func webOpenerDidClose(inAppBrowser webOpener: NSObject!) {
         player.resumeAdPlayback()
     }
+    
+    // MARK: - PlaybackEventsDelegate methods
+    
+    func willLoadAds(forAdTagURL adTagURL: String,
+                     forItem item: ZPPlayable) {
+        delegate?.willLoadAds(forAdTagURL: adTagURL, forItem: item)
+    }
+    
+    func eventOccured(_ event: BCOVPlaybackSessionLifecycleEvent,
+                      duringSession session: BCOVPlaybackSession,
+                      forItem item: ZPPlayable) {
+        switch event.eventType {
+        case "kBCOVPlaybackSessionLifecycleEventPlayRequest":
+            let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
+            if reachabilityStatus == .notReachable {
+                showPlaybackError()
+            }
+            break
+        case kBCOVIMALifecycleEventAdsLoaderLoaded:
+            if let manager = event.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager] as? IMAAdsManager {
+                self.adManager = manager
+            }
+        case kBCOVIMALifecycleEventAdsLoaderFailed:
+            let currentTime = CMTimeGetSeconds(session.player.currentTime()).rounded(.down)
+            playerView.controlsView.progressSlider.removeMarker(atPosition: currentTime)
+            fallthrough
+        case "kBCOVPlaybackSessionLifecycleEventAdProgress",
+             kBCOVIMALifecycleEventAdsManagerDidReceiveAdEvent,
+             kBCOVIMALifecycleEventAdsManagerDidReceiveAdError:
+            delegate?.eventOccured(event, duringSession: session, forItem: item)
+            if isAdPlaybackBlocked == true {
+                player.player.pauseAd()
+            }
+        case kBCOVPlaybackSessionLifecycleEventFail,
+             kBCOVPlaybackSessionLifecycleEventResumeFail,
+             kBCOVPlaybackSessionLifecycleEventPlaybackStalled:
+            if let error = event.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
+                var videoPlayError = VideoPlayError(from: error, forItem: item)
+                videoPlayError.itemDuration = "\(session.player.currentItem!.duration.seconds)"
+                analyticEventDelegate?.eventOccurred(.playbackError,
+                                                     params: videoPlayError.dictionary,
+                                                     timed: false)
+            }
+            
+            showPlaybackError()
+        case kBCOVPlaybackSessionLifecycleEventPlaybackRecovered:
+            errorView?.removeFromSuperview()
+            isAdPlaybackBlocked = false
+            break
+        default:
+            break
+        }
+    }
+    
 }

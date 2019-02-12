@@ -19,6 +19,14 @@ enum VastAdvertisement {
     case timeline(String, Int)
 }
 
+enum VideoExtensionAdsKeys: String {
+    case videoAds = "video_ads"
+    case videoAd = "video_ad"
+    case adURL = "ad_url"
+    case offset = "offset"
+    
+}
+
 class AdvertisementParser {
     
     private var parseData: NSDictionary

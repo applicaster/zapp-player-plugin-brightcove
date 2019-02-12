@@ -47,6 +47,14 @@ enum ItemPriceType: String {
     var key: String {
         return "Free or Paid Video"
     }
+    
+    init(fromBool isFree: Bool) {
+        if isFree == true {
+            self.init(rawValue: "Free")!
+        } else {
+            self.init(rawValue: "Paid")!
+        }
+    }
 }
 
 enum VodType: String {

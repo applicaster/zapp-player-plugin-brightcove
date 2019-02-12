@@ -16,6 +16,7 @@ enum AnalyticsEvent: String {
     case live = "Play Live Stream"
     case advertisement = "Watch Video Advertisement"
     case advertisementError = "Video Ad Error"
+    case playbackError = "Video Play Error"
 }
 
 enum AnalyticsKeys: String {
