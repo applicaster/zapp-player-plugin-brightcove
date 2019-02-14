@@ -7,7 +7,7 @@ extension ZPPlayable {
         Description: \(String(describing: playableDescription()))
         VideoURLPath: \(String(describing: contentVideoURLPath()))
         isLive: \(isLive())
-        isFree: \(isFree())
+        isFree: \(isFree)
         identifier: \(String(describing: identifier)))
         extensions: \(String(describing: extensionsDictionary))
         analytics: \(String(describing: analyticsParams()))
@@ -21,14 +21,14 @@ extension ZPPlayable {
     }
     
     var additionalAnalyticsParams: [AnyHashable: Any] {
-        let isFreeItem = extensionsDictionary
-            .flatMap { $0["free"] }
-            .flatMap { $0 as? Bool }
-            ?? true
-        
-        return [
-            AnalyticsKeys.isFree.rawValue: isFreeItem ? "Free" : "Paid"
-        ]
+        return [AnalyticsKeys.isFree.rawValue: isFree ? "Free" : "Paid"]
+    }
+    
+    var isFree: Bool {
+        guard let value = extensionsDictionary?["free"] as? Bool else {
+            return true
+        }
+        return value
     }
 }
 

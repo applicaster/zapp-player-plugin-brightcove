@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ErrorView" customModule="BrightcovePlayerPlugin">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mts-KU-tjm">
+                    <rect key="frame" x="86.5" y="406" width="202" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="gSE-a0-bz3"/>
+                        <constraint firstAttribute="width" constant="202" id="ouc-On-mtq"/>
+                    </constraints>
+                    <state key="normal" title="Back" image="Back.png">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="25"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                            <integer key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="actionButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="fun-Bd-nXL"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Connectivity.png" translatesAutoresizingMaskIntoConstraints="NO" id="tdi-0Z-yeg">
+                    <rect key="frame" x="156" y="198" width="64" height="64"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="64" id="JPZ-em-TUi"/>
+                        <constraint firstAttribute="width" constant="64" id="RA6-Lw-sl2"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The video encountered an error and cannot be played. Click the icon below to go back." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDv-Xc-gqF">
+                    <rect key="frame" x="41" y="303" width="294" height="61"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grV-rn-acv">
+                    <rect key="frame" x="311" y="41" width="38" height="38"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="38" id="CQE-b4-ul2"/>
+                        <constraint firstAttribute="height" constant="38" id="Rar-zy-qpj"/>
+                    </constraints>
+                    <state key="normal" image="Close_btn.png"/>
+                    <connections>
+                        <action selector="closeButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="ALx-G3-60x"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.20000000000000001" green="0.2196078431372549" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gDv-Xc-gqF" secondAttribute="trailing" constant="40.5" id="0qA-1J-NRo"/>
+                <constraint firstItem="gDv-Xc-gqF" firstAttribute="top" secondItem="tdi-0Z-yeg" secondAttribute="bottom" constant="41" id="4J3-AN-78Z"/>
+                <constraint firstItem="Mts-KU-tjm" firstAttribute="top" secondItem="gDv-Xc-gqF" secondAttribute="bottom" constant="42" id="6hV-eZ-mzf"/>
+                <constraint firstItem="grV-rn-acv" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="21" id="854-rL-iW1"/>
+                <constraint firstItem="gDv-Xc-gqF" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Xvi-Uq-L4P"/>
+                <constraint firstItem="gDv-Xc-gqF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="40.5" id="cqa-5N-dIQ"/>
+                <constraint firstItem="Mts-KU-tjm" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hGk-0P-Wpz"/>
+                <constraint firstItem="tdi-0Z-yeg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="hM4-F2-31k"/>
+                <constraint firstItem="gDv-Xc-gqF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="jpz-Mg-pyZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="grV-rn-acv" secondAttribute="trailing" constant="26" id="ofh-ra-ZPS"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="actionButton" destination="Mts-KU-tjm" id="CsO-a3-OGV"/>
+                <outlet property="closeButton" destination="grV-rn-acv" id="Umk-yL-4sk"/>
+                <outlet property="errorIcon" destination="tdi-0Z-yeg" id="4GR-KB-bcb"/>
+                <outlet property="errorIconHeight" destination="JPZ-em-TUi" id="g14-uX-JtG"/>
+                <outlet property="errorMessageLabel" destination="gDv-Xc-gqF" id="np6-hN-53l"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Back.png" width="32" height="32"/>
+        <image name="Close_btn.png" width="40" height="40"/>
+        <image name="Connectivity.png" width="64" height="64"/>
+    </resources>
+</document>

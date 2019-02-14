@@ -2,6 +2,8 @@ import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
 import ApplicasterSDK
+import BrightcoveIMA
+import GoogleInteractiveMediaAds
 
 struct Progress {
     var progress: TimeInterval = .infinity
@@ -16,33 +18,42 @@ struct Progress {
     }
 }
 
-protocol PlayerAdapter: class {    
+protocol PlayerAdapterProtocol: class {    
     var currentItem: ZPPlayable? { get }
-    var player: BCOVPlaybackController { get }
+    var player: BCOVPlaybackController! { get set}
     
     var playbackState: Progress { get }
     var playerState: ZPPlayerState { get }
     
     var didEndPlayback: (() -> Void)? { get set }
     var didSwitchToItem: ((ZPPlayable) -> Void)? { get set }
-    
+    var delegate: PlaybackEventsDelegate? { get set }
+
+    func setupPlayer(atContainer playerViewController: PlayerViewController)
     func play()
     func pause()
     func stop()
     func resume()
+    func resumeAdPlayback()
 }
 
-class PlayerAdapterImp: NSObject, PlayerAdapter {
+protocol PlaybackEventsDelegate: AnyObject {
+    func willLoadAds(forAdTagURL adTagURL: String,
+                     forItem item: ZPPlayable)
+    func eventOccured(_ event: BCOVPlaybackSessionLifecycleEvent,
+                      duringSession session: BCOVPlaybackSession,
+                      forItem item: ZPPlayable)
+}
+
+class PlayerAdapter: NSObject, PlayerAdapterProtocol {
 
     // MARK: - Properties
     
-    let player: BCOVPlaybackController
+    var player: BCOVPlaybackController!
 
     private(set) var playerState: ZPPlayerState = .undefined
     private(set) var playbackState: Progress = Progress()
     
-    private let loader: VideoLoader = StaticURLLoader()
-
     var didEndPlayback: (() -> Void)?
     var didSwitchToItem: ((ZPPlayable) -> Void)?
     
@@ -56,22 +67,47 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         didSet { currentItem.flatMap { didSwitchToItem?($0) } }
     }
     
+    weak var playerView: BCOVPUIPlayerView?
+    weak var delegate: PlaybackEventsDelegate?
+    
     // MARK: - Lifecycle
     
-    init(player: BCOVPlaybackController, items: [ZPPlayable]) {
-        self.player = player
+    init(items: [ZPPlayable]) {
         self.currentItem = items.first
         self.items = items
         
         super.init()
-                
-        setup()
     }
     
-    // MARK: - Actions
+    // MARK: - PlayerAdapterProtocol methods
     
-    func setup() {
-        setupPlayer()
+    func setupPlayer(atContainer playerViewController: PlayerViewController) {
+        let manager = BCOVPlayerSDKManager.shared()!
+        let imaSettings = IMASettings()
+        let renderSettings = IMAAdsRenderingSettings()
+        renderSettings.webOpenerPresentingController = playerViewController
+        renderSettings.webOpenerDelegate = playerViewController
+        let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
+        
+        let type = currentItem!.advertisementType
+        if let adsRequestPolicy = self.adsRequestPolicy(forType: type) {
+            self.player = manager.createIMAPlaybackController(with: imaSettings,
+                                                              adsRenderingSettings: renderSettings,
+                                                              adsRequestPolicy: adsRequestPolicy,
+                                                              adContainer: playerViewController.playerView,
+                                                              companionSlots: nil,
+                                                              viewStrategy: nil,
+                                                              options: imaPlaybackSessionOptions)
+        } else {
+            self.player = manager.createPlaybackController()
+        }
+        
+        playerViewController.playerView.playbackController = self.player
+        playerView = playerViewController.playerView
+    
+        self.player.delegate = self
+        self.player.isAutoPlay = true
+        self.player.isAutoAdvance = true
     }
     
     func play() {
@@ -93,34 +129,49 @@ class PlayerAdapterImp: NSObject, PlayerAdapter {
         player.play()
     }
     
-    // MARK: - Private
-    
-    private func setupPlayer() {
-        player.delegate = self
-        player.isAutoPlay = true
-        player.isAutoAdvance = true
+    func resumeAdPlayback() {
+        player.resumeAd()
     }
+    
+    // MARK: - Private
     
     private func loadItems() {
         APLoggerDebug("Load items")
-        currentItem = items.first
         
-        loader.load(items: items) { [weak self] result in
-            APLoggerDebug("Loaded: \(items)")
-            switch result {
-            case let .success(videos):
-                self?.videos = videos
-            case let .failure(error):
-                print(error)
-            }
+        currentItem = items.first
+        self.videos = items.map({ $0.bcovVideo })
+    }
+    
+    private func adsRequestPolicy(forType type: Advertisement) -> BCOVIMAAdsRequestPolicy? {
+        switch type {
+        case .vast(_):
+            let policy = BCOVCuePointProgressPolicy.init(processingCuePoints: .processFinalCuePoint,
+                                                         resumingPlaybackFrom: .fromContentPlayhead,
+                                                         ignoringPreviouslyProcessedCuePoints: false)
+            let adsRequestPolicy = BCOVIMAAdsRequestPolicy(vastAdTagsInCuePointsAndAdsCuePointProgressPolicy: policy)
+            return adsRequestPolicy
+        case .vmap(_):
+            return BCOVIMAAdsRequestPolicy.videoPropertiesVMAPAdTagUrl()
+        case .none:
+            return nil
         }
     }
 }
 
-extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
+extension PlayerAdapter: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         APLoggerDebug("Did advance to: \(String(describing: session))")
-        currentItem = loader.find(video: session.video, in: items)
+        
+        guard let source = session.video.sources.first as? BCOVSource,
+            let sourceURL = source.url?.absoluteString else {
+            return
+        }
+        
+        guard let video = items.first(where: { $0.contentVideoURLPath() == sourceURL }) else {
+            return
+        }
+        
+        currentItem = video
         playbackState = Progress()
     }
     
@@ -141,6 +192,10 @@ extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         APLoggerDebug("Session did receive \(String(describing: lifecycleEvent))")
         ZPPlayerState(event: lifecycleEvent).flatMap { playerState = $0 }
+        
+        delegate?.eventOccured(lifecycleEvent,
+                               duringSession: session,
+                               forItem: currentItem!)
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
@@ -149,35 +204,14 @@ extension PlayerAdapterImp: BCOVPlaybackControllerDelegate {
     }
 }
 
-extension ZPPlayerState {
-    init?(event: BCOVPlaybackSessionLifecycleEvent) {
-        switch event.eventType {
-            
-        case kBCOVPlaybackSessionLifecycleEventPlaybackStalled,
-             kBCOVPlaybackSessionLifecycleEventResumeFail,
-             kBCOVPlaybackSessionLifecycleEventFail,
-             kBCOVPlaybackSessionLifecycleEventFailedToPlayToEndTime:
-            self = .interruption
-            
-        case kBCOVPlaybackSessionLifecycleEventPause:
-            self = .paused
-            
-        case kBCOVPlaybackSessionLifecycleEventPlaybackRecovered,
-             kBCOVPlaybackSessionLifecycleEventPlay:
-            self = .playing
-            
-        case kBCOVPlaybackSessionLifecycleEventEnd:
-            self = .stopped
-            
-        case kBCOVPlaybackSessionLifecycleEventPlaybackBufferEmpty,
-             kBCOVPlaybackSessionLifecycleEventResumeBegin,
-             kBCOVPlaybackSessionLifecycleEventResumeComplete,
-             kBCOVPlaybackSessionLifecycleEventReady,
-             kBCOVPlaybackSessionLifecycleEventPlaybackLikelyToKeepUp:
-            fallthrough
-            
-        default:
-            return nil
+// MARK: - BCOVIMAPlaybackSessionDelegate
+
+extension PlayerAdapter: BCOVIMAPlaybackSessionDelegate {
+    
+    func willCallIMAAdsLoaderRequestAds(with adsRequest: IMAAdsRequest!, forPosition position: TimeInterval) {
+        guard let adTagURL = adsRequest.adTagUrl else {
+            return
         }
+        delegate?.willLoadAds(forAdTagURL: adTagURL, forItem: currentItem!)
     }
 }
