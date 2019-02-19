@@ -140,8 +140,8 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
     fun isConnectionEstablished() = isNetworkAvailable()
 
     private fun isNetworkAvailable(): Boolean {
-        val conMgr = this.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return (conMgr.activeNetworkInfo != null
+        val conMgr = this.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        return (conMgr?.activeNetworkInfo != null
                 && conMgr.activeNetworkInfo.isAvailable
                 && conMgr.activeNetworkInfo.isConnected)
     }
