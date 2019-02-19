@@ -30,6 +30,7 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
     private lateinit var adsAdapter: AdsAdapter
     private lateinit var viewGroup: ViewGroup
     private var errorDialog: ErrorDialog? = null
+    private var isErrorDialogVisible: Boolean = false
 
     /**
      * initialization of the player instance with a playable item
@@ -147,9 +148,11 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
     }
 
     override fun onRefresh() {
-        if (errorDialog?.isConnectionEstablished() == true)
+        if (errorDialog?.isConnectionEstablished() == true) {
             errorDialog?.dismiss()
             videoView.start()
+            isErrorDialogVisible = false
+        }
     }
 
     override fun onBack() {
@@ -161,7 +164,9 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
         videoView.eventEmitter.on(
             "Video Play Error"
         ) {
-            if (errorDialog == null || errorDialog?.isVisible == false) {
+            adsAdapter.onVideoPlayFailed(true)
+            if (errorDialog == null || !isErrorDialogVisible) {
+                isErrorDialogVisible = true
                 errorDialog = ErrorDialog.newInstance(this.pluginConfigurationParams)
                 errorDialog?.setOnErrorDialogListener(this)
                 errorDialog?.show((this.context as? AppCompatActivity)?.supportFragmentManager, "ErrorDialog")
