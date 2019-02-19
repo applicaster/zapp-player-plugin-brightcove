@@ -9,6 +9,10 @@ import com.brightcove.player.view.BrightcoveVideoView
 
 interface AdsAdapter {
     fun setupForVideo(playable: Playable)
+    fun resumePlayingAd()
+    fun pausePlayingAd()
+    fun isPostrollSetUp(): Boolean
+    fun onVideoPlayFailed(isPlayerFailed: Boolean)
 }
 
 abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
@@ -82,8 +86,6 @@ abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
     protected fun getAds() = ads
 
     protected abstract fun setupAdsPlugin()
-    abstract fun resumePlayingAd()
-    abstract fun pausePlayingAd()
 
     companion object {
         const val TAG = "VideoAdsAdapter"

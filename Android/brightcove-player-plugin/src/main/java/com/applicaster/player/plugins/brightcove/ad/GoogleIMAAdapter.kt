@@ -23,6 +23,8 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
 
     private var savedCurrentVideoAdPosition: Int = 0
     private lateinit var container: AdDisplayContainer
+    private var isPostrollSetUp: Boolean = false
+    private var isVideoPlayFailed: Boolean = false
 
     override fun setupAdsPlugin() {
         setupGoogleIMA()
@@ -40,7 +42,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
 
             // Defer adding cue points until the set video event is triggered.
             getEventEmitter().on(
-                    EventType.DID_SET_SOURCE
+                EventType.DID_SET_SOURCE
             ) { event ->
                 Log.v(TAG, event.type)
                 /**
@@ -55,24 +57,29 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
             // Enable logging of ads request for video
             getEventEmitter().on(
                 GoogleIMAEventType.ADS_REQUEST_FOR_VIDEO
-            ) {
-                event -> Log.v(TAG, event.type)
+            ) { event ->
+                Log.v(TAG, event.type)
                 if (adType == VideoAd.AdType.VAST) {
                     val propsList = event.properties["cue_points"] as? ArrayList<CuePoint>
                     currentQuePoint = propsList?.get(0)
                 }
             }
 
-            // Enable logging of ad starts
+            // Enable logging of ad breack starts
             getEventEmitter().on(
-                    EventType.AD_STARTED
-            ) { event -> Log.v(TAG, event.type) }
+                EventType.AD_BREAK_STARTED
+            ) {
+                if (isVideoPlayFailed && this::container.isInitialized) {
+                    container.player.stopAd()
+                    isVideoPlayFailed = false
+                }
+            }
 
             // Enable logging of any failed attempts to play an ad.
             getEventEmitter().on(
                 GoogleIMAEventType.DID_FAIL_TO_PLAY_AD
-            ) {
-                event -> Log.v(TAG, event.type)
+            ) { event ->
+                Log.v(TAG, event.type)
                 if (adType == VideoAd.AdType.VAST) {
                     getMediaController().brightcoveSeekBar.removeMarker(currentQuePoint?.position)
                     currentQuePoint = null
@@ -92,7 +99,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
 
             // Enable logging of ad completions.
             getEventEmitter().on(
-                    EventType.AD_COMPLETED
+                EventType.AD_COMPLETED
             ) { event -> Log.v(TAG, event.type) }
 
             // Set up a listener for initializing AdsRequests. The Google IMA plugin emits an ad
@@ -173,6 +180,27 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
     }
 
     /**
+     * Check if advertisement have postrolls.
+     */
+    override fun isPostrollSetUp(): Boolean {
+        var result = false
+        if (isPostrollSetUp) {
+            result = true
+        }
+        if (vmapCuePoints != null) {
+            vmapCuePoints?.forEach {
+                if (it < 0 || ((it * 1000f).toInt() >= videoView.duration))
+                    result = true
+            }
+        }
+        return result
+    }
+
+    override fun onVideoPlayFailed(isPlayerFailed: Boolean) {
+        isVideoPlayFailed = isPlayerFailed
+    }
+
+    /**
      * Remove time marker from time line if advertisement playing was corrupted.
      * Used for VMAP format.
      */
@@ -219,6 +247,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 CuePoint(CuePoint.PositionType.BEFORE, cuePointType, properties)
             }
             "postroll" -> {
+                isPostrollSetUp = true
                 CuePoint(CuePoint.PositionType.AFTER, cuePointType, properties)
             }
             else -> {
@@ -236,9 +265,9 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
      * For VMAP just get data from incoming ad
      */
     private fun setupAdUrlsForEvent(
-            adType: VideoAd.AdType,
-            event: Event,
-            ads: List<VideoAd>
+        adType: VideoAd.AdType,
+        event: Event,
+        ads: List<VideoAd>
     ): ArrayList<String> {
         val adsToShow = ArrayList<String>()
 
