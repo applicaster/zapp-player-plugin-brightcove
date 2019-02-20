@@ -46,7 +46,7 @@ class AdvertisementParser {
         switch advertisementData {
         case let url as String:
             parsedAdvertisement = .vmap(url)
-        case let vastAdList as Array<NSDictionary>:
+        case let vastAdList as Array<Any>:
             parseVastAdList(vastAdList: vastAdList)
         default:
             break
@@ -55,11 +55,14 @@ class AdvertisementParser {
     
     // MARK: - Private methods
     
-    private func parseVastAdList(vastAdList: [NSDictionary]) {
+    private func parseVastAdList(vastAdList: [Any]) {// [Any], because in configuration preroll/postroll only, array consist empty string ([NSDisctionary(postroll),""])
         var parsedAdList: [VastAdvertisement] = []
         for advertisement in vastAdList {
+            guard let advertisement = advertisement as? NSDictionary else { //skip empty string in case of postroll/preroll only
+                continue
+            }
             guard let url = advertisement.value(forKey: VideoExtensionAdsKeys.adURL.rawValue) as? String,
-                let offset = advertisement.value(forKey: VideoExtensionAdsKeys.offset.rawValue) as? String,
+                let offset = wrapOffsetToString(offset: advertisement.value(forKey: VideoExtensionAdsKeys.offset.rawValue)),
                 let vast = createVast(withUrl: url, andOffset: offset) else {
                 continue
             }
@@ -68,6 +71,16 @@ class AdvertisementParser {
         }
         
         parsedAdvertisement = .vast(parsedAdList)
+    }
+    
+    private func wrapOffsetToString(offset: Any?) -> String? { // convert offset different types (possible values: "preroll","postroll","90", 90) to String?
+        if let result = offset as? String {
+            return result
+        }
+        if let result = offset as? Double {
+            return String(result)
+        }
+        return nil
     }
     
     private func createVast(withUrl url: String,
