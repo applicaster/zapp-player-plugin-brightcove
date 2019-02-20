@@ -38,6 +38,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     weak var delegate: PlayerAdvertisementEventsDelegate?
     weak var analyticEventDelegate: PlaybackAnalyticEventsDelegate?
     
+    var isContentPaused = false
     // MARK: - Lifecycle
     
     required init(builder: PlayerViewBuilderProtocol, player: PlayerAdapterProtocol) {
@@ -126,13 +127,21 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     
     @objc private func wentBackground() {
         if view.window != nil {
-            player.pause()
+            if isContentPaused {
+                player.player.pauseAd()
+            } else {
+                player.pause()
+            }
         }
     }
     
     @objc private func wentForeground() {
         if view.window != nil {
-            player.resume()
+            if isContentPaused {
+                player.player.resumeAd()
+            } else {
+                player.resume()
+            }
         }
     }
     
@@ -208,6 +217,10 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             errorView?.removeFromSuperview()
             isAdPlaybackBlocked = false
             break
+        case kBCOVIMALifecycleEventAdsManagerDidRequestContentPause:
+            isContentPaused = true
+        case kBCOVIMALifecycleEventAdsManagerDidRequestContentResume:
+            isContentPaused = false
         default:
             break
         }
