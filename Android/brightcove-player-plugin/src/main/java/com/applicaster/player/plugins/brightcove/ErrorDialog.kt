@@ -140,8 +140,8 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
     fun isConnectionEstablished() = isNetworkAvailable()
 
     private fun isNetworkAvailable(): Boolean {
-        val conMgr = this.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        return (conMgr.activeNetworkInfo != null
+        val conMgr = this.context?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
+        return (conMgr?.activeNetworkInfo != null
                 && conMgr.activeNetworkInfo.isAvailable
                 && conMgr.activeNetworkInfo.isConnected)
     }
@@ -157,11 +157,13 @@ class ErrorDialog : DialogFragment(), View.OnClickListener {
         /**
          *  Creates a new instance of this dialog and returns it.
          */
-        fun newInstance(pluginConfigurationParams: Map<*, *>): ErrorDialog {
+        fun newInstance(pluginConfigurationParams: Map<*, *>?): ErrorDialog {
             val dialog = ErrorDialog()
             val bundle = Bundle()
-            bundle.apply {
-                putSerializable(KEY_PLUGIN_CONFIGURATION, pluginConfigurationParams as LinkedTreeMap<*, *>)
+            if (pluginConfigurationParams != null) {
+                bundle.apply {
+                    putSerializable(KEY_PLUGIN_CONFIGURATION, pluginConfigurationParams as LinkedTreeMap<*, *>)
+                }
             }
             dialog.arguments = bundle
             return dialog

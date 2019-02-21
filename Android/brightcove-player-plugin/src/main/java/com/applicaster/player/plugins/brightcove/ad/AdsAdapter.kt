@@ -9,6 +9,10 @@ import com.brightcove.player.view.BrightcoveVideoView
 
 interface AdsAdapter {
     fun setupForVideo(playable: Playable)
+    fun resumePlayingAd()
+    fun pausePlayingAd()
+    fun isPostrollSetUp(): Boolean
+    fun onVideoPlayFailed(isPlayerFailed: Boolean)
 }
 
 abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
@@ -56,9 +60,10 @@ abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
                 }
             } else {
                 // If we have VMAP ad type we should get only url field
-                val adsExtension = playable.entry.getExtension(VideoAd.KEY_VIDEO_AD_EXTENSION, Map::class.java)
-                if (adsExtension != null && adsExtension is Map) {
-                    parseSingleAd(adsExtension)
+                val adsExtension = playable.entry.getExtension(VideoAd.KEY_VIDEO_AD_EXTENSION, String::class.java)
+                if (adsExtension != null && adsExtension is String) {
+                    val url = adsExtension
+                    ads.add(VideoAd(url, null))
                 }
             }
         }
@@ -72,9 +77,6 @@ abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
         }
         if (ad.containsKey(VideoAd.KEY_OFFSET)) {
             offset = ad[VideoAd.KEY_OFFSET].toString()
-        }
-        if (ad.containsKey(VideoAd.KEY_VIDEO_AD_EXTENSION)) {
-            url = ad[VideoAd.KEY_VIDEO_AD_EXTENSION].toString()
         }
         ads.add(VideoAd(url, offset))
     }

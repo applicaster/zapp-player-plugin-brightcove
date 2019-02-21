@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode.FULLSCREEN
 import com.applicaster.player.plugins.brightcove.R.integer
+import com.applicaster.player.plugins.brightcove.ad.AdsAdapter
 import com.applicaster.player.plugins.brightcove.ad.GoogleIMAAdapter
 import com.applicaster.player.plugins.brightcove.analytics.*
 import com.applicaster.plugin_manager.playersmanager.Playable
@@ -23,6 +24,11 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
     private lateinit var errorHandlingVideoPlayerAdapter: ErrorHandlingVideoPlayerAdapter
     private var errorDialog: ErrorDialog? = null
+    private var videoCompletionResult: VideoCompletionResult = VideoCompletionResult.UNDEFINED
+    private var isVideoPaused: Boolean = false
+    private var isErrorDialogVisible: Boolean = false
+
+    private lateinit var adsAdapter: AdsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +38,32 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         // inject layout
         setContentView(R.layout.activity_brightcove_player)
         // setupForVideo video view
+        configureVideo()
+    }
+
+    private fun configureVideo() {
         videoView = with(fullscreen_video_view) {
             post { reconfigureControls() }
             eventEmitter.emit(EventType.ENTER_FULL_SCREEN)
             eventEmitter.on(EventType.COMPLETED) {
-                //        finish()
+                if (videoCompletionResult == VideoCompletionResult.UNDEFINED) {
+                    if (!adsAdapter.isPostrollSetUp()) {finish()}
+                }
+                videoCompletionResult = VideoCompletionResult.COMPLETED
             }
+
+            eventEmitter.on(EventType.AD_COMPLETED) {
+                if (videoCompletionResult == VideoCompletionResult.COMPLETED) {
+                    videoCompletionResult = VideoCompletionResult.UNDEFINED
+                    finish()
+                }
+            }
+
+            eventEmitter.on(EventType.AD_ERROR) {
+                if (videoCompletionResult == VideoCompletionResult.COMPLETED)
+                    finish()
+            }
+
             setVideoURI(Uri.parse(playable.contentVideoURL))
             this
         }
@@ -57,7 +83,7 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         adAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         errorHandlingVideoPlayerAdapter.startTrack(playable, FULLSCREEN)
-        val adsAdapter = GoogleIMAAdapter(videoView)
+        adsAdapter = GoogleIMAAdapter(videoView)
         adsAdapter.setupForVideo(playable)
     }
 
@@ -65,6 +91,20 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         super.onStart()
         videoView.start()
         videoView.listenVideoPlayError()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (this::adsAdapter.isInitialized) {
+            adsAdapter.resumePlayingAd()
+        }
+    }
+
+    override fun onPause() {
+        if (this::adsAdapter.isInitialized) {
+            adsAdapter.pausePlayingAd()
+        }
+        super.onPause()
     }
 
     override fun onDestroy() {
@@ -79,7 +119,14 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         videoView.eventEmitter.on(
             "Video Play Error"
         ) {
-            if (errorDialog == null || errorDialog?.isVisible == false) {
+            adsAdapter.onVideoPlayFailed(true)
+            if (errorDialog == null || !isErrorDialogVisible) {
+                isErrorDialogVisible = true
+                adsAdapter.pausePlayingAd()
+                if (videoView.isPlaying) {
+                    videoView.pause()
+                    isVideoPaused = true
+                }
                 errorDialog = ErrorDialog.newInstance(PlayersManager.getCurrentPlayer().pluginConfigurationParams)
                 errorDialog?.show(supportFragmentManager, "ErrorDialog")
             }
@@ -89,7 +136,14 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     override fun onRefresh() {
         if (errorDialog?.isConnectionEstablished() == true) {
             errorDialog?.dismiss()
-            videoView.start()
+            if (isVideoPaused) {
+                videoView.start()
+            } else {
+                videoView.start()
+                configureVideo()
+            }
+            isVideoPaused = false
+            isErrorDialogVisible = false
         }
     }
 
@@ -108,5 +162,10 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     override fun onBackPressed() {
         super.onBackPressed()
         adAnalyticsAdapter.backPressed(playable)
+    }
+
+    enum class VideoCompletionResult {
+        COMPLETED,
+        UNDEFINED
     }
 }

@@ -8,6 +8,7 @@ import com.brightcove.player.event.EventType
 import com.brightcove.player.model.Source
 import com.brightcove.player.model.Video
 import com.brightcove.player.view.BrightcoveVideoView
+import com.google.ads.interactivemedia.v3.api.AdError
 
 class ErrorHandlingVideoPlayerAdapter(private val videoView: BrightcoveVideoView): ErrorHandlingAnalyticsAdapter(videoView) {
 
@@ -46,9 +47,13 @@ class ErrorHandlingVideoPlayerAdapter(private val videoView: BrightcoveVideoView
                 analyticsParams
             )
 
-            videoView.eventEmitter.emit(
-                playable.videoPlayErrorEvent
-            )
+            //Check if error type is not AdError
+            if (
+                event.properties.containsKey(EventType.ERROR)
+                && event.properties[EventType.ERROR] !is AdError
+            ) {
+                videoView.eventEmitter.emit(playable.videoPlayErrorEvent)
+            }
         }
     }
 
