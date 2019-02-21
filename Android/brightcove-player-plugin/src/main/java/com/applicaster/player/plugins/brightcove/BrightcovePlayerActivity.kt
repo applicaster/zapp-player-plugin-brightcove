@@ -139,6 +139,7 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
             if (isVideoPaused) {
                 videoView.start()
             } else {
+                videoView.start()
                 configureVideo()
             }
             isVideoPaused = false

@@ -25,6 +25,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
     private lateinit var container: AdDisplayContainer
     private var isPostrollSetUp: Boolean = false
     private var isVideoPlayFailed: Boolean = false
+    private var adsManager: AdsManager? = null
 
     override fun setupAdsPlugin() {
         setupGoogleIMA()
@@ -92,7 +93,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 GoogleIMAEventType.ADS_MANAGER_LOADED
             ) { event ->
                 if (adType == VideoAd.AdType.VMAP) {
-                    val adsManager = event.properties["adsManager"] as? AdsManager?
+                    adsManager = event.properties["adsManager"] as? AdsManager?
                     vmapCuePoints = adsManager?.adCuePoints
                 }
             }
