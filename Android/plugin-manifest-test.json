@@ -1,0 +1,60 @@
+{
+  "api": {
+    "require_startup_execution": false,
+    "class_name": "com.applicaster.player.plugins.brightcove.BrightcovePlayerAdapter",
+    "proguard_rules": "##---------------Proguard configuration for SDK  ----------\n-dontwarn com.brightcove.player.display.VideoDisplayComponent\n-dontwarn com.brightcove.player.view.BrightcoveClosedCaptioningSurfaceView\n-dontwarn com.brightcove.player.view.BrightcoveClosedCaptioningSurfaceView$1\n-dontwarn com.google.**\n-dontwarn tv.freewheel.**\n-dontwarn android.media.**\n\n#--- PiP Support Specific Rules ---\n-dontwarn android.app.**\n\n-keep class com.brightcove.player.** { *; }\n\n\n##---------------Proguard configuration for Gson  ----------\n# Gson uses generic type information stored in a class file when working with fields. Proguard\n# removes such information by default, so configure it to keep all of it.\n-keepattributes Signature\n\n# For using GSON @Expose annotation\n-keepattributes *Annotation*\n\n# Gson specific classes\n-keep class sun.misc.Unsafe { *; }\n#-keep class com.google.gson.stream.** { *; }\n\n# Prevent proguard from stripping interface information from TypeAdapterFactory,\n# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)\n-keep class * implements com.google.gson.TypeAdapterFactory\n-keep class * implements com.google.gson.JsonSerializer\n-keep class * implements com.google.gson.JsonDeserializer\n\n##---------------Proguard configuration for Requery  ----------\n-dontwarn java.lang.FunctionalInterface\n-dontwarn java.util.**\n-dontwarn java.time.**\n-dontwarn javax.annotation.**\n-dontwarn javax.cache.**\n-dontwarn javax.naming.**\n-dontwarn javax.transaction.**\n-dontwarn java.sql.**\n-dontwarn javax.sql.**\n-dontwarn android.support.**\n-dontwarn io.requery.cache.**\n-dontwarn io.requery.rx.**\n-dontwarn io.requery.reactivex.**\n-dontwarn io.requery.reactor.**\n-dontwarn io.requery.query.**\n-dontwarn io.requery.android.**\n-dontwarn io.requery.proxy.**\n\n-keepclassmembers enum io.requery.** {\n    public static **[] values();\n    public static ** valueOf(java.lang.String);\n}\n\n##---------------Proguard configuration for FileDownloader Library  ----------\n-dontwarn okhttp3.*\n-dontwarn okio.**\n-dontwarn com.liulishuo.filedownloader.**\n\n"
+  },
+  "dependency_repository_url": [{
+    "url": "https://dl.bintray.com/applicaster-ltd/maven_plugins/"
+  }, {
+    "url": "http://repo.brightcove.com/releases"
+  }],
+  "platform": "android",
+  "author_name": "Alex Khomich",
+  "author_email": "akhomich@scand.com",
+  "manifest_version": "1.0.7",
+  "name": "Brightcove Player Test",
+  "description": "Zapp Plugin for Brightcove Player",
+  "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
+  "type": "player",
+  "screen": false,
+  "identifier": "BrightcovePlayerPlugin-Test",
+  "ui_builder_support": true,
+  "dependency_name": "com.applicaster:brightcove-player-plugin",
+  "dependency_version": "1.0.7",
+  "whitelisted_account_ids": ["5a4516fa41442c000b0195d6"],
+  "min_zapp_sdk": "7.0.0",
+  "deprecated_since_zapp_sdk": "",
+  "unsupported_since_zapp_sdk": "",
+  "react_native": false,
+  "custom_configuration_fields": [
+    {
+      "type": "text",
+      "key": "General_Error_Message",
+      "label": "General Video Play Error Message",
+      "tooltip_text": "The text of the error message that is presented to the user when a general error occurs in the player.",
+      "default": "The video encountered an error and cannot be played. Click the icon below to go back."
+    },
+    {
+      "type": "text",
+      "key": "General_Error_Button",
+      "label": "General Video Play Error Button Text",
+      "tooltip_text": "The text on the button that appears alongside a general error message",
+      "default": "Go Back"
+    },
+    {
+      "type": "text",
+      "key": "Connectivity_Error_Message",
+      "label": "Connectivity Error Message",
+      "tooltip_text": "The text of the error message that is presented to the user when a connectivity error occurs in the player",
+      "default": "We are experiencing connectivity issues. Please make sure you are connected to the internet and try again."
+    },
+    {
+      "type": "text",
+      "key": "Connectivity_Error_Button",
+      "label": "Connectivity Error Button Text",
+      "tooltip_text": "The text on the button that appears alongside a connectivity error message",
+      "default": "Try Again"
+    }
+  ]
+}
