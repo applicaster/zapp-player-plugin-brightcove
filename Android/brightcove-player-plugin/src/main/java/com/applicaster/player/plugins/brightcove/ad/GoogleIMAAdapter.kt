@@ -251,6 +251,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 CuePoint(CuePoint.PositionType.BEFORE, cuePointType, properties)
             }
             "postroll" -> {
+                isPostrollSetUp = true
                 CuePoint(CuePoint.PositionType.AFTER, cuePointType, properties)
             }
             else -> {
