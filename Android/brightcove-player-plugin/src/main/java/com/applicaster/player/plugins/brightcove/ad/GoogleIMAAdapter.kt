@@ -71,7 +71,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 EventType.AD_BREAK_STARTED
             ) {
                 if (isVideoPlayFailed && this::container.isInitialized) {
-                    container.player.stopAd()
+                    container.adContainer.removeAllViews()
                     isVideoPlayFailed = false
                 }
             }
@@ -98,10 +98,17 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 }
             }
 
+            // If video play error occurred we should remove ad views
+            getEventEmitter().on("Video Play Error") {
+                isVideoPlayFailed = true
+                if (this::container.isInitialized) {
+                    container.adContainer.removeAllViews()
+                    isVideoPlayFailed = true
+                }
+            }
+
             // Enable logging of ad completions.
-            getEventEmitter().on(
-                EventType.AD_COMPLETED
-            ) { event -> Log.v(TAG, event.type) }
+            getEventEmitter().on(EventType.AD_COMPLETED) { isVideoPlayFailed = false }
 
             // Set up a listener for initializing AdsRequests. The Google IMA plugin emits an ad
             // request event in response to each cue point event.  The event processor (handler)
@@ -195,10 +202,6 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
             }
         }
         return result
-    }
-
-    override fun onVideoPlayFailed(isPlayerFailed: Boolean) {
-        isVideoPlayFailed = isPlayerFailed
     }
 
     /**

@@ -119,7 +119,6 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         videoView.eventEmitter.on(
             "Video Play Error"
         ) {
-            adsAdapter.onVideoPlayFailed(true)
             if (errorDialog == null || !isErrorDialogVisible) {
                 isErrorDialogVisible = true
                 adsAdapter.pausePlayingAd()
