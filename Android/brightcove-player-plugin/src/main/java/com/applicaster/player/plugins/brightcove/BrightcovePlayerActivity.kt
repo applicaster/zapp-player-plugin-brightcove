@@ -138,8 +138,8 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
             if (isVideoPaused) {
                 videoView.start()
             } else {
-                videoView.start()
-                configureVideo()
+                videoView.setVideoURI(Uri.parse(playable.contentVideoURL))
+                adsAdapter.setupForVideo(playable)
             }
             isVideoPaused = false
             isErrorDialogVisible = false
