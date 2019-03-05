@@ -27,6 +27,7 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     private var videoCompletionResult: VideoCompletionResult = VideoCompletionResult.UNDEFINED
     private var isVideoPaused: Boolean = false
     private var isErrorDialogVisible: Boolean = false
+    private var adCompletionResult: AdCompletionResult = AdCompletionResult.UNDEFINED
 
     private lateinit var adsAdapter: AdsAdapter
 
@@ -52,7 +53,16 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
                 videoCompletionResult = VideoCompletionResult.COMPLETED
             }
 
+            eventEmitter.on(EventType.AD_STARTED) {
+                adCompletionResult = AdCompletionResult.STARTED
+            }
+
             eventEmitter.on(EventType.AD_COMPLETED) {
+                if (videoCompletionResult == VideoCompletionResult.FAILED) {
+                    showErrorDialog()
+                    adCompletionResult = AdCompletionResult.COMPLETED
+                }
+
                 if (videoCompletionResult == VideoCompletionResult.COMPLETED) {
                     videoCompletionResult = VideoCompletionResult.UNDEFINED
                     finish()
@@ -60,6 +70,11 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
             }
 
             eventEmitter.on(EventType.AD_ERROR) {
+                adCompletionResult = AdCompletionResult.FAILED
+                if (videoCompletionResult == VideoCompletionResult.FAILED) {
+                   showErrorDialog()
+                }
+
                 if (videoCompletionResult == VideoCompletionResult.COMPLETED)
                     finish()
             }
@@ -119,27 +134,37 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         videoView.eventEmitter.on(
             "Video Play Error"
         ) {
+            videoCompletionResult = VideoCompletionResult.FAILED
             if (errorDialog == null || !isErrorDialogVisible) {
-                isErrorDialogVisible = true
-                adsAdapter.pausePlayingAd()
                 if (videoView.isPlaying) {
                     videoView.pause()
                     isVideoPaused = true
+                    showErrorDialog()
                 }
-                errorDialog = ErrorDialog.newInstance(PlayersManager.getCurrentPlayer().pluginConfigurationParams)
-                errorDialog?.show(supportFragmentManager, "ErrorDialog")
+            }
+            if (!adsAdapter.isAdsPresentationNeeded() && !isErrorDialogVisible) {
+                showErrorDialog()
             }
         }
+    }
+
+    private fun showErrorDialog() {
+        isErrorDialogVisible = true
+        errorDialog = ErrorDialog.newInstance(PlayersManager.getCurrentPlayer().pluginConfigurationParams)
+        errorDialog?.show(supportFragmentManager, "ErrorDialog")
     }
 
     override fun onRefresh() {
         if (errorDialog?.isConnectionEstablished() == true) {
             errorDialog?.dismiss()
+            videoCompletionResult = VideoCompletionResult.UNDEFINED
+            adCompletionResult = AdCompletionResult.UNDEFINED
             if (isVideoPaused) {
                 videoView.start()
             } else {
                 videoView.setVideoURI(Uri.parse(playable.contentVideoURL))
                 adsAdapter.setupForVideo(playable)
+                videoView.invalidate()
             }
             isVideoPaused = false
             isErrorDialogVisible = false
@@ -165,6 +190,14 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
 
     enum class VideoCompletionResult {
         COMPLETED,
+        FAILED,
+        UNDEFINED
+    }
+
+    enum class AdCompletionResult {
+        STARTED,
+        COMPLETED,
+        FAILED,
         UNDEFINED
     }
 }

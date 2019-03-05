@@ -12,6 +12,7 @@ interface AdsAdapter {
     fun resumePlayingAd()
     fun pausePlayingAd()
     fun isPostrollSetUp(): Boolean
+    fun isAdsPresentationNeeded(): Boolean
 }
 
 abstract class VideoAdsAdapter(private val videoView: BrightcoveVideoView) :
