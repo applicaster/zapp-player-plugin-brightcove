@@ -181,8 +181,9 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
                       forItem item: ZPPlayable) {
         switch event.eventType {
         case "kBCOVPlaybackSessionLifecycleEventPlayRequest":
+            let isBufferEmpty = session.player.currentItem?.isPlaybackBufferEmpty ?? true
             let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
-            if reachabilityStatus == .notReachable {
+            if reachabilityStatus == .notReachable, isBufferEmpty == true {
                 showPlaybackError()
             }
             break

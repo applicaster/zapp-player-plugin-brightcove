@@ -22,9 +22,9 @@ class ErrorViewConfiguration {
     let connectivityErrorButtonText: String
     
     init(fromDictionary dict: NSDictionary) {
-        videoPlayErrorMessage = dict[CustomConfiguration.videoPlayErrorMessage] as? String ?? ""
-        videoPlayErrorButtonText = dict[CustomConfiguration.videoPlayErrorButtonText] as? String ?? ""
-        connectivityErrorMessage = dict[CustomConfiguration.connectivityErrorMessage] as? String ?? ""
-        connectivityErrorButtonText = dict[CustomConfiguration.connectivityErrorButtonText] as? String ?? ""
+        videoPlayErrorMessage = dict[CustomConfiguration.videoPlayErrorMessage.rawValue] as? String ?? ""
+        videoPlayErrorButtonText = dict[CustomConfiguration.videoPlayErrorButtonText.rawValue] as? String ?? ""
+        connectivityErrorMessage = dict[CustomConfiguration.connectivityErrorMessage.rawValue] as? String ?? ""
+        connectivityErrorButtonText = dict[CustomConfiguration.connectivityErrorButtonText.rawValue] as? String ?? ""
     }
 }
