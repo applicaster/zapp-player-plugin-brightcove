@@ -182,12 +182,11 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
                       forItem item: ZPPlayable) {
         switch event.eventType {
         case "kBCOVPlaybackSessionLifecycleEventPlayRequest":
-            let isBufferEmpty = session.player.currentItem?.isPlaybackBufferEmpty ?? true
+            let isPlaybackLikelyToKeepUp = session.player.currentItem?.isPlaybackLikelyToKeepUp ?? false
             let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
-            if reachabilityStatus == .notReachable, isBufferEmpty == true {
+            if reachabilityStatus == .notReachable, isPlaybackLikelyToKeepUp == false {
                 showPlaybackError()
             }
-            break
         case kBCOVIMALifecycleEventAdsLoaderLoaded:
             if let manager = event.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager] as? IMAAdsManager {
                 self.adManager = manager
