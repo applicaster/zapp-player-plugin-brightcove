@@ -148,6 +148,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     private func showPlaybackError() {
         let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
         let errorType: ErrorViewTypes = reachabilityStatus == .notReachable ? .network : .video
+        errorView?.removeFromSuperview()
         errorView = builder.errorView(withType: errorType)
         
         switch builder.mode {
@@ -215,9 +216,11 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             
             showPlaybackError()
         case kBCOVPlaybackSessionLifecycleEventPlaybackRecovered:
-            errorView?.removeFromSuperview()
-            isAdPlaybackBlocked = false
-            break
+            let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
+            if reachabilityStatus != .notReachable {
+                errorView?.removeFromSuperview()
+                isAdPlaybackBlocked = false
+            }
         case kBCOVIMALifecycleEventAdsManagerDidRequestContentPause:
             isContentPaused = true
         case kBCOVIMALifecycleEventAdsManagerDidRequestContentResume:
