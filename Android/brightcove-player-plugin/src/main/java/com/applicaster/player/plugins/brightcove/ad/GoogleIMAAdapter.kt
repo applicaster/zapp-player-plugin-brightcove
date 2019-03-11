@@ -17,13 +17,15 @@ import kotlin.math.roundToInt
 
 class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
         VideoAdsAdapter(videoView) {
-    private lateinit var googleIMAComponent: GoogleIMAComponent
+    private var googleIMAComponent: GoogleIMAComponent? = null
     private var currentQuePoint: CuePoint? = null
     private var vmapCuePoints: MutableList<Float>? = null
 
     private var savedCurrentVideoAdPosition: Int = 0
-    private lateinit var container: AdDisplayContainer
+    private var container: AdDisplayContainer? = null
     private var isPostrollSetUp: Boolean = false
+    private var isPrerollSetup: Boolean = false
+    private var isAdsPresentingNeeded: Boolean = true
     private var isVideoPlayFailed: Boolean = false
     private var adsManager: AdsManager? = null
 
@@ -37,6 +39,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
     private fun setupGoogleIMA() {
         val ads = getAds()
         if (ads.isNotEmpty()) {
+            isAdsPresentingNeeded = true
             val adType = ads[0].getAdType()
             // Establish the Google IMA SDK factory instance.
             val sdkFactory = ImaSdkFactory.getInstance()
@@ -46,12 +49,15 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 EventType.DID_SET_SOURCE
             ) { event ->
                 Log.v(TAG, event.type)
+                if (!videoView.isPlaying) videoView.start()
                 /**
                  * For VAST ad we should manually add cue points
                  * @see VideoAd.AdType for more info about ad types
                  */
                 if (adType == VideoAd.AdType.VAST) {
                     setupCuePoints(ads)
+                    if (!isPrerollExists())
+                        isAdsPresentingNeeded = false
                 }
             }
 
@@ -66,24 +72,19 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 }
             }
 
-            // Enable logging of ad breack starts
-            getEventEmitter().on(
-                EventType.AD_BREAK_STARTED
-            ) {
-                if (isVideoPlayFailed && this::container.isInitialized) {
-                    container.player.stopAd()
-                    isVideoPlayFailed = false
-                }
-            }
-
             // Enable logging of any failed attempts to play an ad.
             getEventEmitter().on(
                 GoogleIMAEventType.DID_FAIL_TO_PLAY_AD
             ) { event ->
                 Log.v(TAG, event.type)
                 if (adType == VideoAd.AdType.VAST) {
-                    getMediaController().brightcoveSeekBar.removeMarker(currentQuePoint?.position)
-                    currentQuePoint = null
+                    when (currentQuePoint?.positionType) {
+                        CuePoint.PositionType.POINT_IN_TIME -> {
+                            getMediaController().brightcoveSeekBar.removeMarker(currentQuePoint?.position)
+                            currentQuePoint = null
+                        }
+                        else -> {}
+                    }
                 } else {
                     removeAdTimeMarker(videoView.currentPosition)
                 }
@@ -92,16 +93,22 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
             getEventEmitter().on(
                 GoogleIMAEventType.ADS_MANAGER_LOADED
             ) { event ->
+                adsManager = event.properties["adsManager"] as? AdsManager?
                 if (adType == VideoAd.AdType.VMAP) {
-                    adsManager = event.properties["adsManager"] as? AdsManager?
                     vmapCuePoints = adsManager?.adCuePoints
+                    if (!isPrerollExists())
+                        isAdsPresentingNeeded = false
                 }
             }
 
+            // If video play error occurred we should remove ad views
+            getEventEmitter().on("Video Play Error") {
+                isVideoPlayFailed = true
+            }
+
             // Enable logging of ad completions.
-            getEventEmitter().on(
-                EventType.AD_COMPLETED
-            ) { event -> Log.v(TAG, event.type) }
+            getEventEmitter().on(EventType.AD_COMPLETED) { isVideoPlayFailed = false }
+
 
             // Set up a listener for initializing AdsRequests. The Google IMA plugin emits an ad
             // request event in response to each cue point event.  The event processor (handler)
@@ -109,12 +116,12 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
             getEventEmitter().on(GoogleIMAEventType.ADS_REQUEST_FOR_VIDEO) { event ->
                 // Create a container object for the ads to be presented.
                 container = sdkFactory.createAdDisplayContainer()
-                container.player = googleIMAComponent.videoAdPlayer
-                container.adContainer = videoView
+                container?.player = googleIMAComponent?.videoAdPlayer
+                container?.adContainer = videoView
 
-                container.player.addCallback(object : APVideoAdPlayerCallback() {
+                container?.player?.addCallback(object : APVideoAdPlayerCallback() {
                     override fun onVideoAdPaused() {
-                        val player: GoogleIMAVideoAdPlayer? = container.player as? GoogleIMAVideoAdPlayer
+                        val player: GoogleIMAVideoAdPlayer? = container?.player as? GoogleIMAVideoAdPlayer
                         savedCurrentVideoAdPosition = player?.currentPosition ?: 0
                     }
 
@@ -129,12 +136,12 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 val adsRequests = ArrayList<AdsRequest>()
                 val adUrls = setupAdUrlsForEvent(adType, event, ads)
 
+                val adsRequest = sdkFactory.createAdsRequest()
                 for (adUrl in adUrls) {
-                    val adsRequest = sdkFactory.createAdsRequest()
                     adsRequest.adTagUrl = adUrl
-                    adsRequest.adDisplayContainer = container
                     adsRequests.add(adsRequest)
                 }
+                adsRequest.adDisplayContainer = container
 
                 // Respond to the event with the new ad requests.
                 event.properties[GoogleIMAComponent.ADS_REQUESTS] = adsRequests
@@ -153,6 +160,8 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
                 VideoAd.AdType.VAST -> GoogleIMAComponent(videoView, getEventEmitter())
             }
 
+        } else {
+            isAdsPresentingNeeded = false
         }
     }
 
@@ -162,8 +171,8 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
      * It is not possible to start playing ad from paused time.
      */
     override fun resumePlayingAd() {
-        if (this::container.isInitialized) {
-            val player: GoogleIMAVideoAdPlayer? = container.player as? GoogleIMAVideoAdPlayer
+        if (container != null) {
+            val player: GoogleIMAVideoAdPlayer? = container?.player as? GoogleIMAVideoAdPlayer
             player?.seekTo(savedCurrentVideoAdPosition)
             player?.playAd()
         }
@@ -173,8 +182,8 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
      * Pause playing ad and save video playing position
      */
     override fun pausePlayingAd() {
-        if (this::container.isInitialized) {
-            val player: GoogleIMAVideoAdPlayer? = container.player as? GoogleIMAVideoAdPlayer
+        if (container != null) {
+            val player: GoogleIMAVideoAdPlayer? = container?.player as? GoogleIMAVideoAdPlayer
             if (player?.isPlaying == true)
                 savedCurrentVideoAdPosition = player.currentPosition
         }
@@ -197,9 +206,25 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
         return result
     }
 
-    override fun onVideoPlayFailed(isPlayerFailed: Boolean) {
-        isVideoPlayFailed = isPlayerFailed
+    // Check if preroll exists
+    private fun isPrerollExists(): Boolean {
+        var result = true
+        if (!isPrerollSetup) {
+            result = false
+        }
+        if (vmapCuePoints != null) {
+            vmapCuePoints?.forEach {
+                if (it == 0f) result = true
+            }
+        }
+        return result
     }
+
+    /**
+     * Returns true if advertisement are configured properly and prerolls can be shown
+     * Otherwise returns false
+     */
+    override fun isAdsPresentationNeeded(): Boolean = this.isAdsPresentingNeeded
 
     /**
      * Remove time marker from time line if advertisement playing was corrupted.
@@ -245,6 +270,7 @@ class GoogleIMAAdapter(private val videoView: BrightcoveVideoView) :
     private fun createCuePoint(offset: String, cuePointType: String, properties: HashMap<String, Any>): CuePoint {
         return when (offset) {
             "preroll" -> {
+                isPrerollSetup = true
                 CuePoint(CuePoint.PositionType.BEFORE, cuePointType, properties)
             }
             "postroll" -> {

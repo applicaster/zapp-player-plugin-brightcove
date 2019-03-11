@@ -164,7 +164,6 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
         videoView.eventEmitter.on(
             "Video Play Error"
         ) {
-            adsAdapter.onVideoPlayFailed(true)
             if (errorDialog == null || !isErrorDialogVisible) {
                 isErrorDialogVisible = true
                 errorDialog = ErrorDialog.newInstance(this.pluginConfigurationParams)
