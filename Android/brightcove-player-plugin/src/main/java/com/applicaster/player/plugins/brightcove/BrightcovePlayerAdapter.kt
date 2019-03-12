@@ -3,6 +3,7 @@ package com.applicaster.player.plugins.brightcove
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import com.applicaster.player.defaultplayer.BasePlayer
@@ -12,15 +13,18 @@ import com.applicaster.player.plugins.brightcove.ad.GoogleIMAAdapter
 import com.applicaster.player.plugins.brightcove.analytics.*
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.applicaster.plugin_manager.playersmanager.PlayableConfiguration
+import com.applicaster.plugin_manager.screen.PluginScreen
 import com.brightcove.player.view.BrightcoveExoPlayerVideoView
 import com.brightcove.player.view.BrightcoveVideoView
+import java.io.Serializable
+import java.util.HashMap
 
 /**
  * BrightcovePlayerAdapter:
  * This adapter extends the BasePlayer class which implements the PlayerContract.
  * This class includes the various initialization methods as well as several playback methods.
  */
-class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
+class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener, PluginScreen {
 
     private lateinit var videoView: BrightcoveVideoView
     private lateinit var adAnalyticsAdapter: AdAnalyticsAdapter
@@ -171,6 +175,19 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
                 errorDialog?.show((this.context as? AppCompatActivity)?.supportFragmentManager, "ErrorDialog")
             }
         }
+    }
+
+    override fun generateFragment(screenMap: HashMap<String, Any>?, dataSource: Serializable?): Fragment? {
+        return null
+    }
+
+    override fun present(
+        context: Context?,
+        screenMap: HashMap<String, Any>?,
+        dataSource: Serializable?,
+        isActivity: Boolean
+    ) {
+
     }
 
     companion object {
