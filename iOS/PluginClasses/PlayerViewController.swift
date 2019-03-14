@@ -173,8 +173,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         switch event.eventType {
         case "kBCOVPlaybackSessionLifecycleEventPlayRequest":
             let isPlaybackLikelyToKeepUp = session.player.currentItem?.isPlaybackLikelyToKeepUp ?? false
-            let reachabilityStatus = ZAAppConnector.sharedInstance().connectivityDelegate?.getCurrentConnectivityState()
-            if reachabilityStatus == .offline, isPlaybackLikelyToKeepUp == false {
+            if isPlaybackLikelyToKeepUp == false {
                 showPlaybackError()
             }
         case kBCOVIMALifecycleEventAdsLoaderLoaded:
