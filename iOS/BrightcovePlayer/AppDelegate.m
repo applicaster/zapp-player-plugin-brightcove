@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-@import ApplicasterSDK;
 
 @interface AppDelegate ()
 
@@ -16,11 +15,6 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[APLogger sharedInstance] startLogger];
-    
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-    [[AVAudioSession sharedInstance] setMode:AVAudioSessionModeMoviePlayback error:nil];
-    [[AVAudioSession sharedInstance] setActive:YES error: nil];
     return YES;
 }
 

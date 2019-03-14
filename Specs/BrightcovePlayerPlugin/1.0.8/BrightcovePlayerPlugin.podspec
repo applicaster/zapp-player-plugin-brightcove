@@ -34,5 +34,4 @@ Pod::Spec.new do |s|
     s.default_subspec = 'Core'
                   
   end
-
   

@@ -21,7 +21,7 @@
   "identifier": "BrightcovePlayerPlugin-Test",
   "ui_builder_support": true,
   "dependency_name": "BrightcovePlayerPlugin",
-  "dependency_version": "1.0.7",
+  "dependency_version": "1.0.8",
   "whitelisted_account_ids": ["5a4516fa41442c000b0195d6"],
   "min_zapp_sdk": "7.0.0",
   "deprecated_since_zapp_sdk": "",

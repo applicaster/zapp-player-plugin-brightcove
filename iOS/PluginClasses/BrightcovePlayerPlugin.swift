@@ -1,11 +1,10 @@
 import Foundation
 import ZappPlugins
-import ApplicasterSDK
 import BrightcovePlayerSDK
 import BrightcoveIMA
 import GoogleInteractiveMediaAds
 
-public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEventsDelegate {
+public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyticEventsDelegate {
     
     // MARK: - Properties
     
@@ -28,7 +27,6 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
     public static func pluggablePlayerInit(playableItems items: [ZPPlayable]?,
                                            configurationJSON: NSDictionary?) -> ZPPlayerProtocol? {
         guard let videos = items else {
-            APLoggerError("No playable item found, return nil")
             return nil
         }
         
@@ -37,11 +35,6 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
             errorViewConfig = ErrorViewConfiguration(fromDictionary: configuration)
         }
         
-        APLoggerInfo(videos.first!.analyticsParams()!.debugDescription)
-        
-        APLoggerInfo("Configuration: \(String(describing: configurationJSON))")
-        APLoggerInfo("Items: \(videos.map { $0.toString() })")
-        
         let playerViewController = ViewControllerFactory.createPlayerViewController(videoItems: videos, errorViewConfig: errorViewConfig)
         let instance = BrightcovePlayerPlugin()
         instance.playerViewController = playerViewController
@@ -49,7 +42,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
         return instance
     }
     
-    public override func pluggablePlayerViewController() -> UIViewController? {
+    public func pluggablePlayerViewController() -> UIViewController? {
         return self.playerViewController
     }
     
@@ -65,9 +58,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
 
     // MARK: - Inline playback
     
-    public override func pluggablePlayerAddInline(_ rootViewController: UIViewController, container: UIView) {
-        APLoggerVerbose("Adding to \(container) of \(rootViewController)")
-        
+    public func pluggablePlayerAddInline(_ rootViewController: UIViewController, container: UIView) {
         guard let playerViewController = self.playerViewController else {
             return
         }
@@ -85,9 +76,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
         }
     }
     
-    public override func pluggablePlayerRemoveInline() {
-        APLoggerVerbose("Removing inline player")
-        
+    public func pluggablePlayerRemoveInline() {
         if let item = self.playerViewController?.player.currentItem,
             let progress = self.playerViewController?.player.playbackState {
             analytics.complete(item: item,
@@ -96,29 +85,21 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
         }
         
         let container = self.playerViewController?.view.superview
-        super.pluggablePlayerRemoveInline()
         container?.removeFromSuperview()
-    }
-    
-    deinit {
-        APLoggerInfo("Plugin deinitialized")
     }
     
     // MARK: - Fullscreen playback
     
-    public override func presentPlayerFullScreen(_ rootViewController: UIViewController,
+    public func presentPlayerFullScreen(_ rootViewController: UIViewController,
                                                  configuration: ZPPlayerConfiguration?) {
-        APLoggerVerbose("Player config: \(String(describing: configuration?.toString()))")
         presentPlayerFullScreen(rootViewController, configuration: configuration) {
             self.playerViewController?.player.play()
         }
     }
     
-    public override func presentPlayerFullScreen(_ rootViewController: UIViewController,
+    public func presentPlayerFullScreen(_ rootViewController: UIViewController,
                                                  configuration: ZPPlayerConfiguration?,
                                                  completion: (() -> Void)?) {
-        APLoggerVerbose("Player config: \(String(describing: configuration?.toString()))")
-        
         guard let playerViewController = self.playerViewController,
             let topmostViewController = rootViewController.topmostModal(),
             let currentItem = playerViewController.player.currentItem  else {
@@ -145,24 +126,22 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
 
     // MARK: - Playback controls
     
-    public override func pluggablePlayerPlay(_ configuration: ZPPlayerConfiguration?) {
+    public func pluggablePlayerPlay(_ configuration: ZPPlayerConfiguration?) {
         self.playerViewController?.player.play()
     }
     
-    public override func pluggablePlayerPause() {
+    public func pluggablePlayerPause() {
         self.playerViewController?.player.pause()
     }
     
-    public override func pluggablePlayerStop() {
+    public func pluggablePlayerStop() {
         self.playerViewController?.player.stop()
     }
 
     // MARK: - Playback state
     
-    public override func pluggablePlayerIsPlaying() -> Bool {
-        let isPlaying = playerState() == .playing
-        APLoggerVerbose("Return \(isPlaying)")
-        return isPlaying
+    public func pluggablePlayerIsPlaying() -> Bool {
+        return playerState() == .playing
     }
     
     public func playerState() -> ZPPlayerState {
@@ -171,7 +150,7 @@ public class BrightcovePlayerPlugin: APPlugablePlayerBase, PlaybackAnalyticEvent
     
     // MARK: - Plugin type
     
-    open override func pluggablePlayerType() -> ZPPlayerType {
+    open func pluggablePlayerType() -> ZPPlayerType {
         return BrightcovePlayerPlugin.pluggablePlayerType()
     }
     

@@ -1,7 +1,6 @@
 import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
-import ApplicasterSDK
 import BrightcoveIMA
 import GoogleInteractiveMediaAds
 
@@ -111,7 +110,6 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     }
     
     func play() {
-        APLoggerDebug("Play")
         loadItems()
         player.play()
     }
@@ -136,8 +134,6 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     // MARK: - Private
     
     private func loadItems() {
-        APLoggerDebug("Load items")
-        
         currentItem = items.first
         self.videos = items.map({ $0.bcovVideo })
     }
@@ -160,8 +156,6 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
 
 extension PlayerAdapter: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
-        APLoggerDebug("Did advance to: \(String(describing: session))")
-        
         guard let source = session.video.sources.first as? BCOVSource,
             let sourceURL = source.url?.absoluteString else {
             return
@@ -190,7 +184,6 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        APLoggerDebug("Session did receive \(String(describing: lifecycleEvent))")
         ZPPlayerState(event: lifecycleEvent).flatMap { playerState = $0 }
         
         delegate?.eventOccured(lifecycleEvent,
@@ -199,7 +192,6 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
-        APLoggerDebug("Did complete \(String(describing: playlist))")
         didEndPlayback?()
     }
 }

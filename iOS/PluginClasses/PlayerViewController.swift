@@ -2,7 +2,6 @@ import Foundation
 import ZappPlugins
 import BrightcovePlayerSDK
 import BrightcoveIMA
-import ApplicasterSDK
 import GoogleInteractiveMediaAds
 
 protocol PlayerAdvertisementEventsDelegate: AnyObject {
@@ -60,28 +59,19 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         setupPlayer()
         setupAccessibilityIdentifiers()
         subscribeToNotifications()
-        APLoggerVerbose("Setup completed, view is loaded")
-        AFNetworkReachabilityManager.shared().startMonitoring()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        APLoggerVerbose("Is presenting: \(isBeingPresented)")
-        APLoggerVerbose("Is moving to parent VC: \(isMovingToParentViewController)")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        APLoggerVerbose("Is dismissed: \(isBeingDismissed)")
         if isBeingDismissed { onDismiss?() }
 
         player.pause()
+        player.player.pauseAd()
         super.viewWillDisappear(animated)
     }
     
     open func setupPlayer() {
         player.setupPlayer(atContainer: self)
         player.didSwitchToItem = { [weak self] item in
-            APLoggerVerbose("Switching to playable item: \(item.toString())")
             self?.builder.configureControlsLayout(isLiveEvent: item.isLive())
         }
         player.didEndPlayback = { [weak self] in
@@ -146,8 +136,9 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     }
     
     private func showPlaybackError() {
-        let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
-        let errorType: ErrorViewTypes = reachabilityStatus == .notReachable ? .network : .video
+        let reachabilityStatus = ZAAppConnector.sharedInstance().connectivityDelegate?.getCurrentConnectivityState()
+        let errorType: ErrorViewTypes = reachabilityStatus == .offline ? .network : .video
+        errorView?.removeFromSuperview()
         errorView = builder.errorView(withType: errorType)
         
         switch builder.mode {
@@ -181,12 +172,10 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
                       forItem item: ZPPlayable) {
         switch event.eventType {
         case "kBCOVPlaybackSessionLifecycleEventPlayRequest":
-            let isBufferEmpty = session.player.currentItem?.isPlaybackBufferEmpty ?? true
-            let reachabilityStatus = AFNetworkReachabilityManager.shared().networkReachabilityStatus
-            if reachabilityStatus == .notReachable, isBufferEmpty == true {
+            let isPlaybackLikelyToKeepUp = session.player.currentItem?.isPlaybackLikelyToKeepUp ?? false
+            if isPlaybackLikelyToKeepUp == false {
                 showPlaybackError()
             }
-            break
         case kBCOVIMALifecycleEventAdsLoaderLoaded:
             if let manager = event.properties[kBCOVIMALifecycleEventPropertyKeyAdsManager] as? IMAAdsManager {
                 self.adManager = manager
@@ -215,9 +204,11 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             
             showPlaybackError()
         case kBCOVPlaybackSessionLifecycleEventPlaybackRecovered:
-            errorView?.removeFromSuperview()
-            isAdPlaybackBlocked = false
-            break
+            let reachabilityStatus = ZAAppConnector.sharedInstance().connectivityDelegate?.getCurrentConnectivityState()
+            if reachabilityStatus != .offline {
+                errorView?.removeFromSuperview()
+                isAdPlaybackBlocked = false
+            }
         case kBCOVIMALifecycleEventAdsManagerDidRequestContentPause:
             isContentPaused = true
         case kBCOVIMALifecycleEventAdsManagerDidRequestContentResume:
