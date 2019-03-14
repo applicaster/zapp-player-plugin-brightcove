@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name             = "BrightcovePlayerPlugin"
-    s.version          = '1.0.6'
+    s.version          = '1.0.8'
     s.summary          = "BrightcovePlayer video player framework for Zapp iOS."
     s.description      = <<-DESC
                           BrightcovePlayer video player framework for Zapp iOS.
@@ -14,17 +14,15 @@ Pod::Spec.new do |s|
     s.ios.deployment_target  = "9.0"
     s.platform     = :ios, '9.0'
     s.requires_arc = true
-    s.swift_version = '4.1'
+    s.swift_version = '4.2'
     s.static_framework = true
     s.resources = ['iOS/Resources/Images/*.png', 'iOS/PluginClasses/*.{xib,nib,storyboard}']
 
     s.subspec 'Core' do |c|
       c.frameworks = 'UIKit'
       c.source_files = 'iOS/PluginClasses/*.{swift,h,m}'
-      c.dependency 'ZappPlugins', '= 4.2.0'
-      c.dependency 'ApplicasterSDK', '= 6.3.1'
+      c.dependency 'ZappPlugins'
       c.dependency 'Brightcove-Player-IMA'
-      c.dependency 'AFNetworking'
 
     end
                   
@@ -33,7 +31,7 @@ Pod::Spec.new do |s|
                     'OTHER_LDFLAGS' => '$(inherited)',
                     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "${PODS_ROOT}"/**',
                     'LIBRARY_SEARCH_PATHS' => '$(inherited) "${PODS_ROOT}"/**',
-                    'SWIFT_VERSION' => '4.1'
+                    'SWIFT_VERSION' => '4.2'
                   }
                   
     s.default_subspec = 'Core'

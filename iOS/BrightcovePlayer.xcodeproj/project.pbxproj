@@ -19,6 +19,7 @@
 		6FF447412178A9B000E273C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FF447402178A9B000E273C5 /* Assets.xcassets */; };
 		6FF447442178A9B000E273C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FF447422178A9B000E273C5 /* LaunchScreen.storyboard */; };
 		6FF447472178A9B000E273C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF447462178A9B000E273C5 /* main.m */; };
+		A61BC86D223A7E530074B86A /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61BC86C223A7E530074B86A /* Playable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		6FF4474C2178A9B000E273C5 /* BrightcovePlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightcovePlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FF447522178A9B000E273C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83967C12A47F7404BF81DF78 /* Pods-BrightcovePlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightcovePlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		A61BC86C223A7E530074B86A /* Playable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				6FF447312178A9AF00E273C5 /* Main.storyboard */,
 				6FF447392178A9AF00E273C5 /* InlineViewController.swift */,
 				6FF4473B2178A9AF00E273C5 /* ViewController.swift */,
+				A61BC86C223A7E530074B86A /* Playable.swift */,
 				6FF447402178A9B000E273C5 /* Assets.xcassets */,
 				6FF447422178A9B000E273C5 /* LaunchScreen.storyboard */,
 				6FF447452178A9B000E273C5 /* Info.plist */,
@@ -296,50 +299,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${PODS_ROOT}/ApplicasterSDK/ApplicasterSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh",
 				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
 				"${PODS_ROOT}/Brightcove-Player-IMA/ios/BrightcoveIMA.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/FBNotifications/FBNotifications.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework",
-				"${BUILT_PRODUCTS_DIR}/SHMKit_Applicaster/SHMKit_Applicaster.framework",
-				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
-				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
-				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
-				"${PODS_ROOT}/ZappAppConnector/ZappAppConnector.framework",
-				"${PODS_ROOT}/ZappPlugins/ZappPlugins.framework",
+				"${PODS_ROOT}/ZappPlugins/Frameworks/iOS/ZappPlugins.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApplicasterSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcoveIMA.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBNotifications.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SHMKit_Applicaster.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappAppConnector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappPlugins.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		158DB4211428B3D159DEAD45 /* [CP] Embed Pods Frameworks */ = {
@@ -348,50 +323,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${PODS_ROOT}/ApplicasterSDK/ApplicasterSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-frameworks.sh",
 				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
 				"${PODS_ROOT}/Brightcove-Player-IMA/ios/BrightcoveIMA.framework",
-				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
-				"${BUILT_PRODUCTS_DIR}/FBNotifications/FBNotifications.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
 				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework",
-				"${BUILT_PRODUCTS_DIR}/SHMKit_Applicaster/SHMKit_Applicaster.framework",
-				"${BUILT_PRODUCTS_DIR}/SSZipArchive/SSZipArchive.framework",
-				"${BUILT_PRODUCTS_DIR}/TTTAttributedLabel/TTTAttributedLabel.framework",
-				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
-				"${PODS_ROOT}/ZappAppConnector/ZappAppConnector.framework",
-				"${PODS_ROOT}/ZappPlugins/ZappPlugins.framework",
+				"${PODS_ROOT}/ZappPlugins/Frameworks/iOS/ZappPlugins.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApplicasterSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcoveIMA.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBNotifications.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SHMKit_Applicaster.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SSZipArchive.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTTAttributedLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappAppConnector.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappPlugins.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3D1E06589703A60B638087B5 /* [CP] Copy Pods Resources */ = {
@@ -400,7 +347,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
 				"${PODS_ROOT}/../Resources/Images/Back.png",
 				"${PODS_ROOT}/../Resources/Images/Back@2x.png",
@@ -415,9 +362,6 @@
 				"${PODS_ROOT}/../Resources/Images/Refresh@2x.png",
 				"${PODS_ROOT}/../Resources/Images/Refresh@3x.png",
 				"${PODS_ROOT}/../PluginClasses/ErrorView.xib",
-				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -435,13 +379,10 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh@3x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ErrorView.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6EC7616591969FCE5C90C558 /* [CP] Check Pods Manifest.lock */ = {
@@ -468,7 +409,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
 				"${PODS_ROOT}/../Resources/Images/Back.png",
 				"${PODS_ROOT}/../Resources/Images/Back@2x.png",
@@ -483,9 +424,6 @@
 				"${PODS_ROOT}/../Resources/Images/Refresh@2x.png",
 				"${PODS_ROOT}/../Resources/Images/Refresh@3x.png",
 				"${PODS_ROOT}/../PluginClasses/ErrorView.xib",
-				"${PODS_CONFIGURATION_BUILD_DIR}/HockeySDK/HockeySDKResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -503,13 +441,10 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh@2x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh@3x.png",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ErrorView.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/HockeySDKResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CFB857395A85A09F8253C9C5 /* [CP] Check Pods Manifest.lock */ = {
@@ -539,6 +474,7 @@
 			files = (
 				6FF4473C2178A9AF00E273C5 /* ViewController.swift in Sources */,
 				6FF447302178A9AF00E273C5 /* AppDelegate.m in Sources */,
+				A61BC86D223A7E530074B86A /* Playable.swift in Sources */,
 				6FF447472178A9B000E273C5 /* main.m in Sources */,
 				6FF4473A2178A9AF00E273C5 /* InlineViewController.swift in Sources */,
 			);
@@ -713,7 +649,7 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_SWIFT_SYMBOLS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -735,7 +671,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_SWIFT_SYMBOLS = NO;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

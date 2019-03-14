@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     s.ios.deployment_target  = "9.0"
     s.platform     = :ios, '9.0'
     s.requires_arc = true
-    s.swift_version = '4.1'
+    s.swift_version = '4.2'
     s.static_framework = true
     s.resources = ['iOS/Resources/Images/*.png', 'iOS/PluginClasses/*.{xib,nib,storyboard}']
 
@@ -22,7 +22,6 @@ Pod::Spec.new do |s|
       c.frameworks = 'UIKit'
       c.source_files = 'iOS/PluginClasses/*.{swift,h,m}'
       c.dependency 'ZappPlugins'
-      c.dependency 'ApplicasterSDK'
       c.dependency 'Brightcove-Player-IMA'
 
     end
@@ -32,7 +31,7 @@ Pod::Spec.new do |s|
                     'OTHER_LDFLAGS' => '$(inherited)',
                     'FRAMEWORK_SEARCH_PATHS' => '$(inherited) "${PODS_ROOT}"/**',
                     'LIBRARY_SEARCH_PATHS' => '$(inherited) "${PODS_ROOT}"/**',
-                    'SWIFT_VERSION' => '4.1'
+                    'SWIFT_VERSION' => '4.2'
                   }
                   
     s.default_subspec = 'Core'
