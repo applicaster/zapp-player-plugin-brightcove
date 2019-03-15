@@ -57,16 +57,6 @@ open class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoV
             else -> ""
         }
 
-    protected fun getItemDuration() =
-        ITEM_DURATION to parseDuration(videoView.duration.toLong())
-
-
-    protected fun getItemName(playable: Playable) =
-        ITEM_NAME to when (playable) {
-            is APAtomEntry.APAtomEntryPlayable -> playable.entry.title ?: ""
-            else -> ""
-        }
-
     protected fun getItemLink(playable: Playable) =
         ITEM_LINK to (playable.contentVideoURL ?: "")
 

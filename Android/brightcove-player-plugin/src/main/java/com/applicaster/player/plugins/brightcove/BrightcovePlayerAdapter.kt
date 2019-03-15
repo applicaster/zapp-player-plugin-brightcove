@@ -27,6 +27,7 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
     private lateinit var analyticsAdapter: AnalyticsAdapter
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
     private lateinit var errorHandlingVideoPlayerAdapter: ErrorHandlingVideoPlayerAdapter
+    private lateinit var completeAnalyticsAdapter: CompleteAnalyticsAdapter
     private lateinit var adsAdapter: AdsAdapter
     private lateinit var viewGroup: ViewGroup
     private var errorDialog: ErrorDialog? = null
@@ -49,6 +50,7 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
         adAnalyticsAdapter = AdAnalyticsAdapter(videoView)
         errorHandlingAnalyticsAdapter = ErrorHandlingAnalyticsAdapter(videoView)
         errorHandlingVideoPlayerAdapter = ErrorHandlingVideoPlayerAdapter(videoView)
+        completeAnalyticsAdapter = CompleteAnalyticsAdapter(videoView)
         adsAdapter = GoogleIMAAdapter(videoView)
     }
 
@@ -87,6 +89,7 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
         adAnalyticsAdapter.startTrack(firstPlayable, INLINE)
         errorHandlingAnalyticsAdapter.startTrack(firstPlayable, INLINE)
         errorHandlingVideoPlayerAdapter.startTrack(firstPlayable, INLINE)
+        completeAnalyticsAdapter.startTrack(firstPlayable, INLINE)
         listenVideoPlayError()
     }
 
@@ -103,6 +106,7 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener {
         adAnalyticsAdapter.endTrack(firstPlayable, INLINE)
         errorHandlingAnalyticsAdapter.endTrack(firstPlayable, INLINE)
         errorHandlingVideoPlayerAdapter.endTrack(firstPlayable, INLINE)
+        completeAnalyticsAdapter.endTrack(firstPlayable, INLINE)
     }
 
     /**
