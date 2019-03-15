@@ -106,12 +106,12 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     private func subscribeToNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(wentBackground),
-                                               name: NSNotification.Name.UIApplicationWillResignActive,
+                                               name: UIApplication.willResignActiveNotification,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(wentForeground),
-                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
+                                               name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
     }
     
