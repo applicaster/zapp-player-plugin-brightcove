@@ -17,11 +17,10 @@ class CompleteAnalyticsAdapter(
     private var playerMode: AnalyticsAdapter.PlayerMode = AnalyticsAdapter.PlayerMode.INLINE
     private var switchInstanceCounter: Int = 0
     private var startTimeInVideoMillis: Long = 0L
-    private var completedAdCounter: Int = 0
 
     private var playableProps: Map<String, String> = mapOf(Pair("", ""))
     private var isLive: Boolean = false
-    private var completed:Completed = Completed.NO
+    private var completed: Completed = Completed.NO
 
     private var originalView: Pair<String, String> = Pair(AnalyticsEvent.ORIGINAL_VIEW.value, "")
     private var newView: Pair<String, String> = Pair(AnalyticsEvent.NEW_VIEW.value, "")
@@ -33,13 +32,15 @@ class CompleteAnalyticsAdapter(
         setViewMode(mode)
         playableProps = collectPlayableProperties(playable)
         AnalyticsAgentUtil.logTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayVODItemProperties(playable))
-        AnalyticsAgentUtil.logTimedEvent(AnalyticsEvent.PLAY_LIVE_STREAM.value, collectPlayLiveStreamProperties(playable))
+        AnalyticsAgentUtil.logTimedEvent(
+            AnalyticsEvent.PLAY_LIVE_STREAM.value,
+            collectPlayLiveStreamProperties(playable)
+        )
     }
 
     override fun endTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
         switchInstanceCounter = 0
         startTimeInVideoMillis = 0L
-        completedAdCounter = 0
     }
 
     /**
@@ -52,7 +53,10 @@ class CompleteAnalyticsAdapter(
             originalView = getOriginalView(playerMode)
             playerMode = AnalyticsAdapter.PlayerMode.FULLSCREEN
             newView = getNewView(playerMode)
-            AnalyticsAgentUtil.logEvent(AnalyticsEvent.SWITCH_PLAYER_VIEW.value, collectSwitchPlayerViewProperties(playableProps))
+            AnalyticsAgentUtil.logEvent(
+                AnalyticsEvent.SWITCH_PLAYER_VIEW.value,
+                collectSwitchPlayerViewProperties(playableProps)
+            )
         }
 
         view.eventEmitter.on(EventType.DID_EXIT_FULL_SCREEN) {
@@ -60,7 +64,10 @@ class CompleteAnalyticsAdapter(
             originalView = getOriginalView(playerMode)
             playerMode = AnalyticsAdapter.PlayerMode.INLINE
             newView = getNewView(playerMode)
-            AnalyticsAgentUtil.logEvent(AnalyticsEvent.SWITCH_PLAYER_VIEW.value, collectSwitchPlayerViewProperties(playableProps))
+            AnalyticsAgentUtil.logEvent(
+                AnalyticsEvent.SWITCH_PLAYER_VIEW.value,
+                collectSwitchPlayerViewProperties(playableProps)
+            )
         }
 
         view.eventEmitter.on(EventType.DID_SEEK_TO) {
@@ -73,10 +80,6 @@ class CompleteAnalyticsAdapter(
 
         view.eventEmitter.on(EventType.DID_REWIND) {
             AnalyticsAgentUtil.logEvent(AnalyticsEvent.TAP_REWIND.value, collectRewindProperties(playableProps))
-        }
-
-        view.eventEmitter.on(EventType.AD_STARTED) {
-            completedAdCounter++
         }
 
         view.eventEmitter.on(EventType.COMPLETED) {
@@ -100,26 +103,26 @@ class CompleteAnalyticsAdapter(
      * Measures that a video item is played, and for how long.
      */
     private fun collectPlayVODItemProperties(playable: Playable) =
-            mapOf(
-                priceParams(playable),
-                getItemId(playable),
-                getItemName(playable),
-                getItemDuration(),
-                getCompletion(),
-                getVODType(playable),
-                viewMode
-            )
+        mapOf(
+            priceParams(playable),
+            getItemId(playable),
+            getItemName(playable),
+            getItemDuration(),
+            getCompletion(),
+            getVODType(playable),
+            viewMode
+        )
 
     /**
      * Identify how many live stream plays are triggered and for what channels
      */
     private fun collectPlayLiveStreamProperties(playable: Playable) =
-            mapOf(
-                priceParams(playable),
-                getItemId(playable),
-                getItemName(playable),
-                viewMode
-            )
+        mapOf(
+            priceParams(playable),
+            getItemId(playable),
+            getItemName(playable),
+            viewMode
+        )
 
 
     /**
@@ -156,7 +159,7 @@ class CompleteAnalyticsAdapter(
             getTimecodeTo(event),
             getSeekDirection(event),
             getItemDuration()
-            ) + playableProps
+        ) + playableProps
 
     /**
      * Collect "Rewind" properties and add playable properties to result
@@ -263,7 +266,10 @@ class CompleteAnalyticsAdapter(
     private fun getVODType(playable: Playable): Pair<String, String> =
         when {
             (playable is APAtomEntry.APAtomEntryPlayable) -> Pair(AnalyticsEvent.VOD_TYPE.value, VODType.ATOM.value)
-            (playable.playableType == PlayableType.Youtube) -> Pair(AnalyticsEvent.VOD_TYPE.value, VODType.YOUTUBE.value)
+            (playable.playableType == PlayableType.Youtube) -> Pair(
+                AnalyticsEvent.VOD_TYPE.value,
+                VODType.YOUTUBE.value
+            )
             else -> Pair(AnalyticsEvent.VOD_TYPE.value, VODType.APPLICASTER_MODEL.value)
         }
 
