@@ -120,7 +120,7 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     
     func stop() {
         player.pause()
-        player.seekWithoutAds(kCMTimeZero) { [weak self] _ in self?.playerState = .stopped }
+        player.seekWithoutAds(CMTime.zero) { [weak self] _ in self?.playerState = .stopped }
     }
     
     func resume() {
