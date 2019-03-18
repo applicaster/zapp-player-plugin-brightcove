@@ -16,7 +16,8 @@ extension ZPPlayable {
             let delivery: String = isLive() ? kBCOVSourceDeliveryHLS : kBCOVSourceDeliveryMP4
             var video: BCOVVideo = BCOVVideo(url: URL(string: contentVideoURLPath()),
                                              deliveryMethod: delivery)
-            let parser = AdvertisementParser(parseData: extensionsDictionary!)
+            let extensionsDictionary = self.extensionsDictionary ?? [:]
+            let parser = AdvertisementParser(parseData: extensionsDictionary)
             parser.parse()
             
             video = video.updateVideo(withAds: parser.parsedAdvertisement)
@@ -26,7 +27,8 @@ extension ZPPlayable {
     }
     
     var advertisementType: Advertisement {
-        let parser = AdvertisementParser(parseData: extensionsDictionary!)
+        let extensionsDictionary = self.extensionsDictionary ?? [:]
+        let parser = AdvertisementParser(parseData: extensionsDictionary)
         parser.parse()
         return parser.parsedAdvertisement
     }
