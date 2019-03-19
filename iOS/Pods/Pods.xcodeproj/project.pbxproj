@@ -7,39 +7,39 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		000000000480 /* Brightcove-Player-Core */ = {
+		0000000004A0 /* Brightcove-Player-Core */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 000000000490 /* Build configuration list for PBXAggregateTarget "Brightcove-Player-Core" */;
+			buildConfigurationList = 0000000004B0 /* Build configuration list for PBXAggregateTarget "Brightcove-Player-Core" */;
 			buildPhases = (
 			);
 			dependencies = (
-				000000000E60 /* PBXTargetDependency */,
+				000000000EA0 /* PBXTargetDependency */,
 			);
 			name = "Brightcove-Player-Core";
 		};
-		000000000580 /* Brightcove-Player-IMA */ = {
+		0000000005A0 /* Brightcove-Player-IMA */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 000000000590 /* Build configuration list for PBXAggregateTarget "Brightcove-Player-IMA" */;
+			buildConfigurationList = 0000000005B0 /* Build configuration list for PBXAggregateTarget "Brightcove-Player-IMA" */;
 			buildPhases = (
 			);
 			dependencies = (
-				000000000E80 /* PBXTargetDependency */,
-				000000000EA0 /* PBXTargetDependency */,
+				000000000EC0 /* PBXTargetDependency */,
+				000000000EE0 /* PBXTargetDependency */,
 			);
 			name = "Brightcove-Player-IMA";
 		};
-		000000000970 /* GoogleAds-IMA-iOS-SDK */ = {
+		0000000009B0 /* GoogleAds-IMA-iOS-SDK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 000000000980 /* Build configuration list for PBXAggregateTarget "GoogleAds-IMA-iOS-SDK" */;
+			buildConfigurationList = 0000000009C0 /* Build configuration list for PBXAggregateTarget "GoogleAds-IMA-iOS-SDK" */;
 			buildPhases = (
 			);
 			dependencies = (
 			);
 			name = "GoogleAds-IMA-iOS-SDK";
 		};
-		0000000009D0 /* ZappPlugins */ = {
+		000000000A10 /* ZappPlugins */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 0000000009E0 /* Build configuration list for PBXAggregateTarget "ZappPlugins" */;
+			buildConfigurationList = 000000000A20 /* Build configuration list for PBXAggregateTarget "ZappPlugins" */;
 			buildPhases = (
 			);
 			dependencies = (
@@ -49,158 +49,160 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		000000000540 /* bcovpuiiconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 000000000430 /* bcovpuiiconfont.ttf */; };
-		000000000690 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000680 /* Foundation.framework */; };
-		0000000006A0 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000340 /* Back.png */; };
-		0000000006B0 /* Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000350 /* Back@2x.png */; };
-		0000000006C0 /* Back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000360 /* Back@3x.png */; };
-		0000000006D0 /* Close_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000370 /* Close_btn.png */; };
-		0000000006E0 /* Close_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000380 /* Close_btn@2x.png */; };
-		0000000006F0 /* Close_btn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000390 /* Close_btn@3x.png */; };
-		000000000700 /* Connectivity.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003A0 /* Connectivity.png */; };
-		000000000710 /* Connectivity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003B0 /* Connectivity@2x.png */; };
-		000000000720 /* Connectivity@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003C0 /* Connectivity@3x.png */; };
-		000000000730 /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003D0 /* Refresh.png */; };
-		000000000740 /* Refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003E0 /* Refresh@2x.png */; };
-		000000000750 /* Refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003F0 /* Refresh@3x.png */; };
-		000000000760 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 000000000410 /* ErrorView.xib */; };
-		000000000770 /* AdAnalytic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000110 /* AdAnalytic.swift */; };
-		000000000780 /* AdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000120 /* AdError.swift */; };
-		000000000790 /* AdvertisementAnalyticKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000130 /* AdvertisementAnalyticKeys.swift */; };
-		0000000007A0 /* AdvertisementParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000140 /* AdvertisementParser.swift */; };
-		0000000007B0 /* AnalyticsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000150 /* AnalyticsAdapter.swift */; };
-		0000000007C0 /* BCOVVideo+Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000160 /* BCOVVideo+Advertisement.swift */; };
-		0000000007D0 /* BrightcovePlayerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000170 /* BrightcovePlayerPlugin.swift */; };
-		0000000007E0 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000180 /* ErrorView.swift */; };
-		0000000007F0 /* ErrorViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000190 /* ErrorViewConfiguration.swift */; };
-		000000000800 /* IMAErrorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001A0 /* IMAErrorWrapper.swift */; };
-		000000000810 /* PlaybackErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001B0 /* PlaybackErrors.swift */; };
-		000000000820 /* PlayerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001C0 /* PlayerAdapter.swift */; };
-		000000000830 /* PlayerAdvertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001D0 /* PlayerAdvertisement.swift */; };
-		000000000840 /* PlayerScreenMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001E0 /* PlayerScreenMode.swift */; };
-		000000000850 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001F0 /* PlayerViewController.swift */; };
-		000000000860 /* PlayerViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000200 /* PlayerViewControllerBuilder.swift */; };
-		000000000870 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000210 /* UIKit+Extensions.swift */; };
-		000000000880 /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000220 /* UIView+Nib.swift */; };
-		000000000890 /* VideoPlayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000230 /* VideoPlayError.swift */; };
-		0000000008A0 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000240 /* ViewControllerFactory.swift */; };
-		0000000008B0 /* ZappPlugins+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000250 /* ZappPlugins+Extensions.swift */; };
-		0000000008C0 /* ZPPlayable+BCOVVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000260 /* ZPPlayable+BCOVVideo.swift */; };
-		0000000008D0 /* ZPPlayerState+BCOVPlaybackEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000270 /* ZPPlayerState+BCOVPlaybackEvents.swift */; };
-		000000000920 /* BrightcovePlayerPlugin-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000910 /* BrightcovePlayerPlugin-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		000000000960 /* BrightcovePlayerPlugin-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000950 /* BrightcovePlayerPlugin-dummy.m */; };
-		000000000AC0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000680 /* Foundation.framework */; };
-		000000000B30 /* Pods-BrightcovePlayer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000B20 /* Pods-BrightcovePlayer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		000000000B90 /* Pods-BrightcovePlayer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000B80 /* Pods-BrightcovePlayer-dummy.m */; };
-		000000000C30 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000680 /* Foundation.framework */; };
-		000000000CA0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000C90 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		000000000D00 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000CF0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m */; };
+		000000000560 /* bcovpuiiconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 000000000450 /* bcovpuiiconfont.ttf */; };
+		0000000006B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000000006A0 /* Foundation.framework */; };
+		0000000006C0 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000360 /* Back.png */; };
+		0000000006D0 /* Back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000370 /* Back@2x.png */; };
+		0000000006E0 /* Back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000380 /* Back@3x.png */; };
+		0000000006F0 /* Close_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000390 /* Close_btn.png */; };
+		000000000700 /* Close_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003A0 /* Close_btn@2x.png */; };
+		000000000710 /* Close_btn@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003B0 /* Close_btn@3x.png */; };
+		000000000720 /* Connectivity.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003C0 /* Connectivity.png */; };
+		000000000730 /* Connectivity@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003D0 /* Connectivity@2x.png */; };
+		000000000740 /* Connectivity@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003E0 /* Connectivity@3x.png */; };
+		000000000750 /* Refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 0000000003F0 /* Refresh.png */; };
+		000000000760 /* Refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000400 /* Refresh@2x.png */; };
+		000000000770 /* Refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 000000000410 /* Refresh@3x.png */; };
+		000000000780 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 000000000430 /* ErrorView.xib */; };
+		000000000790 /* AdAnalytic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000110 /* AdAnalytic.swift */; };
+		0000000007A0 /* AdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000120 /* AdError.swift */; };
+		0000000007B0 /* AdvertisementAnalyticKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000130 /* AdvertisementAnalyticKeys.swift */; };
+		0000000007C0 /* AdvertisementParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000140 /* AdvertisementParser.swift */; };
+		0000000007D0 /* AnalyticParamsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000150 /* AnalyticParamsBuilder.swift */; };
+		0000000007E0 /* AnalyticsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000160 /* AnalyticsAdapter.swift */; };
+		0000000007F0 /* BCOVVideo+Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000170 /* BCOVVideo+Advertisement.swift */; };
+		000000000800 /* BrightcovePlayerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000180 /* BrightcovePlayerPlugin.swift */; };
+		000000000810 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000190 /* ErrorView.swift */; };
+		000000000820 /* ErrorViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001A0 /* ErrorViewConfiguration.swift */; };
+		000000000830 /* IMAErrorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001B0 /* IMAErrorWrapper.swift */; };
+		000000000840 /* PlaybackErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001C0 /* PlaybackErrors.swift */; };
+		000000000850 /* PlayerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001D0 /* PlayerAdapter.swift */; };
+		000000000860 /* PlayerAdvertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001E0 /* PlayerAdvertisement.swift */; };
+		000000000870 /* PlayerScreenMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0000000001F0 /* PlayerScreenMode.swift */; };
+		000000000880 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000200 /* PlayerViewController.swift */; };
+		000000000890 /* PlayerViewControllerBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000210 /* PlayerViewControllerBuilder.swift */; };
+		0000000008A0 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000220 /* String+Extensions.swift */; };
+		0000000008B0 /* UIKit+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000230 /* UIKit+Extensions.swift */; };
+		0000000008C0 /* UIView+Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000240 /* UIView+Nib.swift */; };
+		0000000008D0 /* VideoPlayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000250 /* VideoPlayError.swift */; };
+		0000000008E0 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000260 /* ViewControllerFactory.swift */; };
+		0000000008F0 /* ZappPlugins+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000270 /* ZappPlugins+Extensions.swift */; };
+		000000000900 /* ZPPlayable+BCOVVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000280 /* ZPPlayable+BCOVVideo.swift */; };
+		000000000910 /* ZPPlayerState+BCOVPlaybackEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000290 /* ZPPlayerState+BCOVPlaybackEvents.swift */; };
+		000000000960 /* BrightcovePlayerPlugin-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000950 /* BrightcovePlayerPlugin-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0000000009A0 /* BrightcovePlayerPlugin-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000990 /* BrightcovePlayerPlugin-dummy.m */; };
+		000000000B00 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000000006A0 /* Foundation.framework */; };
+		000000000B70 /* Pods-BrightcovePlayer-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000B60 /* Pods-BrightcovePlayer-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		000000000BD0 /* Pods-BrightcovePlayer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000BC0 /* Pods-BrightcovePlayer-dummy.m */; };
+		000000000C70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000000006A0 /* Foundation.framework */; };
+		000000000CE0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000CD0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		000000000D40 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000D30 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		000000000D10 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 000000000000 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 000000000480;
-			remoteInfo = "Brightcove-Player-Core";
-		};
-		000000000D30 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 000000000000 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 000000000580;
-			remoteInfo = "Brightcove-Player-IMA";
-		};
 		000000000D50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0000000005E0;
-			remoteInfo = BrightcovePlayerPlugin;
+			remoteGlobalIDString = 0000000004A0;
+			remoteInfo = "Brightcove-Player-Core";
 		};
 		000000000D70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000000970;
-			remoteInfo = "GoogleAds-IMA-iOS-SDK";
+			remoteGlobalIDString = 0000000005A0;
+			remoteInfo = "Brightcove-Player-IMA";
 		};
 		000000000D90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0000000009D0;
-			remoteInfo = ZappPlugins;
+			remoteGlobalIDString = 000000000600;
+			remoteInfo = BrightcovePlayerPlugin;
 		};
 		000000000DB0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000000480;
-			remoteInfo = "Brightcove-Player-Core";
+			remoteGlobalIDString = 0000000009B0;
+			remoteInfo = "GoogleAds-IMA-iOS-SDK";
 		};
 		000000000DD0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000000580;
-			remoteInfo = "Brightcove-Player-IMA";
+			remoteGlobalIDString = 000000000A10;
+			remoteInfo = ZappPlugins;
 		};
 		000000000DF0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0000000005E0;
-			remoteInfo = BrightcovePlayerPlugin;
+			remoteGlobalIDString = 0000000004A0;
+			remoteInfo = "Brightcove-Player-Core";
 		};
 		000000000E10 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000000970;
-			remoteInfo = "GoogleAds-IMA-iOS-SDK";
+			remoteGlobalIDString = 0000000005A0;
+			remoteInfo = "Brightcove-Player-IMA";
 		};
 		000000000E30 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0000000009D0;
-			remoteInfo = ZappPlugins;
+			remoteGlobalIDString = 000000000600;
+			remoteInfo = BrightcovePlayerPlugin;
 		};
 		000000000E50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0000000004C0;
-			remoteInfo = "Brightcove-Player-Core-BCOVPUIResources";
+			remoteGlobalIDString = 0000000009B0;
+			remoteInfo = "GoogleAds-IMA-iOS-SDK";
 		};
 		000000000E70 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000000480;
-			remoteInfo = "Brightcove-Player-Core";
+			remoteGlobalIDString = 000000000A10;
+			remoteInfo = ZappPlugins;
 		};
 		000000000E90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000000970;
-			remoteInfo = "GoogleAds-IMA-iOS-SDK";
+			remoteGlobalIDString = 0000000004E0;
+			remoteInfo = "Brightcove-Player-Core-BCOVPUIResources";
 		};
 		000000000EB0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0000000009D0;
-			remoteInfo = ZappPlugins;
+			remoteGlobalIDString = 0000000004A0;
+			remoteInfo = "Brightcove-Player-Core";
 		};
 		000000000ED0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000000580;
+			remoteGlobalIDString = 0000000009B0;
+			remoteInfo = "GoogleAds-IMA-iOS-SDK";
+		};
+		000000000EF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000A10;
+			remoteInfo = ZappPlugins;
+		};
+		000000000F10 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0000000005A0;
 			remoteInfo = "Brightcove-Player-IMA";
 		};
 /* End PBXContainerItemProxy section */
@@ -211,113 +213,115 @@
 		000000000120 /* AdError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AdError.swift; path = iOS/PluginClasses/AdError.swift; sourceTree = "<group>"; };
 		000000000130 /* AdvertisementAnalyticKeys.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AdvertisementAnalyticKeys.swift; path = iOS/PluginClasses/AdvertisementAnalyticKeys.swift; sourceTree = "<group>"; };
 		000000000140 /* AdvertisementParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AdvertisementParser.swift; path = iOS/PluginClasses/AdvertisementParser.swift; sourceTree = "<group>"; };
-		000000000150 /* AnalyticsAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnalyticsAdapter.swift; path = iOS/PluginClasses/AnalyticsAdapter.swift; sourceTree = "<group>"; };
-		000000000160 /* BCOVVideo+Advertisement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "BCOVVideo+Advertisement.swift"; path = "iOS/PluginClasses/BCOVVideo+Advertisement.swift"; sourceTree = "<group>"; };
-		000000000170 /* BrightcovePlayerPlugin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BrightcovePlayerPlugin.swift; path = iOS/PluginClasses/BrightcovePlayerPlugin.swift; sourceTree = "<group>"; };
-		000000000180 /* ErrorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorView.swift; path = iOS/PluginClasses/ErrorView.swift; sourceTree = "<group>"; };
-		000000000190 /* ErrorViewConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorViewConfiguration.swift; path = iOS/PluginClasses/ErrorViewConfiguration.swift; sourceTree = "<group>"; };
-		0000000001A0 /* IMAErrorWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IMAErrorWrapper.swift; path = iOS/PluginClasses/IMAErrorWrapper.swift; sourceTree = "<group>"; };
-		0000000001B0 /* PlaybackErrors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlaybackErrors.swift; path = iOS/PluginClasses/PlaybackErrors.swift; sourceTree = "<group>"; };
-		0000000001C0 /* PlayerAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerAdapter.swift; path = iOS/PluginClasses/PlayerAdapter.swift; sourceTree = "<group>"; };
-		0000000001D0 /* PlayerAdvertisement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerAdvertisement.swift; path = iOS/PluginClasses/PlayerAdvertisement.swift; sourceTree = "<group>"; };
-		0000000001E0 /* PlayerScreenMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerScreenMode.swift; path = iOS/PluginClasses/PlayerScreenMode.swift; sourceTree = "<group>"; };
-		0000000001F0 /* PlayerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = iOS/PluginClasses/PlayerViewController.swift; sourceTree = "<group>"; };
-		000000000200 /* PlayerViewControllerBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerViewControllerBuilder.swift; path = iOS/PluginClasses/PlayerViewControllerBuilder.swift; sourceTree = "<group>"; };
-		000000000210 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIKit+Extensions.swift"; path = "iOS/PluginClasses/UIKit+Extensions.swift"; sourceTree = "<group>"; };
-		000000000220 /* UIView+Nib.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Nib.swift"; path = "iOS/PluginClasses/UIView+Nib.swift"; sourceTree = "<group>"; };
-		000000000230 /* VideoPlayError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoPlayError.swift; path = iOS/PluginClasses/VideoPlayError.swift; sourceTree = "<group>"; };
-		000000000240 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewControllerFactory.swift; path = iOS/PluginClasses/ViewControllerFactory.swift; sourceTree = "<group>"; };
-		000000000250 /* ZappPlugins+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZappPlugins+Extensions.swift"; path = "iOS/PluginClasses/ZappPlugins+Extensions.swift"; sourceTree = "<group>"; };
-		000000000260 /* ZPPlayable+BCOVVideo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZPPlayable+BCOVVideo.swift"; path = "iOS/PluginClasses/ZPPlayable+BCOVVideo.swift"; sourceTree = "<group>"; };
-		000000000270 /* ZPPlayerState+BCOVPlaybackEvents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZPPlayerState+BCOVPlaybackEvents.swift"; path = "iOS/PluginClasses/ZPPlayerState+BCOVPlaybackEvents.swift"; sourceTree = "<group>"; };
-		0000000002A0 /* BrightcovePlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightcovePlayerSDK.framework; path = ios/dynamic/BrightcovePlayerSDK.framework; sourceTree = "<group>"; };
-		0000000002C0 /* BrightcoveIMA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightcoveIMA.framework; path = ios/BrightcoveIMA.framework; sourceTree = "<group>"; };
-		0000000002E0 /* GoogleInteractiveMediaAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInteractiveMediaAds.framework; path = GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework; sourceTree = "<group>"; };
-		000000000300 /* ZappPlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappPlugins.framework; path = Frameworks/iOS/ZappPlugins.framework; sourceTree = "<group>"; };
-		000000000340 /* Back.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
-		000000000350 /* Back@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Back@2x.png"; sourceTree = "<group>"; };
-		000000000360 /* Back@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Back@3x.png"; sourceTree = "<group>"; };
-		000000000370 /* Close_btn.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = Close_btn.png; sourceTree = "<group>"; };
-		000000000380 /* Close_btn@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Close_btn@2x.png"; sourceTree = "<group>"; };
-		000000000390 /* Close_btn@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Close_btn@3x.png"; sourceTree = "<group>"; };
-		0000000003A0 /* Connectivity.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = Connectivity.png; sourceTree = "<group>"; };
-		0000000003B0 /* Connectivity@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Connectivity@2x.png"; sourceTree = "<group>"; };
-		0000000003C0 /* Connectivity@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Connectivity@3x.png"; sourceTree = "<group>"; };
-		0000000003D0 /* Refresh.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = Refresh.png; sourceTree = "<group>"; };
-		0000000003E0 /* Refresh@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Refresh@2x.png"; sourceTree = "<group>"; };
-		0000000003F0 /* Refresh@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Refresh@3x.png"; sourceTree = "<group>"; };
-		000000000410 /* ErrorView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
-		000000000430 /* bcovpuiiconfont.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = bcovpuiiconfont.ttf; path = ios/dynamic/BrightcovePlayerSDK.framework/bcovpuiiconfont.ttf; sourceTree = "<group>"; };
-		000000000450 /* BrightcovePlayerPlugin.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = BrightcovePlayerPlugin.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		000000000460 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		000000000470 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		000000000500 /* BCOVPUIResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BCOVPUIResources.bundle; path = "Brightcove-Player-Core-BCOVPUIResources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		000000000560 /* ResourceBundle-BCOVPUIResources-Brightcove-Player-Core-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-BCOVPUIResources-Brightcove-Player-Core-Info.plist"; sourceTree = "<group>"; };
-		000000000570 /* Brightcove-Player-Core.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Brightcove-Player-Core.xcconfig"; sourceTree = "<group>"; };
-		0000000005D0 /* Brightcove-Player-IMA.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Brightcove-Player-IMA.xcconfig"; sourceTree = "<group>"; };
-		000000000620 /* BrightcovePlayerPlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BrightcovePlayerPlugin.framework; path = BrightcovePlayerPlugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		000000000680 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		0000000008F0 /* BrightcovePlayerPlugin.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BrightcovePlayerPlugin.xcconfig; sourceTree = "<group>"; };
-		000000000900 /* BrightcovePlayerPlugin.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BrightcovePlayerPlugin.modulemap; sourceTree = "<group>"; };
-		000000000910 /* BrightcovePlayerPlugin-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BrightcovePlayerPlugin-umbrella.h"; sourceTree = "<group>"; };
-		000000000930 /* BrightcovePlayerPlugin-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "BrightcovePlayerPlugin-Info.plist"; sourceTree = "<group>"; };
-		000000000940 /* BrightcovePlayerPlugin-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BrightcovePlayerPlugin-prefix.pch"; sourceTree = "<group>"; };
-		000000000950 /* BrightcovePlayerPlugin-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BrightcovePlayerPlugin-dummy.m"; sourceTree = "<group>"; };
-		0000000009C0 /* GoogleAds-IMA-iOS-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleAds-IMA-iOS-SDK.xcconfig"; sourceTree = "<group>"; };
-		000000000A20 /* ZappPlugins.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZappPlugins.xcconfig; sourceTree = "<group>"; };
-		000000000A70 /* Pods_BrightcovePlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BrightcovePlayer.framework; path = "Pods-BrightcovePlayer.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		000000000AE0 /* Pods-BrightcovePlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightcovePlayer.release.xcconfig"; sourceTree = "<group>"; };
-		000000000AF0 /* Pods-BrightcovePlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightcovePlayer.debug.xcconfig"; sourceTree = "<group>"; };
-		000000000B00 /* Pods-BrightcovePlayer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightcovePlayer-Info.plist"; sourceTree = "<group>"; };
-		000000000B10 /* Pods-BrightcovePlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BrightcovePlayer.modulemap"; sourceTree = "<group>"; };
-		000000000B20 /* Pods-BrightcovePlayer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BrightcovePlayer-umbrella.h"; sourceTree = "<group>"; };
-		000000000B40 /* Pods-BrightcovePlayer-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightcovePlayer-frameworks.sh"; sourceTree = "<group>"; };
-		000000000B50 /* Pods-BrightcovePlayer-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightcovePlayer-resources.sh"; sourceTree = "<group>"; };
-		000000000B60 /* Pods-BrightcovePlayer-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightcovePlayer-acknowledgements.plist"; sourceTree = "<group>"; };
-		000000000B70 /* Pods-BrightcovePlayer-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BrightcovePlayer-acknowledgements.markdown"; sourceTree = "<group>"; };
-		000000000B80 /* Pods-BrightcovePlayer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BrightcovePlayer-dummy.m"; sourceTree = "<group>"; };
-		000000000BE0 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BrightcovePlayer_BrightcovePlayerTests.framework; path = "Pods-BrightcovePlayer-BrightcovePlayerTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		000000000C50 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig"; sourceTree = "<group>"; };
-		000000000C60 /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		000000000C70 /* Pods-BrightcovePlayer-BrightcovePlayerTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-Info.plist"; sourceTree = "<group>"; };
-		000000000C80 /* Pods-BrightcovePlayer-BrightcovePlayerTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BrightcovePlayer-BrightcovePlayerTests.modulemap"; sourceTree = "<group>"; };
-		000000000C90 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h"; sourceTree = "<group>"; };
-		000000000CB0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh"; sourceTree = "<group>"; };
-		000000000CC0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh"; sourceTree = "<group>"; };
-		000000000CD0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.plist"; sourceTree = "<group>"; };
-		000000000CE0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		000000000CF0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m"; sourceTree = "<group>"; };
+		000000000150 /* AnalyticParamsBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnalyticParamsBuilder.swift; path = iOS/PluginClasses/AnalyticParamsBuilder.swift; sourceTree = "<group>"; };
+		000000000160 /* AnalyticsAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnalyticsAdapter.swift; path = iOS/PluginClasses/AnalyticsAdapter.swift; sourceTree = "<group>"; };
+		000000000170 /* BCOVVideo+Advertisement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "BCOVVideo+Advertisement.swift"; path = "iOS/PluginClasses/BCOVVideo+Advertisement.swift"; sourceTree = "<group>"; };
+		000000000180 /* BrightcovePlayerPlugin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BrightcovePlayerPlugin.swift; path = iOS/PluginClasses/BrightcovePlayerPlugin.swift; sourceTree = "<group>"; };
+		000000000190 /* ErrorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorView.swift; path = iOS/PluginClasses/ErrorView.swift; sourceTree = "<group>"; };
+		0000000001A0 /* ErrorViewConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorViewConfiguration.swift; path = iOS/PluginClasses/ErrorViewConfiguration.swift; sourceTree = "<group>"; };
+		0000000001B0 /* IMAErrorWrapper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IMAErrorWrapper.swift; path = iOS/PluginClasses/IMAErrorWrapper.swift; sourceTree = "<group>"; };
+		0000000001C0 /* PlaybackErrors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlaybackErrors.swift; path = iOS/PluginClasses/PlaybackErrors.swift; sourceTree = "<group>"; };
+		0000000001D0 /* PlayerAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerAdapter.swift; path = iOS/PluginClasses/PlayerAdapter.swift; sourceTree = "<group>"; };
+		0000000001E0 /* PlayerAdvertisement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerAdvertisement.swift; path = iOS/PluginClasses/PlayerAdvertisement.swift; sourceTree = "<group>"; };
+		0000000001F0 /* PlayerScreenMode.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerScreenMode.swift; path = iOS/PluginClasses/PlayerScreenMode.swift; sourceTree = "<group>"; };
+		000000000200 /* PlayerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerViewController.swift; path = iOS/PluginClasses/PlayerViewController.swift; sourceTree = "<group>"; };
+		000000000210 /* PlayerViewControllerBuilder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlayerViewControllerBuilder.swift; path = iOS/PluginClasses/PlayerViewControllerBuilder.swift; sourceTree = "<group>"; };
+		000000000220 /* String+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extensions.swift"; path = "iOS/PluginClasses/String+Extensions.swift"; sourceTree = "<group>"; };
+		000000000230 /* UIKit+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIKit+Extensions.swift"; path = "iOS/PluginClasses/UIKit+Extensions.swift"; sourceTree = "<group>"; };
+		000000000240 /* UIView+Nib.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Nib.swift"; path = "iOS/PluginClasses/UIView+Nib.swift"; sourceTree = "<group>"; };
+		000000000250 /* VideoPlayError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoPlayError.swift; path = iOS/PluginClasses/VideoPlayError.swift; sourceTree = "<group>"; };
+		000000000260 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewControllerFactory.swift; path = iOS/PluginClasses/ViewControllerFactory.swift; sourceTree = "<group>"; };
+		000000000270 /* ZappPlugins+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZappPlugins+Extensions.swift"; path = "iOS/PluginClasses/ZappPlugins+Extensions.swift"; sourceTree = "<group>"; };
+		000000000280 /* ZPPlayable+BCOVVideo.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZPPlayable+BCOVVideo.swift"; path = "iOS/PluginClasses/ZPPlayable+BCOVVideo.swift"; sourceTree = "<group>"; };
+		000000000290 /* ZPPlayerState+BCOVPlaybackEvents.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "ZPPlayerState+BCOVPlaybackEvents.swift"; path = "iOS/PluginClasses/ZPPlayerState+BCOVPlaybackEvents.swift"; sourceTree = "<group>"; };
+		0000000002C0 /* BrightcovePlayerSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightcovePlayerSDK.framework; path = ios/dynamic/BrightcovePlayerSDK.framework; sourceTree = "<group>"; };
+		0000000002E0 /* BrightcoveIMA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightcoveIMA.framework; path = ios/BrightcoveIMA.framework; sourceTree = "<group>"; };
+		000000000300 /* GoogleInteractiveMediaAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInteractiveMediaAds.framework; path = GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework; sourceTree = "<group>"; };
+		000000000320 /* ZappPlugins.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZappPlugins.framework; path = Frameworks/iOS/ZappPlugins.framework; sourceTree = "<group>"; };
+		000000000360 /* Back.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
+		000000000370 /* Back@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Back@2x.png"; sourceTree = "<group>"; };
+		000000000380 /* Back@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Back@3x.png"; sourceTree = "<group>"; };
+		000000000390 /* Close_btn.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = Close_btn.png; sourceTree = "<group>"; };
+		0000000003A0 /* Close_btn@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Close_btn@2x.png"; sourceTree = "<group>"; };
+		0000000003B0 /* Close_btn@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Close_btn@3x.png"; sourceTree = "<group>"; };
+		0000000003C0 /* Connectivity.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = Connectivity.png; sourceTree = "<group>"; };
+		0000000003D0 /* Connectivity@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Connectivity@2x.png"; sourceTree = "<group>"; };
+		0000000003E0 /* Connectivity@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Connectivity@3x.png"; sourceTree = "<group>"; };
+		0000000003F0 /* Refresh.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = Refresh.png; sourceTree = "<group>"; };
+		000000000400 /* Refresh@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Refresh@2x.png"; sourceTree = "<group>"; };
+		000000000410 /* Refresh@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "Refresh@3x.png"; sourceTree = "<group>"; };
+		000000000430 /* ErrorView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
+		000000000450 /* bcovpuiiconfont.ttf */ = {isa = PBXFileReference; includeInIndex = 1; name = bcovpuiiconfont.ttf; path = ios/dynamic/BrightcovePlayerSDK.framework/bcovpuiiconfont.ttf; sourceTree = "<group>"; };
+		000000000470 /* BrightcovePlayerPlugin.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = BrightcovePlayerPlugin.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		000000000480 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		000000000490 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		000000000520 /* BCOVPUIResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BCOVPUIResources.bundle; path = "Brightcove-Player-Core-BCOVPUIResources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000580 /* ResourceBundle-BCOVPUIResources-Brightcove-Player-Core-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-BCOVPUIResources-Brightcove-Player-Core-Info.plist"; sourceTree = "<group>"; };
+		000000000590 /* Brightcove-Player-Core.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Brightcove-Player-Core.xcconfig"; sourceTree = "<group>"; };
+		0000000005F0 /* Brightcove-Player-IMA.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Brightcove-Player-IMA.xcconfig"; sourceTree = "<group>"; };
+		000000000640 /* BrightcovePlayerPlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BrightcovePlayerPlugin.framework; path = BrightcovePlayerPlugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0000000006A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		000000000930 /* BrightcovePlayerPlugin.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BrightcovePlayerPlugin.xcconfig; sourceTree = "<group>"; };
+		000000000940 /* BrightcovePlayerPlugin.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BrightcovePlayerPlugin.modulemap; sourceTree = "<group>"; };
+		000000000950 /* BrightcovePlayerPlugin-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BrightcovePlayerPlugin-umbrella.h"; sourceTree = "<group>"; };
+		000000000970 /* BrightcovePlayerPlugin-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "BrightcovePlayerPlugin-Info.plist"; sourceTree = "<group>"; };
+		000000000980 /* BrightcovePlayerPlugin-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BrightcovePlayerPlugin-prefix.pch"; sourceTree = "<group>"; };
+		000000000990 /* BrightcovePlayerPlugin-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BrightcovePlayerPlugin-dummy.m"; sourceTree = "<group>"; };
+		000000000A00 /* GoogleAds-IMA-iOS-SDK.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "GoogleAds-IMA-iOS-SDK.xcconfig"; sourceTree = "<group>"; };
+		000000000A60 /* ZappPlugins.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZappPlugins.xcconfig; sourceTree = "<group>"; };
+		000000000AB0 /* Pods_BrightcovePlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BrightcovePlayer.framework; path = "Pods-BrightcovePlayer.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000B20 /* Pods-BrightcovePlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightcovePlayer.release.xcconfig"; sourceTree = "<group>"; };
+		000000000B30 /* Pods-BrightcovePlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightcovePlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		000000000B40 /* Pods-BrightcovePlayer-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightcovePlayer-Info.plist"; sourceTree = "<group>"; };
+		000000000B50 /* Pods-BrightcovePlayer.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BrightcovePlayer.modulemap"; sourceTree = "<group>"; };
+		000000000B60 /* Pods-BrightcovePlayer-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BrightcovePlayer-umbrella.h"; sourceTree = "<group>"; };
+		000000000B80 /* Pods-BrightcovePlayer-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightcovePlayer-frameworks.sh"; sourceTree = "<group>"; };
+		000000000B90 /* Pods-BrightcovePlayer-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightcovePlayer-resources.sh"; sourceTree = "<group>"; };
+		000000000BA0 /* Pods-BrightcovePlayer-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightcovePlayer-acknowledgements.plist"; sourceTree = "<group>"; };
+		000000000BB0 /* Pods-BrightcovePlayer-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BrightcovePlayer-acknowledgements.markdown"; sourceTree = "<group>"; };
+		000000000BC0 /* Pods-BrightcovePlayer-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BrightcovePlayer-dummy.m"; sourceTree = "<group>"; };
+		000000000C20 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_BrightcovePlayer_BrightcovePlayerTests.framework; path = "Pods-BrightcovePlayer-BrightcovePlayerTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000C90 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig"; sourceTree = "<group>"; };
+		000000000CA0 /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		000000000CB0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-Info.plist"; sourceTree = "<group>"; };
+		000000000CC0 /* Pods-BrightcovePlayer-BrightcovePlayerTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-BrightcovePlayer-BrightcovePlayerTests.modulemap"; sourceTree = "<group>"; };
+		000000000CD0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h"; sourceTree = "<group>"; };
+		000000000CF0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh"; sourceTree = "<group>"; };
+		000000000D00 /* Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh"; sourceTree = "<group>"; };
+		000000000D10 /* Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		000000000D20 /* Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		000000000D30 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		000000000520 /* Frameworks */ = {
+		000000000540 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000650 /* Frameworks */ = {
+		000000000670 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000690 /* Foundation.framework in Frameworks */,
+				0000000006B0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000AA0 /* Frameworks */ = {
+		000000000AE0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000AC0 /* Foundation.framework in Frameworks */,
+				000000000B00 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000C10 /* Frameworks */ = {
+		000000000C50 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000C30 /* Foundation.framework in Frameworks */,
+				000000000C70 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,10 +343,10 @@
 		000000000020 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				000000000500 /* BCOVPUIResources.bundle */,
-				000000000620 /* BrightcovePlayerPlugin.framework */,
-				000000000A70 /* Pods_BrightcovePlayer.framework */,
-				000000000BE0 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */,
+				000000000520 /* BCOVPUIResources.bundle */,
+				000000000640 /* BrightcovePlayerPlugin.framework */,
+				000000000AB0 /* Pods_BrightcovePlayer.framework */,
+				000000000C20 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -350,7 +354,7 @@
 		000000000060 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				000000000670 /* iOS */,
+				000000000690 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -358,8 +362,8 @@
 		000000000070 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				000000000AD0 /* Pods-BrightcovePlayer */,
-				000000000C40 /* Pods-BrightcovePlayer-BrightcovePlayerTests */,
+				000000000B10 /* Pods-BrightcovePlayer */,
+				000000000C80 /* Pods-BrightcovePlayer-BrightcovePlayerTests */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
@@ -386,8 +390,8 @@
 		0000000000A0 /* Brightcove-Player-Core */ = {
 			isa = PBXGroup;
 			children = (
-				000000000280 /* dynamic */,
-				000000000550 /* Support Files */,
+				0000000002A0 /* dynamic */,
+				000000000570 /* Support Files */,
 			);
 			name = "Brightcove-Player-Core";
 			path = "Brightcove-Player-Core";
@@ -396,8 +400,8 @@
 		0000000000B0 /* Brightcove-Player-IMA */ = {
 			isa = PBXGroup;
 			children = (
-				0000000002B0 /* Frameworks */,
-				0000000005C0 /* Support Files */,
+				0000000002D0 /* Frameworks */,
+				0000000005E0 /* Support Files */,
 			);
 			name = "Brightcove-Player-IMA";
 			path = "Brightcove-Player-IMA";
@@ -407,9 +411,9 @@
 			isa = PBXGroup;
 			children = (
 				000000000100 /* Core */,
-				000000000440 /* Pod */,
-				000000000310 /* Resources */,
-				0000000008E0 /* Support Files */,
+				000000000460 /* Pod */,
+				000000000330 /* Resources */,
+				000000000920 /* Support Files */,
 			);
 			name = BrightcovePlayerPlugin;
 			path = ../..;
@@ -418,8 +422,8 @@
 		0000000000D0 /* GoogleAds-IMA-iOS-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				0000000002D0 /* Frameworks */,
-				0000000009B0 /* Support Files */,
+				0000000002F0 /* Frameworks */,
+				0000000009F0 /* Support Files */,
 			);
 			name = "GoogleAds-IMA-iOS-SDK";
 			path = "GoogleAds-IMA-iOS-SDK";
@@ -428,8 +432,8 @@
 		0000000000E0 /* ZappPlugins */ = {
 			isa = PBXGroup;
 			children = (
-				0000000002F0 /* Frameworks */,
-				000000000A10 /* Support Files */,
+				000000000310 /* Frameworks */,
+				000000000A50 /* Support Files */,
 			);
 			name = ZappPlugins;
 			path = ZappPlugins;
@@ -442,50 +446,44 @@
 				000000000120 /* AdError.swift */,
 				000000000130 /* AdvertisementAnalyticKeys.swift */,
 				000000000140 /* AdvertisementParser.swift */,
-				000000000150 /* AnalyticsAdapter.swift */,
-				000000000160 /* BCOVVideo+Advertisement.swift */,
-				000000000170 /* BrightcovePlayerPlugin.swift */,
-				000000000180 /* ErrorView.swift */,
-				000000000190 /* ErrorViewConfiguration.swift */,
-				0000000001A0 /* IMAErrorWrapper.swift */,
-				0000000001B0 /* PlaybackErrors.swift */,
-				0000000001C0 /* PlayerAdapter.swift */,
-				0000000001D0 /* PlayerAdvertisement.swift */,
-				0000000001E0 /* PlayerScreenMode.swift */,
-				0000000001F0 /* PlayerViewController.swift */,
-				000000000200 /* PlayerViewControllerBuilder.swift */,
-				000000000210 /* UIKit+Extensions.swift */,
-				000000000220 /* UIView+Nib.swift */,
-				000000000230 /* VideoPlayError.swift */,
-				000000000240 /* ViewControllerFactory.swift */,
-				000000000250 /* ZappPlugins+Extensions.swift */,
-				000000000260 /* ZPPlayable+BCOVVideo.swift */,
-				000000000270 /* ZPPlayerState+BCOVPlaybackEvents.swift */,
+				000000000150 /* AnalyticParamsBuilder.swift */,
+				000000000160 /* AnalyticsAdapter.swift */,
+				000000000170 /* BCOVVideo+Advertisement.swift */,
+				000000000180 /* BrightcovePlayerPlugin.swift */,
+				000000000190 /* ErrorView.swift */,
+				0000000001A0 /* ErrorViewConfiguration.swift */,
+				0000000001B0 /* IMAErrorWrapper.swift */,
+				0000000001C0 /* PlaybackErrors.swift */,
+				0000000001D0 /* PlayerAdapter.swift */,
+				0000000001E0 /* PlayerAdvertisement.swift */,
+				0000000001F0 /* PlayerScreenMode.swift */,
+				000000000200 /* PlayerViewController.swift */,
+				000000000210 /* PlayerViewControllerBuilder.swift */,
+				000000000220 /* String+Extensions.swift */,
+				000000000230 /* UIKit+Extensions.swift */,
+				000000000240 /* UIView+Nib.swift */,
+				000000000250 /* VideoPlayError.swift */,
+				000000000260 /* ViewControllerFactory.swift */,
+				000000000270 /* ZappPlugins+Extensions.swift */,
+				000000000280 /* ZPPlayable+BCOVVideo.swift */,
+				000000000290 /* ZPPlayerState+BCOVPlaybackEvents.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
 		};
-		000000000280 /* dynamic */ = {
+		0000000002A0 /* dynamic */ = {
 			isa = PBXGroup;
 			children = (
-				000000000290 /* Frameworks */,
-				000000000420 /* Resources */,
+				0000000002B0 /* Frameworks */,
+				000000000440 /* Resources */,
 			);
 			name = dynamic;
-			sourceTree = "<group>";
-		};
-		000000000290 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0000000002A0 /* BrightcovePlayerSDK.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		0000000002B0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0000000002C0 /* BrightcoveIMA.framework */,
+				0000000002C0 /* BrightcovePlayerSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -493,7 +491,7 @@
 		0000000002D0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0000000002E0 /* GoogleInteractiveMediaAds.framework */,
+				0000000002E0 /* BrightcoveIMA.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -501,166 +499,174 @@
 		0000000002F0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				000000000300 /* ZappPlugins.framework */,
+				000000000300 /* GoogleInteractiveMediaAds.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		000000000310 /* Resources */ = {
+		000000000310 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				000000000400 /* PluginClasses */,
-				000000000320 /* Resources */,
+				000000000320 /* ZappPlugins.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		000000000330 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				000000000420 /* PluginClasses */,
+				000000000340 /* Resources */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		000000000320 /* Resources */ = {
+		000000000340 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				000000000330 /* Images */,
+				000000000350 /* Images */,
 			);
 			name = Resources;
 			path = iOS/Resources;
 			sourceTree = "<group>";
 		};
-		000000000330 /* Images */ = {
+		000000000350 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				000000000340 /* Back.png */,
-				000000000350 /* Back@2x.png */,
-				000000000360 /* Back@3x.png */,
-				000000000370 /* Close_btn.png */,
-				000000000380 /* Close_btn@2x.png */,
-				000000000390 /* Close_btn@3x.png */,
-				0000000003A0 /* Connectivity.png */,
-				0000000003B0 /* Connectivity@2x.png */,
-				0000000003C0 /* Connectivity@3x.png */,
-				0000000003D0 /* Refresh.png */,
-				0000000003E0 /* Refresh@2x.png */,
-				0000000003F0 /* Refresh@3x.png */,
+				000000000360 /* Back.png */,
+				000000000370 /* Back@2x.png */,
+				000000000380 /* Back@3x.png */,
+				000000000390 /* Close_btn.png */,
+				0000000003A0 /* Close_btn@2x.png */,
+				0000000003B0 /* Close_btn@3x.png */,
+				0000000003C0 /* Connectivity.png */,
+				0000000003D0 /* Connectivity@2x.png */,
+				0000000003E0 /* Connectivity@3x.png */,
+				0000000003F0 /* Refresh.png */,
+				000000000400 /* Refresh@2x.png */,
+				000000000410 /* Refresh@3x.png */,
 			);
 			name = Images;
 			path = Images;
 			sourceTree = "<group>";
 		};
-		000000000400 /* PluginClasses */ = {
+		000000000420 /* PluginClasses */ = {
 			isa = PBXGroup;
 			children = (
-				000000000410 /* ErrorView.xib */,
+				000000000430 /* ErrorView.xib */,
 			);
 			name = PluginClasses;
 			path = iOS/PluginClasses;
 			sourceTree = "<group>";
 		};
-		000000000420 /* Resources */ = {
+		000000000440 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				000000000430 /* bcovpuiiconfont.ttf */,
+				000000000450 /* bcovpuiiconfont.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		000000000440 /* Pod */ = {
+		000000000460 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				000000000450 /* BrightcovePlayerPlugin.podspec */,
-				000000000460 /* LICENSE */,
-				000000000470 /* README.md */,
+				000000000470 /* BrightcovePlayerPlugin.podspec */,
+				000000000480 /* LICENSE */,
+				000000000490 /* README.md */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
 		};
-		000000000550 /* Support Files */ = {
+		000000000570 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				000000000570 /* Brightcove-Player-Core.xcconfig */,
-				000000000560 /* ResourceBundle-BCOVPUIResources-Brightcove-Player-Core-Info.plist */,
+				000000000590 /* Brightcove-Player-Core.xcconfig */,
+				000000000580 /* ResourceBundle-BCOVPUIResources-Brightcove-Player-Core-Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Brightcove-Player-Core";
 			sourceTree = "<group>";
 		};
-		0000000005C0 /* Support Files */ = {
+		0000000005E0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0000000005D0 /* Brightcove-Player-IMA.xcconfig */,
+				0000000005F0 /* Brightcove-Player-IMA.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Brightcove-Player-IMA";
 			sourceTree = "<group>";
 		};
-		000000000670 /* iOS */ = {
+		000000000690 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				000000000680 /* Foundation.framework */,
+				0000000006A0 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		0000000008E0 /* Support Files */ = {
+		000000000920 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				000000000900 /* BrightcovePlayerPlugin.modulemap */,
-				0000000008F0 /* BrightcovePlayerPlugin.xcconfig */,
-				000000000950 /* BrightcovePlayerPlugin-dummy.m */,
-				000000000930 /* BrightcovePlayerPlugin-Info.plist */,
-				000000000940 /* BrightcovePlayerPlugin-prefix.pch */,
-				000000000910 /* BrightcovePlayerPlugin-umbrella.h */,
+				000000000940 /* BrightcovePlayerPlugin.modulemap */,
+				000000000930 /* BrightcovePlayerPlugin.xcconfig */,
+				000000000990 /* BrightcovePlayerPlugin-dummy.m */,
+				000000000970 /* BrightcovePlayerPlugin-Info.plist */,
+				000000000980 /* BrightcovePlayerPlugin-prefix.pch */,
+				000000000950 /* BrightcovePlayerPlugin-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "iOS/Pods/Target Support Files/BrightcovePlayerPlugin";
 			sourceTree = "<group>";
 		};
-		0000000009B0 /* Support Files */ = {
+		0000000009F0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0000000009C0 /* GoogleAds-IMA-iOS-SDK.xcconfig */,
+				000000000A00 /* GoogleAds-IMA-iOS-SDK.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/GoogleAds-IMA-iOS-SDK";
 			sourceTree = "<group>";
 		};
-		000000000A10 /* Support Files */ = {
+		000000000A50 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				000000000A20 /* ZappPlugins.xcconfig */,
+				000000000A60 /* ZappPlugins.xcconfig */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/ZappPlugins";
 			sourceTree = "<group>";
 		};
-		000000000AD0 /* Pods-BrightcovePlayer */ = {
+		000000000B10 /* Pods-BrightcovePlayer */ = {
 			isa = PBXGroup;
 			children = (
-				000000000B10 /* Pods-BrightcovePlayer.modulemap */,
-				000000000B70 /* Pods-BrightcovePlayer-acknowledgements.markdown */,
-				000000000B60 /* Pods-BrightcovePlayer-acknowledgements.plist */,
-				000000000B80 /* Pods-BrightcovePlayer-dummy.m */,
-				000000000B40 /* Pods-BrightcovePlayer-frameworks.sh */,
-				000000000B00 /* Pods-BrightcovePlayer-Info.plist */,
-				000000000B50 /* Pods-BrightcovePlayer-resources.sh */,
-				000000000B20 /* Pods-BrightcovePlayer-umbrella.h */,
-				000000000AF0 /* Pods-BrightcovePlayer.debug.xcconfig */,
-				000000000AE0 /* Pods-BrightcovePlayer.release.xcconfig */,
+				000000000B50 /* Pods-BrightcovePlayer.modulemap */,
+				000000000BB0 /* Pods-BrightcovePlayer-acknowledgements.markdown */,
+				000000000BA0 /* Pods-BrightcovePlayer-acknowledgements.plist */,
+				000000000BC0 /* Pods-BrightcovePlayer-dummy.m */,
+				000000000B80 /* Pods-BrightcovePlayer-frameworks.sh */,
+				000000000B40 /* Pods-BrightcovePlayer-Info.plist */,
+				000000000B90 /* Pods-BrightcovePlayer-resources.sh */,
+				000000000B60 /* Pods-BrightcovePlayer-umbrella.h */,
+				000000000B30 /* Pods-BrightcovePlayer.debug.xcconfig */,
+				000000000B20 /* Pods-BrightcovePlayer.release.xcconfig */,
 			);
 			name = "Pods-BrightcovePlayer";
 			path = "Target Support Files/Pods-BrightcovePlayer";
 			sourceTree = "<group>";
 		};
-		000000000C40 /* Pods-BrightcovePlayer-BrightcovePlayerTests */ = {
+		000000000C80 /* Pods-BrightcovePlayer-BrightcovePlayerTests */ = {
 			isa = PBXGroup;
 			children = (
-				000000000C80 /* Pods-BrightcovePlayer-BrightcovePlayerTests.modulemap */,
-				000000000CE0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.markdown */,
-				000000000CD0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.plist */,
-				000000000CF0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m */,
-				000000000CB0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh */,
-				000000000C70 /* Pods-BrightcovePlayer-BrightcovePlayerTests-Info.plist */,
-				000000000CC0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh */,
-				000000000C90 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h */,
-				000000000C60 /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */,
-				000000000C50 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */,
+				000000000CC0 /* Pods-BrightcovePlayer-BrightcovePlayerTests.modulemap */,
+				000000000D20 /* Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.markdown */,
+				000000000D10 /* Pods-BrightcovePlayer-BrightcovePlayerTests-acknowledgements.plist */,
+				000000000D30 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m */,
+				000000000CF0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh */,
+				000000000CB0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-Info.plist */,
+				000000000D00 /* Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh */,
+				000000000CD0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h */,
+				000000000CA0 /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */,
+				000000000C90 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */,
 			);
 			name = "Pods-BrightcovePlayer-BrightcovePlayerTests";
 			path = "Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests";
@@ -669,40 +675,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		000000000630 /* Headers */ = {
+		000000000650 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000920 /* BrightcovePlayerPlugin-umbrella.h in Headers */,
+				000000000960 /* BrightcovePlayerPlugin-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000A80 /* Headers */ = {
+		000000000AC0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000B30 /* Pods-BrightcovePlayer-umbrella.h in Headers */,
+				000000000B70 /* Pods-BrightcovePlayer-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000BF0 /* Headers */ = {
+		000000000C30 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000CA0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h in Headers */,
+				000000000CE0 /* Pods-BrightcovePlayer-BrightcovePlayerTests-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0000000004C0 /* Brightcove-Player-Core-BCOVPUIResources */ = {
+		0000000004E0 /* Brightcove-Player-Core-BCOVPUIResources */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0000000004D0 /* Build configuration list for PBXNativeTarget "Brightcove-Player-Core-BCOVPUIResources" */;
+			buildConfigurationList = 0000000004F0 /* Build configuration list for PBXNativeTarget "Brightcove-Player-Core-BCOVPUIResources" */;
 			buildPhases = (
-				000000000510 /* Sources */,
-				000000000520 /* Frameworks */,
-				000000000530 /* Resources */,
+				000000000530 /* Sources */,
+				000000000540 /* Frameworks */,
+				000000000550 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -710,73 +716,73 @@
 			);
 			name = "Brightcove-Player-Core-BCOVPUIResources";
 			productName = "Brightcove-Player-Core-BCOVPUIResources";
-			productReference = 000000000500 /* BCOVPUIResources.bundle */;
+			productReference = 000000000520 /* BCOVPUIResources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		0000000005E0 /* BrightcovePlayerPlugin */ = {
+		000000000600 /* BrightcovePlayerPlugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0000000005F0 /* Build configuration list for PBXNativeTarget "BrightcovePlayerPlugin" */;
+			buildConfigurationList = 000000000610 /* Build configuration list for PBXNativeTarget "BrightcovePlayerPlugin" */;
 			buildPhases = (
-				000000000630 /* Headers */,
-				000000000640 /* Sources */,
-				000000000650 /* Frameworks */,
-				000000000660 /* Resources */,
+				000000000650 /* Headers */,
+				000000000660 /* Sources */,
+				000000000670 /* Frameworks */,
+				000000000680 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				000000000EE0 /* PBXTargetDependency */,
-				000000000EC0 /* PBXTargetDependency */,
+				000000000F20 /* PBXTargetDependency */,
+				000000000F00 /* PBXTargetDependency */,
 			);
 			name = BrightcovePlayerPlugin;
 			productName = BrightcovePlayerPlugin;
-			productReference = 000000000620 /* BrightcovePlayerPlugin.framework */;
+			productReference = 000000000640 /* BrightcovePlayerPlugin.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		000000000A30 /* Pods-BrightcovePlayer */ = {
+		000000000A70 /* Pods-BrightcovePlayer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 000000000A40 /* Build configuration list for PBXNativeTarget "Pods-BrightcovePlayer" */;
+			buildConfigurationList = 000000000A80 /* Build configuration list for PBXNativeTarget "Pods-BrightcovePlayer" */;
 			buildPhases = (
-				000000000A80 /* Headers */,
-				000000000A90 /* Sources */,
-				000000000AA0 /* Frameworks */,
-				000000000AB0 /* Resources */,
+				000000000AC0 /* Headers */,
+				000000000AD0 /* Sources */,
+				000000000AE0 /* Frameworks */,
+				000000000AF0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				000000000D20 /* PBXTargetDependency */,
-				000000000D40 /* PBXTargetDependency */,
 				000000000D60 /* PBXTargetDependency */,
 				000000000D80 /* PBXTargetDependency */,
 				000000000DA0 /* PBXTargetDependency */,
+				000000000DC0 /* PBXTargetDependency */,
+				000000000DE0 /* PBXTargetDependency */,
 			);
 			name = "Pods-BrightcovePlayer";
 			productName = "Pods-BrightcovePlayer";
-			productReference = 000000000A70 /* Pods_BrightcovePlayer.framework */;
+			productReference = 000000000AB0 /* Pods_BrightcovePlayer.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		000000000BA0 /* Pods-BrightcovePlayer-BrightcovePlayerTests */ = {
+		000000000BE0 /* Pods-BrightcovePlayer-BrightcovePlayerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 000000000BB0 /* Build configuration list for PBXNativeTarget "Pods-BrightcovePlayer-BrightcovePlayerTests" */;
+			buildConfigurationList = 000000000BF0 /* Build configuration list for PBXNativeTarget "Pods-BrightcovePlayer-BrightcovePlayerTests" */;
 			buildPhases = (
-				000000000BF0 /* Headers */,
-				000000000C00 /* Sources */,
-				000000000C10 /* Frameworks */,
-				000000000C20 /* Resources */,
+				000000000C30 /* Headers */,
+				000000000C40 /* Sources */,
+				000000000C50 /* Frameworks */,
+				000000000C60 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				000000000DC0 /* PBXTargetDependency */,
-				000000000DE0 /* PBXTargetDependency */,
 				000000000E00 /* PBXTargetDependency */,
 				000000000E20 /* PBXTargetDependency */,
 				000000000E40 /* PBXTargetDependency */,
+				000000000E60 /* PBXTargetDependency */,
+				000000000E80 /* PBXTargetDependency */,
 			);
 			name = "Pods-BrightcovePlayer-BrightcovePlayerTests";
 			productName = "Pods-BrightcovePlayer-BrightcovePlayerTests";
-			productReference = 000000000BE0 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */;
+			productReference = 000000000C20 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -800,55 +806,55 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				000000000480 /* Brightcove-Player-Core */,
-				0000000004C0 /* Brightcove-Player-Core-BCOVPUIResources */,
-				000000000580 /* Brightcove-Player-IMA */,
-				0000000005E0 /* BrightcovePlayerPlugin */,
-				000000000970 /* GoogleAds-IMA-iOS-SDK */,
-				000000000A30 /* Pods-BrightcovePlayer */,
-				000000000BA0 /* Pods-BrightcovePlayer-BrightcovePlayerTests */,
-				0000000009D0 /* ZappPlugins */,
+				0000000004A0 /* Brightcove-Player-Core */,
+				0000000004E0 /* Brightcove-Player-Core-BCOVPUIResources */,
+				0000000005A0 /* Brightcove-Player-IMA */,
+				000000000600 /* BrightcovePlayerPlugin */,
+				0000000009B0 /* GoogleAds-IMA-iOS-SDK */,
+				000000000A70 /* Pods-BrightcovePlayer */,
+				000000000BE0 /* Pods-BrightcovePlayer-BrightcovePlayerTests */,
+				000000000A10 /* ZappPlugins */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		000000000530 /* Resources */ = {
+		000000000550 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000540 /* bcovpuiiconfont.ttf in Resources */,
+				000000000560 /* bcovpuiiconfont.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000660 /* Resources */ = {
+		000000000680 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0000000006A0 /* Back.png in Resources */,
-				0000000006B0 /* Back@2x.png in Resources */,
-				0000000006C0 /* Back@3x.png in Resources */,
-				0000000006D0 /* Close_btn.png in Resources */,
-				0000000006E0 /* Close_btn@2x.png in Resources */,
-				0000000006F0 /* Close_btn@3x.png in Resources */,
-				000000000700 /* Connectivity.png in Resources */,
-				000000000710 /* Connectivity@2x.png in Resources */,
-				000000000720 /* Connectivity@3x.png in Resources */,
-				000000000760 /* ErrorView.xib in Resources */,
-				000000000730 /* Refresh.png in Resources */,
-				000000000740 /* Refresh@2x.png in Resources */,
-				000000000750 /* Refresh@3x.png in Resources */,
+				0000000006C0 /* Back.png in Resources */,
+				0000000006D0 /* Back@2x.png in Resources */,
+				0000000006E0 /* Back@3x.png in Resources */,
+				0000000006F0 /* Close_btn.png in Resources */,
+				000000000700 /* Close_btn@2x.png in Resources */,
+				000000000710 /* Close_btn@3x.png in Resources */,
+				000000000720 /* Connectivity.png in Resources */,
+				000000000730 /* Connectivity@2x.png in Resources */,
+				000000000740 /* Connectivity@3x.png in Resources */,
+				000000000780 /* ErrorView.xib in Resources */,
+				000000000750 /* Refresh.png in Resources */,
+				000000000760 /* Refresh@2x.png in Resources */,
+				000000000770 /* Refresh@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000AB0 /* Resources */ = {
+		000000000AF0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000C20 /* Resources */ = {
+		000000000C60 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -858,152 +864,154 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		000000000510 /* Sources */ = {
+		000000000530 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000640 /* Sources */ = {
+		000000000660 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000770 /* AdAnalytic.swift in Sources */,
-				000000000780 /* AdError.swift in Sources */,
-				000000000790 /* AdvertisementAnalyticKeys.swift in Sources */,
-				0000000007A0 /* AdvertisementParser.swift in Sources */,
-				0000000007B0 /* AnalyticsAdapter.swift in Sources */,
-				0000000007C0 /* BCOVVideo+Advertisement.swift in Sources */,
-				000000000960 /* BrightcovePlayerPlugin-dummy.m in Sources */,
-				0000000007D0 /* BrightcovePlayerPlugin.swift in Sources */,
-				0000000007E0 /* ErrorView.swift in Sources */,
-				0000000007F0 /* ErrorViewConfiguration.swift in Sources */,
-				000000000800 /* IMAErrorWrapper.swift in Sources */,
-				000000000810 /* PlaybackErrors.swift in Sources */,
-				000000000820 /* PlayerAdapter.swift in Sources */,
-				000000000830 /* PlayerAdvertisement.swift in Sources */,
-				000000000840 /* PlayerScreenMode.swift in Sources */,
-				000000000850 /* PlayerViewController.swift in Sources */,
-				000000000860 /* PlayerViewControllerBuilder.swift in Sources */,
-				000000000870 /* UIKit+Extensions.swift in Sources */,
-				000000000880 /* UIView+Nib.swift in Sources */,
-				000000000890 /* VideoPlayError.swift in Sources */,
-				0000000008A0 /* ViewControllerFactory.swift in Sources */,
-				0000000008B0 /* ZappPlugins+Extensions.swift in Sources */,
-				0000000008C0 /* ZPPlayable+BCOVVideo.swift in Sources */,
-				0000000008D0 /* ZPPlayerState+BCOVPlaybackEvents.swift in Sources */,
+				000000000790 /* AdAnalytic.swift in Sources */,
+				0000000007A0 /* AdError.swift in Sources */,
+				0000000007B0 /* AdvertisementAnalyticKeys.swift in Sources */,
+				0000000007C0 /* AdvertisementParser.swift in Sources */,
+				0000000007D0 /* AnalyticParamsBuilder.swift in Sources */,
+				0000000007E0 /* AnalyticsAdapter.swift in Sources */,
+				0000000007F0 /* BCOVVideo+Advertisement.swift in Sources */,
+				0000000009A0 /* BrightcovePlayerPlugin-dummy.m in Sources */,
+				000000000800 /* BrightcovePlayerPlugin.swift in Sources */,
+				000000000810 /* ErrorView.swift in Sources */,
+				000000000820 /* ErrorViewConfiguration.swift in Sources */,
+				000000000830 /* IMAErrorWrapper.swift in Sources */,
+				000000000840 /* PlaybackErrors.swift in Sources */,
+				000000000850 /* PlayerAdapter.swift in Sources */,
+				000000000860 /* PlayerAdvertisement.swift in Sources */,
+				000000000870 /* PlayerScreenMode.swift in Sources */,
+				000000000880 /* PlayerViewController.swift in Sources */,
+				000000000890 /* PlayerViewControllerBuilder.swift in Sources */,
+				0000000008A0 /* String+Extensions.swift in Sources */,
+				0000000008B0 /* UIKit+Extensions.swift in Sources */,
+				0000000008C0 /* UIView+Nib.swift in Sources */,
+				0000000008D0 /* VideoPlayError.swift in Sources */,
+				0000000008E0 /* ViewControllerFactory.swift in Sources */,
+				0000000008F0 /* ZappPlugins+Extensions.swift in Sources */,
+				000000000900 /* ZPPlayable+BCOVVideo.swift in Sources */,
+				000000000910 /* ZPPlayerState+BCOVPlaybackEvents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000A90 /* Sources */ = {
+		000000000AD0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000B90 /* Pods-BrightcovePlayer-dummy.m in Sources */,
+				000000000BD0 /* Pods-BrightcovePlayer-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000C00 /* Sources */ = {
+		000000000C40 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000D00 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m in Sources */,
+				000000000D40 /* Pods-BrightcovePlayer-BrightcovePlayerTests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		000000000D20 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Brightcove-Player-Core";
-			target = 000000000480 /* Brightcove-Player-Core */;
-			targetProxy = 000000000D10 /* PBXContainerItemProxy */;
-		};
-		000000000D40 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Brightcove-Player-IMA";
-			target = 000000000580 /* Brightcove-Player-IMA */;
-			targetProxy = 000000000D30 /* PBXContainerItemProxy */;
-		};
 		000000000D60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = BrightcovePlayerPlugin;
-			target = 0000000005E0 /* BrightcovePlayerPlugin */;
+			name = "Brightcove-Player-Core";
+			target = 0000000004A0 /* Brightcove-Player-Core */;
 			targetProxy = 000000000D50 /* PBXContainerItemProxy */;
 		};
 		000000000D80 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "GoogleAds-IMA-iOS-SDK";
-			target = 000000000970 /* GoogleAds-IMA-iOS-SDK */;
+			name = "Brightcove-Player-IMA";
+			target = 0000000005A0 /* Brightcove-Player-IMA */;
 			targetProxy = 000000000D70 /* PBXContainerItemProxy */;
 		};
 		000000000DA0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ZappPlugins;
-			target = 0000000009D0 /* ZappPlugins */;
+			name = BrightcovePlayerPlugin;
+			target = 000000000600 /* BrightcovePlayerPlugin */;
 			targetProxy = 000000000D90 /* PBXContainerItemProxy */;
 		};
 		000000000DC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Brightcove-Player-Core";
-			target = 000000000480 /* Brightcove-Player-Core */;
+			name = "GoogleAds-IMA-iOS-SDK";
+			target = 0000000009B0 /* GoogleAds-IMA-iOS-SDK */;
 			targetProxy = 000000000DB0 /* PBXContainerItemProxy */;
 		};
 		000000000DE0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Brightcove-Player-IMA";
-			target = 000000000580 /* Brightcove-Player-IMA */;
+			name = ZappPlugins;
+			target = 000000000A10 /* ZappPlugins */;
 			targetProxy = 000000000DD0 /* PBXContainerItemProxy */;
 		};
 		000000000E00 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = BrightcovePlayerPlugin;
-			target = 0000000005E0 /* BrightcovePlayerPlugin */;
+			name = "Brightcove-Player-Core";
+			target = 0000000004A0 /* Brightcove-Player-Core */;
 			targetProxy = 000000000DF0 /* PBXContainerItemProxy */;
 		};
 		000000000E20 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "GoogleAds-IMA-iOS-SDK";
-			target = 000000000970 /* GoogleAds-IMA-iOS-SDK */;
+			name = "Brightcove-Player-IMA";
+			target = 0000000005A0 /* Brightcove-Player-IMA */;
 			targetProxy = 000000000E10 /* PBXContainerItemProxy */;
 		};
 		000000000E40 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ZappPlugins;
-			target = 0000000009D0 /* ZappPlugins */;
+			name = BrightcovePlayerPlugin;
+			target = 000000000600 /* BrightcovePlayerPlugin */;
 			targetProxy = 000000000E30 /* PBXContainerItemProxy */;
 		};
 		000000000E60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Brightcove-Player-Core-BCOVPUIResources";
-			target = 0000000004C0 /* Brightcove-Player-Core-BCOVPUIResources */;
+			name = "GoogleAds-IMA-iOS-SDK";
+			target = 0000000009B0 /* GoogleAds-IMA-iOS-SDK */;
 			targetProxy = 000000000E50 /* PBXContainerItemProxy */;
 		};
 		000000000E80 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Brightcove-Player-Core";
-			target = 000000000480 /* Brightcove-Player-Core */;
+			name = ZappPlugins;
+			target = 000000000A10 /* ZappPlugins */;
 			targetProxy = 000000000E70 /* PBXContainerItemProxy */;
 		};
 		000000000EA0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "GoogleAds-IMA-iOS-SDK";
-			target = 000000000970 /* GoogleAds-IMA-iOS-SDK */;
+			name = "Brightcove-Player-Core-BCOVPUIResources";
+			target = 0000000004E0 /* Brightcove-Player-Core-BCOVPUIResources */;
 			targetProxy = 000000000E90 /* PBXContainerItemProxy */;
 		};
 		000000000EC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ZappPlugins;
-			target = 0000000009D0 /* ZappPlugins */;
+			name = "Brightcove-Player-Core";
+			target = 0000000004A0 /* Brightcove-Player-Core */;
 			targetProxy = 000000000EB0 /* PBXContainerItemProxy */;
 		};
 		000000000EE0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Brightcove-Player-IMA";
-			target = 000000000580 /* Brightcove-Player-IMA */;
+			name = "GoogleAds-IMA-iOS-SDK";
+			target = 0000000009B0 /* GoogleAds-IMA-iOS-SDK */;
 			targetProxy = 000000000ED0 /* PBXContainerItemProxy */;
+		};
+		000000000F00 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ZappPlugins;
+			target = 000000000A10 /* ZappPlugins */;
+			targetProxy = 000000000EF0 /* PBXContainerItemProxy */;
+		};
+		000000000F20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Brightcove-Player-IMA";
+			target = 0000000005A0 /* Brightcove-Player-IMA */;
+			targetProxy = 000000000F10 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1132,9 +1140,9 @@
 			};
 			name = Release;
 		};
-		0000000004A0 /* Release */ = {
+		0000000004C0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000570 /* Brightcove-Player-Core.xcconfig */;
+			baseConfigurationReference = 000000000590 /* Brightcove-Player-Core.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1150,9 +1158,9 @@
 			};
 			name = Release;
 		};
-		0000000004B0 /* Debug */ = {
+		0000000004D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000570 /* Brightcove-Player-Core.xcconfig */;
+			baseConfigurationReference = 000000000590 /* Brightcove-Player-Core.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1167,9 +1175,9 @@
 			};
 			name = Debug;
 		};
-		0000000004E0 /* Release */ = {
+		000000000500 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000570 /* Brightcove-Player-Core.xcconfig */;
+			baseConfigurationReference = 000000000590 /* Brightcove-Player-Core.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Brightcove-Player-Core";
@@ -1184,9 +1192,9 @@
 			};
 			name = Release;
 		};
-		0000000004F0 /* Debug */ = {
+		000000000510 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000570 /* Brightcove-Player-Core.xcconfig */;
+			baseConfigurationReference = 000000000590 /* Brightcove-Player-Core.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Brightcove-Player-Core";
@@ -1201,9 +1209,9 @@
 			};
 			name = Debug;
 		};
-		0000000005A0 /* Release */ = {
+		0000000005C0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000005D0 /* Brightcove-Player-IMA.xcconfig */;
+			baseConfigurationReference = 0000000005F0 /* Brightcove-Player-IMA.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1219,9 +1227,9 @@
 			};
 			name = Release;
 		};
-		0000000005B0 /* Debug */ = {
+		0000000005D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000005D0 /* Brightcove-Player-IMA.xcconfig */;
+			baseConfigurationReference = 0000000005F0 /* Brightcove-Player-IMA.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1236,9 +1244,9 @@
 			};
 			name = Debug;
 		};
-		000000000600 /* Release */ = {
+		000000000620 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000008F0 /* BrightcovePlayerPlugin.xcconfig */;
+			baseConfigurationReference = 000000000930 /* BrightcovePlayerPlugin.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1273,9 +1281,9 @@
 			};
 			name = Release;
 		};
-		000000000610 /* Debug */ = {
+		000000000630 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000008F0 /* BrightcovePlayerPlugin.xcconfig */;
+			baseConfigurationReference = 000000000930 /* BrightcovePlayerPlugin.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1309,9 +1317,9 @@
 			};
 			name = Debug;
 		};
-		000000000990 /* Release */ = {
+		0000000009D0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000009C0 /* GoogleAds-IMA-iOS-SDK.xcconfig */;
+			baseConfigurationReference = 000000000A00 /* GoogleAds-IMA-iOS-SDK.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1327,9 +1335,9 @@
 			};
 			name = Release;
 		};
-		0000000009A0 /* Debug */ = {
+		0000000009E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000009C0 /* GoogleAds-IMA-iOS-SDK.xcconfig */;
+			baseConfigurationReference = 000000000A00 /* GoogleAds-IMA-iOS-SDK.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1344,9 +1352,9 @@
 			};
 			name = Debug;
 		};
-		0000000009F0 /* Release */ = {
+		000000000A30 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000A20 /* ZappPlugins.xcconfig */;
+			baseConfigurationReference = 000000000A60 /* ZappPlugins.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1362,9 +1370,9 @@
 			};
 			name = Release;
 		};
-		000000000A00 /* Debug */ = {
+		000000000A40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000A20 /* ZappPlugins.xcconfig */;
+			baseConfigurationReference = 000000000A60 /* ZappPlugins.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1379,9 +1387,9 @@
 			};
 			name = Debug;
 		};
-		000000000A50 /* Release */ = {
+		000000000A90 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000AE0 /* Pods-BrightcovePlayer.release.xcconfig */;
+			baseConfigurationReference = 000000000B20 /* Pods-BrightcovePlayer.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1418,9 +1426,9 @@
 			};
 			name = Release;
 		};
-		000000000A60 /* Debug */ = {
+		000000000AA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000AF0 /* Pods-BrightcovePlayer.debug.xcconfig */;
+			baseConfigurationReference = 000000000B30 /* Pods-BrightcovePlayer.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1456,9 +1464,9 @@
 			};
 			name = Debug;
 		};
-		000000000BC0 /* Release */ = {
+		000000000C00 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000C50 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */;
+			baseConfigurationReference = 000000000C90 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1495,9 +1503,9 @@
 			};
 			name = Release;
 		};
-		000000000BD0 /* Debug */ = {
+		000000000C10 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000C60 /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */;
+			baseConfigurationReference = 000000000CA0 /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -1545,74 +1553,74 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000000000490 /* Build configuration list for PBXAggregateTarget "Brightcove-Player-Core" */ = {
+		0000000004B0 /* Build configuration list for PBXAggregateTarget "Brightcove-Player-Core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0000000004B0 /* Debug */,
-				0000000004A0 /* Release */,
+				0000000004D0 /* Debug */,
+				0000000004C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0000000004D0 /* Build configuration list for PBXNativeTarget "Brightcove-Player-Core-BCOVPUIResources" */ = {
+		0000000004F0 /* Build configuration list for PBXNativeTarget "Brightcove-Player-Core-BCOVPUIResources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0000000004F0 /* Debug */,
-				0000000004E0 /* Release */,
+				000000000510 /* Debug */,
+				000000000500 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000000000590 /* Build configuration list for PBXAggregateTarget "Brightcove-Player-IMA" */ = {
+		0000000005B0 /* Build configuration list for PBXAggregateTarget "Brightcove-Player-IMA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0000000005B0 /* Debug */,
-				0000000005A0 /* Release */,
+				0000000005D0 /* Debug */,
+				0000000005C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0000000005F0 /* Build configuration list for PBXNativeTarget "BrightcovePlayerPlugin" */ = {
+		000000000610 /* Build configuration list for PBXNativeTarget "BrightcovePlayerPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				000000000610 /* Debug */,
-				000000000600 /* Release */,
+				000000000630 /* Debug */,
+				000000000620 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000000000980 /* Build configuration list for PBXAggregateTarget "GoogleAds-IMA-iOS-SDK" */ = {
+		0000000009C0 /* Build configuration list for PBXAggregateTarget "GoogleAds-IMA-iOS-SDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0000000009A0 /* Debug */,
-				000000000990 /* Release */,
+				0000000009E0 /* Debug */,
+				0000000009D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0000000009E0 /* Build configuration list for PBXAggregateTarget "ZappPlugins" */ = {
+		000000000A20 /* Build configuration list for PBXAggregateTarget "ZappPlugins" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				000000000A00 /* Debug */,
-				0000000009F0 /* Release */,
+				000000000A40 /* Debug */,
+				000000000A30 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000000000A40 /* Build configuration list for PBXNativeTarget "Pods-BrightcovePlayer" */ = {
+		000000000A80 /* Build configuration list for PBXNativeTarget "Pods-BrightcovePlayer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				000000000A60 /* Debug */,
-				000000000A50 /* Release */,
+				000000000AA0 /* Debug */,
+				000000000A90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000000000BB0 /* Build configuration list for PBXNativeTarget "Pods-BrightcovePlayer-BrightcovePlayerTests" */ = {
+		000000000BF0 /* Build configuration list for PBXNativeTarget "Pods-BrightcovePlayer-BrightcovePlayerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				000000000BD0 /* Debug */,
-				000000000BC0 /* Release */,
+				000000000C10 /* Debug */,
+				000000000C00 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
