@@ -58,6 +58,8 @@ enum ItemPriceType: String {
 }
 
 enum VodType: String {
+    case applicasterModel = "Applicaster Model"
+    case youtube = "YouTube"
     case atom = "ATOM"
     
     var key: String {
