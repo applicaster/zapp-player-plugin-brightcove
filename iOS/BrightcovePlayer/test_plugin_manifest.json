@@ -13,7 +13,7 @@
   "platform": "ios",
   "author_name": "Roman Karpievich",
   "author_email": "karpievich@scand.com",
-  "manifest_version": "1.1.0",
+  "manifest_version": "1.1.1",
   "name": "Brightcove Player Test",
   "description": "Zapp Plugin for Brightcove Player",
   "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
@@ -21,12 +21,13 @@
   "identifier": "BrightcovePlayerPlugin-Test",
   "ui_builder_support": true,
   "dependency_name": "BrightcovePlayerPlugin",
-  "dependency_version": "1.1.0",
+  "dependency_version": "1.1.1",
   "whitelisted_account_ids": ["5a4516fa41442c000b0195d6"],
   "min_zapp_sdk": "7.0.0",
   "deprecated_since_zapp_sdk": "",
   "unsupported_since_zapp_sdk": "",
   "react_native": false,
+  "screen": true,
   "custom_configuration_fields": [
     {
       "type": "text",
@@ -55,6 +56,27 @@
       "label": "Connectivity Error Button Text",      
       "tooltip_text": "The text on the button that appears alongside a connectivity error message",
       "default": "Try Again"
+    },
+    {
+      "type": "checkbox",
+       "key": "ignore_default_subscription",
+       "default": 0
     }
-  ]
+  ],
+  "hooks": {
+    "fields": [
+      {
+        "group": true,
+        "label": "Before Load",
+        "folded": true,
+        "fields": [
+          {
+            "key": "preload_plugins",
+            "type": "preload_plugins_selector",
+            "label": "Select Plugins"
+          }
+        ]
+      }
+    ]
+  }
 }

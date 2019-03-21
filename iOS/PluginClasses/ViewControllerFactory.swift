@@ -9,7 +9,7 @@ import Foundation
 import ZappPlugins
 
 class ViewControllerFactory {
-    open static func createPlayerViewController(videoItems: [ZPPlayable],
+    public static func createPlayerViewController(videoItems: [ZPPlayable],
                                                 errorViewConfig: ErrorViewConfiguration?) -> PlayerViewController {
         let builder = PlayerViewBuilder()
         builder.errorViewConfiguration = errorViewConfig

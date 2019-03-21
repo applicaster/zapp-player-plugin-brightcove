@@ -4,7 +4,7 @@ import BrightcovePlayerSDK
 import BrightcoveIMA
 import GoogleInteractiveMediaAds
 
-public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyticEventsDelegate {
+public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyticEventsDelegate, ZPPluggableScreenProtocol {
     
     // MARK: - Properties
     
@@ -13,10 +13,27 @@ public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyti
     private let analytics: AnalyticsAdapterProtocol
     private let adAnalytics: PlayerAdvertisementEventsDelegate
     
+    @objc weak public var screenPluginDelegate: ZPPlugableScreenDelegate?
+    private var pluginModel: ZPPluginModel?
+    private var screenModel: ZLScreenModel?
+    private var dataSourceModel: NSObject?
+
     // MARK: - Lifecycle
     
     init(analytics: AnalyticsAdapterProtocol = MorpheusAnalyticsAdapter()) {
         self.analytics = analytics
+        self.adAnalytics = PlayerAdvertisement(analytics: analytics)
+        
+        super.init()
+    }
+    
+    public required init?(pluginModel: ZPPluginModel,
+                          screenModel: ZLScreenModel,
+                          dataSourceModel: NSObject?) {
+        self.pluginModel = pluginModel
+        self.screenModel = screenModel
+        self.dataSourceModel = dataSourceModel
+        self.analytics = MorpheusAnalyticsAdapter()
         self.adAnalytics = PlayerAdvertisement(analytics: analytics)
         
         super.init()
