@@ -13,7 +13,7 @@
   "platform": "ios",
   "author_name": "Roman Karpievich",
   "author_email": "karpievich@scand.com",
-  "manifest_version": "1.1.1",
+  "manifest_version": "1.1.2",
   "name": "Brightcove Player Test",
   "description": "Zapp Plugin for Brightcove Player",
   "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
