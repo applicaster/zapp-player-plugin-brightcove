@@ -32,7 +32,7 @@ struct VideoPlayError {
                 "Item Duration": itemDuration,
                 "Item Link": itemLink,
                 "Completed": isCompleted,
-                vodType.key: vodType.rawValue,
+                VodType.key: vodType.rawValue,
                 screenMode.key: screenMode.rawValue,
                 videoPlayer.key: videoPlayer.rawValue,
                 errorCode!.key: errorCode!.value,

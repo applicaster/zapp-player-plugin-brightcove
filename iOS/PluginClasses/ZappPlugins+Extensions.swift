@@ -27,15 +27,7 @@ extension ZPPlayable {
         if isLive() == false {
             let duration = playbackDuration ?? 0.0
             params[AnalyticsKeys.itemDuration.rawValue] = String.create(fromInterval: duration)
-            
-            var vodType = VodType.applicasterModel
-            if self is ZPAtomEntryPlayableProtocol {
-                vodType = .atom
-            } else if isYouTubeVideo == true {
-                vodType = .youtube
-            }
-            
-            params[vodType.key] = vodType.rawValue
+            params[VodType.key] = VodType.atom.rawValue
         }
         
         return params
