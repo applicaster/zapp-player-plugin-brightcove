@@ -23,6 +23,7 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     private lateinit var adAnalyticsAdapter: AdAnalyticsAdapter
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
     private lateinit var errorHandlingVideoPlayerAdapter: ErrorHandlingVideoPlayerAdapter
+    private lateinit var completeAnalyticsAdapter: CompleteAnalyticsAdapter
     private var errorDialog: ErrorDialog? = null
     private var videoCompletionResult: VideoCompletionResult = VideoCompletionResult.UNDEFINED
     private var isVideoPaused: Boolean = false
@@ -94,10 +95,12 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         adAnalyticsAdapter = AdAnalyticsAdapter(videoView)
         errorHandlingAnalyticsAdapter = ErrorHandlingAnalyticsAdapter(videoView)
         errorHandlingVideoPlayerAdapter = ErrorHandlingVideoPlayerAdapter(videoView)
+        completeAnalyticsAdapter = CompleteAnalyticsAdapter(videoView)
         analyticsAdapter.startTrack(playable, FULLSCREEN)
         adAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         errorHandlingVideoPlayerAdapter.startTrack(playable, FULLSCREEN)
+        completeAnalyticsAdapter.startTrack(playable, FULLSCREEN)
         adsAdapter = GoogleIMAAdapter(videoView)
         adsAdapter.setupForVideo(playable)
     }
@@ -128,6 +131,7 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         adAnalyticsAdapter.endTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.endTrack(playable, FULLSCREEN)
         errorHandlingVideoPlayerAdapter.endTrack(playable, FULLSCREEN)
+        completeAnalyticsAdapter.endTrack(playable, FULLSCREEN)
     }
 
     private fun BrightcoveVideoView.listenVideoPlayError() {
@@ -141,17 +145,18 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
                     isVideoPaused = true
                     showErrorDialog()
                 }
-            }
-            if (!adsAdapter.isAdsPresentationNeeded() && !isErrorDialogVisible) {
                 showErrorDialog()
             }
         }
     }
 
     private fun showErrorDialog() {
-        isErrorDialogVisible = true
-        errorDialog = ErrorDialog.newInstance(PlayersManager.getCurrentPlayer().pluginConfigurationParams)
-        errorDialog?.show(supportFragmentManager, "ErrorDialog")
+        if (!isErrorDialogVisible) {
+            isErrorDialogVisible = true
+            errorDialog = ErrorDialog.newInstance(PlayersManager.getCurrentPlayer().pluginConfigurationParams)
+            if (errorDialog?.isConnectionEstablished() == false || !adsAdapter.isAdsPresentationNeeded())
+                errorDialog?.show(supportFragmentManager, "ErrorDialog")
+        }
     }
 
     override fun onRefresh() {
