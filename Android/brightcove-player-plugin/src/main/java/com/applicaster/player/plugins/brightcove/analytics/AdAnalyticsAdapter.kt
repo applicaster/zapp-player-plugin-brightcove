@@ -248,12 +248,6 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
             else -> ""
         }
 
-    private fun getItemName(playable: Playable) =
-        ITEM_NAME to when (playable) {
-            is APAtomEntry.APAtomEntryPlayable -> playable.entry.title ?: ""
-            else -> ""
-        }
-
     private fun getAdBreakTime() =
         AD_BREAK_TIME to parseDuration(videoView.currentPosition.toLong())
 

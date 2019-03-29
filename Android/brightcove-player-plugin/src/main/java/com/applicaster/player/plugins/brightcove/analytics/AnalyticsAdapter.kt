@@ -1,6 +1,7 @@
 package com.applicaster.player.plugins.brightcove.analytics
 
 import com.applicaster.analytics.AnalyticsAgentUtil
+import com.applicaster.atom.model.APAtomEntry
 import com.applicaster.atom.model.APAtomEntry.APAtomEntryPlayable
 import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode
 import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode.FULLSCREEN
@@ -75,6 +76,9 @@ open class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Ana
 
     protected fun isCompleted(): Boolean = completed
 
+    protected fun getItemDuration() =
+        ITEM_DURATION to parseDuration(view.duration.toLong())
+
     /**
      * Returns a formatted duration string.
      *
@@ -102,6 +106,16 @@ open class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Ana
             is APAtomEntryPlayable -> "ATOM"
             else -> ""
         }
+
+    protected fun getItemName(playable: Playable) =
+        AdAnalyticsAdapter.ITEM_NAME to when (playable) {
+            is APAtomEntry.APAtomEntryPlayable -> playable.entry.title ?: ""
+            else -> ""
+        }
+
+    companion object {
+        const val ITEM_DURATION = "Item Duration"
+    }
 
 }
 
