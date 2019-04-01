@@ -6,13 +6,18 @@ import android.net.Uri
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
+import com.applicaster.analytics.AnalyticsAgentUtil
+import com.applicaster.atom.model.APAtomEntry
+import com.applicaster.player.VideoAdsUtil
 import com.applicaster.player.defaultplayer.BasePlayer
 import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.PlayerMode.INLINE
 import com.applicaster.player.plugins.brightcove.ad.AdsAdapter
 import com.applicaster.player.plugins.brightcove.ad.GoogleIMAAdapter
 import com.applicaster.player.plugins.brightcove.analytics.*
+import com.applicaster.plugin_manager.playersmanager.AdsConfiguration
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.applicaster.plugin_manager.playersmanager.PlayableConfiguration
+import com.applicaster.plugin_manager.playersmanager.PlayerContract
 import com.applicaster.plugin_manager.screen.PluginScreen
 import com.brightcove.player.view.BrightcoveExoPlayerVideoView
 import com.brightcove.player.view.BrightcoveVideoView
@@ -187,10 +192,20 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener, PluginScreen 
         dataSource: Serializable?,
         isActivity: Boolean
     ) {
+        val playable = (dataSource as APAtomEntry).playable
 
+        val atomAdsConfiguration = AdsConfiguration()
+        atomAdsConfiguration.categoryId = screenMap?.get(CELL_SHOW_ID_EXTENSION_KEY).toString()
+        atomAdsConfiguration.extensionName = VideoAdsUtil.getPrerollExtension(playable.isLive, false)
+        atomAdsConfiguration.screenType = AnalyticsAgentUtil.ATOM_VIDEO_ARTICLE
+        atomAdsConfiguration.analyticsScreenName = screenMap?.get(SCREEN_NAME).toString()
+
+        VideoAdsUtil.playAdVideo(context, playable, PlayerContract.NO_REQUEST_CODE, atomAdsConfiguration)
     }
 
     companion object {
         internal const val KEY_PLAYABLE = "playable"
+        private val CELL_SHOW_ID_EXTENSION_KEY = "cell show id"
+        private val SCREEN_NAME = "screen_name"
     }
 }
