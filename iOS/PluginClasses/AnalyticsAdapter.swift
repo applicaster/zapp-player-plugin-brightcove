@@ -16,12 +16,28 @@ enum AnalyticsEvent: String {
     case advertisement = "Watch Video Advertisement"
     case advertisementError = "Video Ad Error"
     case playbackError = "Video Play Error"
+    case pause = "Pause"
+    case seek = "Seek"
+    case rewind = "Tap Rewind"
+    case playerViewSwitch = "Switch Player View"
 }
 
 enum AnalyticsKeys: String {
     case view = "View"
     case completed = "Completed"
     case isFree = "Free or Paid Video"
+    case itemID = "Item ID"
+    case itemName = "Item Name"
+    case itemDuration = "Item Duration"
+    case timecode = "Timecode"
+    case videoType = "Video Type"
+    case timecodeFrom = "Timecode From"
+    case timecodeTo = "Timecode To"
+    case seekDirection = "Seek Direction"
+    case durationInVideo = "Duration in Video"
+    case originalView = "Original View"
+    case newView = "New View"
+    case switchInstance = "Switch Instance"
 }
 
 extension PlayerScreenMode {
@@ -53,10 +69,12 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
     }
     
     func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any], timed: Bool) {
-        guard let params = parameters as? [String: Any] else {
+        guard var params = parameters as? [String: Any] else {
             return
-            
         }
+        
+        params = params.merge(viewParams(for: screenMode))
+        
         ZAAppConnector.sharedInstance().analyticsDelegate?.trackEvent(name: event.rawValue,
                                                                      parameters: params,
                                                                      timed: timed)
@@ -77,7 +95,7 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
             
         }
         ZAAppConnector.sharedInstance().analyticsDelegate?.endTimedEvent(event.rawValue,
-                                                                        withParameters: params)
+                                                                         withParameters: params)
     }
     
     // MARK: - Private methods

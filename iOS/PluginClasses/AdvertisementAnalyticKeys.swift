@@ -60,7 +60,7 @@ enum ItemPriceType: String {
 enum VodType: String {
     case atom = "ATOM"
     
-    var key: String {
+    static var key: String {
         return "VOD Type"
     }
 }

@@ -67,7 +67,7 @@ class PlayerAdvertisement: PlayerAdvertisementEventsDelegate {
         case .LOADED:
             adAnalytic?.skippable = advertisement.isSkippable
             adAnalytic?.adBreakDuration = "\(advertisement.duration)"
-            adAnalytic?.videoDuration = timeString(fromTimeInterval: progress.duration)
+            adAnalytic?.videoDuration = String.create(fromInterval: progress.duration)
             adAnalytic?.videoAdType = advertisementType(forProgress: progress)
             
             if let params = adAnalytic?.dictionary {
@@ -95,7 +95,7 @@ class PlayerAdvertisement: PlayerAdvertisementEventsDelegate {
         case .SKIPPED:
             adAnalytic?.exitMethod = .skipped
             adAnalytic?.skipped = .yes
-            adAnalytic?.exitTime = timeString(fromTimeInterval: progress.progress)
+            adAnalytic?.exitTime = String.create(fromInterval: progress.progress)
             
             if let params = adAnalytic?.dictionary {
                 analytics.track(event: .advertisement,
@@ -146,18 +146,6 @@ class PlayerAdvertisement: PlayerAdvertisementEventsDelegate {
         }
     }
     
-    private func timeString(fromTimeInterval interval: TimeInterval) -> String {
-        guard interval.isNormal == true else {
-            return ""
-        }
-
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute, .second]
-        formatter.unitsStyle = .positional
-        
-        return formatter.string(from: interval) ?? ""
-    }
-    
     private func adBreakTime(fromProgress progress: Progress) -> String {
         let currentProgress = progress.progress
         let duration = progress.duration
@@ -170,7 +158,7 @@ class PlayerAdvertisement: PlayerAdvertisementEventsDelegate {
             timeInterval = progress.progress
         }
         
-        return timeString(fromTimeInterval: timeInterval)
+        return String.create(fromInterval: timeInterval)
     }
     
     private func percentileTime(fromProgress progress: Progress) -> String {

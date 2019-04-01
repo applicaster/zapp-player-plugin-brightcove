@@ -42,6 +42,9 @@ protocol PlaybackEventsDelegate: AnyObject {
     func eventOccured(_ event: BCOVPlaybackSessionLifecycleEvent,
                       duringSession session: BCOVPlaybackSession,
                       forItem item: ZPPlayable)
+    func rewindButtonPressed(at: TimeInterval)
+    func seekOccured(from: TimeInterval, to: TimeInterval)
+    func didStartPlaybackSession()
 }
 
 class PlayerAdapter: NSObject, PlayerAdapterProtocol {
@@ -167,6 +170,8 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
         
         currentItem = video
         playbackState = Progress()
+        
+        delegate?.didStartPlaybackSession()
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,
@@ -178,7 +183,23 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
     func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didProgressTo progress: TimeInterval) {
-        if progress.isFinite { playbackState.progress = progress }
+        let previousProgress = playbackState.progress
+        let minSeekInterval = 1.0
+        if abs(progress - previousProgress) > minSeekInterval, previousProgress.isNormal == true {
+            switch session.player.rate {
+            case 0:
+                delegate?.seekOccured(from: previousProgress, to: progress)
+            case 1:
+                delegate?.rewindButtonPressed(at: previousProgress)
+            default:
+                break
+            }
+        }
+        
+        if progress.isFinite {
+            playbackState.progress = progress
+            
+        }
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,

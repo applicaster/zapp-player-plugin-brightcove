@@ -46,7 +46,7 @@ struct AdAnalytic {
                 "Clicked": clicked,
                 "Item Name": itemName,
                 "Item ID": itemID,
-                vodType.key: vodType.rawValue,
+                VodType.key: vodType.rawValue,
                 itemPriceType.key: itemPriceType.rawValue,
                 "Ad Break Percentile Time": adBreakPercentileTime ]
     }

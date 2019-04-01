@@ -17,7 +17,7 @@ protocol PlaybackAnalyticEventsDelegate: AnyObject {
     func eventOccurred(_ event: AnalyticsEvent, params: [AnyHashable: Any], timed: Bool)
 }
 
-class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEventsDelegate {
+class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEventsDelegate, BCOVPUIPlayerViewDelegate {
     
     // MARK: - Properies
     
@@ -38,6 +38,10 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     weak var analyticEventDelegate: PlaybackAnalyticEventsDelegate?
     
     var isContentPaused = false
+    
+    private var viewSwitchCounter = 0
+    private var videoStartTime = Date()
+    
     // MARK: - Lifecycle
     
     required init(builder: PlayerViewBuilderProtocol, player: PlayerAdapterProtocol) {
@@ -95,6 +99,8 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         playerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        playerView.delegate = self
     }
     
     private func setupAccessibilityIdentifiers() {
@@ -214,9 +220,83 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             isContentPaused = true
         case kBCOVIMALifecycleEventAdsManagerDidRequestContentResume:
             isContentPaused = false
+        case "kBCOVPlaybackSessionLifecycleEventPauseRequest":
+            pauseButtonPressed()
         default:
             break
         }
     }
     
+    func rewindButtonPressed(at: TimeInterval) {
+        guard let item = player.currentItem else {
+            return
+        }
+        
+        let analyticParamsBuilder = AnalyticParamsBuilder()
+        analyticParamsBuilder.progress = at
+        analyticParamsBuilder.duration = player.playbackState.duration
+        analyticParamsBuilder.isLive = item.isLive()
+        
+        let params = item.additionalAnalyticsParams.merge(analyticParamsBuilder.parameters)
+        analyticEventDelegate?.eventOccurred(.rewind, params: params, timed: false)
+    }
+    
+    func seekOccured(from: TimeInterval, to: TimeInterval) {
+        guard let item = player.currentItem else {
+            return
+        }
+        
+        let analyticParamsBuilder = AnalyticParamsBuilder()
+        analyticParamsBuilder.duration = player.playbackState.duration
+        analyticParamsBuilder.timecodeFrom = from
+        analyticParamsBuilder.timecodeTo = to
+        analyticParamsBuilder.seekDirection = to > from ? "Fast Forward" : "Rewind"
+        
+        let params = item.additionalAnalyticsParams.merge(analyticParamsBuilder.parameters)
+        analyticEventDelegate?.eventOccurred(.seek, params: params, timed: false)
+    }
+    
+    func didStartPlaybackSession() {
+        viewSwitchCounter = 0
+        videoStartTime = Date()
+    }
+    
+    // MARK: - BCOVPUIPlayerViewDelegate methods
+    
+    func playerView(_ playerView: BCOVPUIPlayerView!, willTransitionTo screenMode: BCOVPUIScreenMode) {
+        guard let item = player.currentItem else {
+            return
+        }
+        
+        viewSwitchCounter += 1
+        
+        let analyticParamsBuidler = AnalyticParamsBuilder()
+        analyticParamsBuidler.progress = player.playbackState.progress
+        analyticParamsBuidler.duration = player.playbackState.duration
+        analyticParamsBuidler.isLive = item.isLive()
+        analyticParamsBuidler.durationInVideo = Date().timeIntervalSince(videoStartTime)
+        analyticParamsBuidler.originalView = (screenMode == BCOVPUIScreenMode.full) ? .normal : .full
+        analyticParamsBuidler.newView = screenMode
+        analyticParamsBuidler.viewSwitchCounter = viewSwitchCounter
+        
+        let params = item.additionalAnalyticsParams.merge(analyticParamsBuidler.parameters)
+        analyticEventDelegate?.eventOccurred(.playerViewSwitch, params: params, timed: false)
+    }
+    
+    // MARK: - Private methods
+    
+    private func pauseButtonPressed() {
+        guard let item = player.currentItem else {
+            return
+        }
+        
+        let analyticParamsBuilder = AnalyticParamsBuilder()
+        analyticParamsBuilder.progress = player.playbackState.progress
+        analyticParamsBuilder.duration = player.playbackState.duration
+        analyticParamsBuilder.isLive = item.isLive()
+        analyticParamsBuilder.durationInVideo = Date().timeIntervalSince(videoStartTime)
+        
+        let params = item.additionalAnalyticsParams.merge(analyticParamsBuilder.parameters)
+        analyticEventDelegate?.eventOccurred(.pause, params: params, timed: false)
+    }
 }

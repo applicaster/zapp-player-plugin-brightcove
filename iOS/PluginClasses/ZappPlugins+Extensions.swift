@@ -21,7 +21,16 @@ extension ZPPlayable {
     }
     
     var additionalAnalyticsParams: [AnyHashable: Any] {
-        return [AnalyticsKeys.isFree.rawValue: isFree ? "Free" : "Paid"]
+        var params: [String: Any] = [AnalyticsKeys.isFree.rawValue: isFree ? "Free" : "Paid",
+                                     AnalyticsKeys.itemID.rawValue: identifier ?? "",
+                                     AnalyticsKeys.itemName.rawValue: playableName() ?? ""]
+        if isLive() == false {
+            let duration = playbackDuration ?? 0.0
+            params[AnalyticsKeys.itemDuration.rawValue] = String.create(fromInterval: duration)
+            params[VodType.key] = VodType.atom.rawValue
+        }
+        
+        return params
     }
     
     var isFree: Bool {
