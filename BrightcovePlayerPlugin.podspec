@@ -11,8 +11,7 @@ Pod::Spec.new do |s|
     s.author           = { "Roman Karpievich" => "karpievich@scand.com" }
     s.source           = { :git => "https://github.com/applicaster/zapp-player-plugin-brightcove.git", :tag => s.version.to_s }
   
-    s.ios.deployment_target  = "9.0"
-    s.platform     = :ios, '9.0'
+    s.ios.deployment_target = "10.0"
     s.requires_arc = true
     s.swift_version = '4.2'
     s.static_framework = true
