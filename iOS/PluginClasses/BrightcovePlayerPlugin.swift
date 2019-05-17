@@ -133,12 +133,12 @@ public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyti
                                      progress: playerViewController.player.playbackState)
         }
         playerViewController.analyticEventDelegate = self
-        
-        analytics.track(item: currentItem, mode: .fullscreen)
-        
+    
         topmostViewController.present(playerViewController,
-                                      animated: animated,
-                                      completion: completion)
+                                      animated: animated) {
+            self.analytics.track(item: currentItem, mode: .fullscreen)
+            completion?()
+        }
     }
 
     // MARK: - Playback controls
