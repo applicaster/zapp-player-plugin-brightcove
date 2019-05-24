@@ -102,11 +102,8 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
     
     private func basicParams(for item: ZPPlayable, mode: PlayerScreenMode) -> Props {
         screenMode = mode
-        let params = item.analyticsParams() as? [String: Any] ?? [:]
-        let additionalParams = item.additionalAnalyticsParams as? [String: Any] ?? [:]
-        return params
-            .merge(additionalParams)
-            .merge(viewParams(for: mode))
+        let params = item.additionalAnalyticsParams as? [String: Any] ?? [:]
+        return params.merge(viewParams(for: mode))
     }
     
     private func viewParams(for mode: PlayerScreenMode) -> Props {
