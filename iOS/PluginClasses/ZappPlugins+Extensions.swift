@@ -20,7 +20,7 @@ extension ZPPlayable {
         return isLive() ? .live : .vod
     }
     
-    var additionalAnalyticsParams: [AnyHashable: Any] {
+    var additionalAnalyticsParams: [String: Any] {
         var params: [String: Any] = [AnalyticsKeys.isFree.rawValue: isFree ? "Free" : "Paid",
                                      AnalyticsKeys.itemID.rawValue: identifier ?? "",
                                      AnalyticsKeys.itemName.rawValue: playableName() ?? ""]
