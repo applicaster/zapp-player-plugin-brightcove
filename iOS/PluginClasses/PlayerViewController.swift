@@ -227,8 +227,6 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             isContentPaused = true
         case kBCOVIMALifecycleEventAdsManagerDidRequestContentResume:
             isContentPaused = false
-        case "kBCOVPlaybackSessionLifecycleEventPauseRequest":
-            pauseButtonPressed()
         default:
             break
         }
