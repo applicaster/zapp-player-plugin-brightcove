@@ -74,10 +74,6 @@ class CompleteAnalyticsAdapter(
             AnalyticsAgentUtil.logEvent(AnalyticsEvent.SEEK.value, collectSeekProperties(playableProps, it))
         }
 
-        view.eventEmitter.on(EventType.DID_PAUSE) {
-            AnalyticsAgentUtil.logEvent(AnalyticsEvent.PAUSE.value, collectPauseProperties(playableProps))
-        }
-
         view.eventEmitter.on(EventType.DID_REWIND) {
             AnalyticsAgentUtil.logEvent(AnalyticsEvent.TAP_REWIND.value, collectRewindProperties(playableProps))
         }

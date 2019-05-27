@@ -21,6 +21,8 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     private lateinit var eventEmitter: EventEmitter
     private var adsManager: AdsManager? = null
 
+    private var playable: Playable? = null
+
     private var collectedParams: MutableMap<String, String> = HashMap()
 
     // Watch video advertisement properties
@@ -46,6 +48,7 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
      */
     override fun startTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
         Log.v(TAG, "startTrack")
+        this.playable = playable
         setupComponents()
         setupAdsManager()
         collectParams(playable)
@@ -63,25 +66,40 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     override fun onAdEvent(event: AdEvent) {
         when (event.type) {
             AdEvent.AdEventType.STARTED -> {
+                adExitMethod = getAdExitMethod(AdExitMethod.UNSPECIFIED)
                 adBreakTime = getAdBreakTime()
                 videoAdType = getVideoAdType()
                 adBreakDuration = getAdBreakDuration(event)
+                setAllCollectedParams()
+                this.playable?.let {
+                    logTimedEvent(it)
+                }
             }
 
             AdEvent.AdEventType.SKIPPED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.SKIPPED)
                 skipped = isSkipped(true)
                 setAllCollectedParams()
+                this.playable?.let {
+                    logTimedEvent(it)
+                }
             }
 
             AdEvent.AdEventType.COMPLETED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.COMPLETED)
                 skipped = isSkipped(false)
+                setAllCollectedParams()
+                this.playable?.let {
+                    logTimedEvent(it)
+                }
             }
 
             AdEvent.AdEventType.CLICKED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.CLICKED)
                 setAllCollectedParams()
+                this.playable?.let {
+                    logTimedEvent(it)
+                }
             }
 
             // default
