@@ -70,7 +70,7 @@ class AnalyticParamsBuilder {
         }
     }
     
-    private(set) var parameters: [AnyHashable: String] = [:]
+    private(set) var parameters: [String: String] = [:]
     
     // MARK: - Private methods
     

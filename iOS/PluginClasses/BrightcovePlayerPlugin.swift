@@ -10,7 +10,7 @@ public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyti
     
     var playerViewController: PlayerViewController?
     
-    private let analytics: AnalyticsAdapterProtocol
+    private var analytics: AnalyticsAdapterProtocol
     private let adAnalytics: PlayerAdvertisementEventsDelegate
     
     @objc weak public var screenPluginDelegate: ZPPlugableScreenDelegate?
@@ -86,18 +86,13 @@ public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyti
         playerViewController.setupPlayer()
         playerViewController.delegate = self.adAnalytics
         playerViewController.analyticEventDelegate = self
-        
-        if let item = self.playerViewController?.player.currentItem {
-            analytics.track(item: item,
-                            mode: .inline)
-        }
+        analytics.screenMode = .inline
     }
     
     public func pluggablePlayerRemoveInline() {
         if let item = self.playerViewController?.player.currentItem,
             let progress = self.playerViewController?.player.playbackState {
             analytics.complete(item: item,
-                               mode: .inline,
                                progress: progress)
         }
         
@@ -129,16 +124,14 @@ public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyti
         playerViewController.delegate = self.adAnalytics
         playerViewController.onDismiss = { [weak self] in
             self?.analytics.complete(item: playerViewController.player.currentItem!,
-                                     mode: .fullscreen,
                                      progress: playerViewController.player.playbackState)
         }
         playerViewController.analyticEventDelegate = self
     
+        analytics.screenMode = .fullscreen
         topmostViewController.present(playerViewController,
-                                      animated: animated) {
-            self.analytics.track(item: currentItem, mode: .fullscreen)
-            completion?()
-        }
+                                      animated: animated,
+                                      completion: completion)
     }
 
     // MARK: - Playback controls

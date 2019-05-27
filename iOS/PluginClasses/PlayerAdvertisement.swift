@@ -69,12 +69,6 @@ class PlayerAdvertisement: PlayerAdvertisementEventsDelegate {
             adAnalytic?.adBreakDuration = "\(advertisement.duration)"
             adAnalytic?.videoDuration = String.create(fromInterval: progress.duration)
             adAnalytic?.videoAdType = advertisementType(forProgress: progress)
-            
-            if let params = adAnalytic?.dictionary {
-                analytics.track(event: .advertisement,
-                                withParameters: params,
-                                timed: true)
-            }
         case .STARTED:
             adAnalytic?.adBreakTime = adBreakTime(fromProgress: progress)
             adAnalytic?.adBreakPercentileTime = percentileTime(fromProgress: progress)

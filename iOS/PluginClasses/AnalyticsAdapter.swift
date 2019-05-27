@@ -4,9 +4,8 @@ import ZappPlugins
 protocol AnalyticsAdapterProtocol {
     var screenMode: PlayerScreenMode {get set}
     
-    func track(item: ZPPlayable, mode: PlayerScreenMode)
     func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any], timed: Bool)
-    func complete(item: ZPPlayable, mode: PlayerScreenMode, progress: Progress)
+    func complete(item: ZPPlayable, progress: Progress)
     func complete(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any])
 }
 
@@ -59,15 +58,6 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
     
     // MARK: - AnalyticsAdapterProtocol methods
     
-    func track(item: ZPPlayable, mode: PlayerScreenMode) {
-        let params = basicParams(for: item, mode: mode)
-        let event = item.event.rawValue
-                
-        ZAAppConnector.sharedInstance().analyticsDelegate?.trackEvent(name: event,
-                                                                     parameters: params,
-                                                                     timed: true)
-    }
-    
     func track(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any], timed: Bool) {
         guard var params = parameters as? [String: Any] else {
             return
@@ -80,8 +70,8 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
                                                                      timed: timed)
     }
     
-    func complete(item: ZPPlayable, mode: PlayerScreenMode, progress: Progress) {
-        let params = basicParams(for: item, mode: mode)
+    func complete(item: ZPPlayable, progress: Progress) {
+        let params = item.additionalAnalyticsParams
             .merge(completedParams(for: item, state: progress))
         let event = item.event.rawValue
         
@@ -99,15 +89,6 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
     }
     
     // MARK: - Private methods
-    
-    private func basicParams(for item: ZPPlayable, mode: PlayerScreenMode) -> Props {
-        screenMode = mode
-        let params = item.analyticsParams() as? [String: Any] ?? [:]
-        let additionalParams = item.additionalAnalyticsParams as? [String: Any] ?? [:]
-        return params
-            .merge(additionalParams)
-            .merge(viewParams(for: mode))
-    }
     
     private func viewParams(for mode: PlayerScreenMode) -> Props {
         return [AnalyticsKeys.view.rawValue: mode.analyticsMode]
