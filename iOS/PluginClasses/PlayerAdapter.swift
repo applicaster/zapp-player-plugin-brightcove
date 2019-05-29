@@ -161,7 +161,7 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     
     @objc private func pauseButtonPressed() {
         if isPausedButtonPressed == false {
-            print("Pause button pressed")
+            delegate?.pauseButtonPressed()
         }
         
         isPausedButtonPressed.toggle()
