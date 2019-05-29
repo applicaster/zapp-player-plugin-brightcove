@@ -17,7 +17,7 @@ struct Progress {
     }
 }
 
-protocol PlayerAdapterProtocol: class {    
+protocol PlayerAdapterProtocol: class {
     var currentItem: ZPPlayable? { get }
     var player: BCOVPlaybackController! { get set}
     
@@ -45,6 +45,7 @@ protocol PlaybackEventsDelegate: AnyObject {
     func rewindButtonPressed(at: TimeInterval)
     func seekOccured(from: TimeInterval, to: TimeInterval)
     func didStartPlaybackSession()
+    func pauseButtonPressed()
 }
 
 class PlayerAdapter: NSObject, PlayerAdapterProtocol {
@@ -71,6 +72,8 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     
     weak var playerView: BCOVPUIPlayerView?
     weak var delegate: PlaybackEventsDelegate?
+    
+    var isPausedButtonPressed = false
     
     // MARK: - Lifecycle
     
@@ -155,6 +158,14 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
             return nil
         }
     }
+    
+    @objc private func pauseButtonPressed() {
+        if isPausedButtonPressed == false {
+            print("Pause button pressed")
+        }
+        
+        isPausedButtonPressed.toggle()
+    }
 }
 
 extension PlayerAdapter: BCOVPlaybackControllerDelegate {
@@ -172,6 +183,9 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
         playbackState = Progress()
         
         delegate?.didStartPlaybackSession()
+        playerView?.controlsView.playbackButton.addTarget(self,
+                                                          action: #selector(pauseButtonPressed),
+                                                          for: .touchDown)
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,
