@@ -227,8 +227,6 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             isContentPaused = true
         case kBCOVIMALifecycleEventAdsManagerDidRequestContentResume:
             isContentPaused = false
-        case "kBCOVPlaybackSessionLifecycleEventPauseRequest":
-            pauseButtonPressed()
         default:
             break
         }
@@ -268,6 +266,21 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         videoStartTime = Date()
     }
     
+    func pauseButtonPressed() {
+        guard let item = player.currentItem else {
+            return
+        }
+        
+        let analyticParamsBuilder = AnalyticParamsBuilder()
+        analyticParamsBuilder.progress = player.playbackState.progress
+        analyticParamsBuilder.duration = player.playbackState.duration
+        analyticParamsBuilder.isLive = item.isLive()
+        analyticParamsBuilder.durationInVideo = Date().timeIntervalSince(videoStartTime)
+        
+        let params = item.additionalAnalyticsParams.merge(analyticParamsBuilder.parameters)
+        analyticEventDelegate?.eventOccurred(.pause, params: params, timed: false)
+    }
+    
     // MARK: - BCOVPUIPlayerViewDelegate methods
     
     func playerView(_ playerView: BCOVPUIPlayerView!, willTransitionTo screenMode: BCOVPUIScreenMode) {
@@ -288,22 +301,5 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         
         let params = item.additionalAnalyticsParams.merge(analyticParamsBuidler.parameters)
         analyticEventDelegate?.eventOccurred(.playerViewSwitch, params: params, timed: false)
-    }
-    
-    // MARK: - Private methods
-    
-    private func pauseButtonPressed() {
-        guard let item = player.currentItem else {
-            return
-        }
-        
-        let analyticParamsBuilder = AnalyticParamsBuilder()
-        analyticParamsBuilder.progress = player.playbackState.progress
-        analyticParamsBuilder.duration = player.playbackState.duration
-        analyticParamsBuilder.isLive = item.isLive()
-        analyticParamsBuilder.durationInVideo = Date().timeIntervalSince(videoStartTime)
-        
-        let params = item.additionalAnalyticsParams.merge(analyticParamsBuilder.parameters)
-        analyticEventDelegate?.eventOccurred(.pause, params: params, timed: false)
     }
 }

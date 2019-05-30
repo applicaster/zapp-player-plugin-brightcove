@@ -79,10 +79,11 @@ public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyti
         guard let playerViewController = self.playerViewController else {
             return
         }
+        
+        playerViewController.builder.mode = .inline
 
         rootViewController.addChildViewController(playerViewController, to: container)
         playerViewController.view.matchParent()
-        playerViewController.builder.mode = .inline
         playerViewController.setupPlayer()
         playerViewController.delegate = self.adAnalytics
         playerViewController.analyticEventDelegate = self
