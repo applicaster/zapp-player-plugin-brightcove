@@ -20,7 +20,6 @@ import com.applicaster.plugin_manager.playersmanager.PlayableConfiguration
 import com.applicaster.plugin_manager.playersmanager.PlayerContract
 import com.applicaster.plugin_manager.screen.PluginScreen
 import com.brightcove.player.view.BrightcoveExoPlayerVideoView
-import com.brightcove.player.view.BrightcoveVideoView
 import java.io.Serializable
 import java.util.HashMap
 
@@ -31,7 +30,7 @@ import java.util.HashMap
  */
 class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener, PluginScreen {
 
-    private lateinit var videoView: BrightcoveVideoView
+    private lateinit var videoView: BrightcoveExoPlayerVideoView
     private lateinit var adAnalyticsAdapter: AdAnalyticsAdapter
     private lateinit var analyticsAdapter: AnalyticsAdapter
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter

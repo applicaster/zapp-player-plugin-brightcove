@@ -4,11 +4,9 @@ import com.applicaster.analytics.AnalyticsAgentUtil
 import com.applicaster.atom.model.APAtomEntry
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.applicaster.plugin_manager.playersmanager.internal.PlayableType
-import com.brightcove.ima.GoogleIMAEventType
 import com.brightcove.player.event.Event
 import com.brightcove.player.event.EventType
 import com.brightcove.player.view.BrightcoveVideoView
-import com.google.ads.interactivemedia.v3.api.AdsManager
 
 class CompleteAnalyticsAdapter(
     private val view: BrightcoveVideoView
@@ -47,7 +45,7 @@ class CompleteAnalyticsAdapter(
      * Initialize all event listeners
      */
     private fun initEventEmitters() {
-        view.eventEmitter.on(EventType.DID_ENTER_FULL_SCREEN) {
+        view.eventEmitter.on(EventType.ENTER_FULL_SCREEN) {
             startTimeInVideoMillis = System.currentTimeMillis()
             switchInstanceCounter++
             originalView = getOriginalView(playerMode)
@@ -59,7 +57,7 @@ class CompleteAnalyticsAdapter(
             )
         }
 
-        view.eventEmitter.on(EventType.DID_EXIT_FULL_SCREEN) {
+        view.eventEmitter.on(EventType.EXIT_FULL_SCREEN) {
             switchInstanceCounter++
             originalView = getOriginalView(playerMode)
             playerMode = AnalyticsAdapter.PlayerMode.INLINE
@@ -70,15 +68,15 @@ class CompleteAnalyticsAdapter(
             )
         }
 
-        view.eventEmitter.on(EventType.DID_SEEK_TO) {
-            AnalyticsAgentUtil.logEvent(AnalyticsEvent.SEEK.value, collectSeekProperties(playableProps, it))
-        }
-
-        view.eventEmitter.on(EventType.DID_PAUSE) {
+        view.eventEmitter.on(EventType.PAUSE) {
             AnalyticsAgentUtil.logEvent(AnalyticsEvent.PAUSE.value, collectPauseProperties(playableProps))
         }
 
-        view.eventEmitter.on(EventType.DID_REWIND) {
+        view.eventEmitter.on(EventType.SEEK_TO) {
+            AnalyticsAgentUtil.logEvent(AnalyticsEvent.SEEK.value, collectSeekProperties(playableProps, it))
+        }
+
+        view.eventEmitter.on(EventType.REWIND) {
             AnalyticsAgentUtil.logEvent(AnalyticsEvent.TAP_REWIND.value, collectRewindProperties(playableProps))
         }
 

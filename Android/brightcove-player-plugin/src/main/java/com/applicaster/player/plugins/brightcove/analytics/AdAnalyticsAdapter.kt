@@ -21,6 +21,8 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     private lateinit var eventEmitter: EventEmitter
     private var adsManager: AdsManager? = null
 
+    private var playable: Playable? = null
+
     private var collectedParams: MutableMap<String, String> = HashMap()
 
     // Watch video advertisement properties
@@ -46,6 +48,7 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
      */
     override fun startTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
         Log.v(TAG, "startTrack")
+        this.playable = playable
         setupComponents()
         setupAdsManager()
         collectParams(playable)
@@ -63,25 +66,40 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     override fun onAdEvent(event: AdEvent) {
         when (event.type) {
             AdEvent.AdEventType.STARTED -> {
+                adExitMethod = getAdExitMethod(AdExitMethod.UNSPECIFIED)
                 adBreakTime = getAdBreakTime()
                 videoAdType = getVideoAdType()
                 adBreakDuration = getAdBreakDuration(event)
+                setAllCollectedParams()
+                this.playable?.let {
+                    logTimedEvent(it, AnalyticsAgentUtil.DataTypes.TIME_EVENT_START)
+                }
             }
 
             AdEvent.AdEventType.SKIPPED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.SKIPPED)
                 skipped = isSkipped(true)
                 setAllCollectedParams()
+                this.playable?.let {
+                    logTimedEvent(it, AnalyticsAgentUtil.DataTypes.REAL_TIME_EVENT)
+                }
             }
 
             AdEvent.AdEventType.COMPLETED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.COMPLETED)
                 skipped = isSkipped(false)
+                setAllCollectedParams()
+                this.playable?.let {
+                    logTimedEvent(it, AnalyticsAgentUtil.DataTypes.TIME_EVENT_END)
+                }
             }
 
             AdEvent.AdEventType.CLICKED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.CLICKED)
                 setAllCollectedParams()
+                this.playable?.let {
+                    logTimedEvent(it, AnalyticsAgentUtil.DataTypes.REAL_TIME_EVENT)
+                }
             }
 
             // default
@@ -146,7 +164,7 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
 
             setAllCollectedParams()
 
-            logTimedEvent(playable)
+            logTimedEvent(playable, AnalyticsAgentUtil.DataTypes.TIME_EVENT_START)
         }
 
         // Collect data for ad completed event
@@ -164,7 +182,7 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
 
             setAllCollectedParams()
 
-            logTimedEvent(playable)
+            logTimedEvent(playable, AnalyticsAgentUtil.DataTypes.TIME_EVENT_END)
         }
 
         // Collect data for ad progress event
@@ -186,11 +204,23 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     /**
      *  Send collected data to analytics agent
      */
-    private fun logTimedEvent(playable: Playable) {
-        AnalyticsAgentUtil.logTimedEvent(
-            playable.watchVideoAdEvent,
-            collectedParams
-        )
+    private fun logTimedEvent(playable: Playable, dataType: AnalyticsAgentUtil.DataTypes) {
+        when (dataType) {
+            AnalyticsAgentUtil.DataTypes.TIME_EVENT_START -> AnalyticsAgentUtil.logTimedEvent(
+                playable.watchVideoAdEvent,
+                collectedParams
+            )
+            AnalyticsAgentUtil.DataTypes.TIME_EVENT_END -> AnalyticsAgentUtil.endTimedEvent(
+                playable.watchVideoAdEvent,
+                collectedParams
+            )
+            else -> {
+                AnalyticsAgentUtil.logTimedEvent(
+                    playable.watchVideoAdEvent,
+                    collectedParams
+                )
+            }
+        }
     }
 
     private fun setupAdsManager() {
@@ -286,7 +316,7 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     fun backPressed(playable: Playable) {
         adExitMethod = getAdExitMethod(AdExitMethod.ANDROID_BACK_BUTTON)
         setAllCollectedParams()
-        logTimedEvent(playable)
+        logTimedEvent(playable, AnalyticsAgentUtil.DataTypes.REAL_TIME_EVENT)
     }
 
     enum class AdExitMethod(val value: String) {

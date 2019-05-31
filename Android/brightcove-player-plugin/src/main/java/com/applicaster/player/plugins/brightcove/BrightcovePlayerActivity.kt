@@ -12,13 +12,16 @@ import com.applicaster.player.plugins.brightcove.analytics.*
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.applicaster.plugin_manager.playersmanager.internal.PlayersManager
 import com.brightcove.player.event.EventType
+import com.brightcove.player.view.BrightcoveExoPlayerVideoView
 import com.brightcove.player.view.BrightcoveVideoView
 import kotlinx.android.synthetic.main.activity_brightcove_player.*
+
+
 
 class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
 
     private lateinit var playable: Playable
-    private lateinit var videoView: BrightcoveVideoView
+    private lateinit var videoView: BrightcoveExoPlayerVideoView
     private lateinit var analyticsAdapter: AnalyticsAdapter
     private lateinit var adAnalyticsAdapter: AdAnalyticsAdapter
     private lateinit var errorHandlingAnalyticsAdapter: ErrorHandlingAnalyticsAdapter
