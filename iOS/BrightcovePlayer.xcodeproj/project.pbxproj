@@ -298,19 +298,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-				"${PODS_ROOT}/Brightcove-Player-IMA/ios/BrightcoveIMA.framework",
-				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework",
-				"${PODS_ROOT}/ZappPlugins/Frameworks/iOS/ZappPlugins.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcoveIMA.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappPlugins.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -322,19 +315,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-frameworks.sh",
-				"${PODS_ROOT}/Brightcove-Player-Core/ios/dynamic/BrightcovePlayerSDK.framework",
-				"${PODS_ROOT}/Brightcove-Player-IMA/ios/BrightcoveIMA.framework",
-				"${PODS_ROOT}/GoogleAds-IMA-iOS-SDK/GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.framework",
-				"${PODS_ROOT}/ZappPlugins/Frameworks/iOS/ZappPlugins.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcovePlayerSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BrightcoveIMA.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleInteractiveMediaAds.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZappPlugins.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -346,39 +332,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-				"${PODS_ROOT}/../Resources/Images/Back.png",
-				"${PODS_ROOT}/../Resources/Images/Back@2x.png",
-				"${PODS_ROOT}/../Resources/Images/Back@3x.png",
-				"${PODS_ROOT}/../Resources/Images/Close_btn.png",
-				"${PODS_ROOT}/../Resources/Images/Close_btn@2x.png",
-				"${PODS_ROOT}/../Resources/Images/Close_btn@3x.png",
-				"${PODS_ROOT}/../Resources/Images/Connectivity.png",
-				"${PODS_ROOT}/../Resources/Images/Connectivity@2x.png",
-				"${PODS_ROOT}/../Resources/Images/Connectivity@3x.png",
-				"${PODS_ROOT}/../Resources/Images/Refresh.png",
-				"${PODS_ROOT}/../Resources/Images/Refresh@2x.png",
-				"${PODS_ROOT}/../Resources/Images/Refresh@3x.png",
-				"${PODS_ROOT}/../PluginClasses/ErrorView.xib",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Back.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Back@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Back@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Close_btn.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Close_btn@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Close_btn@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Connectivity.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Connectivity@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Connectivity@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ErrorView.nib",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -408,39 +367,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Brightcove-Player-Core/BCOVPUIResources.bundle",
-				"${PODS_ROOT}/../Resources/Images/Back.png",
-				"${PODS_ROOT}/../Resources/Images/Back@2x.png",
-				"${PODS_ROOT}/../Resources/Images/Back@3x.png",
-				"${PODS_ROOT}/../Resources/Images/Close_btn.png",
-				"${PODS_ROOT}/../Resources/Images/Close_btn@2x.png",
-				"${PODS_ROOT}/../Resources/Images/Close_btn@3x.png",
-				"${PODS_ROOT}/../Resources/Images/Connectivity.png",
-				"${PODS_ROOT}/../Resources/Images/Connectivity@2x.png",
-				"${PODS_ROOT}/../Resources/Images/Connectivity@3x.png",
-				"${PODS_ROOT}/../Resources/Images/Refresh.png",
-				"${PODS_ROOT}/../Resources/Images/Refresh@2x.png",
-				"${PODS_ROOT}/../Resources/Images/Refresh@3x.png",
-				"${PODS_ROOT}/../PluginClasses/ErrorView.xib",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCOVPUIResources.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Back.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Back@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Back@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Close_btn.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Close_btn@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Close_btn@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Connectivity.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Connectivity@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Connectivity@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh@2x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Refresh@3x.png",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ErrorView.nib",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
