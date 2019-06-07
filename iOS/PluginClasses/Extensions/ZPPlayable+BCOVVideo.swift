@@ -24,7 +24,7 @@ extension ZPPlayable {
             captionsParser.parse()
             
             video = video
-                .updateVideo(withAds: parser.parsedAdvertisement)
+                .updateVideo(with: parser.parsedAdvertisement)
                 .updateVideo(with: captionsParser.parsedCaptions)
             
             return video

@@ -11,7 +11,7 @@ import BrightcoveIMA
 
 extension BCOVVideo {
     
-    func updateVideo(withAds advertisement: Advertisement) -> BCOVVideo {
+    func updateVideo(with advertisement: Advertisement) -> BCOVVideo {
         return update { (mutableVideo) in
             switch advertisement {
             case .vmap(let vmapURL):
