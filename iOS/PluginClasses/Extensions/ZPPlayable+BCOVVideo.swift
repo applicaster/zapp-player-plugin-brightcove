@@ -20,7 +20,12 @@ extension ZPPlayable {
             let parser = AdvertisementParser(parseData: extensionsDictionary)
             parser.parse()
             
-            video = video.updateVideo(withAds: parser.parsedAdvertisement)
+            let captionsParser = CaptionsParser(parseData: extensionsDictionary)
+            captionsParser.parse()
+            
+            video = video
+                .updateVideo(withAds: parser.parsedAdvertisement)
+                .updateVideo(with: captionsParser.parsedCaptions)
             
             return video
         }

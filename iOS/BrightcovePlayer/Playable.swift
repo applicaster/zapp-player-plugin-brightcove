@@ -51,7 +51,13 @@ class Playable: NSObject, ZPPlayable {
         return [:]
     }
     
+    func assetUrl() -> AVURLAsset? {
+        return nil
+    }
+    
     var identifier: NSString?
     
     var extensionsDictionary: NSDictionary?
+    
+    var playbackDuration: TimeInterval = 0
 }
