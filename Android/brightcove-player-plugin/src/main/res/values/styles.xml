@@ -7,10 +7,6 @@
     <item name="android:windowBackground">@android:color/black</item>
   </style>
 
-  <style name="BrightcoveControlBar" parent="BrightcoveControlBarDefault">
-    <item name="brightcove_full_screen">false</item>
-  </style>
-
   <style name="ErrorDialogButton" parent="android:Widget.Button">
     <item name="android:layout_width">@dimen/btn_back_refresh_width</item>
     <item name="android:layout_height">@dimen/btn_back_refresh_height</item>
