@@ -9,6 +9,7 @@ import com.applicaster.player.plugins.brightcove.R.integer
 import com.applicaster.player.plugins.brightcove.ad.AdsAdapter
 import com.applicaster.player.plugins.brightcove.ad.GoogleIMAAdapter
 import com.applicaster.player.plugins.brightcove.analytics.*
+import com.applicaster.player.plugins.brightcove.captions.CaptionsAdapter
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.applicaster.plugin_manager.playersmanager.internal.PlayersManager
 import com.brightcove.player.event.EventType
@@ -84,6 +85,7 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
             }
 
             setVideoURI(Uri.parse(playable.contentVideoURL))
+            CaptionsAdapter(this).setupForVideo(playable)
             this
         }
         // setupForVideo close btn

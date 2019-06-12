@@ -14,10 +14,13 @@ import com.applicaster.plugin_manager.playersmanager.PlayerContract;
 import com.applicaster.plugin_manager.playersmanager.internal.PlayableType;
 import com.applicaster.plugin_manager.playersmanager.internal.PlayersManager;
 import com.applicaster.util.UrlSchemeUtil;
+import com.google.gson.Gson;
+import org.intellij.lang.annotations.Language;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This sample activity will create a player contract which will create an instance of your player
@@ -55,12 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         inlineButton.setOnClickListener(this);
 
         // Mock playable item. Replace this with the playable item your player expects
-        APURLPlayable playable =
-                new APURLPlayable("http://media.w3.org/2010/05/sintel/trailer.mp4",
-                        "Buck Bunny",
-                        "Test Video");
+//        APURLPlayable playable =
+//                new APURLPlayable("http://media.w3.org/2010/05/sintel/trailer.mp4",
+//                        "Buck Bunny",
+//                        "Test Video");
         // Mock playable item with ads. Use it instead of APURLPlayable to check how ad will work
-//        APAtomEntry.APAtomEntryPlayable playable = getPlayableWithAds();
+        APAtomEntry.APAtomEntryPlayable playable = getPlayableWithAds();
 
         // Player type should be left as default (covers the standard player as well as all plugin players)
         playable.setType(PlayableType.Default);
@@ -81,6 +84,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playerContract.resumeInline();
+    }
+
+    @Override
+    protected void onPause() {
+        playerContract.pauseInline();
+        super.onPause();
     }
 
     /**
@@ -119,15 +134,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         content.src = "http://media.w3.org/2010/05/sintel/trailer.mp4";
         entry.setContent(content);
         entry.setTitle("Buck Bunny");
-        List<HashMap> videoAds = new ArrayList<>();
-        videoAds.add(getTestVideoAd(TEST_AD_URL_1, "pre"));
-        videoAds.add(getTestVideoAd(TEST_AD_URL_2, "post"));
-        videoAds.add(getTestVideoAd(TEST_AD_URL_3, "30"));
-        videoAds.add(getTestVideoAd(TEST_AD_URL_4, "90"));
-        HashMap<String, List> singleAdExtension = new HashMap<>();
-        singleAdExtension.put(VideoAd.KEY_AD_CONTAINER, videoAds);
+
+
+        //VAST
+        ArrayList<Object> singleAdExtension = new ArrayList<>();
+        singleAdExtension.add(getTestVideoAd(TEST_AD_URL_1, "preroll"));
+        singleAdExtension.add(getTestVideoAd(TEST_AD_URL_3, "30"));
+        singleAdExtension.add(getTestVideoAd(TEST_AD_URL_4, "90"));
+        singleAdExtension.add(getTestVideoAd(TEST_AD_URL_2, "postroll"));
+        singleAdExtension.add("");
         entry.setExtension(VideoAd.KEY_VIDEO_AD_EXTENSION, singleAdExtension);
+        entry.setExtension("text_tracks", getTestCaptions());
+        int a = 0;
+
+        //VMAP
+//        entry.setExtension(VideoAd.KEY_VIDEO_AD_EXTENSION, getTestVideoAdVMAPUrl(0));
+
+
         return new APAtomEntry.APAtomEntryPlayable(entry);
+    }
+
+    @NonNull
+    private String getTestVideoAdVMAPUrl(int type) {
+        String result = "";
+        switch (type) {
+            case 0:
+                //pre, mid, post-rolls
+                result = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpremidpostpod&cmsid=496&vid=short_onecue&correlator=";
+                break;
+            case 1:
+                //pre-roll only
+                result = "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpreonly&cmsid=496&vid=short_onecue&correlator=";
+                break;
+            case 2:
+                //post-roll only
+                result =  "https://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&impl=s&gdfp_req=1&env=vp&output=vmap&unviewed_position_start=1&cust_params=deployment%3Ddevsite%26sample_ar%3Dpostonly&cmsid=496&vid=short_onecue&correlator=";
+                break;
+        }
+        return result;
     }
 
     @NonNull
@@ -136,5 +180,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         videoAd.put(VideoAd.KEY_URL, url);
         videoAd.put(VideoAd.KEY_OFFSET, offset);
         return videoAd;
+    }
+
+    @NonNull
+    private Map<String, Object> getTestCaptions() {
+        @Language("JSON")
+        String json = "{\"version\": \"1.0\", \"tracks\": [{\"label\": \"En subs\",\"type\": \"text/vtt\",\"language\": \"en\",\"src\": \"android.resource://\"}, {\"label\": \"Fr subs\",\"type\": \"text/vtt\",\"language\": \"fr\",\"src\": \"android.resource://\"}, {\"label\": \"De subs\",\"type\": \"text/vtt\",\"language\": \"de\",\"src\": \"android.resource://\"}]}";
+        Gson gson = new Gson();
+        return gson.fromJson(json, Map.class);
     }
 }

@@ -14,6 +14,7 @@ import com.applicaster.player.plugins.brightcove.analytics.AnalyticsAdapter.Play
 import com.applicaster.player.plugins.brightcove.ad.AdsAdapter
 import com.applicaster.player.plugins.brightcove.ad.GoogleIMAAdapter
 import com.applicaster.player.plugins.brightcove.analytics.*
+import com.applicaster.player.plugins.brightcove.captions.CaptionsAdapter
 import com.applicaster.plugin_manager.playersmanager.AdsConfiguration
 import com.applicaster.plugin_manager.playersmanager.Playable
 import com.applicaster.plugin_manager.playersmanager.PlayableConfiguration
@@ -124,6 +125,7 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener, PluginScreen 
         super.playInline(configuration)
         firstPlayable.also {
             videoView.setVideoURI(Uri.parse(it.contentVideoURL))
+            CaptionsAdapter(videoView).setupForVideo(firstPlayable)
             videoView.start()
         }
     }
