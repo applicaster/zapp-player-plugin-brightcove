@@ -183,7 +183,8 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             analyticParamsBuilder.isLive = item.isLive()
             
             let params = item.additionalAnalyticsParams.merge(analyticParamsBuilder.parameters)
-            analyticEventDelegate?.eventOccurred(.vod, params: params, timed: false)
+            let event: AnalyticsEvent = item.isLive() ? .live : .vod
+            analyticEventDelegate?.eventOccurred(event, params: params, timed: false)
         case "kBCOVPlaybackSessionLifecycleEventPlayRequest":
             let isPlaybackLikelyToKeepUp = session.player.currentItem?.isPlaybackLikelyToKeepUp ?? false
             let reachabilityStatus = ZAAppConnector.sharedInstance().connectivityDelegate?.getCurrentConnectivityState()
