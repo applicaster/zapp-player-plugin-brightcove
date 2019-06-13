@@ -179,7 +179,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         switch event.eventType {
         case kBCOVPlaybackSessionLifecycleEventReady:
             let analyticParamsBuilder = AnalyticParamsBuilder()
-            analyticParamsBuilder.duration = player.playbackState.duration
+            analyticParamsBuilder.duration = session.player.currentItem!.duration.seconds
             analyticParamsBuilder.isLive = item.isLive()
             
             let params = item.additionalAnalyticsParams.merge(analyticParamsBuilder.parameters)
