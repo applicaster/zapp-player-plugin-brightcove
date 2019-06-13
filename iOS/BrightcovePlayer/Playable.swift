@@ -54,4 +54,8 @@ class Playable: NSObject, ZPPlayable {
     var identifier: NSString?
     
     var extensionsDictionary: NSDictionary?
+    
+    func assetUrl() -> AVURLAsset? {
+        return nil
+    }
 }
