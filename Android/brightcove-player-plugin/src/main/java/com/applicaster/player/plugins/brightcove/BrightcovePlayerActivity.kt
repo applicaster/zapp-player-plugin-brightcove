@@ -37,7 +37,6 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     private lateinit var adsAdapter: AdsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
         playable = intent.extras!!.getSerializable(BrightcovePlayerAdapter.KEY_PLAYABLE) as Playable
 
@@ -45,12 +44,12 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
         setContentView(R.layout.activity_brightcove_player)
         // setupForVideo video view
         configureVideo()
+        super.onCreate(savedInstanceState)
     }
 
     private fun configureVideo() {
         videoView = with(fullscreen_video_view) {
             post { reconfigureControls() }
-            eventEmitter.emit(EventType.ENTER_FULL_SCREEN)
             eventEmitter.on(EventType.COMPLETED) {
                 if (videoCompletionResult == VideoCompletionResult.UNDEFINED) {
                     if (!adsAdapter.isPostrollSetUp()) {finish()}
