@@ -65,32 +65,12 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
 
     override fun onAdEvent(event: AdEvent) {
         when (event.type) {
-            AdEvent.AdEventType.STARTED -> {
-                adExitMethod = getAdExitMethod(AdExitMethod.UNSPECIFIED)
-                adBreakTime = getAdBreakTime()
-                videoAdType = getVideoAdType()
-                adBreakDuration = getAdBreakDuration(event)
-                setAllCollectedParams()
-                this.playable?.let {
-                    logTimedEvent(it, AnalyticsAgentUtil.DataTypes.TIME_EVENT_START)
-                }
-            }
-
             AdEvent.AdEventType.SKIPPED -> {
                 adExitMethod = getAdExitMethod(AdExitMethod.SKIPPED)
                 skipped = isSkipped(true)
                 setAllCollectedParams()
                 this.playable?.let {
                     logTimedEvent(it, AnalyticsAgentUtil.DataTypes.REAL_TIME_EVENT)
-                }
-            }
-
-            AdEvent.AdEventType.COMPLETED -> {
-                adExitMethod = getAdExitMethod(AdExitMethod.COMPLETED)
-                skipped = isSkipped(false)
-                setAllCollectedParams()
-                this.playable?.let {
-                    logTimedEvent(it, AnalyticsAgentUtil.DataTypes.TIME_EVENT_END)
                 }
             }
 
@@ -153,6 +133,10 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
         eventEmitter.on(
             EventType.AD_STARTED
         ) { event -> Log.v(TAG, event.type)
+            adExitMethod = getAdExitMethod(AdExitMethod.UNSPECIFIED)
+            adBreakTime = getAdBreakTime()
+            videoAdType = getVideoAdType()
+            getAdBreakDuration(getAdEvent(event))
             adUnit = getAdUnit(event)
             adProvider = getAdProvider()
             skippable = isSkippable(event)
@@ -171,6 +155,8 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
         eventEmitter.on(
             EventType.AD_COMPLETED
         ) { event -> Log.v(TAG, event.type)
+            adExitMethod = getAdExitMethod(AdExitMethod.COMPLETED)
+            skipped = isSkipped(false)
             adUnit = getAdUnit(event)
             adProvider = getAdProvider()
             skippable = isSkippable(event)
@@ -200,6 +186,8 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
             setAllCollectedParams()
         }
     }
+
+    private fun getAdEvent(event: Event): AdEvent? = event.properties["adEvent"] as? AdEvent
 
     /**
      *  Send collected data to analytics agent
@@ -281,8 +269,8 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
     private fun getAdBreakTime() =
         AD_BREAK_TIME to parseDuration(videoView.currentPosition.toLong())
 
-    private fun getAdBreakDuration(event: AdEvent) =
-        AD_BREAK_DURATION to parseDuration(event.ad.duration.toLong(), isInMilliseconds = false)
+    private fun getAdBreakDuration(event: AdEvent?) =
+        event?.let { AD_BREAK_DURATION to parseDuration(it.ad?.duration?.toLong() ?: 0L, isInMilliseconds = false) }
 
     private fun getTimeWhenExited(event: Event) =
         TIME_WHEN_EXITED to parseDuration((event.properties["playheadPosition"] as Int).toLong())
