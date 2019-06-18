@@ -19,7 +19,7 @@ extension BCOVVideo {
             let currentTextTracks = properties[kBCOVSSVideoPropertiesKeyTextTracks] as? [[String: Any]] ?? [[:]]
             let duration = self.videoDuration()
             
-            let textTracks = captions.map({ $0.bcovCaptions(with: duration)})
+            let textTracks = captions.map({ $0.bcovCaptions(with: Int(duration))})
             let combinedTextTracks = currentTextTracks + textTracks
             mutableVideo?.properties[kBCOVSSVideoPropertiesKeyTextTracks] = combinedTextTracks
         })
@@ -56,7 +56,7 @@ extension BCOVVideo {
 }
 
 private extension Captions {
-    func bcovCaptions(with duration: TimeInterval) -> [String: Any] {
+    func bcovCaptions(with duration: Int) -> [String: Any] {
         let kind: String
         switch self.kind {
         case .captions:
