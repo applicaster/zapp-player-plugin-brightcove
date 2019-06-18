@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @NonNull
     private Map<String, Object> getTestCaptions() {
         @Language("JSON")
-        String json = "{\"version\": \"1.0\", \"tracks\": [{\"label\": \"En subs\",\"type\": \"text/vtt\",\"language\": \"en\",\"src\": \"android.resource://\"}, {\"label\": \"Fr subs\",\"type\": \"text/vtt\",\"language\": \"fr\",\"src\": \"android.resource://\"}, {\"label\": \"De subs\",\"type\": \"text/vtt\",\"language\": \"de\",\"src\": \"android.resource://\"}]}";
+        String json = "{\"version\": \"1.0\", \"tracks\": [{\"label\": \"En subs\",\"type\": \"text/vtt\", \"kind\": \"captions\", \"language\": \"en\",\"source\": \"https://www.dropbox.com/s/cl9aowtpzfapmjc/raw_sintel_trailer_en.vtt.flat?dl=1\"}, {\"label\": \"Fr subs\",\"type\": \"text/vtt\", \"kind\": \"captions\",\"language\": \"fr\",\"source\": \"https://www.dropbox.com/s/deoud5b59n886d7/raw_sintel_trailer_fr.vtt.flat?dl=1\"}]}";
         Gson gson = new Gson();
         return gson.fromJson(json, Map.class);
     }

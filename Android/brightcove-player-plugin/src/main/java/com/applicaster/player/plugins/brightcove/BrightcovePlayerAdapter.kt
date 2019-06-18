@@ -125,7 +125,10 @@ class BrightcovePlayerAdapter : BasePlayer(), ErrorDialogListener, PluginScreen 
         super.playInline(configuration)
         firstPlayable.also {
             videoView.setVideoURI(Uri.parse(it.contentVideoURL))
-            CaptionsAdapter(videoView).setupForVideo(firstPlayable)
+            CaptionsAdapter(videoView).apply {
+                setupForVideo(firstPlayable)
+                initAnalytics(firstPlayable, INLINE)
+            }
             videoView.start()
         }
     }

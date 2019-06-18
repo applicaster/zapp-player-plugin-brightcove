@@ -199,15 +199,6 @@ class CompleteAnalyticsAdapter(
         }
 
     /**
-     * What view the player was in when the video playing session began
-     */
-    private fun getViewMode(mode: AnalyticsAdapter.PlayerMode): Pair<String, String> =
-        when (mode) {
-            AnalyticsAdapter.PlayerMode.INLINE -> AnalyticsEvent.VIEW.value to ViewMode.INLINE.value
-            AnalyticsAdapter.PlayerMode.FULLSCREEN -> AnalyticsEvent.VIEW.value to ViewMode.FULL_SCREEN.value
-        }
-
-    /**
      * Whether or not the user completed the item (got to the end of the video before closing)
      */
     private fun getCompletion(): Pair<String, String> =
@@ -215,32 +206,6 @@ class CompleteAnalyticsAdapter(
             Completed.YES -> Pair(AnalyticsEvent.COMPLETED.value, Completed.YES.value)
             Completed.NO -> Pair(AnalyticsEvent.COMPLETED.value, Completed.NO.value)
         }
-
-
-    /**
-     * The ID of the item
-     */
-    private fun getItemId(playable: Playable): Pair<String, String> =
-        AnalyticsEvent.ITEM_ID.value to playable.playableId
-
-    /**
-     * Whether the video is VOD or Live
-     */
-    private fun getVideoType(): Pair<String, String> =
-        if (this.isLive)
-            AnalyticsEvent.VIDEO_TYPE.value to VideoType.LIVE.value
-        else
-            AnalyticsEvent.VIDEO_TYPE.value to VideoType.VOD.value
-
-    /**
-     * The timecode of the duration at point of making the switch.
-     * Only applicable if Video Type is VOD"
-     */
-    private fun getTimecode(): Pair<String, String> =
-        if (!this.isLive)
-            AnalyticsEvent.TIMECODE.value to parseDuration(view.currentPosition.toLong())
-        else
-            AnalyticsEvent.TIMECODE.value to parseDuration(0L)
 
     /**
      * The number of times the user has already switched view in the video play session.
@@ -256,20 +221,6 @@ class CompleteAnalyticsAdapter(
         val result = System.currentTimeMillis() - startTimeInVideoMillis
         return AnalyticsEvent.DURATION_IN_VIDEO.value to parseDuration(result)
     }
-
-    /**
-     * Data type of VOD Item
-     * Only applicable if Video Type is VOD
-     */
-    private fun getVODType(playable: Playable): Pair<String, String> =
-        when {
-            (playable is APAtomEntry.APAtomEntryPlayable) -> Pair(AnalyticsEvent.VOD_TYPE.value, VODType.ATOM.value)
-            (playable.playableType == PlayableType.Youtube) -> Pair(
-                AnalyticsEvent.VOD_TYPE.value,
-                VODType.YOUTUBE.value
-            )
-            else -> Pair(AnalyticsEvent.VOD_TYPE.value, VODType.APPLICASTER_MODEL.value)
-        }
 
     /**
      * Whether the user seeks forward or backwards
@@ -312,51 +263,12 @@ class CompleteAnalyticsAdapter(
     }
 
     // Events properties
-    private enum class ViewMode(val value: String) {
-        INLINE("Inline"),
-        FULL_SCREEN("Full Screen")
-    }
-
     private enum class Completed(val value: String) {
         YES("Yes"), NO("No")
-    }
-
-    private enum class VideoType(val value: String) {
-        LIVE("Live"), VOD("VOD")
-    }
-
-    private enum class VODType(val value: String) {
-        APPLICASTER_MODEL("Applicaster Model"),
-        YOUTUBE("Youtube"),
-        ATOM("Atom")
     }
 
     private enum class SeekDirection(val value: String) {
         FAST_FORWARD("Fast Forward"),
         REWIND("Rewind")
-    }
-
-    // Complete analytics events
-    enum class AnalyticsEvent(val value: String) {
-        PLAY_VOD_ITEM("Play VOD Item"),
-        PLAY_LIVE_STREAM("Play Live Stream"),
-        SWITCH_PLAYER_VIEW("Switch player view"),
-        PAUSE("Pause"),
-        SEEK("Seek"),
-        TAP_REWIND("Tap Rewind"),
-        ORIGINAL_VIEW("Original View"),
-        COMPLETED("Completed"),
-        NEW_VIEW("New View"),
-        VIEW("View"),
-        ITEM_ID("Item ID"),
-        VIDEO_TYPE("Video Type"),
-        TIMECODE("Timecode"),
-        SWITCH_INSTANCE("Switch Instance"),
-        DURATION_IN_VIDEO("Duration In Video"),
-        VOD_TYPE("VOD Type"),
-        SEEK_DIRECTION("Seek Direction"),
-        TIMECODE_FROM("Timecode From"),
-        TIMECODE_TO("Timecode To"),
-        AD_BREAKS_SKIPPED("Ad Breaks Skipped")
     }
 }

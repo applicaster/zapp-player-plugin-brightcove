@@ -84,7 +84,10 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
             }
 
             setVideoURI(Uri.parse(playable.contentVideoURL))
-            CaptionsAdapter(this).setupForVideo(playable)
+            CaptionsAdapter(this).apply {
+                setupForVideo(playable)
+                initAnalytics(playable, FULLSCREEN)
+            }
             this
         }
         // setupForVideo close btn
