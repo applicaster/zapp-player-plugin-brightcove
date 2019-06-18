@@ -25,8 +25,9 @@ extension ZPPlayable {
                                      AnalyticsKeys.itemID.rawValue: identifier ?? "",
                                      AnalyticsKeys.itemName.rawValue: playableName() ?? ""]
         if isLive() == false {
-            let duration = playbackDuration ?? 0.0
-            params[AnalyticsKeys.itemDuration.rawValue] = String.create(fromInterval: duration)
+            if let duration = playbackDuration {
+                params[AnalyticsKeys.itemDuration.rawValue] = String.create(fromInterval: duration)
+            }
             params[VodType.key] = VodType.atom.rawValue
         }
         

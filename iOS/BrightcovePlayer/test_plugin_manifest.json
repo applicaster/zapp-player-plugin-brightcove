@@ -13,7 +13,7 @@
   "platform": "ios",
   "author_name": "Roman Karpievich",
   "author_email": "karpievich@scand.com",
-  "manifest_version": "1.1.6",
+  "manifest_version": "1.1.7",
   "name": "Brightcove Player Test",
   "description": "Brightcove's high-performance video player",
   "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
@@ -21,7 +21,7 @@
   "identifier": "BrightcovePlayerPlugin-Test",
   "ui_builder_support": true,
   "dependency_name": "BrightcovePlayerPlugin",
-  "dependency_version": "1.1.6",
+  "dependency_version": "1.1.7",
   "whitelisted_account_ids": ["5a4516fa41442c000b0195d6"],
   "min_zapp_sdk": "11.0.0-Dev",
   "deprecated_since_zapp_sdk": "",
@@ -78,6 +78,5 @@
         ]
       }
     ]
-  },
-  "about": "*Built with love by the Applicaster Owned Plugins Team*  \n**Supports:** *iOS, Android*  \n*Current Version: 1.1 *  \n**About**  \nThe Brightcove Player is a high-performance video player that loads quickly, delivers high-quality adaptive bitrate HLS video across mobile platforms, and delivers seamless advertising and measurement capabilities.  \nThe Brightcove Native Player SDKs are built on top of native player frameworks. This allows you to take advantage of the speed, performance, and flexibility of the native OS, and extend it into a complete video experience.  \n[Click Here](https://www.brightcove.com/en/player) to learn more about the Brightcove Native Player.  \n**Key Features**  \n* VOD & LIVE HLS - High-quality, adaptive bitrate video supporting VOD playback, live streaming, player controls, and full-screen (portrait and landscape) and inline views.  \n* Advertising - Deliver pre-rolls, mid-rolls, and/or post-rolls to optimize your ad revenue. Ad insertion includes both VAST and VMAP support and is fully customizable on the item level. You can learn how to configure ads via the documentation [here](https://applicaster.zendesk.com/hc/en-us/articles/360023208871-Configuring-Video-Ads-in-Brightcove).  \n* Analytics - Fully integrated with Applicaster’s analytics plugin system so your Brightcove events will be tracked by any analytics plugins you choose. Relevant events can be found [here](https://docs.google.com/spreadsheets/d/1OfAQyb6cHvmqySzdFvXfBg-f73U0VwQIPg-YKNgdvcw/edit?usp=sharing).  \n* Error Handling - For optimal user experience when the sub-optimal occurs, we've provided error screens to explain to users what happened when a video cannot play, customizable via the configuration panel to the right.  \n**Pricing**  \nBrightcove Essentials starts at $12k a year. Contact your Account Manager for more details.  \n**Potential Future Features Include:**  \nClosed Captions (Required by law in some countries), TV Platform support, customizable player controls, and Chromecast support."
+  }
 }
