@@ -10,10 +10,15 @@ import Foundation
 import BrightcovePlayerSDK
 import ZappPlugins
 
+private enum VideoTypes: String {
+    case hls = "m3u8"
+    case mp4 = "mp4"
+}
+
 extension ZPPlayable {
     var bcovVideo: BCOVVideo {
         get {
-            let delivery: String = isLive() ? kBCOVSourceDeliveryHLS : kBCOVSourceDeliveryMP4
+            let delivery: String = isHLS() ? kBCOVSourceDeliveryHLS : kBCOVSourceDeliveryMP4
             var video: BCOVVideo = BCOVVideo(url: URL(string: contentVideoURLPath()),
                                              deliveryMethod: delivery)
             let extensionsDictionary = self.extensionsDictionary ?? [:]
@@ -36,5 +41,14 @@ extension ZPPlayable {
         let parser = AdvertisementParser(parseData: extensionsDictionary)
         parser.parse()
         return parser.parsedAdvertisement
+    }
+    
+    private func isHLS() -> Bool {
+        guard let videoURL = URL(string: contentVideoURLPath()) else {
+            assert(false)
+            return false
+        }
+        
+        return videoURL.pathExtension == VideoTypes.hls.rawValue
     }
 }

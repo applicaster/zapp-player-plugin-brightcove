@@ -57,20 +57,22 @@ extension BCOVVideo {
 
 private extension Captions {
     func bcovCaptions(with duration: TimeInterval) -> [String: Any] {
-        let type: String
-        switch self.type {
+        let kind: String
+        switch self.kind {
         case .captions:
-            type = kBCOVSSTextTracksKindCaptions
+            kind = kBCOVSSTextTracksKindCaptions
         case .subtitles:
-            type = kBCOVSSTextTracksKindSubtitles
+            kind = kBCOVSSTextTracksKindSubtitles
         }
         
         let bcovCaptions: [String: Any] = [
-            kBCOVSSTextTracksKeyKind: type,
+            kBCOVSSTextTracksKeyKind: kind,
             kBCOVSSTextTracksKeySourceLanguage: self.languageCode,
             kBCOVSSTextTracksKeyLabel: self.label,
             kBCOVSSTextTracksKeySource: self.source,
-            kBCOVSSTextTracksKeyDuration: NSNumber(value: duration)
+            kBCOVSSTextTracksKeyDuration: NSNumber(value: duration),
+            kBCOVSSTextTracksKeySourceType: kBCOVSSTextTracksKeySourceTypeWebVTTURL,
+            kBCOVSSTextTracksKeyMIMEType: self.type
         ]
         
         return bcovCaptions

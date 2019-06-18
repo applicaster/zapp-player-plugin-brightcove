@@ -95,16 +95,22 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
         
         let type = currentItem!.advertisementType
+        
+        let sidecarSessionProvider = manager.createSidecarSubtitlesSessionProvider(withUpstreamSessionProvider: nil)
+        
         if let adsRequestPolicy = self.adsRequestPolicy(forType: type) {
-            self.player = manager.createIMAPlaybackController(with: imaSettings,
-                                                              adsRenderingSettings: renderSettings,
-                                                              adsRequestPolicy: adsRequestPolicy,
-                                                              adContainer: playerViewController.playerView,
-                                                              companionSlots: nil,
-                                                              viewStrategy: nil,
-                                                              options: imaPlaybackSessionOptions)
+            let imaSessionProvider = manager.createIMASessionProvider(with: imaSettings,
+                                                           adsRenderingSettings: renderSettings,
+                                                           adsRequestPolicy: adsRequestPolicy,
+                                                           adContainer: playerViewController.playerView,
+                                                           companionSlots: nil,
+                                                           upstreamSessionProvider: sidecarSessionProvider,
+                                                           options: imaPlaybackSessionOptions)
+            self.player = manager.createPlaybackController(with: imaSessionProvider,
+                                                           viewStrategy: nil)
         } else {
-            self.player = manager.createPlaybackController()
+            self.player = manager.createPlaybackController(with: sidecarSessionProvider,
+                                                           viewStrategy: nil)
         }
         
         playerViewController.playerView.playbackController = self.player

@@ -10,12 +10,13 @@ import BrightcovePlayerSDK
 
 struct Captions {
     let label: String
-    let type: CaptionsTypes
+    let kind: CaptionsKind
     let languageCode: String
     let source: String
+    let type: String
 }
 
-enum CaptionsTypes: String {
+enum CaptionsKind: String {
     case captions = "Captions"
     case subtitles = "Subtitles"
 }
@@ -27,7 +28,8 @@ enum CaptionsKeys: String {
     case label = "label"
     case type = "type"
     case language = "language"
-    case source = "src"
+    case source = "source"
+    case kind = "kind"
 }
 
 class CaptionsParser {
@@ -49,17 +51,19 @@ class CaptionsParser {
         
         parsedCaptions = captionsList.compactMap({ (caption) -> Captions? in
             guard let label = caption[CaptionsKeys.label.rawValue],
-                let typeString = caption[CaptionsKeys.type.rawValue],
-                let type = CaptionsTypes(rawValue: typeString),
+                let kindString = caption[CaptionsKeys.kind.rawValue],
+                let kind = CaptionsKind(rawValue: kindString),
                 let language = caption[CaptionsKeys.language.rawValue],
-                let source = caption[CaptionsKeys.source.rawValue] else {
+                let source = caption[CaptionsKeys.source.rawValue],
+                let type = caption[CaptionsKeys.type.rawValue] else {
                     return nil
             }
             
             return Captions(label: label,
-                            type: type,
+                            kind: kind,
                             languageCode: language,
-                            source: source)
+                            source: source,
+                            type: type)
             })
     }
     
