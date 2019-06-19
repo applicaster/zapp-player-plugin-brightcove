@@ -19,6 +19,7 @@ enum AnalyticsEvent: String {
     case seek = "Seek"
     case rewind = "Tap Rewind"
     case playerViewSwitch = "Switch Player View"
+    case tapCaptions = "Tap Closed Captions"
 }
 
 enum AnalyticsKeys: String {

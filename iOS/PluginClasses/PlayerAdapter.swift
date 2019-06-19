@@ -46,6 +46,7 @@ protocol PlaybackEventsDelegate: AnyObject {
     func seekOccured(from: TimeInterval, to: TimeInterval)
     func didStartPlaybackSession()
     func pauseButtonPressed()
+    func captionsButtonPressed()
 }
 
 class PlayerAdapter: NSObject, PlayerAdapterProtocol {
@@ -172,6 +173,10 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
         
         isPausedButtonPressed.toggle()
     }
+    
+    @objc private func captionsButtonPressed() {
+        delegate?.captionsButtonPressed()        
+    }
 }
 
 extension PlayerAdapter: BCOVPlaybackControllerDelegate {
@@ -192,6 +197,10 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
         playerView?.controlsView.playbackButton.addTarget(self,
                                                           action: #selector(pauseButtonPressed),
                                                           for: .touchDown)
+        playerView?.controlsView.closedCaptionButton.addTarget(self,
+                                                               action: #selector(captionsButtonPressed),
+                                                               for: .touchDown)
+
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,
