@@ -27,6 +27,8 @@ protocol PlayerAdapterProtocol: class {
     var didEndPlayback: (() -> Void)? { get set }
     var didSwitchToItem: ((ZPPlayable) -> Void)? { get set }
     var delegate: PlaybackEventsDelegate? { get set }
+    
+    var isCaptionsEnabled: Bool { get }
 
     func setupPlayer(atContainer playerViewController: PlayerViewController)
     func play()
@@ -74,7 +76,8 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     weak var playerView: BCOVPUIPlayerView?
     weak var delegate: PlaybackEventsDelegate?
     
-    var isPausedButtonPressed = false
+    private var isPausedButtonPressed = false
+    var isCaptionsEnabled = false
     
     // MARK: - Lifecycle
     
@@ -175,7 +178,19 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     }
     
     @objc private func captionsButtonPressed() {
-        delegate?.captionsButtonPressed()        
+        delegate?.captionsButtonPressed()
+    }
+    
+    private func retrieveCaptionsState(from player: AVPlayer) {
+        var locale: Locale?
+        
+        if let playerItem = player.currentItem,
+            let group = playerItem.asset.mediaSelectionGroup(forMediaCharacteristic: AVMediaCharacteristic.legible) {
+            let selectedOption = playerItem.currentMediaSelection.selectedMediaOption(in: group)
+            locale = selectedOption?.locale
+        }
+        
+        isCaptionsEnabled = locale != nil ? true : false
     }
 }
 
@@ -235,6 +250,10 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         ZPPlayerState(event: lifecycleEvent).flatMap { playerState = $0 }
+        
+        if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventPlay {
+            retrieveCaptionsState(from: session.player)
+        }
         
         delegate?.eventOccured(lifecycleEvent,
                                duringSession: session,

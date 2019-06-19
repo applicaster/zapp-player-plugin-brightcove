@@ -38,6 +38,7 @@ enum AnalyticsKeys: String {
     case originalView = "Original View"
     case newView = "New View"
     case switchInstance = "Switch Instance"
+    case captionsPreviousState = "Previous State"
 }
 
 extension PlayerScreenMode {
