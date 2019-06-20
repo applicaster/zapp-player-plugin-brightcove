@@ -28,6 +28,7 @@ class CompleteAnalyticsAdapter(
         this.isLive = playable.isLive
         initEventEmitters()
         setViewMode(mode)
+        startTimeInVideoMillis = System.currentTimeMillis()
         playableProps = collectPlayableProperties(playable)
         AnalyticsAgentUtil.logTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayVODItemProperties(playable))
         AnalyticsAgentUtil.logTimedEvent(

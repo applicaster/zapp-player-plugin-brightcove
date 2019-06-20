@@ -131,7 +131,7 @@ class PlayerAdvertisement: PlayerAdvertisementEventsDelegate {
     private func advertisementType(forProgress progress: Progress) -> AdTypes {
         let currentProgress = progress.progress
         let duration = progress.duration
-        if currentProgress.isInfinite == true {
+        if currentProgress.isInfinite == true || currentProgress == 0 {
             return .preroll
         } else if currentProgress > duration {
             return .postroll

@@ -59,5 +59,7 @@ class Playable: NSObject, ZPPlayable {
     
     var extensionsDictionary: NSDictionary?
     
-    var playbackDuration: TimeInterval = 0
+    func assetUrl() -> AVURLAsset? {
+        return nil
+    }
 }
