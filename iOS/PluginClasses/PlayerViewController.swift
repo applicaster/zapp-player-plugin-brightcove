@@ -282,6 +282,21 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         analyticEventDelegate?.eventOccurred(.pause, params: params, timed: false)
     }
     
+    func captionsButtonPressed() {
+        guard let item = player.currentItem else {
+            return
+        }
+        
+        let analyticParamsBuilder = AnalyticParamsBuilder()
+        analyticParamsBuilder.progress = player.playbackState.progress
+        analyticParamsBuilder.duration = player.playbackState.duration
+        analyticParamsBuilder.isLive = item.isLive()
+        analyticParamsBuilder.captionsPreviousState = player.isCaptionsEnabled
+        
+        let params = item.additionalAnalyticsParams.merge(analyticParamsBuilder.parameters)
+        analyticEventDelegate?.eventOccurred(.tapCaptions, params: params, timed: false)
+    }
+    
     // MARK: - BCOVPUIPlayerViewDelegate methods
     
     func playerView(_ playerView: BCOVPUIPlayerView!, willTransitionTo screenMode: BCOVPUIScreenMode) {

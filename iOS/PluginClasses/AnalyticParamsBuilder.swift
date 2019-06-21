@@ -70,6 +70,13 @@ class AnalyticParamsBuilder {
         }
     }
     
+    public var captionsPreviousState = false {
+        didSet {
+            let state = captionsPreviousState == true ? "On" : "Off"
+            parameters[AnalyticsKeys.captionsPreviousState.rawValue] = state
+        }
+    }
+    
     private(set) var parameters: [String: String] = [:]
     
     // MARK: - Private methods

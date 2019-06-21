@@ -27,6 +27,8 @@ protocol PlayerAdapterProtocol: class {
     var didEndPlayback: (() -> Void)? { get set }
     var didSwitchToItem: ((ZPPlayable) -> Void)? { get set }
     var delegate: PlaybackEventsDelegate? { get set }
+    
+    var isCaptionsEnabled: Bool { get }
 
     func setupPlayer(atContainer playerViewController: PlayerViewController)
     func play()
@@ -46,6 +48,7 @@ protocol PlaybackEventsDelegate: AnyObject {
     func seekOccured(from: TimeInterval, to: TimeInterval)
     func didStartPlaybackSession()
     func pauseButtonPressed()
+    func captionsButtonPressed()
 }
 
 class PlayerAdapter: NSObject, PlayerAdapterProtocol {
@@ -73,7 +76,8 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
     weak var playerView: BCOVPUIPlayerView?
     weak var delegate: PlaybackEventsDelegate?
     
-    var isPausedButtonPressed = false
+    private var isPausedButtonPressed = false
+    var isCaptionsEnabled = false
     
     // MARK: - Lifecycle
     
@@ -95,16 +99,22 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
         let imaPlaybackSessionOptions = [kBCOVIMAOptionIMAPlaybackSessionDelegateKey: self]
         
         let type = currentItem!.advertisementType
+        
+        let sidecarSessionProvider = manager.createSidecarSubtitlesSessionProvider(withUpstreamSessionProvider: nil)
+        
         if let adsRequestPolicy = self.adsRequestPolicy(forType: type) {
-            self.player = manager.createIMAPlaybackController(with: imaSettings,
-                                                              adsRenderingSettings: renderSettings,
-                                                              adsRequestPolicy: adsRequestPolicy,
-                                                              adContainer: playerViewController.playerView,
-                                                              companionSlots: nil,
-                                                              viewStrategy: nil,
-                                                              options: imaPlaybackSessionOptions)
+            let imaSessionProvider = manager.createIMASessionProvider(with: imaSettings,
+                                                           adsRenderingSettings: renderSettings,
+                                                           adsRequestPolicy: adsRequestPolicy,
+                                                           adContainer: playerViewController.playerView,
+                                                           companionSlots: nil,
+                                                           upstreamSessionProvider: sidecarSessionProvider,
+                                                           options: imaPlaybackSessionOptions)
+            self.player = manager.createPlaybackController(with: imaSessionProvider,
+                                                           viewStrategy: nil)
         } else {
-            self.player = manager.createPlaybackController()
+            self.player = manager.createPlaybackController(with: sidecarSessionProvider,
+                                                           viewStrategy: nil)
         }
         
         playerViewController.playerView.playbackController = self.player
@@ -166,6 +176,22 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol {
         
         isPausedButtonPressed.toggle()
     }
+    
+    @objc private func captionsButtonPressed() {
+        delegate?.captionsButtonPressed()
+    }
+    
+    private func retrieveCaptionsState(from player: AVPlayer) {
+        var locale: Locale?
+        
+        if let playerItem = player.currentItem,
+            let group = playerItem.asset.mediaSelectionGroup(forMediaCharacteristic: AVMediaCharacteristic.legible) {
+            let selectedOption = playerItem.currentMediaSelection.selectedMediaOption(in: group)
+            locale = selectedOption?.locale
+        }
+        
+        isCaptionsEnabled = locale != nil ? true : false
+    }
 }
 
 extension PlayerAdapter: BCOVPlaybackControllerDelegate {
@@ -186,6 +212,10 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
         playerView?.controlsView.playbackButton.addTarget(self,
                                                           action: #selector(pauseButtonPressed),
                                                           for: .touchDown)
+        playerView?.controlsView.closedCaptionButton.addTarget(self,
+                                                               action: #selector(captionsButtonPressed),
+                                                               for: .touchDown)
+
     }
     
     func playbackController(_ controller: BCOVPlaybackController!,
@@ -220,6 +250,10 @@ extension PlayerAdapter: BCOVPlaybackControllerDelegate {
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
         ZPPlayerState(event: lifecycleEvent).flatMap { playerState = $0 }
+        
+        if lifecycleEvent.eventType == kBCOVPlaybackSessionLifecycleEventPlay {
+            retrieveCaptionsState(from: session.player)
+        }
         
         delegate?.eventOccured(lifecycleEvent,
                                duringSession: session,

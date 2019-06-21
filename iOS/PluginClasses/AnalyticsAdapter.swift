@@ -19,6 +19,7 @@ enum AnalyticsEvent: String {
     case seek = "Seek"
     case rewind = "Tap Rewind"
     case playerViewSwitch = "Switch Player View"
+    case tapCaptions = "Tap Closed Captions"
 }
 
 enum AnalyticsKeys: String {
@@ -37,6 +38,7 @@ enum AnalyticsKeys: String {
     case originalView = "Original View"
     case newView = "New View"
     case switchInstance = "Switch Instance"
+    case captionsPreviousState = "Previous State"
 }
 
 extension PlayerScreenMode {
