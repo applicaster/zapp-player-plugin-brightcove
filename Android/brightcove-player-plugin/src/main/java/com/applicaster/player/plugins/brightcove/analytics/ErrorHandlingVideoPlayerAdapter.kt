@@ -71,7 +71,7 @@ class ErrorHandlingVideoPlayerAdapter(private val videoView: BrightcoveVideoView
                 getItemName(playable),
                 getItemDuration(),
                 getItemLink(playable),
-                getVodType(playable),
+                getVODType(playable),
                 getVideoPlayerPlugin()
             )
 

@@ -81,7 +81,7 @@ open class ErrorHandlingAnalyticsAdapter(private val videoView: BrightcoveVideoV
             getItemDuration(),
             getItemName(playable),
             getItemLink(playable),
-            getVodType(playable),
+            getVODType(playable),
             getVideoPlayerPlugin(),
             getAdvertisingProvider()
         )
