@@ -55,6 +55,11 @@
             "label": "Connectivity Error Button Text",
             "tooltip_text": "The text on the button that appears alongside a connectivity error message",
             "default": "Try Again"
+        },
+        {
+            "type": "checkbox",
+            "key": "ignore_default_subscription",
+            "default": 0
         }
     ],
     "hooks": {
