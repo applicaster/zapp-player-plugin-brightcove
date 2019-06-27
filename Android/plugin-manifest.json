@@ -12,7 +12,7 @@
     "platform": "android",
     "author_name": "Alex Khomich",
     "author_email": "a.khomich@applicaster.com",
-    "manifest_version": "1.1.0",
+    "manifest_version": "1.2.0",
     "name": "Brightcove Player",
     "description": "Zapp Plugin for Brightcove Player",
     "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
@@ -21,7 +21,7 @@
     "identifier": "BrightcovePlayerPlugin",
     "ui_builder_support": true,
     "dependency_name": "com.applicaster:brightcove-player-plugin",
-    "dependency_version": "1.1.0",
+    "dependency_version": "1.2.0",
     "whitelisted_account_ids": [],
     "min_zapp_sdk": "7.0.0",
     "deprecated_since_zapp_sdk": "",
@@ -56,5 +56,21 @@
             "tooltip_text": "The text on the button that appears alongside a connectivity error message",
             "default": "Try Again"
         }
-    ]
+    ],
+    "hooks": {
+        "fields": [
+            {
+                "group": true,
+                "label": "Before Load",
+                "folded": true,
+                "fields": [
+                    {
+                        "key": "preload_plugins",
+                        "type": "preload_plugins_selector",
+                        "label": "Select Plugins"
+                    }
+                ]
+            }
+        ]
+    }
 }
