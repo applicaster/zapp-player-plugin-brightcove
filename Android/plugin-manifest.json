@@ -14,7 +14,7 @@
     "author_email": "a.khomich@applicaster.com",
     "manifest_version": "1.2.0",
     "name": "Brightcove Player",
-    "description": "Zapp Plugin for Brightcove Player",
+    "description": "Brightcove's high-performance video player",
     "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
     "type": "player",
     "screen": false,
