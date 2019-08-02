@@ -1,5 +1,5 @@
 buildscript {
-  ext.applicaster_version = '2.32.37'
+  ext.applicaster_version = '4.0.0'
   ext.brightcove_version = '6.4.0'
   ext.google_ads_version = '3.7.4'
   ext.okhttp_version = '3.8.1'
