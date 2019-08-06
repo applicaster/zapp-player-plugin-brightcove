@@ -1,7 +1,7 @@
 *Made with love by the Applicaster Owned Plugins Team*
 
 **Supports:** *iOS, Android*
-**Current Version:** *1.2.0*
+**Current Version:** *1.3.0*
 
 __**About**__
 
