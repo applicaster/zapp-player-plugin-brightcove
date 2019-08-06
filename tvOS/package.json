@@ -1,0 +1,28 @@
+{
+  "name": "quick-brick-brightcove-player-tvos",
+  "version": "0.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zapplicaster:prepare": "node_modules/.bin/zapplicaster-cli prepare --yarn --destination-path ./development-app",
+    "zapplicaster:reload": "node_modules/.bin/zapplicaster-cli reload_config -d development-app",
+    "clean:node": "rm -rf node_modules **/node_modules yarn.lock && yarn",
+    "start": "yarn workspace quick-brick-app start",
+    "npm:publish": "yarn workspace @applicaster/quick-brick-brightcove-player-tvos publish"
+  },
+  "private": true,
+  "workspaces": [
+    "plugin",
+    "development-app"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@applicaster/zapplicaster-cli": "2.0.3-rc.43"
+  },
+  "dependencies": {
+    "react": "16.6.3",
+    "react-native": "0.57.5"
+  }
+}
