@@ -1,13 +1,13 @@
 PODS:
-  - Brightcove-Player-Core/dynamic (6.4.3)
-  - Brightcove-Player-IMA (6.4.3):
-    - Brightcove-Player-Core/dynamic (= 6.4.3)
+  - Brightcove-Player-Core/dynamic (6.4.4)
+  - Brightcove-Player-IMA (6.4.4):
+    - Brightcove-Player-Core/dynamic (= 6.4.4)
     - GoogleAds-IMA-iOS-SDK (= 3.9.0)
-  - BrightcovePlayerPlugin (1.1.6):
+  - BrightcovePlayerPlugin (1.1.9):
     - Brightcove-Player-IMA (~> 6.4.2)
     - ZappPlugins
   - GoogleAds-IMA-iOS-SDK (3.9.0)
-  - ZappPlugins (8.3.2)
+  - ZappPlugins (9.1.8)
 
 DEPENDENCIES:
   - BrightcovePlayerPlugin (from `../BrightcovePlayerPlugin.podspec`)
@@ -26,12 +26,12 @@ EXTERNAL SOURCES:
     :path: "../BrightcovePlayerPlugin.podspec"
 
 SPEC CHECKSUMS:
-  Brightcove-Player-Core: 4b6f0f190b1d383ab729cef8aaa2865dd095ae79
-  Brightcove-Player-IMA: b88766b27d8d9a8070e20b867eed1d71d46797e4
-  BrightcovePlayerPlugin: c1ef88b41f5daad8d56baafff19a0d6ceb217e64
+  Brightcove-Player-Core: 68e5ebe8c801064f46d92525f64753e509245596
+  Brightcove-Player-IMA: f842243dec8a0273e192e2a005195b9343c3a603
+  BrightcovePlayerPlugin: 33a9717b80af633f2f37a5b767f7c2d7c945f429
   GoogleAds-IMA-iOS-SDK: 8f57879738137b81a48ba792e42439e6bff5413b
-  ZappPlugins: bd5c96f2b4b0977a97254d45c9a39eb1982d893a
+  ZappPlugins: 19d19d6fe70d39a4fc5a323e6a9146e0ab629970
 
 PODFILE CHECKSUM: 3b20ca50e26401fe26f820b8bba816f372e753f2
 
-COCOAPODS: 1.7.1
+COCOAPODS: 1.7.4
