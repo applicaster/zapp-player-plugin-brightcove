@@ -15,7 +15,8 @@
   "platform": "android",
   "author_name": "Alex Khomich",
   "author_email": "a.khomich@applicaster.com",
-  "manifest_version": "1.1.2",
+  "manifest_version": "1.3.0",
+  "dependency_version": "1.3.0",
   "name": "Brightcove Player Test",
   "description": "Zapp Plugin for Brightcove Player",
   "cover_image": "https://assets-production.applicaster.com/zapp/plugins/gallery_previews/brightcove.png",
@@ -24,11 +25,10 @@
   "identifier": "BrightcovePlayerPlugin-Test",
   "ui_builder_support": true,
   "dependency_name": "com.applicaster:brightcove-player-plugin",
-  "dependency_version": "1.1.2",
   "whitelisted_account_ids": [
     "5a4516fa41442c000b0195d6"
   ],
-  "min_zapp_sdk": "7.0.0",
+  "min_zapp_sdk": "10.0.0",
   "deprecated_since_zapp_sdk": "",
   "unsupported_since_zapp_sdk": "",
   "react_native": false,
