@@ -1,6 +1,6 @@
 {
   "name": "@applicaster/quick-brick-brightcove-player-tvos",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "App.js",
   "scripts": {
@@ -19,13 +19,14 @@
     "react-native": "0.57.5"
   },
   "dependencies": {
-    "@applicaster/zapp-react-native-tvos-default-player": "^1.2.6",
     "@applicaster/zapplicaster-cli": "2.0.3-rc.43",
     "react-native-cli": "^2.0.1",
     "react-native-zapp-bridge": "applicaster/react-native-zapp-bridge"
   },
   "files": [
-    "./ReactNativeModulesExports.m",
-    "./PlayerModule.swift"
+    "./BrightcovePlayerTVOS/Helpers/ReactNative/ReactNativeModulesExports.m",
+    "./BrightcovePlayerTVOS/Helpers/ReactNative/PlayerModule.swift",
+    "./BrightcovePlayerTVOS.podspec",
+    "./src"
   ]
 }

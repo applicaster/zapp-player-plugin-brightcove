@@ -58,10 +58,10 @@
     query-string "5.0.0"
     ramda "0.23.0"
 
-"@applicaster/zapp-pipes-provider-brightcove@1.1.10":
-  version "1.1.10"
-  resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-provider-brightcove/-/zapp-pipes-provider-brightcove-1.1.10.tgz#bc6f60e9fd27a8a7cd3498e75408c1f9d5827215"
-  integrity sha512-RHmzA8aksKGojrRhLFUzp5fc9WnU0zeUb8B/hE/OFsFMsSeEkNqM+EazXbkO90jUki4vZkdcA98mVLDn1NcoZg==
+"@applicaster/zapp-pipes-provider-brightcove@1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-provider-brightcove/-/zapp-pipes-provider-brightcove-1.1.12.tgz#25efb5c2aff19ff1ab2409a6a5792d768e1b371a"
+  integrity sha512-1ZeFMaZHHRuCGMs6w0pl41Oq9vX71yPmRELfjmSGbW9ripuYc7pMO4w/Daq+yh2M0BjKqEKJCGJOeNms2utx+w==
   dependencies:
     axios "^0.17.1"
     btoa "^1.1.2"
@@ -226,11 +226,6 @@
     "@applicaster/zapp-react-native-tvos-app" "2.0.3-rc.43"
     "@applicaster/zapp-react-native-tvos-ui-components" "2.0.3-rc.43"
     "@applicaster/zapp-react-native-ui-components" "2.0.3-rc.43"
-
-"@applicaster/zapp-react-native-tvos-default-player@^1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@applicaster/zapp-react-native-tvos-default-player/-/zapp-react-native-tvos-default-player-1.2.6.tgz#720d1e78c3f4b5272f22b65b819b16bd4e85f4ba"
-  integrity sha512-sM1E6d+8K7qXJmoHgzR+xn3ynVKSnj3XRpvMCSCcbpEXBvLOLa61gVsJOJXVwNWyMimeS2lXaZORao5W8mPA1w==
 
 "@applicaster/zapp-react-native-tvos-ui-components@2.0.3-rc.43":
   version "2.0.3-rc.43"

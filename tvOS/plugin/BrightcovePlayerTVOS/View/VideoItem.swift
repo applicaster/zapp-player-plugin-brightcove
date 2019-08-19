@@ -31,14 +31,10 @@ public struct ReactPropsKey {
 
 struct VideoItem {
     let urlString: String
-    let isNetwork: Bool
-    let isAsset: Bool
     let delivery: String
     
     init(source: NSDictionary) {
-        urlString = source[ReactPropsKey.SRC.url] as? String ?? ""
-        isNetwork = RCTConvert.bool(source[ReactPropsKey.SRC.isNetwork])
-        isAsset = RCTConvert.bool(source[ReactPropsKey.SRC.isAsset])
+        urlString = source["uri"] as? String ?? ""
         delivery = VideoItem.isHLS(self.urlString) ? kBCOVSourceDeliveryHLS : kBCOVSourceDeliveryMP4
     }
     

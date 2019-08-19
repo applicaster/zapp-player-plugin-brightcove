@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 	s.name = "BrightcovePlayerTVOS"
 	s.version = "0.0.1"
 	s.platform = :tvos, :ios
-	s.swift_versions = ['5.0']
+	s.swift_version = '5.0'
 	s.summary = "ZappPlugins"
 	s.description = "Brightcove player for tvos"
 	s.homepage = "https://applicaster.com"

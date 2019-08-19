@@ -25,7 +25,7 @@ class App extends Component {
         duration: 0.0,
         currentTime: 0.0,
         controls: false,
-        paused: true,
+        paused: false,
         skin: "custom",
         ignoreSilentSwitch: null,
         isBuffering: false

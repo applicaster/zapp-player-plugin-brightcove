@@ -1,11 +1,11 @@
 {
   "name": "quick-brick-brightcove-player-tvos",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "zapplicaster:prepare": "node_modules/.bin/zapplicaster-cli prepare --yarn --destination-path ./development-app",
+    "zapplicaster:prepare": "node_modules/.bin/zapplicaster-cli prepare --yarn --destination-path development-app",
     "zapplicaster:reload": "node_modules/.bin/zapplicaster-cli reload_config -d development-app",
     "clean:node": "rm -rf node_modules **/node_modules yarn.lock && yarn",
     "start": "yarn workspace quick-brick-app start",
@@ -24,5 +24,11 @@
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.57.5"
-  }
+  },
+  "files": [
+    "./plugin/BrightcovePlayerTVOS/Helpers/ReactNative/ReactNativeModulesExports.m",
+    "./plugin/BrightcovePlayerTVOS/Helpers/ReactNative/PlayerModule.swift",
+    "./plugin/BrightcovePlayerTVOS.podspec",
+    "./plugin/src"
+  ]
 }
