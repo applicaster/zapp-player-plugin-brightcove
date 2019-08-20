@@ -58,8 +58,8 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol, BCOVPlaybackControllerDele
         guard let item = self.currentVideoItem else {
             return
         }
-        let video: BCOVVideo = BCOVVideo(url: URL(string: item.urlString),
-                                         deliveryMethod: item.delivery)
+        let video: BCOVVideo = BCOVVideo(url: URL(string: item.urlString), deliveryMethod: item.delivery)
+                                         
         self.videos = [video]
     }
     
