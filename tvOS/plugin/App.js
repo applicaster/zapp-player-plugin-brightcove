@@ -2,26 +2,23 @@ import React, {Component} from 'react';
 import VideoPlayer from "./src/Components/VideoPlayer";
 import {
     AlertIOS,
-    Platform,
     StyleSheet,
-    Text,
-    TouchableOpacity,
     View
 } from "react-native";
 
 class App extends Component {
     constructor() {
+        console.log('constructor');
         super();
         this.onLoad = this.onLoad.bind(this);
-        this.onProgress = this.onProgress.bind(this);
-        this.onBuffer = this.onBuffer.bind(this);
+        // this.onProgress = this.onProgress.bind(this);
+        // this.onBuffer = this.onBuffer.bind(this);
     }
 
     state = {
         rate: 1,
         volume: 1,
         muted: false,
-        resizeMode: "contain",
         duration: 0.0,
         currentTime: 0.0,
         controls: false,
@@ -32,22 +29,16 @@ class App extends Component {
     };
 
     onLoad(data) {
-        console.log("On load fired!");
         this.setState({ duration: data.duration });
     }
 
-    onProgress(data) {
-        this.setState({ currentTime: data.currentTime });
-    }
-
-    onBuffer({ isBuffering }) {
-        this.setState({ isBuffering });
+    onEnd() {
+        AlertIOS.alert("Done!");
     }
 
     render() {
-        console.log(this.props.source);
+        console.log(this.props.onEnd);
         const videoStyle = styles.fullScreen;
-        console.log(this.props);
         return (
             <View style={styles.container}>
                 <View style={styles.fullScreen}>
@@ -58,16 +49,9 @@ class App extends Component {
                         paused={this.state.paused}
                         volume={this.state.volume}
                         muted={this.state.muted}
-                        ignoreSilentSwitch={this.state.ignoreSilentSwitch}
                         onLoad={this.onLoad}
-                        onBuffer={this.onBuffer}
-                        onProgress={this.onProgress}
-                        onEnd={() => {
-                            AlertIOS.alert("Done!");
-                        }}
-                        repeatVideo={true}
-                        repeat={true}
-                        controls={this.state.controls}
+                        onEnd={this.onEnd}
+                        // controls={this.state.controls}
                     />
                 </View>
             </View>

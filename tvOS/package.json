@@ -1,6 +1,6 @@
 {
   "name": "quick-brick-brightcove-player-tvos",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,11 +24,5 @@
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.57.5"
-  },
-  "files": [
-    "./plugin/BrightcovePlayerTVOS/Helpers/ReactNative/ReactNativeModulesExports.m",
-    "./plugin/BrightcovePlayerTVOS/Helpers/ReactNative/PlayerModule.swift",
-    "./plugin/BrightcovePlayerTVOS.podspec",
-    "./plugin/src"
-  ]
+  }
 }

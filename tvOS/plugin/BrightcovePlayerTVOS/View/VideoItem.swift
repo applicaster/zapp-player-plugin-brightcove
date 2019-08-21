@@ -15,18 +15,7 @@ private enum VideoTypes: String {
 }
 
 public struct ReactPropsKey {
-    static let src = "src"
-    public struct SRC {
-        static let url            = "uri"
-        static let isNetwork      = "isNetwork"
-        static let isAsset        = "isAsset"
-        static let type           = "type"
-        static let mainVer        = "mainVer"
-        static let patchVer       = "patchVer"
-        /// Not Supported
-        static let requestHeaders = "requestHeaders"
-        static let target         = "target"
-    }
+    static let url = "uri"
 }
 
 struct VideoItem {
@@ -34,7 +23,7 @@ struct VideoItem {
     let delivery: String
     
     init(source: NSDictionary) {
-        urlString = source["uri"] as? String ?? ""
+        urlString = source[ReactPropsKey.url] as? String ?? ""
         delivery = VideoItem.isHLS(self.urlString) ? kBCOVSourceDeliveryHLS : kBCOVSourceDeliveryMP4
     }
     

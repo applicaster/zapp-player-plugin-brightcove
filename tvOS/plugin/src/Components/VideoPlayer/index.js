@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import {
-  Platform,
   StyleSheet,
   requireNativeComponent,
+  View,
+  Image
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -20,9 +21,9 @@ export default class VideoPlayer extends Component {
     };
   }
 
-  // setNativeProps(nativeProps) {
-  //   this._root.setNativeProps(nativeProps);
-  // }
+  setNativeProps(nativeProps) {
+    this._root.setNativeProps(nativeProps);
+  }
 
   seek = (time, tolerance = 100) => {
     if (isNaN(time)) throw new Error("Specified time is not a number");
@@ -39,10 +40,8 @@ export default class VideoPlayer extends Component {
     }
   };
 
-  _onLoadStart = event => {
-    if (this.props.onLoadStart) {
-      this.props.onLoadStart(event.nativeEvent);
-    }
+  _assignRoot = component => {
+      this._root = component;
   };
 
   _onLoad = event => {
@@ -51,17 +50,8 @@ export default class VideoPlayer extends Component {
     }
   };
 
-  _onSeek = event => {
-    if (this.state.showPoster && !this.props.audioOnly) {
-      this.setState({ showPoster: false });
-    }
-
-    if (this.props.onSeek) {
-      this.props.onSeek(event.nativeEvent);
-    }
-  };
-
   _onEnd = event => {
+      console.log(event);
     if (this.props.onEnd) {
       this.props.onEnd(event.nativeEvent);
     }
@@ -69,31 +59,28 @@ export default class VideoPlayer extends Component {
 
   render() {
     const { source } = this.props;
-    console.log(this.props);
 
     const nativeProps = {
       ...this.props,
       ...{
         style: styles.base,
         src: source,
-        onLoadStart: this._onLoadStart,
-        onLoad: this._onLoad,
-        onSeek: this._onSeek,
-        onEnd: this._onEnd
+        onVideoLoad: this._onLoad,
+        onVideoEnd: this._onEnd
       }
     };
-    return <Player {...nativeProps}/>;
-    // return (
-    //   <React.Fragment>
-    //     <Player ref={this._assignRoot} {...nativeProps} />
-    //     {this.props.poster && this.state.showPoster && (
-    //       <View style={nativeProps.style}>
-    //         <Image style={posterStyle} source={{ uri: this.props.poster }} />
-    //       </View>
-    //     )}
-    //   </React.Fragment>
-    // );
+    return (
+        <React.Fragment>
+            <Player ref={this._assignRoot} {...nativeProps} />
+        </React.Fragment>
+    );
   }
 }
 
-const Player = requireNativeComponent("PlayerModule");
+const Player = requireNativeComponent("PlayerModule", VideoPlayer, {
+    nativeOnly: {
+        src: true,
+        seek: true,
+        fullscreen: true
+    }
+});

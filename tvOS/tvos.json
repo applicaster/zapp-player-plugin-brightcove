@@ -9,8 +9,8 @@
   "author_name": "Olga Duk",
   "author_email": "oduk@scand.com",
   "dependency_name": "@applicaster/quick-brick-brightcove-player-tvos",
-  "dependency_version": "0.0.3",
-  "manifest_version": "0.0.3",
+  "dependency_version": "0.0.5",
+  "manifest_version": "0.0.6",
   "name": "QBBrightcovePlayer",
   "description": "Brightcove Player for tvOS",
   "type": "player",
@@ -27,7 +27,7 @@
   "react_bundle_url": "https://",
   "extra_dependencies": [
     {
-      "BrightcovePlayerTVOS": ":path => './quick-brick/node_modules/@applicaster/quick-brick-brightcove-player-tvos/BrightcovePlayerTVOS.podspec'"
+      "BrightcovePlayerTVOS": ":path => './quick_brick/node_modules/@applicaster/quick-brick-brightcove-player-tvos/BrightcovePlayerTVOS.podspec'"
     }
   ],
   "npm_dependencies": [],
