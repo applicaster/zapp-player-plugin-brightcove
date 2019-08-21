@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 	s.name = "BrightcovePlayerTVOS"
 	s.version = "0.0.1"
 	s.platform = :tvos, :ios
-	s.swift_version = '5.0'
+	s.swift_version = '4.2'
 	s.summary = "ZappPlugins"
 	s.description = "Brightcove player for tvos"
 	s.homepage = "https://applicaster.com"
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 		 'ENABLE_BITCODE' => 'YES',
 		 'ENABLE_TESTABILITY' => 'YES',
 		 'OTHER_CFLAGS'  => '-fembed-bitcode',
-		 'SWIFT_VERSION' => '5.0',
+		 'SWIFT_VERSION' => '4.2',
 		}
 
 	 s.tvos.deployment_target = "10.0"
