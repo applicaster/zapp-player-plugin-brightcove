@@ -78,4 +78,12 @@ class PlayerViewController: UIViewController {
         player.pause()
         eventsResponderDelegate?.eventOccured(event: .onVideoFullscreenPlayerWillDismiss)
     }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+        if(presses.first?.type == UIPress.PressType.menu) {
+            eventsResponderDelegate?.eventOccured(event: .onVideoEnd)
+        } else {
+            super.pressesBegan(presses, with: event)
+        }
+    }
 }

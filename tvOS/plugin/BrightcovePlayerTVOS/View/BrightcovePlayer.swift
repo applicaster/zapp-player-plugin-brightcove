@@ -92,6 +92,7 @@ extension BrightcovePlayer: PlayerEventsResponder {
         case .onVideoEnd:
             if let onVideoEnd = onVideoEnd {
                 onVideoEnd(["target": reactTag ?? NSNull()])
+                self.playerViewController?.dismiss(animated: true, completion: nil)
             }
         case .onVideoFullscreenPlayerWillPresent:
             if let onVideoFullscreenPlayerWillPresent = onVideoFullscreenPlayerWillPresent {
