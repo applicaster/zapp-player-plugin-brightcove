@@ -33,7 +33,7 @@
     react-router-native "^4.3.0"
     url "^0.11.0"
 
-"@applicaster/zapp-pipes-dev-kit@1.3.0", "@applicaster/zapp-pipes-dev-kit@^1.2.8":
+"@applicaster/zapp-pipes-dev-kit@1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-dev-kit/-/zapp-pipes-dev-kit-1.3.0.tgz#ca06ee5a60748f1fcee92905d68c73e5638fe8ee"
   integrity sha512-dIpq1ZpQ3yt0tbI9qL0Zzkon/gbPYY22XLFq4ul/UWkgTPOn1ymnoirplPEEgGfhIa2AG/+G8Rs+YRuXpKNQ6g==
@@ -45,19 +45,6 @@
     raven-js "3.14.1"
     url "0.11.0"
 
-"@applicaster/zapp-pipes-provider-applicaster@2.0.9":
-  version "2.0.9"
-  resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-provider-applicaster/-/zapp-pipes-provider-applicaster-2.0.9.tgz#241997f75f198b561ab13ed02c163658ad95a5a0"
-  integrity sha512-wS/dTAk/mmJ4mU9P3BXXzz5qu6GXK4EPv4d1MXm3+5pX1Smk6ntSTn8KvvRrzxgEN2nhJQQIaAf+8u3kg1Jz0Q==
-  dependencies:
-    "@applicaster/zapp-pipes-dev-kit" "^1.2.8"
-    "@applicaster/zapp-pipes-provider-general" "^1.0.5"
-    axios "0.16.0"
-    md5 "2.2.1"
-    moment "^2.19.3"
-    query-string "5.0.0"
-    ramda "0.23.0"
-
 "@applicaster/zapp-pipes-provider-brightcove@1.1.12":
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-provider-brightcove/-/zapp-pipes-provider-brightcove-1.1.12.tgz#25efb5c2aff19ff1ab2409a6a5792d768e1b371a"
@@ -66,17 +53,6 @@
     axios "^0.17.1"
     btoa "^1.1.2"
     moment "^2.23.0"
-
-"@applicaster/zapp-pipes-provider-general@1.0.5", "@applicaster/zapp-pipes-provider-general@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-provider-general/-/zapp-pipes-provider-general-1.0.5.tgz#4c90d1a85a403039c804b9058439d53c8843f921"
-  integrity sha512-JkZwn0KZyiU+YocdfsXhHI0ZTFJZ9/XrHoq6Qg3EGL8Ek8DwA0HXzZ7bhFbp4gNish9uaJk3uB8u+AtFqe4+gQ==
-  dependencies:
-    "@applicaster/zapp-pipes-dev-kit" "^1.2.8"
-    axios "0.16.0"
-    ramda "0.23.0"
-    snake-case "2.1.0"
-    xml2js "0.4.17"
 
 "@applicaster/zapp-react-dom-app@2.0.3-rc.43":
   version "2.0.3-rc.43"
@@ -175,6 +151,14 @@
   version "2.0.3-rc.39"
   resolved "https://registry.yarnpkg.com/@applicaster/zapp-react-native-bridge/-/zapp-react-native-bridge-2.0.3-rc.39.tgz#345559be7c44032d9f58d5cb1c42f6cd06813126"
   integrity sha512-2BP/qae0HEuDqqgVwg1MDHYw9/k7+Zb7JQtmhaP2Mc1dDcEgUAWttYjcjEMJ6XsGhJJu+g2vLhiuTzf0JrHKHA==
+  dependencies:
+    "@applicaster/zapp-pipes-dev-kit" "1.3.0"
+    uuid "^3.3.2"
+
+"@applicaster/zapp-react-native-bridge@^2.0.3-rc.39":
+  version "2.0.3-rc.45-alpha.dff261df"
+  resolved "https://registry.yarnpkg.com/@applicaster/zapp-react-native-bridge/-/zapp-react-native-bridge-2.0.3-rc.45-alpha.dff261df.tgz#def0c594527e88021e39650a8efd2a78de18cc9d"
+  integrity sha512-/qc9eXfvktt8uPVD88s++IsAJ8AYVySSnYe+PUCi7py/U2MnqpDy5urBRpd7MiFQ1kScqFsOPtCsqr5xduiR3Q==
   dependencies:
     "@applicaster/zapp-pipes-dev-kit" "1.3.0"
     uuid "^3.3.2"
@@ -1386,13 +1370,6 @@ aws-sdk@^2.224.1:
     uuid "3.3.2"
     xml2js "0.4.19"
 
-axios@0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.16.0.tgz#6ed9771d815f429e7510f2838262957c4953d3b6"
-  integrity sha1-btl3HYFfQp51EPKDgmKVfElT07Y=
-  dependencies:
-    follow-redirects "1.0.0"
-
 axios@^0.17.1:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.17.1.tgz#2d8e3e5d0bdbd7327f91bc814f5c57660f81824d"
@@ -1743,11 +1720,6 @@ chardet@^0.4.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.4.2.tgz#b5473b33dc97c424e5d98dc87d55d4d8a29c8bf2"
   integrity sha1-tUc7M9yXxCTl2Y3IfVXU2KKci/I=
 
-charenc@~0.0.1:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
-  integrity sha1-wKHS86cJLgN3S/qD8UwPxXkKhmc=
-
 chownr@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.2.tgz#a18f1e0b269c8a6a5d3c86eb298beb14c3dd7bf6"
@@ -1994,11 +1966,6 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     lru-cache "^4.0.1"
     shebang-command "^1.2.0"
     which "^1.2.9"
-
-crypt@~0.0.1:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
-  integrity sha1-iNf/fsDfuG9xPch7u0LQRNPmxBs=
 
 cryptiles@4.x.x:
   version "4.1.3"
@@ -2495,13 +2462,6 @@ flow-bin@^0.103.0:
   resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.103.0.tgz#7aec510d85e1c1b0f2b912bb988337d70035cb0f"
   integrity sha512-Y3yrnE5ICN1Kl/y10BwjA3JSuS+gt4jVPNyUNCZb0RqmkdssMrW8QNNysJYvhgAY/JBJH8Qv7NVUf11MiwfSlA==
 
-follow-redirects@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.0.0.tgz#8e34298cbd2e176f254effec75a1c78cc849fd37"
-  integrity sha1-jjQpjL0uF28lTv/sdaHHjMhJ/Tc=
-  dependencies:
-    debug "^2.2.0"
-
 follow-redirects@1.5.10:
   version "1.5.10"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
@@ -2969,7 +2929,7 @@ is-arrayish@^0.2.1:
   resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
   integrity sha1-d8mYQFJ6qOyxqLppe4BkWnqSap0=
 
-is-buffer@^1.1.5, is-buffer@~1.1.1:
+is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
@@ -3431,7 +3391,7 @@ lodash.throttle@^4.1.1:
   resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
-lodash@^4.0.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -3442,11 +3402,6 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
-
-lower-case@^1.1.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
-  integrity sha1-miyr0bno4K6ZOkv31YdcOcQujqw=
 
 lru-cache@^4.0.1:
   version "4.1.5"
@@ -3501,15 +3456,6 @@ math-random@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
   integrity sha512-rUxjysqif/BZQH2yhd5Aaq7vXMSx9NdEsQcyA07uEzIvxgI7zIr33gGsh+RU0/XjmQpCW7RsVof1vlkvQVCK5A==
-
-md5@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/md5/-/md5-2.2.1.tgz#53ab38d5fe3c8891ba465329ea23fac0540126f9"
-  integrity sha1-U6s41f48iJG6RlMp6iP6wFQBJvk=
-  dependencies:
-    charenc "~0.0.1"
-    crypt "~0.0.1"
-    is-buffer "~1.1.1"
 
 mem@^1.1.0:
   version "1.1.0"
@@ -3895,7 +3841,7 @@ mkdirp@0.x.x, mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.19.3, moment@^2.23.0:
+moment@^2.23.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -4002,13 +3948,6 @@ nigel@3.x.x:
   dependencies:
     hoek "6.x.x"
     vise "3.x.x"
-
-no-case@^2.2.0:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
-  integrity sha512-rmTZ9kz+f3rCvK2TD1Ue/oZlns7OGoIWP4fc3llxxRXlOkHKoWPPWJOfFYpITabSow43QJbRIoHQXtt10VldyQ==
-  dependencies:
-    lower-case "^1.1.1"
 
 node-fetch@^1.0.1:
   version "1.7.3"
@@ -4567,15 +4506,6 @@ query-string@4.3.2:
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.2.tgz#ec0fd765f58a50031a3968c2431386f8947a5cdd"
   integrity sha1-7A/XZfWKUAMaOWjCQxOG+JR6XN0=
   dependencies:
-    object-assign "^4.1.0"
-    strict-uri-encode "^1.0.0"
-
-query-string@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-5.0.0.tgz#fbdf7004b4d2aff792f9871981b7a2794f555947"
-  integrity sha1-+99wBLTSr/eS+YcZgbeieU9VWUc=
-  dependencies:
-    decode-uri-component "^0.2.0"
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
@@ -5345,13 +5275,6 @@ slide@^1.1.5:
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
   integrity sha1-VusCfWW00tzmyy4tMsTUr8nh1wc=
 
-snake-case@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/snake-case/-/snake-case-2.1.0.tgz#41bdb1b73f30ec66a04d4e2cad1b76387d4d6d9f"
-  integrity sha1-Qb2xtz8w7GagTU4srRt2OH1NbZ8=
-  dependencies:
-    no-case "^2.2.0"
-
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -6100,14 +6023,6 @@ xhr@2.4.0:
     parse-headers "^2.0.0"
     xtend "^4.0.0"
 
-xml2js@0.4.17:
-  version "0.4.17"
-  resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.17.tgz#17be93eaae3f3b779359c795b419705a8817e868"
-  integrity sha1-F76T6q4/O3eTWceVtBlwWogX6Gg=
-  dependencies:
-    sax ">=0.6.0"
-    xmlbuilder "^4.1.0"
-
 xml2js@0.4.19:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.19.tgz#686c20f213209e94abf0d1bcf1efaa291c7827a7"
@@ -6120,13 +6035,6 @@ xmlbuilder@8.2.2:
   version "8.2.2"
   resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-8.2.2.tgz#69248673410b4ba42e1a6136551d2922335aa773"
   integrity sha1-aSSGc0ELS6QuGmE2VR0pIjNap3M=
-
-xmlbuilder@^4.1.0:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-4.2.1.tgz#aa58a3041a066f90eaa16c2f5389ff19f3f461a5"
-  integrity sha1-qlijBBoGb5DqoWwvU4n/GfP0YaU=
-  dependencies:
-    lodash "^4.0.0"
 
 xmlbuilder@^9.0.7, xmlbuilder@~9.0.1:
   version "9.0.7"

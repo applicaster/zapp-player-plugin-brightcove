@@ -1,65 +1,114 @@
-import React, {Component} from 'react';
-import VideoPlayer from "./src/Components/VideoPlayer";
+import React, {Component, Fragment} from 'react';
 import {
     AlertIOS,
     StyleSheet,
-    View
+    Text,
+    requireNativeComponent,
+    View,
+    ActivityIndicator
 } from "react-native";
 
-class App extends Component {
-    constructor() {
-        console.log('constructor');
-        super();
-        this.onLoad = this.onLoad.bind(this);
-        // this.onProgress = this.onProgress.bind(this);
-        // this.onBuffer = this.onBuffer.bind(this);
+const Player = requireNativeComponent("PlayerModule");
+
+export default class App extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isLoading: null,
+            isError: false
+        };
     }
 
-    state = {
-        rate: 1,
-        volume: 1,
-        muted: false,
-        duration: 0.0,
-        currentTime: 0.0,
-        controls: false,
-        paused: false,
-        skin: "custom",
-        ignoreSilentSwitch: null,
-        isBuffering: false
+    setNativeProps(nativeProps) {
+        this._root.setNativeProps(nativeProps);
+    }
+
+    _assignRoot = component => {
+        this._root = component;
     };
 
-    onLoad(data) {
-        this.setState({ duration: data.duration });
+    _onLoadStart = () => {
+        this.setState({
+            isLoading: true
+        });
+    };
+
+    _onLoad = () => {
+        this.setState({
+            isLoading: false
+        });
+    };
+
+    _onError = () => {
+        this.setState({
+            isError: true
+        });
+    };
+
+    _onSeek = event => {
+        if (this.props.onSeek) {
+            this.props.onSeek(event.nativeEvent);
+        }
+    };
+
+    _onEnd = event => {
+        if (this.props.onEnd) {
+            this.props.onEnd(event.nativeEvent);
+        }
+    };
+
+    renderErrorMessage() {
+        return (
+            <View style={styles.errorContainer}>
+                <View style={styles.container}>
+                    <Text style={styles.errorMessage}>Oops, something went wrong...</Text>
+                </View>
+            </View>
+        )
     }
 
-    onEnd() {
-        AlertIOS.alert("Done!");
+    renderPlayer(nativeProps) {
+        return (
+            <Fragment>
+                <Player ref={this._assignRoot} {...nativeProps} />
+            </Fragment>
+        )
     }
 
     render() {
-        console.log(this.props.onEnd);
-        const videoStyle = styles.fullScreen;
-        return (
-            <View style={styles.container}>
-                <View style={styles.fullScreen}>
-                    <VideoPlayer
-                        source={this.props.source}
-                        style={videoStyle}
-                        rate={this.state.rate}
-                        paused={this.state.paused}
-                        volume={this.state.volume}
-                        muted={this.state.muted}
-                        onLoad={this.onLoad}
-                        onEnd={this.onEnd}
-                        // controls={this.state.controls}
-                    />
-                </View>
-            </View>
-        );
+        const { source: src } = this.props;
+
+        const nativeProps = {
+            ...this.props,
+            ...{
+                style: styles.base,
+                src: src,
+                onVideoLoadStart: this._onLoadStart,
+                onVideoLoad: this._onLoad,
+                onVideoError: this._onError,
+                onVideoSeek: this._onSeek,
+                onVideoEnd: this._onEnd,
+            }
+        };
+
+       if (this.state.isError) {
+           return (
+               this.renderErrorMessage()
+           )
+       }
+
+       return (
+           this.renderPlayer(nativeProps)
+       )
     }
 }
 
 const styles = StyleSheet.create({
+    base: {
+        overflow: "hidden"
+    },
     container: {
         flex: 1,
         justifyContent: "center",
@@ -73,73 +122,16 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0
     },
-    controls: {
-        backgroundColor: "transparent",
-        borderRadius: 5,
+    errorContainer: {
         position: "absolute",
-        bottom: 44,
-        left: 4,
-        right: 4
+        backgroundColor: "black",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
     },
-    progress: {
-        flex: 1,
-        flexDirection: "row",
-        borderRadius: 3,
-        overflow: "hidden"
-    },
-    innerProgressCompleted: {
-        height: 20,
-        backgroundColor: "#cccccc"
-    },
-    innerProgressRemaining: {
-        height: 20,
-        backgroundColor: "#2C2C2C"
-    },
-    generalControls: {
-        flex: 1,
-        flexDirection: "row",
-        overflow: "hidden",
-        paddingBottom: 10
-    },
-    skinControl: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "center"
-    },
-    rateControl: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "center"
-    },
-    volumeControl: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "center"
-    },
-    resizeModeControl: {
-        flex: 1,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    ignoreSilentSwitchControl: {
-        flex: 1,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    controlOption: {
-        alignSelf: "center",
-        fontSize: 11,
-        color: "white",
-        paddingLeft: 2,
-        paddingRight: 2,
-        lineHeight: 12
-    },
-    nativeVideoControls: {
-        top: 184,
-        height: 300
+    errorMessage: {
+        fontSize: 48,
+        color: 'white'
     }
 });
-
-export default App;
