@@ -19,7 +19,7 @@ enum PlayerEvents {
     case onVideoFullscreenPlayerDidPresent
     case onVideoFullscreenPlayerWillDismiss
     case onVideoFullscreenPlayerDidDismiss
-    case onError
+    case onVideoError
 }
 
 protocol PlayerEventsResponder: AnyObject {
@@ -37,7 +37,7 @@ protocol PlayerEventsResponder: AnyObject {
     @objc public var onVideoFullscreenPlayerDidPresent: RCTBubblingEventBlock?
     @objc public var onVideoFullscreenPlayerWillDismiss: RCTBubblingEventBlock?
     @objc public var onVideoFullscreenPlayerDidDismiss: RCTBubblingEventBlock?
-    @objc public var onError: RCTBubblingEventBlock?
+    @objc public var onVideoError: RCTBubblingEventBlock?
     @objc public var entry: [String: Any]?
    
     @objc public var src: NSDictionary? {
@@ -118,9 +118,9 @@ extension BrightcovePlayer: PlayerEventsResponder {
             if let onVideoFullscreenPlayerDidDismiss = onVideoFullscreenPlayerDidDismiss {
                 onVideoFullscreenPlayerDidDismiss(["target": reactTag ?? NSNull()])
             }
-        case .onError:
-            if let onError = onError {
-                onError(["target": reactTag ?? NSNull()])
+        case .onVideoError:
+            if let onVideoError = onVideoError {
+                onVideoError(["target": reactTag ?? NSNull()])
             }
         }
     }

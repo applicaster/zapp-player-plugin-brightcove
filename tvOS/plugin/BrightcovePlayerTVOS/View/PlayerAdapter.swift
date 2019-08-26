@@ -77,7 +77,7 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol, BCOVPlaybackControllerDele
         case kBCOVPlaybackSessionLifecycleEventFail,
              kBCOVPlaybackSessionLifecycleEventResumeFail,
              kBCOVPlaybackSessionLifecycleEventPlaybackStalled:
-            eventsResponderDelegate?.eventOccured(event: .onError)
+            eventsResponderDelegate?.eventOccured(event: .onVideoError)
         default:
             break
         }
