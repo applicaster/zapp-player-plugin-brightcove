@@ -12,12 +12,14 @@ import BrightcovePlayerSDK
 import ZappPlugins
 
 enum PlayerEvents {
+    case onVideoLoadStart
     case onVideoLoad
     case onVideoEnd
     case onVideoFullscreenPlayerWillPresent
     case onVideoFullscreenPlayerDidPresent
     case onVideoFullscreenPlayerWillDismiss
     case onVideoFullscreenPlayerDidDismiss
+    case onError
 }
 
 protocol PlayerEventsResponder: AnyObject {
@@ -28,12 +30,14 @@ protocol PlayerEventsResponder: AnyObject {
     
     var fullscreenPlayerPresented: Bool = false
     var playerViewController: PlayerViewController?
+    @objc public var onVideoLoadStart: RCTBubblingEventBlock?
     @objc public var onVideoLoad: RCTBubblingEventBlock?
     @objc public var onVideoEnd: RCTBubblingEventBlock?
     @objc public var onVideoFullscreenPlayerWillPresent: RCTBubblingEventBlock?
     @objc public var onVideoFullscreenPlayerDidPresent: RCTBubblingEventBlock?
     @objc public var onVideoFullscreenPlayerWillDismiss: RCTBubblingEventBlock?
     @objc public var onVideoFullscreenPlayerDidDismiss: RCTBubblingEventBlock?
+    @objc public var onError: RCTBubblingEventBlock?
     @objc public var entry: [String: Any]?
    
     @objc public var src: NSDictionary? {
@@ -85,6 +89,10 @@ protocol PlayerEventsResponder: AnyObject {
 extension BrightcovePlayer: PlayerEventsResponder {
     func eventOccured(event: PlayerEvents) {
         switch event {
+        case .onVideoLoadStart:
+            if let onVideoLoadStart = onVideoLoadStart {
+                onVideoLoadStart(["target": reactTag ?? NSNull()])
+            }
         case .onVideoLoad:
             if let onVideoLoad = onVideoLoad {
                 onVideoLoad(["target": reactTag ?? NSNull()])
@@ -109,6 +117,10 @@ extension BrightcovePlayer: PlayerEventsResponder {
         case .onVideoFullscreenPlayerDidDismiss:
             if let onVideoFullscreenPlayerDidDismiss = onVideoFullscreenPlayerDidDismiss {
                 onVideoFullscreenPlayerDidDismiss(["target": reactTag ?? NSNull()])
+            }
+        case .onError:
+            if let onError = onError {
+                onError(["target": reactTag ?? NSNull()])
             }
         }
     }

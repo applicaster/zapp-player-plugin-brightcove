@@ -15,10 +15,13 @@
 RCT_EXPORT_VIEW_PROPERTY(src, NSDictionary);
 RCT_EXPORT_VIEW_PROPERTY(paused, BOOL);
 
+RCT_EXPORT_VIEW_PROPERTY(onVideoLoadStart, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onVideoLoad, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onVideoFullscreenPlayerWillPresent, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onVideoFullscreenPlayerDidPresent, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onVideoFullscreenPlayerWillDismiss, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onVideoFullscreenPlayerDidDismiss, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onVideoEnd, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onError, RCTBubblingEventBlock);
+
 @end

@@ -55,6 +55,7 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol, BCOVPlaybackControllerDele
     }
     
     func loadItems() {
+        eventsResponderDelegate?.eventOccured(event: .onVideoLoadStart)
         guard let item = self.currentVideoItem else {
             return
         }
@@ -73,6 +74,10 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol, BCOVPlaybackControllerDele
         switch lifecycleEvent.eventType {
         case kBCOVPlaybackSessionLifecycleEventReady:
             eventsResponderDelegate?.eventOccured(event: .onVideoLoad)
+        case kBCOVPlaybackSessionLifecycleEventFail,
+             kBCOVPlaybackSessionLifecycleEventResumeFail,
+             kBCOVPlaybackSessionLifecycleEventPlaybackStalled:
+            eventsResponderDelegate?.eventOccured(event: .onError)
         default:
             break
         }
