@@ -1,12 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import {
-    AlertIOS,
     StyleSheet,
-    Text,
     requireNativeComponent,
-    View,
-    ActivityIndicator
+    TouchableOpacity,
+    BackHandler,
+    Text
 } from "react-native";
+
+import { ErrorDisplay } from '@applicaster/zapp-react-native-tvos-ui-components/Components/PlayerWrapper/ErrorDisplay';
 
 const Player = requireNativeComponent("PlayerModule");
 
@@ -17,8 +18,18 @@ export default class App extends Component {
 
         this.state = {
             isLoading: null,
-            isError: false
+            isError: 'error'
         };
+
+        this._isMounted = false;
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     setNativeProps(nativeProps) {
@@ -30,52 +41,36 @@ export default class App extends Component {
     };
 
     _onLoadStart = () => {
-        this.setState({
+        this._isMounted && this.setState({
             isLoading: true
         });
     };
 
     _onLoad = () => {
-        this.setState({
+        this._isMounted && this.setState({
             isLoading: false
         });
     };
 
-    _onError = () => {
+    _onError = ({error}) => {
         this.setState({
-            isError: true
+            isError: error.message,
+            isLoading: false
         });
     };
 
-    _onSeek = event => {
-        if (this.props.onSeek) {
-            this.props.onSeek(event.nativeEvent);
-        }
-    };
-
     _onEnd = event => {
-        if (this.props.onEnd) {
-            this.props.onEnd(event.nativeEvent);
-        }
+        console.log(event);
+        this._isMounted = false;
+        BackHandler.exitApp();
+        return true;
     };
 
-    renderErrorMessage() {
-        return (
-            <View style={styles.errorContainer}>
-                <View style={styles.container}>
-                    <Text style={styles.errorMessage}>Oops, something went wrong...</Text>
-                </View>
-            </View>
-        )
-    }
-
-    renderPlayer(nativeProps) {
-        return (
-            <Fragment>
-                <Player ref={this._assignRoot} {...nativeProps} />
-            </Fragment>
-        )
-    }
+    handleBackPress = (event) => {
+        console.log(event);
+        BackHandler.exitApp();
+        return true;
+    };
 
     render() {
         const { source: src } = this.props;
@@ -88,20 +83,27 @@ export default class App extends Component {
                 onVideoLoadStart: this._onLoadStart,
                 onVideoLoad: this._onLoad,
                 onVideoError: this._onError,
-                onVideoSeek: this._onSeek,
                 onVideoEnd: this._onEnd,
             }
         };
 
-       if (this.state.isError) {
-           return (
-               this.renderErrorMessage()
-           )
-       }
+        if (this.state.isError) {
+            return (
+                <TouchableOpacity onPress={(event) => this.handleBackPress(event)}>
+                    <ErrorDisplay />
+                    <Text>Hello</Text>
+                </TouchableOpacity>
+            )
+        }
 
-       return (
-           this.renderPlayer(nativeProps)
-       )
+        return (
+            <Fragment>
+                <Player
+                    ref={this._assignRoot}
+                    {...nativeProps}
+                />
+            </Fragment>
+        )
     }
 }
 
@@ -133,5 +135,13 @@ const styles = StyleSheet.create({
     errorMessage: {
         fontSize: 48,
         color: 'white'
+    },
+    loader: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
     }
 });
