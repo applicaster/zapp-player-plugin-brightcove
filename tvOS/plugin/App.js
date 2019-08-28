@@ -1,10 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {
     StyleSheet,
-    requireNativeComponent,
-    TouchableOpacity,
-    BackHandler,
-    Text
+    requireNativeComponent
 } from "react-native";
 
 import { ErrorDisplay } from '@applicaster/zapp-react-native-tvos-ui-components/Components/PlayerWrapper/ErrorDisplay';
@@ -15,61 +12,60 @@ export default class App extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            isLoading: null,
-            isError: 'error'
-        };
-
-        this._isMounted = false;
     }
 
-    componentDidMount() {
-        this._isMounted = true;
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
-
-    setNativeProps(nativeProps) {
-        this._root.setNativeProps(nativeProps);
-    }
-
-    _assignRoot = component => {
-        this._root = component;
+    _onLoadStart = event => {
+        if (this.props.onLoadStart) {
+            this.props.onLoadStart(event.nativeEvent);
+        }
     };
 
-    _onLoadStart = () => {
-        this._isMounted && this.setState({
-            isLoading: true
-        });
+    _onLoad = event => {
+        if (this.props.onLoad) {
+            this.props.onLoad(event.nativeEvent);
+        }
     };
 
-    _onLoad = () => {
-        this._isMounted && this.setState({
-            isLoading: false
-        });
+    _onError = event => {
+        if (this.props.onError) {
+            this.props.onError(event.nativeEvent);
+        }
     };
 
-    _onError = ({error}) => {
-        this.setState({
-            isError: error.message,
-            isLoading: false
-        });
+    _onProgress = event => {
+        if (this.props.onProgress) {
+            this.props.onProgress(event.nativeEvent);
+        }
     };
 
     _onEnd = event => {
-        console.log(event);
-        this._isMounted = false;
-        BackHandler.exitApp();
-        return true;
+        if (this.props.onEnd) {
+            this.props.onEnd(event.nativeEvent);
+        }
     };
 
-    handleBackPress = (event) => {
-        console.log(event);
-        BackHandler.exitApp();
-        return true;
+    _onFullscreenPlayerWillPresent = event => {
+        if (this.props.onFullscreenPlayerWillPresent) {
+            this.props.onFullscreenPlayerWillPresent(event.nativeEvent);
+        }
+    };
+
+    _onFullscreenPlayerDidPresent = event => {
+        if (this.props.onFullscreenPlayerDidPresent) {
+            this.props.onFullscreenPlayerDidPresent(event.nativeEvent);
+        }
+    };
+
+    _onFullscreenPlayerWillDismiss = event => {
+        if (this.props.onFullscreenPlayerWillDismiss) {
+            this.props.onFullscreenPlayerWillDismiss(event.nativeEvent);
+        }
+    };
+
+    _onFullscreenPlayerDidDismiss = event => {
+        if (this.props.onFullscreenPlayerDidDismiss) {
+            this.props.onFullscreenPlayerDidDismiss(event.nativeEvent);
+        }
     };
 
     render() {
@@ -83,27 +79,20 @@ export default class App extends Component {
                 onVideoLoadStart: this._onLoadStart,
                 onVideoLoad: this._onLoad,
                 onVideoError: this._onError,
+                onVideoProgress: this._onProgress,
                 onVideoEnd: this._onEnd,
+                onVideoFullscreenPlayerWillPresent: this._onFullscreenPlayerWillPresent,
+                onVideoFullscreenPlayerDidPresent: this._onFullscreenPlayerDidPresent,
+                onVideoFullscreenPlayerWillDismiss: this._onFullscreenPlayerWillDismiss,
+                onVideoFullscreenPlayerDidDismiss: this._onFullscreenPlayerDidDismiss
             }
         };
 
-        if (this.state.isError) {
-            return (
-                <TouchableOpacity onPress={(event) => this.handleBackPress(event)}>
-                    <ErrorDisplay />
-                    <Text>Hello</Text>
-                </TouchableOpacity>
-            )
-        }
-
         return (
             <Fragment>
-                <Player
-                    ref={this._assignRoot}
-                    {...nativeProps}
-                />
+                <Player {...nativeProps} />
             </Fragment>
-        )
+        );
     }
 }
 
