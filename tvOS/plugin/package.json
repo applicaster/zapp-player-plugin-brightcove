@@ -1,6 +1,6 @@
 {
   "name": "@applicaster/quick-brick-brightcove-player-tvos",
-  "version": "0.0.6",
+  "version": "0.0.10",
   "description": "",
   "main": "App.js",
   "scripts": {
@@ -21,8 +21,6 @@
   },
   "dependencies": {
     "@applicaster/zapp-react-native-bridge": "^2.0.3-rc.39",
-    "@applicaster/zapplicaster-cli": "2.0.3-rc.43",
-    "react-native-cli": "^2.0.1",
-    "react-native-zapp-bridge": "applicaster/react-native-zapp-bridge"
+    "@applicaster/zapplicaster-cli": "2.0.3-rc.43"
   }
 }
