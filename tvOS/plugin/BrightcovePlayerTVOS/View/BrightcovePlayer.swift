@@ -23,7 +23,13 @@ enum PlayerEvents {
 }
 
 protocol PlayerEventsResponder: AnyObject {
-    func eventOccured(event: PlayerEvents)
+    func eventOccured(event: PlayerEvents, infoDictionary: [String: String])
+}
+
+extension PlayerEventsResponder {
+    func eventOccured(event: PlayerEvents, infoDictionary: [String: String] = [String: String]()) {
+        return eventOccured(event: event, infoDictionary: infoDictionary)
+    }
 }
 
 @objc public class BrightcovePlayer: UIView {
@@ -46,7 +52,6 @@ protocol PlayerEventsResponder: AnyObject {
                 playerViewController = ViewControllerFactory.createPlayerViewController()
             
                 playerViewController?.eventsResponderDelegate = self
-                playerViewController?.player.eventsResponderDelegate = self
                 playerViewController?.videoSourceDictionary = src
                 var viewController = firstAvailableUIViewController()
                 if viewController == nil,
@@ -87,7 +92,7 @@ protocol PlayerEventsResponder: AnyObject {
 }
 
 extension BrightcovePlayer: PlayerEventsResponder {
-    func eventOccured(event: PlayerEvents) {
+    func eventOccured(event: PlayerEvents, infoDictionary: [String: String]) {
         switch event {
         case .onVideoLoadStart:
             if let onVideoLoadStart = onVideoLoadStart {
@@ -120,7 +125,8 @@ extension BrightcovePlayer: PlayerEventsResponder {
             }
         case .onVideoError:
             if let onVideoError = onVideoError {
-                onVideoError(["target": reactTag ?? NSNull()])
+                onVideoError(["error": infoDictionary,
+                              "target": reactTag ?? NSNull()])
             }
         }
     }

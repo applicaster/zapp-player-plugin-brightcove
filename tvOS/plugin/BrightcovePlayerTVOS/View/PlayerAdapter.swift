@@ -15,12 +15,12 @@ protocol PlayerAdapterProtocol: AnyObject {
     func play()
     func pause()
     func resume()
-    var eventsResponderDelegate: PlayerEventsResponder? { get set }
+    var playbackEventsDelegate: PlaybackEventsDelegate? { get set }
 }
 
 class PlayerAdapter: NSObject, PlayerAdapterProtocol, BCOVPlaybackControllerDelegate {
     
-    weak var eventsResponderDelegate: PlayerEventsResponder?
+    weak var playbackEventsDelegate: PlaybackEventsDelegate?
     var player: BCOVPlaybackController!
     var currentVideoItem: VideoItem?
     
@@ -55,7 +55,7 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol, BCOVPlaybackControllerDele
     }
     
     func loadItems() {
-        eventsResponderDelegate?.eventOccured(event: .onVideoLoadStart)
+        playbackEventsDelegate?.videoItemsLoadStarted()
         guard let item = self.currentVideoItem else {
             return
         }
@@ -71,19 +71,10 @@ class PlayerAdapter: NSObject, PlayerAdapterProtocol, BCOVPlaybackControllerDele
     func playbackController(_ controller: BCOVPlaybackController!,
                             playbackSession session: BCOVPlaybackSession!,
                             didReceive lifecycleEvent: BCOVPlaybackSessionLifecycleEvent!) {
-        switch lifecycleEvent.eventType {
-        case kBCOVPlaybackSessionLifecycleEventReady:
-            eventsResponderDelegate?.eventOccured(event: .onVideoLoad)
-        case kBCOVPlaybackSessionLifecycleEventFail,
-             kBCOVPlaybackSessionLifecycleEventResumeFail,
-             kBCOVPlaybackSessionLifecycleEventPlaybackStalled:
-            eventsResponderDelegate?.eventOccured(event: .onVideoError)
-        default:
-            break
-        }
+        playbackEventsDelegate?.videoEventOccured(lifecycleEvent, duringSession: session)
     }
     
     func playbackController(_ controller: BCOVPlaybackController!, didCompletePlaylist playlist: NSFastEnumeration!) {
-        eventsResponderDelegate?.eventOccured(event: .onVideoEnd)
+        playbackEventsDelegate?.didEndPlayback()
     }
 }

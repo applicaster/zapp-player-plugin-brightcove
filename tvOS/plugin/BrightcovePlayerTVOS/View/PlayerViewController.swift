@@ -8,9 +8,17 @@
 import UIKit
 import BrightcovePlayerSDK
 
-class PlayerViewController: UIViewController {
+protocol PlaybackEventsDelegate: AnyObject {
+    func videoEventOccured(_ event: BCOVPlaybackSessionLifecycleEvent,
+                      duringSession session: BCOVPlaybackSession)
+    func didEndPlayback()
+    func videoItemsLoadStarted()
+}
+
+class PlayerViewController: UIViewController, PlaybackEventsDelegate {
 
     weak var eventsResponderDelegate: PlayerEventsResponder?
+    let loadIndicator = UIActivityIndicatorView()
     let builder: PlayerViewBuilderProtocol
     let player: PlayerAdapterProtocol
     
@@ -45,15 +53,23 @@ class PlayerViewController: UIViewController {
 
     private func setupPlayerView() {
         view.addSubview(playerView)
-        
+        view.addSubview(loadIndicator)
         playerView.translatesAutoresizingMaskIntoConstraints = false
         playerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         playerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        loadIndicator.color = .white
+        loadIndicator.translatesAutoresizingMaskIntoConstraints = false
+        loadIndicator.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        loadIndicator.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        loadIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        loadIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
     
     open func setupPlayer() {
+        player.playbackEventsDelegate = self
         player.setupPlayer(atContainer: self)
     }
     
@@ -85,5 +101,42 @@ class PlayerViewController: UIViewController {
         } else {
             super.pressesBegan(presses, with: event)
         }
+    }
+    
+    func showLoadIndicator() {
+        loadIndicator.startAnimating()
+        loadIndicator.isHidden = false
+    }
+    
+    func hideLoadIndicator() {
+        loadIndicator.stopAnimating()
+        loadIndicator.isHidden = true
+    }
+    
+    func videoEventOccured(_ event: BCOVPlaybackSessionLifecycleEvent, duringSession session: BCOVPlaybackSession) {
+        switch event.eventType {
+        case kBCOVPlaybackSessionLifecycleEventReady:
+            hideLoadIndicator()
+            eventsResponderDelegate?.eventOccured(event: .onVideoLoad)
+        case kBCOVPlaybackSessionLifecycleEventFail,
+             kBCOVPlaybackSessionLifecycleEventResumeFail,
+             kBCOVPlaybackSessionLifecycleEventPlaybackStalled:
+            var errorDictionary = [String: String]()
+            if let error = event.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
+                errorDictionary["localizedDescription"] = error.localizedDescription
+            }
+            eventsResponderDelegate?.eventOccured(event: .onVideoError, infoDictionary: errorDictionary)
+        default:
+            break
+        }
+    }
+    
+    func didEndPlayback() {
+        eventsResponderDelegate?.eventOccured(event: .onVideoEnd)
+    }
+    
+    func videoItemsLoadStarted() {
+        showLoadIndicator()
+        eventsResponderDelegate?.eventOccured(event: .onVideoLoadStart)
     }
 }
