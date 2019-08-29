@@ -1,5 +1,6 @@
 package com.applicaster.player.plugins.brightcove.analytics
 
+import android.util.Log
 import com.applicaster.analytics.AnalyticsAgentUtil
 import com.applicaster.atom.model.APAtomEntry
 import com.applicaster.plugin_manager.playersmanager.Playable
@@ -40,6 +41,11 @@ class CompleteAnalyticsAdapter(
     override fun endTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
         switchInstanceCounter = 0
         startTimeInVideoMillis = 0L
+        AnalyticsAgentUtil.endTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayVODItemProperties(playable))
+        AnalyticsAgentUtil.endTimedEvent(
+                AnalyticsEvent.PLAY_LIVE_STREAM.value,
+                collectPlayLiveStreamProperties(playable)
+        )
     }
 
     /**
