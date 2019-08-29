@@ -31,17 +31,9 @@ open class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Ana
     override fun startTrack(playable: Playable, mode: PlayerMode) {
         this.isLive = playable.isLive
         view.eventEmitter.on(EventType.COMPLETED) { completed }
-        AnalyticsAgentUtil.logTimedEvent(
-            playable.analyticsEvent,
-            basicParams(playable, mode)
-        )
     }
 
     override fun endTrack(playable: Playable, mode: PlayerMode) {
-        AnalyticsAgentUtil.endTimedEvent(
-            playable.analyticsEvent,
-            basicParams(playable, mode).plus(completionParams(playable, completed))
-        )
     }
 
     private fun basicParams(playable: Playable, mode: PlayerMode) =
