@@ -147,6 +147,12 @@ open class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Ana
             FULLSCREEN -> AnalyticsEvent.VIEW.value to ViewMode.FULL_SCREEN.value
         }
 
+    protected fun getAnalyticsEventType(): AnalyticsEvent =
+            when {
+            isLive -> AnalyticsEvent.PLAY_LIVE_STREAM
+            else -> AnalyticsEvent.PLAY_VOD_ITEM
+        }
+
     protected enum class ViewMode(val value: String) {
         INLINE("Inline"),
         FULL_SCREEN("Full Screen")
@@ -197,9 +203,3 @@ open class MorpheusAnalyticsAdapter(private val view: BrightcoveVideoView) : Ana
     }
 
 }
-
-private val Playable.analyticsEvent: String
-    get() = when {
-        isLive -> "Play Live Stream"
-        else -> AnalyticsAgentUtil.PLAY_VOD_ITEM
-    }
