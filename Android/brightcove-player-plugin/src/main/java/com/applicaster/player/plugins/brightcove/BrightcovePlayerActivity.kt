@@ -133,12 +133,12 @@ class BrightcovePlayerActivity : AppCompatActivity(), ErrorDialogListener {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
-        analyticsAdapter.endTrack(playable, FULLSCREEN)
         adAnalyticsAdapter.endTrack(playable, FULLSCREEN)
         errorHandlingAnalyticsAdapter.endTrack(playable, FULLSCREEN)
         errorHandlingVideoPlayerAdapter.endTrack(playable, FULLSCREEN)
         completeAnalyticsAdapter.endTrack(playable, FULLSCREEN)
+        analyticsAdapter.endTrack(playable, FULLSCREEN)
+        super.onDestroy()
     }
 
     private fun BrightcoveVideoView.listenVideoPlayError() {

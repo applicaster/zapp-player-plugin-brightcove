@@ -31,21 +31,29 @@ class CompleteAnalyticsAdapter(
         setViewMode(mode)
         startTimeInVideoMillis = System.currentTimeMillis()
         playableProps = collectPlayableProperties(playable)
-        AnalyticsAgentUtil.logTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayVODItemProperties(playable))
-        AnalyticsAgentUtil.logTimedEvent(
-            AnalyticsEvent.PLAY_LIVE_STREAM.value,
-            collectPlayLiveStreamProperties(playable)
-        )
+        when (getAnalyticsEventType()) {
+            AnalyticsEvent.PLAY_VOD_ITEM -> {
+                AnalyticsAgentUtil.logTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayVODItemProperties(playable))
+            }
+            AnalyticsEvent.PLAY_LIVE_STREAM -> {
+                AnalyticsAgentUtil.logTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayLiveStreamProperties(playable))
+            }
+            else -> {}
+        }
     }
 
     override fun endTrack(playable: Playable, mode: AnalyticsAdapter.PlayerMode) {
         switchInstanceCounter = 0
         startTimeInVideoMillis = 0L
-        AnalyticsAgentUtil.endTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayVODItemProperties(playable))
-        AnalyticsAgentUtil.endTimedEvent(
-                AnalyticsEvent.PLAY_LIVE_STREAM.value,
-                collectPlayLiveStreamProperties(playable)
-        )
+        when (getAnalyticsEventType()) {
+            AnalyticsEvent.PLAY_VOD_ITEM -> {
+                AnalyticsAgentUtil.endTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayVODItemProperties(playable))
+            }
+            AnalyticsEvent.PLAY_LIVE_STREAM -> {
+                AnalyticsAgentUtil.endTimedEvent(AnalyticsEvent.PLAY_VOD_ITEM.value, collectPlayLiveStreamProperties(playable))
+            }
+            else -> {}
+        }
     }
 
     /**
@@ -208,11 +216,12 @@ class CompleteAnalyticsAdapter(
     /**
      * Whether or not the user completed the item (got to the end of the video before closing)
      */
-    private fun getCompletion(): Pair<String, String> =
-        when (this.completed) {
-            Completed.YES -> Pair(AnalyticsEvent.COMPLETED.value, Completed.YES.value)
-            Completed.NO -> Pair(AnalyticsEvent.COMPLETED.value, Completed.NO.value)
-        }
+    private fun getCompletion(): Pair<String, String> {
+        return if (this.completed == Completed.YES)
+            Pair(AnalyticsEvent.COMPLETED.value, Completed.YES.value)
+        else
+            Pair(AnalyticsEvent.COMPLETED.value, Completed.NO.value)
+    }
 
     /**
      * The number of times the user has already switched view in the video play session.
@@ -270,11 +279,11 @@ class CompleteAnalyticsAdapter(
     }
 
     // Events properties
-    private enum class Completed(val value: String) {
+    enum class Completed(val value: String) {
         YES("Yes"), NO("No")
     }
 
-    private enum class SeekDirection(val value: String) {
+    enum class SeekDirection(val value: String) {
         FAST_FORWARD("Fast Forward"),
         REWIND("Rewind")
     }
