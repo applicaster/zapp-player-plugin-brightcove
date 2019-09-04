@@ -49,17 +49,20 @@ class PlayerViewController: UIViewController, PlaybackEventsDelegate {
         super.viewDidLoad()
         setupPlayerView()
         setupPlayer()
+        setupLoadIndicator()
     }
 
     private func setupPlayerView() {
         view.addSubview(playerView)
-        view.addSubview(loadIndicator)
         playerView.translatesAutoresizingMaskIntoConstraints = false
         playerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         playerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         playerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        
+    }
+    
+    private func setupLoadIndicator() {
+        view.addSubview(loadIndicator)
         loadIndicator.color = .white
         loadIndicator.translatesAutoresizingMaskIntoConstraints = false
         loadIndicator.widthAnchor.constraint(equalToConstant: 30).isActive = true
@@ -121,6 +124,7 @@ class PlayerViewController: UIViewController, PlaybackEventsDelegate {
         case kBCOVPlaybackSessionLifecycleEventFail,
              kBCOVPlaybackSessionLifecycleEventResumeFail,
              kBCOVPlaybackSessionLifecycleEventPlaybackStalled:
+            hideLoadIndicator()
             var errorDictionary = [String: String]()
             if let error = event.properties[kBCOVPlaybackSessionEventKeyError] as? NSError {
                 errorDictionary["localizedDescription"] = error.localizedDescription
