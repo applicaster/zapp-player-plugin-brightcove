@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    requireNativeComponent
+    requireNativeComponent,
+    TouchableOpacity
 } from "react-native";
+
+import { ErrorDisplay } from '@applicaster/zapp-react-native-tvos-ui-components/Components/PlayerWrapper/ErrorDisplay';
 
 const Player = requireNativeComponent("PlayerModule");
 
@@ -10,6 +13,10 @@ export default class App extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            isError: null
+        }
     }
 
     _onLoadStart = event => {
@@ -25,9 +32,10 @@ export default class App extends Component {
     };
 
     _onError = event => {
-        if (this.props.onError) {
-            this.props.onError(event.nativeEvent);
-        }
+        this.setState({
+            isError: event.nativeEvent
+        });
+        this.props.onError(event.nativeEvent);
     };
 
     _onProgress = event => {
@@ -59,6 +67,14 @@ export default class App extends Component {
             }
         };
 
+        if (this.state.isError) {
+            return (
+                <TouchableOpacity onPress={this._onEnd}>
+                    <ErrorDisplay />
+                </TouchableOpacity>
+            )
+        }
+
         return <Player {...nativeProps} />
     }
 }
@@ -66,18 +82,5 @@ export default class App extends Component {
 const styles = StyleSheet.create({
     base: {
         overflow: "hidden"
-    },
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "black"
-    },
-    fullScreen: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
     }
 });
