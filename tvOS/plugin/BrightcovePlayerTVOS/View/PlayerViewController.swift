@@ -130,6 +130,7 @@ class PlayerViewController: UIViewController, PlaybackEventsDelegate {
                 errorDictionary["localizedDescription"] = error.localizedDescription
             }
             eventsResponderDelegate?.eventOccured(event: .onVideoError, infoDictionary: errorDictionary)
+            eventsResponderDelegate?.eventOccured(event: .onVideoEnd)
         default:
             break
         }
