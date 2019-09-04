@@ -1,10 +1,8 @@
-import React, {Component, Fragment} from 'react';
+import React, { Component } from 'react';
 import {
     StyleSheet,
     requireNativeComponent
 } from "react-native";
-
-import { ErrorDisplay } from '@applicaster/zapp-react-native-tvos-ui-components/Components/PlayerWrapper/ErrorDisplay';
 
 const Player = requireNativeComponent("PlayerModule");
 
@@ -44,55 +42,24 @@ export default class App extends Component {
         }
     };
 
-    _onFullscreenPlayerWillPresent = event => {
-        if (this.props.onFullscreenPlayerWillPresent) {
-            this.props.onFullscreenPlayerWillPresent(event.nativeEvent);
-        }
-    };
-
-    _onFullscreenPlayerDidPresent = event => {
-        if (this.props.onFullscreenPlayerDidPresent) {
-            this.props.onFullscreenPlayerDidPresent(event.nativeEvent);
-        }
-    };
-
-    _onFullscreenPlayerWillDismiss = event => {
-        if (this.props.onFullscreenPlayerWillDismiss) {
-            this.props.onFullscreenPlayerWillDismiss(event.nativeEvent);
-        }
-    };
-
-    _onFullscreenPlayerDidDismiss = event => {
-        if (this.props.onFullscreenPlayerDidDismiss) {
-            this.props.onFullscreenPlayerDidDismiss(event.nativeEvent);
-        }
-    };
-
     render() {
-        const { source: src } = this.props;
+
+        const { source } = this.props;
 
         const nativeProps = {
             ...this.props,
             ...{
                 style: styles.base,
-                src: src,
+                src: source,
                 onVideoLoadStart: this._onLoadStart,
                 onVideoLoad: this._onLoad,
                 onVideoError: this._onError,
                 onVideoProgress: this._onProgress,
                 onVideoEnd: this._onEnd,
-                onVideoFullscreenPlayerWillPresent: this._onFullscreenPlayerWillPresent,
-                onVideoFullscreenPlayerDidPresent: this._onFullscreenPlayerDidPresent,
-                onVideoFullscreenPlayerWillDismiss: this._onFullscreenPlayerWillDismiss,
-                onVideoFullscreenPlayerDidDismiss: this._onFullscreenPlayerDidDismiss
             }
         };
 
-        return (
-            <Fragment>
-                <Player {...nativeProps} />
-            </Fragment>
-        );
+        return <Player {...nativeProps} />
     }
 }
 
@@ -112,25 +79,5 @@ const styles = StyleSheet.create({
         left: 0,
         bottom: 0,
         right: 0
-    },
-    errorContainer: {
-        position: "absolute",
-        backgroundColor: "black",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0
-    },
-    errorMessage: {
-        fontSize: 48,
-        color: 'white'
-    },
-    loader: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
     }
 });

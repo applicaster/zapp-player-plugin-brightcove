@@ -33,7 +33,19 @@
     react-router-native "^4.3.0"
     url "^0.11.0"
 
-"@applicaster/zapp-pipes-dev-kit@1.3.0":
+"@applicaster/zapp-pipes-dev-kit@1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-dev-kit/-/zapp-pipes-dev-kit-1.2.7.tgz#8e5dab3b7a060e41887db9c9a27b4a776b55fff1"
+  integrity sha512-++DP84j6lmgIknYtQANNXf8u5ZbpZZUfOB0pFFa3WZ8M0C8GNXkcGYJbcCfsUIOUzFLIMMOz1Mq7Wn4ErV3Aqw==
+  dependencies:
+    chalk "1.1.3"
+    hapi "^17.5.4"
+    query-string "4.3.2"
+    ramda "0.23.0"
+    raven-js "3.14.1"
+    url "0.11.0"
+
+"@applicaster/zapp-pipes-dev-kit@1.3.0", "@applicaster/zapp-pipes-dev-kit@^1.1.6":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-dev-kit/-/zapp-pipes-dev-kit-1.3.0.tgz#ca06ee5a60748f1fcee92905d68c73e5638fe8ee"
   integrity sha512-dIpq1ZpQ3yt0tbI9qL0Zzkon/gbPYY22XLFq4ul/UWkgTPOn1ymnoirplPEEgGfhIa2AG/+G8Rs+YRuXpKNQ6g==
@@ -53,6 +65,17 @@
     axios "^0.17.1"
     btoa "^1.1.2"
     moment "^2.23.0"
+
+"@applicaster/zapp-pipes-provider-general@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@applicaster/zapp-pipes-provider-general/-/zapp-pipes-provider-general-0.1.1.tgz#259ac38cd2327b101c3899659eb0d18a7ad4dbc7"
+  integrity sha1-JZrDjNIyexAcOJllnrDRinrU28c=
+  dependencies:
+    "@applicaster/zapp-pipes-dev-kit" "^1.1.6"
+    axios "^0.16.0"
+    ramda "^0.23.0"
+    snake-case "^2.1.0"
+    xml2js-parser "^1.1.1"
 
 "@applicaster/zapp-react-dom-app@2.0.3-rc.43":
   version "2.0.3-rc.43"
@@ -147,6 +170,13 @@
     react-router-native "^4.3.0"
     url "^0.11.0"
 
+"@applicaster/zapp-react-native-bridge@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@applicaster/zapp-react-native-bridge/-/zapp-react-native-bridge-2.0.0.tgz#c541b9bb66b395a1c67313999bc81f195e782a51"
+  integrity sha512-0nVibyPUlWZHgPPyAgfvqy25592iUY2+WWWjHX0RSkVPyYsKTjT115KFaZxRT1JM8oxToZ2Dy8eHM6m1AL4zzQ==
+  dependencies:
+    "@applicaster/zapp-pipes-dev-kit" "1.2.7"
+
 "@applicaster/zapp-react-native-bridge@2.0.3-rc.39":
   version "2.0.3-rc.39"
   resolved "https://registry.yarnpkg.com/@applicaster/zapp-react-native-bridge/-/zapp-react-native-bridge-2.0.3-rc.39.tgz#345559be7c44032d9f58d5cb1c42f6cd06813126"
@@ -183,6 +213,19 @@
     ramda "^0.25.0"
     react-redux "^5.0.7"
     redux "4.0.0"
+    redux-thunk "^2.3.0"
+    reselect "^3.0.1"
+
+"@applicaster/zapp-react-native-redux@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@applicaster/zapp-react-native-redux/-/zapp-react-native-redux-2.0.0.tgz#82b27e305cdb06549872953499a3951457809c7d"
+  integrity sha512-LMWicLAVsvQxs4gyoqln4uxkFgaHM3WBxnHlqCRurwKMTBvP2GPB42gkJkBfGMbKZdRiqf10gKwmBdp575oSzw==
+  dependencies:
+    "@applicaster/zapp-react-native-bridge" "2.0.0"
+    "@applicaster/zapp-react-native-utils" "2.0.0"
+    ramda "^0.25.0"
+    react-redux "^5.0.7"
+    redux "^4.0.0"
     redux-thunk "^2.3.0"
     reselect "^3.0.1"
 
@@ -236,6 +279,18 @@
     react-router-native "^4.3.0"
     url "^0.11.0"
     uuid "^3.3.2"
+
+"@applicaster/zapp-react-native-utils@2.0.0", "@applicaster/zapp-react-native-utils@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@applicaster/zapp-react-native-utils/-/zapp-react-native-utils-2.0.0.tgz#f29bcbacd6320a525aa32cd36d10190e08bc63ba"
+  integrity sha512-mkFzPss8KdF3wdcnnaiuFQhjh/oghyeFbQ2r7SfWsjMK2fcxXGN6Bp4PjMgC6SNjXSU03AUvZO2rTS0spwPB5w==
+  dependencies:
+    buffer "^5.2.1"
+    camelize "^1.0.0"
+    create-react-context "^0.2.3"
+    create-react-ref "^0.1.0"
+    ramda "^0.25.0"
+    react-hot-loader "^4.3.8"
 
 "@applicaster/zapp-react-native-utils@2.0.3-rc.43":
   version "2.0.3-rc.43"
@@ -1365,6 +1420,14 @@ aws-sdk@^2.224.1:
     uuid "3.3.2"
     xml2js "0.4.19"
 
+axios@^0.16.0:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.16.2.tgz#ba4f92f17167dfbab40983785454b9ac149c3c6d"
+  integrity sha1-uk+S8XFn37q0CYN4VFS5rBScPG0=
+  dependencies:
+    follow-redirects "^1.2.3"
+    is-buffer "^1.1.5"
+
 axios@^0.17.1:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.17.1.tgz#2d8e3e5d0bdbd7327f91bc814f5c57660f81824d"
@@ -1978,7 +2041,7 @@ debug@=3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@^3.2.6:
+debug@^3.0.0, debug@^3.2.6:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
   integrity sha512-mel+jf7nrtEl5Pn1Qx46zARXKDpBbvzezse7p7LqINmdoIk8PYP5SySaxEmYv6TZ0JyEKA1hsCId6DIhgITtWQ==
@@ -2444,6 +2507,13 @@ follow-redirects@1.5.10:
   dependencies:
     debug "=3.1.0"
 
+follow-redirects@^1.2.3:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.8.1.tgz#24804f9eaab67160b0e840c085885d606371a35b"
+  integrity sha512-micCIbldHioIegeKs41DoH0KS3AXfFzgS30qVkM6z/XOE/GJgvmsoc839NUqa1B9udYe9dQxgv7KFwng6+p/dw==
+  dependencies:
+    debug "^3.0.0"
+
 follow-redirects@^1.2.5:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.7.0.tgz#489ebc198dc0e7f64167bd23b03c4c19b5784c76"
@@ -2642,6 +2712,30 @@ hapi@17.5.4:
     mimos "4.x.x"
     podium "3.x.x"
     shot "4.x.x"
+    statehood "6.x.x"
+    subtext "6.x.x"
+    teamwork "3.x.x"
+    topo "3.x.x"
+
+hapi@^17.5.4:
+  version "17.8.5"
+  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.8.5.tgz#31bc23dfd45c9cbc8b417ea2eaecd14694aa150e"
+  integrity sha512-+RnMWK/HI3VCvzfy0vO28YycMX19OiY8h9tYaDzjjOJ1eTh/HY2URvhFNkcqxZ1R1uoUdiB+pnjGi9e+vkaPEw==
+  dependencies:
+    accept "3.x.x"
+    ammo "3.x.x"
+    boom "7.x.x"
+    bounce "1.x.x"
+    call "5.x.x"
+    catbox "10.x.x"
+    catbox-memory "3.x.x"
+    heavy "6.x.x"
+    hoek "6.x.x"
+    joi "14.x.x"
+    mimos "4.x.x"
+    podium "3.x.x"
+    shot "4.x.x"
+    somever "2.x.x"
     statehood "6.x.x"
     subtext "6.x.x"
     teamwork "3.x.x"
@@ -3368,6 +3462,11 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
+lower-case@^1.1.1:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-1.1.4.tgz#9a2cabd1b9e8e0ae993a4bf7d5875c39c42e8eac"
+  integrity sha1-miyr0bno4K6ZOkv31YdcOcQujqw=
+
 lru-cache@^4.0.1:
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-4.1.5.tgz#8bbe50ea85bed59bc9e33dcab8235ee9bcf443cd"
@@ -3903,6 +4002,13 @@ nigel@3.x.x:
   dependencies:
     hoek "6.x.x"
     vise "3.x.x"
+
+no-case@^2.2.0:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
+  integrity sha512-rmTZ9kz+f3rCvK2TD1Ue/oZlns7OGoIWP4fc3llxxRXlOkHKoWPPWJOfFYpITabSow43QJbRIoHQXtt10VldyQ==
+  dependencies:
+    lower-case "^1.1.1"
 
 node-fetch@^1.0.1:
   version "1.7.3"
@@ -4457,7 +4563,7 @@ querystring@0.2.0, querystring@^0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
-ramda@0.23.0:
+ramda@0.23.0, ramda@^0.23.0:
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.23.0.tgz#ccd13fff73497a93974e3e86327bfd87bd6e8e2b"
   integrity sha1-zNE//3NJepOXTj6GMnv9h71ujis=
@@ -4467,7 +4573,7 @@ ramda@0.25.0, ramda@^0.25.0:
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
   integrity sha512-GXpfrYVPwx3K7RQ6aYT8KPS8XViSXUVJT1ONhoKPE9VAleW42YE+U+8VEyGWt41EnEQW7gwecYJriTI0pKoecQ==
 
-ramda@^0.26.0:
+ramda@^0.26.0, ramda@^0.26.1:
   version "0.26.1"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
   integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
@@ -4754,6 +4860,14 @@ redux@4.0.0:
     loose-envify "^1.1.0"
     symbol-observable "^1.2.0"
 
+redux@^4.0.0:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
+  integrity sha512-vKv4WdiJxOWKxK0yRoaK3Y4pxxB0ilzVx6dszU2W8wLxlb2yikRph4iV/ymtdJ6ZxpBLFbyrxklnT5yBbQSl3Q==
+  dependencies:
+    loose-envify "^1.4.0"
+    symbol-observable "^1.2.0"
+
 regenerate-unicode-properties@^8.0.2:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/regenerate-unicode-properties/-/regenerate-unicode-properties-8.1.0.tgz#ef51e0f0ea4ad424b77bf7cb41f3e015c70a3f0e"
@@ -5009,7 +5123,7 @@ sax@1.2.1:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
   integrity sha1-e45lYZCyKOgaZq6nSEgNgozS03o=
 
-sax@>=0.6.0, sax@^1.2.4:
+sax@>=0.6.0, sax@^1.2.1, sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
@@ -5181,6 +5295,13 @@ slide@^1.1.5:
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
   integrity sha1-VusCfWW00tzmyy4tMsTUr8nh1wc=
 
+snake-case@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/snake-case/-/snake-case-2.1.0.tgz#41bdb1b73f30ec66a04d4e2cad1b76387d4d6d9f"
+  integrity sha1-Qb2xtz8w7GagTU4srRt2OH1NbZ8=
+  dependencies:
+    no-case "^2.2.0"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -5226,6 +5347,14 @@ socketcluster-client@^14.2.1:
     sc-formatter "^3.0.1"
     uuid "3.2.1"
     ws "7.1.0"
+
+somever@2.x.x:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/somever/-/somever-2.0.0.tgz#7bdbed3bee8ece2c7c8a2e7d9a1c022bd98d6c89"
+  integrity sha512-9JaIPP+HxwYGqCDqqK3tRaTqdtQHoK6Qy3IrXhIt2q5x8fs8RcfU7BMWlFTCOgFazK8p88zIv1tHQXvAwtXMyw==
+  dependencies:
+    bounce "1.x.x"
+    hoek "6.x.x"
 
 source-map-resolve@^0.5.0:
   version "0.5.2"
@@ -5898,6 +6027,13 @@ xhr@2.4.0:
     is-function "^1.0.1"
     parse-headers "^2.0.0"
     xtend "^4.0.0"
+
+xml2js-parser@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/xml2js-parser/-/xml2js-parser-1.1.1.tgz#90dc39f9d84d036ae10f41e6e766a91550444d44"
+  integrity sha1-kNw5+dhNA2rhD0Hm52apFVBETUQ=
+  dependencies:
+    sax "^1.2.1"
 
 xml2js@0.4.19:
   version "0.4.19"
