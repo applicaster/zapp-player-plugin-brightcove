@@ -9,8 +9,8 @@
   "author_name": "Olga Duk",
   "author_email": "oduk@scand.com",
   "dependency_name": "@applicaster/quick-brick-brightcove-player-tvos",
-  "dependency_version": "0.0.12",
-  "manifest_version": "0.0.12",
+  "dependency_version": "0.0.13",
+  "manifest_version": "0.0.13",
   "name": "QBBrightcovePlayer",
   "description": "Brightcove Player for tvOS",
   "type": "player",
@@ -24,6 +24,22 @@
   "deprecated_since_zapp_sdk": "",
   "unsupported_since_zapp_sdk": "",
   "react_native": true,
+  "hooks": {
+    "fields": [
+      {
+        "group": true,
+        "label": "Before Load",
+        "folded": true,
+        "fields": [
+          {
+            "key": "preload_plugins",
+            "type": "preload_plugins_selector",
+            "label": "Select Plugins"
+          }
+        ]
+      }
+    ]
+  },
   "react_bundle_url": "https://",
   "extra_dependencies": [
     {
