@@ -16,6 +16,14 @@
     metro-react-native-babel-preset "0.48.1"
     react-hot-loader "^4.12.5"
 
+"@applicaster/quick-brick-brightcove-player-tvos@0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@applicaster/quick-brick-brightcove-player-tvos/-/quick-brick-brightcove-player-tvos-0.0.10.tgz#a0231c4c5efb62fe7bd7fbefe116544ef29136a6"
+  integrity sha512-5oe5YrpFvtfOmBvJH+4pXBHL/1rPIQZd/XWOAwD1ClhXs2kcsbCyVIKo6edblPY0ncXUT/A3/Dzetps+k3e6dA==
+  dependencies:
+    "@applicaster/zapp-react-native-bridge" "^2.0.3-rc.39"
+    "@applicaster/zapplicaster-cli" "2.0.3-rc.43"
+
 "@applicaster/quick-brick-core@2.0.3-rc.43":
   version "2.0.3-rc.43"
   resolved "https://registry.yarnpkg.com/@applicaster/quick-brick-core/-/quick-brick-core-2.0.3-rc.43.tgz#9b73b77346f7c05aff5abab9e7946274819389a1"

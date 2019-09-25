@@ -1,6 +1,6 @@
 {
   "name": "quick-brick-brightcove-player-tvos",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "",
   "main": "index.js",
   "scripts": {

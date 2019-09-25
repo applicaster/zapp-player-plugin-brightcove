@@ -9,14 +9,14 @@
   "author_name": "Olga Duk",
   "author_email": "oduk@scand.com",
   "dependency_name": "@applicaster/quick-brick-brightcove-player-tvos",
-  "dependency_version": "0.0.11",
-  "manifest_version": "0.0.11",
+  "dependency_version": "0.0.12",
+  "manifest_version": "0.0.12",
   "name": "QBBrightcovePlayer",
   "description": "Brightcove Player for tvOS",
   "type": "player",
-  "screen": false,
+  "screen": true,
   "identifier": "quick-brick-brightcove-player-tvos",
-  "ui_builder_support": false,
+  "ui_builder_support": true,
   "whitelisted_account_ids": [
     "5a4516fa41442c000b0195d6"
   ],
