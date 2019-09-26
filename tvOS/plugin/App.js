@@ -52,13 +52,16 @@ export default class App extends Component {
 
     render() {
 
-        const { source } = this.props;
+        const {
+            source
+        } = this.props;
 
         const nativeProps = {
             ...this.props,
             ...{
                 style: styles.base,
                 src: source,
+                entry: source.entry,
                 onVideoLoadStart: this._onLoadStart,
                 onVideoLoad: this._onLoad,
                 onVideoError: this._onError,

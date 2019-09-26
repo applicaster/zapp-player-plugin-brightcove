@@ -3,7 +3,7 @@ const { resolve } = require("path");
 const config = {
     resolver: {
         extraNodeModules: {
-            "react-native": resolve(__dirname, "./node_modules/react-native")
+            "react-native": resolve(__dirname, "node_modules/react-native")
         }
     },
     projectRoot: resolve(__dirname, "./development-app"),

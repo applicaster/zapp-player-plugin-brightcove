@@ -1,6 +1,6 @@
 {
   "name": "@applicaster/quick-brick-brightcove-player-tvos",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "",
   "main": "App.js",
   "scripts": {
@@ -9,21 +9,21 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "@applicaster/zapp-react-native-bridge": "^2.0.3-rc.39",
-    "react": "16.6.3",
-    "react-native": "0.57.5"
+    "@applicaster/zapp-react-native-bridge": "^2.0.3",
+    "react": "16.8.3",
+    "react-native": "0.59.10"
   },
   "devDependencies": {
-    "@applicaster/zapp-react-native-bridge": "^2.0.3-rc.39",
+    "@applicaster/zapp-react-native-bridge": "^2.0.3",
     "flow-bin": "^0.103.0",
-    "react": "16.6.3",
-    "react-native": "0.57.5"
+    "react": "16.8.3",
+    "react-native": "0.59.10"
   },
   "dependencies": {
-    "@applicaster/zapp-react-native-bridge": "^2.0.3-rc.39",
+    "@applicaster/zapp-react-native-bridge": "^2.0.3",
     "@applicaster/zapp-react-native-redux": "^2.0.0",
     "@applicaster/zapp-react-native-utils": "^2.0.0",
-    "@applicaster/zapplicaster-cli": "2.0.3-rc.43",
+    "@applicaster/zapplicaster-cli": "2.0.3",
     "ramda": "^0.26.1"
   }
 }
