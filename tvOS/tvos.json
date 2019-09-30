@@ -9,8 +9,8 @@
   "author_name": "Olga Duk",
   "author_email": "oduk@scand.com",
   "dependency_name": "@applicaster/quick-brick-brightcove-player-tvos",
-  "dependency_version": "0.0.14",
-  "manifest_version": "0.0.14",
+  "dependency_version": "0.0.15",
+  "manifest_version": "0.0.15",
   "name": "QBBrightcovePlayer",
   "description": "Brightcove Player for tvOS",
   "type": "player",
@@ -48,5 +48,11 @@
   ],
   "npm_dependencies": [],
   "project_dependencies": [],
-  "custom_configuration_fields": []
+  "custom_configuration_fields": [
+    {
+      "type": "checkbox",
+      "key": "ignore_default_subscription",
+      "default": 0
+    }
+  ]
 }
