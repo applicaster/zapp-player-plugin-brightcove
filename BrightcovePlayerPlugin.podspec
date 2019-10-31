@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
     s.resources = ['iOS/Resources/Images/*.png', 'iOS/PluginClasses/*.{xib,nib,storyboard}']
     s.source_files = 'iOS/PluginClasses/**/*.{swift,h,m}'
     s.dependency 'ZappPlugins'
-    s.dependency 'Brightcove-Player-IMA', '~> 6.4.2'
+    s.dependency 'Brightcove-Player-IMA'
     s.xcconfig =  { 'CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES' => 'YES',
                     'ENABLE_BITCODE' => 'YES',
                     'SWIFT_VERSION' => '5.0'
