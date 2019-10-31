@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         let item = Playable()
 //        item.videoURL = "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
 //        item.videoURL = "http://besttv61.aoslive.it.best-tv.com/reshet/applicaster/index.m3u8"
-        item.videoURL = "http://184.72.239.149/vod/smil:BigBuckBunny.smil/playlist.m3u8"
+        item.videoURL = "http://199.203.217.171/xml_parsers/genre-videos/genre-videos-data/videos/comedy.mp4"
         item.name = "Test Video"
         item.free = false
         item.identifier = "123235245"
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
     
     private func createVMAPVideo() -> ZPPlayable {
         let item = Playable()
-        item.videoURL = "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
+        item.videoURL = "http://199.203.217.171/xml_parsers/genre-videos/genre-videos-data/videos/comedy.mp4"
         item.name = "Test Video"
         item.free = false
         item.identifier = "123235245"
