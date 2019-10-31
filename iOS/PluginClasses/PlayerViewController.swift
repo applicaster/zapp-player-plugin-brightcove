@@ -38,6 +38,7 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
     weak var analyticEventDelegate: PlaybackAnalyticEventsDelegate?
     
     var isContentPaused = false
+    var isViewHidden = true
     
     private var viewSwitchCounter = 0
     private var videoStartTime = Date()
@@ -65,12 +66,24 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         subscribeToNotifications()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        isViewHidden = false
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         if isBeingDismissed { onDismiss?() }
 
         player.pause()
         player.player.pauseAd()
         super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        isViewHidden = true
     }
     
     open func setupPlayer() {
@@ -228,6 +241,10 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             isContentPaused = true
         case kBCOVIMALifecycleEventAdsManagerDidRequestContentResume:
             isContentPaused = false
+        case kBCOVPlaybackSessionLifecycleEventPlaybackLikelyToKeepUp:
+            if isViewHidden {
+                player.pause()
+            }
         default:
             break
         }
