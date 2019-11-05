@@ -15,7 +15,6 @@
 		6FF447332178A9AF00E273C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FF447312178A9AF00E273C5 /* Main.storyboard */; };
 		6FF4473A2178A9AF00E273C5 /* InlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF447392178A9AF00E273C5 /* InlineViewController.swift */; };
 		6FF4473C2178A9AF00E273C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4473B2178A9AF00E273C5 /* ViewController.swift */; };
-		6FF4473E2178A9AF00E273C5 /* plugin_configurations.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FF4473D2178A9AF00E273C5 /* plugin_configurations.json */; };
 		6FF447412178A9B000E273C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FF447402178A9B000E273C5 /* Assets.xcassets */; };
 		6FF447442178A9B000E273C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FF447422178A9B000E273C5 /* LaunchScreen.storyboard */; };
 		6FF447472178A9B000E273C5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF447462178A9B000E273C5 /* main.m */; };
@@ -56,7 +55,6 @@
 		6FF447382178A9AF00E273C5 /* BrightcovePlayerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BrightcovePlayerPlugin.swift; path = ../PluginClasses/BrightcovePlayerPlugin.swift; sourceTree = "<group>"; };
 		6FF447392178A9AF00E273C5 /* InlineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineViewController.swift; sourceTree = "<group>"; };
 		6FF4473B2178A9AF00E273C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		6FF4473D2178A9AF00E273C5 /* plugin_configurations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plugin_configurations.json; sourceTree = "<group>"; };
 		6FF4473F2178A9AF00E273C5 /* plugin_manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plugin_manifest.json; sourceTree = "<group>"; };
 		6FF447402178A9B000E273C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FF447432178A9B000E273C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 			children = (
 				6FD836632191D2EE0028C918 /* BrightcovePlayerPlugin.podspec */,
 				6FF447352178A9AF00E273C5 /* Podfile */,
-				6FF4473D2178A9AF00E273C5 /* plugin_configurations.json */,
 				6FF4473F2178A9AF00E273C5 /* plugin_manifest.json */,
 			);
 			name = "Zapp-Resources";
@@ -279,7 +276,6 @@
 				6FF447332178A9AF00E273C5 /* Main.storyboard in Resources */,
 				6FF447442178A9B000E273C5 /* LaunchScreen.storyboard in Resources */,
 				6FF447412178A9B000E273C5 /* Assets.xcassets in Resources */,
-				6FF4473E2178A9AF00E273C5 /* plugin_configurations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
