@@ -78,10 +78,6 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
         player.pause()
         player.player.pauseAd()
         super.viewWillDisappear(animated)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
         
         isViewHidden = true
     }
