@@ -136,7 +136,7 @@ class AdAnalyticsAdapter(private val videoView: BrightcoveVideoView) : MorpheusA
             adExitMethod = getAdExitMethod(AdExitMethod.UNSPECIFIED)
             adBreakTime = getAdBreakTime()
             videoAdType = getVideoAdType()
-            getAdBreakDuration(getAdEvent(event))
+            adBreakDuration = getAdBreakDuration(getAdEvent(event)) ?: Pair(AD_BREAK_DURATION, "N/A")
             adUnit = getAdUnit(event)
             adProvider = getAdProvider()
             skippable = isSkippable(event)
