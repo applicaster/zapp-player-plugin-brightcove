@@ -78,7 +78,7 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
         let event = item.event.rawValue
         
         ZAAppConnector.sharedInstance().analyticsDelegate?.endTimedEvent(event,
-                                                                        withParameters: params)
+                                                                         parameters: params)
     }
     
     func complete(event: AnalyticsEvent, withParameters parameters: [AnyHashable: Any]) {
@@ -87,7 +87,7 @@ class MorpheusAnalyticsAdapter: AnalyticsAdapterProtocol {
             
         }
         ZAAppConnector.sharedInstance().analyticsDelegate?.endTimedEvent(event.rawValue,
-                                                                         withParameters: params)
+                                                                         parameters: params)
     }
     
     // MARK: - Private methods
