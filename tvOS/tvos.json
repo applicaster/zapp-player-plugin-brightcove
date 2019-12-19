@@ -1,0 +1,58 @@
+{
+  "api": {
+    "require_startup_execution": false,
+    "class_name": "Player",
+    "modules": []
+  },
+  "dependency_repository_url": ["https://github.com/brightcove/BrightcoveSpecs.git"],
+  "platform": "tvos",
+  "author_name": "Olga Duk",
+  "author_email": "oduk@scand.com",
+  "dependency_name": "@applicaster/quick-brick-brightcove-player-tvos",
+  "dependency_version": "0.0.16",
+  "manifest_version": "0.0.16",
+  "name": "QBBrightcovePlayer",
+  "description": "Brightcove Player for tvOS",
+  "type": "player",
+  "screen": true,
+  "identifier": "quick-brick-brightcove-player-tvos",
+  "ui_builder_support": true,
+  "whitelisted_account_ids": [
+    "5a4516fa41442c000b0195d6"
+  ],
+  "min_zapp_sdk": "10.1.1-Dev",
+  "deprecated_since_zapp_sdk": "",
+  "unsupported_since_zapp_sdk": "",
+  "react_native": true,
+  "hooks": {
+    "fields": [
+      {
+        "group": true,
+        "label": "Before Load",
+        "folded": true,
+        "fields": [
+          {
+            "key": "preload_plugins",
+            "type": "preload_plugins_selector",
+            "label": "Select Plugins"
+          }
+        ]
+      }
+    ]
+  },
+  "react_bundle_url": "https://",
+  "extra_dependencies": [
+    {
+      "BrightcovePlayerTVOS": ":path => './quick_brick/node_modules/@applicaster/quick-brick-brightcove-player-tvos/BrightcovePlayerTVOS.podspec'"
+    }
+  ],
+  "npm_dependencies": [],
+  "project_dependencies": [],
+  "custom_configuration_fields": [
+    {
+      "type": "checkbox",
+      "key": "ignore_default_subscription",
+      "default": 0
+    }
+  ]
+}
