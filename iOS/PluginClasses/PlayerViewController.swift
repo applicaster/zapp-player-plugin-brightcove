@@ -241,6 +241,12 @@ class PlayerViewController: UIViewController, IMAWebOpenerDelegate, PlaybackEven
             if isViewHidden {
                 player.pause()
             }
+        case kBCOVPlaybackSessionLifecycleEventPlay:
+            if isContentPaused {
+                player.pause()
+            } else {
+                player.resume()
+            }
         default:
             break
         }
