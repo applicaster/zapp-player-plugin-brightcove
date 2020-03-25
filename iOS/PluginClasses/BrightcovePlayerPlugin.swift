@@ -128,6 +128,7 @@ public class BrightcovePlayerPlugin: NSObject, ZPPlayerProtocol, PlaybackAnalyti
                                      progress: playerViewController.player.playbackState)
         }
         playerViewController.analyticEventDelegate = self
+        playerViewController.modalPresentationStyle = .fullScreen
     
         analytics.screenMode = .fullscreen
         topmostViewController.present(playerViewController,
