@@ -35,7 +35,8 @@ class ViewController: UIViewController {
         let vmapItem = createVMAPVideo()
         let videoItems = [vastItem]
         
-        zappPlayer = ZPPlayerManager.sharedInstance.create(playableItems: videoItems, forType: .undefined)
+        zappPlayer = BrightcovePlayerPlugin.pluggablePlayerInit(playableItems: videoItems,
+                                                                configurationJSON: nil)
         zappPlayer?.presentPlayerFullScreen(self.tabBarController!, configuration: nil)
     }
     
