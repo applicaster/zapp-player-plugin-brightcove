@@ -14,8 +14,8 @@ enum ErrorViewTypes {
 
 class ErrorView: UIView {
     
-    @IBOutlet var errorIcon: UIImageView!
-    @IBOutlet var errorIconHeight: NSLayoutConstraint!
+    @IBOutlet private var errorIcon: UIImageView!
+    @IBOutlet private var errorIconHeight: NSLayoutConstraint!
     @IBOutlet var errorMessageLabel: UILabel!
     @IBOutlet var actionButton: UIButton!
     @IBOutlet private var closeButton: UIButton!
