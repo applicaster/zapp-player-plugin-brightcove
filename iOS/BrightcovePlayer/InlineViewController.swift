@@ -8,6 +8,7 @@
 
 import Foundation
 import ZappPlugins
+import BrightcovePlayerPlugin
 
 class InlineViewController: UIViewController {
     
@@ -34,7 +35,8 @@ class InlineViewController: UIViewController {
     func startPlayVideo() {
         let item = createVASTVideo()
         
-        zappPlayer = ZPPlayerManager.sharedInstance.create(playableItem: item)
+        zappPlayer = BrightcovePlayerPlugin.pluggablePlayerInit(playableItems: [item],
+                                                                configurationJSON: nil)
         zappPlayer?.pluggablePlayerAddInline(self, container: VideoContainerView)
         zappPlayer?.pluggablePlayerPlay(nil)
     }

@@ -10,8 +10,6 @@ source 'https://github.com/applicaster/zapp-player-plugin-brightcove.git'
 
 target 'BrightcovePlayer' do
     pod 'BrightcovePlayerPlugin', :path => '../BrightcovePlayerPlugin.podspec'
-    target 'BrightcovePlayerTests' do
-    end
 end
 
 post_install do |installer|

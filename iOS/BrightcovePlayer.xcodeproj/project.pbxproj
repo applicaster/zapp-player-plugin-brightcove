@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00D8CE235077E87BE3CABE92 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 592DA1AEDD3D31126142E242 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */; };
 		0115769F623B4BF2A1B20417 /* Pods_BrightcovePlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FE32EDC359FDBAAA3A7212B /* Pods_BrightcovePlayer.framework */; };
-		6F95E9102179FCA300BDE1DA /* BrightcovePlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95E90F2179FCA300BDE1DA /* BrightcovePlayerTests.swift */; };
-		6F95E9142179FF3A00BDE1DA /* PlayerAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */; };
 		6FF447302178A9AF00E273C5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4472F2178A9AF00E273C5 /* AppDelegate.m */; };
 		6FF447332178A9AF00E273C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FF447312178A9AF00E273C5 /* Main.storyboard */; };
 		6FF4473A2178A9AF00E273C5 /* InlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF447392178A9AF00E273C5 /* InlineViewController.swift */; };
@@ -21,25 +18,10 @@
 		A61BC86D223A7E530074B86A /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61BC86C223A7E530074B86A /* Playable.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		6FF4474D2178A9B000E273C5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6FF447232178A9AF00E273C5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6FF4472A2178A9AF00E273C5;
-			remoteInfo = BrightcovePlayer;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		0FE32EDC359FDBAAA3A7212B /* Pods_BrightcovePlayer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightcovePlayer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		33D86494B7DADB6F176C28E5 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig"; sourceTree = "<group>"; };
-		5114544D4CC17C9FD8688C3E /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		592DA1AEDD3D31126142E242 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BrightcovePlayer_BrightcovePlayerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		67A9D5556B014CD4808A264E /* Pods-BrightcovePlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightcovePlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer.release.xcconfig"; sourceTree = "<group>"; };
 		6F284AA12183693B00ACDA20 /* VideoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VideoLoader.swift; path = PluginClasses/VideoLoader.swift; sourceTree = SOURCE_ROOT; };
-		6F95E90F2179FCA300BDE1DA /* BrightcovePlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightcovePlayerTests.swift; sourceTree = "<group>"; };
-		6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAdapterTests.swift; sourceTree = "<group>"; };
 		6FB4C6942199C2EF00600AB9 /* AnalyticsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnalyticsAdapter.swift; path = PluginClasses/AnalyticsAdapter.swift; sourceTree = SOURCE_ROOT; };
 		6FD836632191D2EE0028C918 /* BrightcovePlayerPlugin.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = BrightcovePlayerPlugin.podspec; path = ../../BrightcovePlayerPlugin.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		6FD836642191D7E30028C918 /* ZappPlugins+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ZappPlugins+Extensions.swift"; path = "PluginClasses/ZappPlugins+Extensions.swift"; sourceTree = SOURCE_ROOT; };
@@ -60,8 +42,6 @@
 		6FF447432178A9B000E273C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6FF447452178A9B000E273C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FF447462178A9B000E273C5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6FF4474C2178A9B000E273C5 /* BrightcovePlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrightcovePlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FF447522178A9B000E273C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83967C12A47F7404BF81DF78 /* Pods-BrightcovePlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrightcovePlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrightcovePlayer/Pods-BrightcovePlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		A61BC86C223A7E530074B86A /* Playable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,14 +55,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6FF447492178A9B000E273C5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				00D8CE235077E87BE3CABE92 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -90,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				0FE32EDC359FDBAAA3A7212B /* Pods_BrightcovePlayer.framework */,
-				592DA1AEDD3D31126142E242 /* Pods_BrightcovePlayer_BrightcovePlayerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				6FF4472D2178A9AF00E273C5 /* BrightcovePlayer */,
-				6FF4474F2178A9B000E273C5 /* BrightcovePlayerTests */,
 				6FF4472C2178A9AF00E273C5 /* Products */,
 				BFC88B30AE3DDB81FB5C0D69 /* Pods */,
 				5D80D00638EA03FD6B8623D7 /* Frameworks */,
@@ -110,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				6FF4472B2178A9AF00E273C5 /* BrightcovePlayer.app */,
-				6FF4474C2178A9B000E273C5 /* BrightcovePlayerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,23 +128,11 @@
 			name = PluginClasses;
 			sourceTree = "<group>";
 		};
-		6FF4474F2178A9B000E273C5 /* BrightcovePlayerTests */ = {
-			isa = PBXGroup;
-			children = (
-				6FF447522178A9B000E273C5 /* Info.plist */,
-				6F95E90F2179FCA300BDE1DA /* BrightcovePlayerTests.swift */,
-				6F95E9132179FF3A00BDE1DA /* PlayerAdapterTests.swift */,
-			);
-			path = BrightcovePlayerTests;
-			sourceTree = "<group>";
-		};
 		BFC88B30AE3DDB81FB5C0D69 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				83967C12A47F7404BF81DF78 /* Pods-BrightcovePlayer.debug.xcconfig */,
 				67A9D5556B014CD4808A264E /* Pods-BrightcovePlayer.release.xcconfig */,
-				5114544D4CC17C9FD8688C3E /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */,
-				33D86494B7DADB6F176C28E5 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -203,27 +160,6 @@
 			productReference = 6FF4472B2178A9AF00E273C5 /* BrightcovePlayer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6FF4474B2178A9B000E273C5 /* BrightcovePlayerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6FF447582178A9B000E273C5 /* Build configuration list for PBXNativeTarget "BrightcovePlayerTests" */;
-			buildPhases = (
-				CFB857395A85A09F8253C9C5 /* [CP] Check Pods Manifest.lock */,
-				6FF447482178A9B000E273C5 /* Sources */,
-				6FF447492178A9B000E273C5 /* Frameworks */,
-				6FF4474A2178A9B000E273C5 /* Resources */,
-				1036A2996CE759C9FED887B8 /* [CP] Embed Pods Frameworks */,
-				7771CD784A9F48495A0BEAF6 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6FF4474E2178A9B000E273C5 /* PBXTargetDependency */,
-			);
-			name = BrightcovePlayerTests;
-			productName = BrightcovePlayerTests;
-			productReference = 6FF4474C2178A9B000E273C5 /* BrightcovePlayerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -242,11 +178,6 @@
 							};
 						};
 					};
-					6FF4474B2178A9B000E273C5 = {
-						CreatedOnToolsVersion = 10.0;
-						LastSwiftMigration = 1000;
-						TestTargetID = 6FF4472A2178A9AF00E273C5;
-					};
 				};
 			};
 			buildConfigurationList = 6FF447262178A9AF00E273C5 /* Build configuration list for PBXProject "BrightcovePlayer" */;
@@ -263,7 +194,6 @@
 			projectRoot = "";
 			targets = (
 				6FF4472A2178A9AF00E273C5 /* BrightcovePlayer */,
-				6FF4474B2178A9B000E273C5 /* BrightcovePlayerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -279,33 +209,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6FF4474A2178A9B000E273C5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1036A2996CE759C9FED887B8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		158DB4211428B3D159DEAD45 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -358,41 +264,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7771CD784A9F48495A0BEAF6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BrightcovePlayer-BrightcovePlayerTests/Pods-BrightcovePlayer-BrightcovePlayerTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CFB857395A85A09F8253C9C5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BrightcovePlayer-BrightcovePlayerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -408,24 +279,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6FF447482178A9B000E273C5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6F95E9142179FF3A00BDE1DA /* PlayerAdapterTests.swift in Sources */,
-				6F95E9102179FCA300BDE1DA /* BrightcovePlayerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6FF4474E2178A9B000E273C5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6FF4472A2178A9AF00E273C5 /* BrightcovePlayer */;
-			targetProxy = 6FF4474D2178A9B000E273C5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6FF447312178A9AF00E273C5 /* Main.storyboard */ = {
@@ -604,55 +458,6 @@
 			};
 			name = Release;
 		};
-		6FF447592178A9B000E273C5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5114544D4CC17C9FD8688C3E /* Pods-BrightcovePlayer-BrightcovePlayerTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F4N3K5LSM8;
-				INFOPLIST_FILE = BrightcovePlayerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fuzza.BrightcovePlayerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrightcovePlayer.app/BrightcovePlayer";
-			};
-			name = Debug;
-		};
-		6FF4475A2178A9B000E273C5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33D86494B7DADB6F176C28E5 /* Pods-BrightcovePlayer-BrightcovePlayerTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = F4N3K5LSM8;
-				INFOPLIST_FILE = BrightcovePlayerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fuzza.BrightcovePlayerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BrightcovePlayer.app/BrightcovePlayer";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -670,15 +475,6 @@
 			buildConfigurations = (
 				6FF447562178A9B000E273C5 /* Debug */,
 				6FF447572178A9B000E273C5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6FF447582178A9B000E273C5 /* Build configuration list for PBXNativeTarget "BrightcovePlayerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6FF447592178A9B000E273C5 /* Debug */,
-				6FF4475A2178A9B000E273C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
